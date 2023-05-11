@@ -202,7 +202,6 @@ error_reporting(0);
                       <p>Purchase</p>
                     </a>
                   </li>
-                 
                 </ul>
                 <ul class="nav nav-treeview <?php if($pagemncat == "Stock" ){echo "menu-open";} ?>">
                   <li class="nav-item">
@@ -211,8 +210,10 @@ error_reporting(0);
                       <p>Transfer</p>
                     </a>
                   </li>
+                </ul>
+                <ul class="nav nav-treeview <?php if($pagemncat == "Stock" ){echo "menu-open";} ?>">
                   <li class="nav-item">
-                    <a href="view_all_orders.php" class="nav-link <?php if($pagenm == "Orders"){echo "active";} ?>">
+                    <a href="view_all_orders.php" class="nav-link <?php if($pagenm == "View all Orders"){echo "active";} ?>">
                       <i class="far fa-dot-circle nav-icon"></i>
                       <p>Orders</p>
                     </a>
