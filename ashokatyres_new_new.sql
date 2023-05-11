@@ -1,8 +1,9 @@
 
+
 CREATE TABLE `ads_mst` (
   `adsm_id` int(15) NOT NULL,
   `adsm_name` varchar(250) NOT NULL COMMENT 'Unique name for each Ads',
-  `adsm_desc` text DEFAULT NULL,
+  `adsm_desc` text,
   `adsm_lnk` varchar(250) DEFAULT NULL,
   `adsm_img` varchar(250) DEFAULT NULL,
   `adsm_sts` char(1) NOT NULL COMMENT 'Status of each Ads',
@@ -34,7 +35,7 @@ INSERT INTO `ads_mst` (`adsm_id`, `adsm_name`, `adsm_desc`, `adsm_lnk`, `adsm_im
 CREATE TABLE `bnr_mst` (
   `bnrm_id` int(11) NOT NULL,
   `bnrm_name` varchar(250) NOT NULL,
-  `bnrm_desc` text DEFAULT NULL,
+  `bnrm_desc` text,
   `bnrm_imgnm` varchar(250) DEFAULT NULL,
   `bnrm_lnk` varchar(250) DEFAULT NULL,
   `bnrm_prty` int(15) DEFAULT NULL,
@@ -684,7 +685,7 @@ CREATE TABLE `crtord_mst` (
   `crtordm_prcssts` char(1) DEFAULT NULL,
   `crtordm_cartsts` char(1) DEFAULT NULL COMMENT 'Cart status (A - Acive / I - Inactive)',
   `crtordm_paysts` char(1) DEFAULT NULL COMMENT 'Pay status (R - received / U - unreceived)',
-  `crtordm_rmks` text DEFAULT NULL COMMENT 'Remarks',
+  `crtordm_rmks` text COMMENT 'Remarks',
   `crtordm_shpchrgm_id` int(15) NOT NULL,
   `crtordm_shpchrgamt` double(10,2) NOT NULL,
   `crtordm_cpnm_id` varchar(250) DEFAULT NULL,
@@ -846,7 +847,8 @@ INSERT INTO `cty_mst` (`ctym_id`, `ctym_name`, `ctym_cntym_id`, `ctym_cntrym_id`
 (4, 'nalagoda ', 28, 2, '', 'a', 1, NULL, NULL, NULL, NULL),
 (7, 'secunderanbad', 28, 0, '', 'a', 1, NULL, NULL, NULL, NULL),
 (8, 'Warangal', 28, 0, '', 'a', 1, NULL, NULL, NULL, NULL),
-(9, 'Hyd', 28, 0, '', 'a', 1, NULL, NULL, NULL, NULL);
+(9, 'Hyd', 28, 0, '', 'a', 1, NULL, NULL, NULL, NULL),
+(10, 'Himayath Nagar', 28, 0, '', 'a', 1, NULL, NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -1318,7 +1320,9 @@ INSERT INTO `lgntrck_mst` (`lgntrckm_id`, `lgntrckm_sesid`, `lgntrckm_ipadrs`, `
 (446, '4a65174d99c524f84d339f9b6ab70d8e', '183.83.236.70', 1, '2023-04-18 06:28:50', 'admin', NULL, NULL),
 (447, '10eec30c9b374651b2bd9c925549236c', '183.83.236.70', 1, '2023-04-20 04:08:35', 'admin', NULL, NULL),
 (448, '37ec42b6f06c737929d6dbea8099c1fb', '183.83.236.70', 1, '2023-04-21 04:05:27', 'admin', NULL, NULL),
-(449, '9u6p4s3cg0f3endd8vfte230fk', '127.0.0.1', 1, '2023-04-21 10:12:48', 'admin', NULL, NULL);
+(449, '9u6p4s3cg0f3endd8vfte230fk', '127.0.0.1', 1, '2023-04-21 10:12:48', 'admin', NULL, NULL),
+(450, 'em5h5ok7kui39bnqf76jjgoaic', '::1', 1, '2023-05-11 06:58:00', 'admin', NULL, NULL),
+(451, 'l3ci5gt193cotakkd6cccnv9vr', '127.0.0.1', 1, '2023-05-11 10:47:45', 'admin', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -1369,7 +1373,7 @@ CREATE TABLE `lgn_mst` (
 --
 
 INSERT INTO `lgn_mst` (`lgnm_id`, `lgnm_uid`, `lgnm_pwd`, `lgnm_typ`, `lgnm_store_id`, `lgnm_sts`, `lgnm_crtdon`, `lgnm_crtdby`, `lgnm_mdfdon`, `lgnm_mdfdby`) VALUES
-(1, 'admin', 'b94f5c162745545b03045b6321d91eda', 'a', NULL, 'a', '2022-01-04 06:10:06', NULL, '2022-01-04 06:10:06', NULL),
+(1, 'admin', '21232f297a57a5a743894a0e4a801fc3', 'a', NULL, 'a', '2022-01-04 06:10:06', NULL, '2022-01-04 06:10:06', NULL),
 (2, 'gadmin', '827ccb0eea8a706c4c34a16891f84e7b', 'a', '1', 'a', '2022-01-04 05:12:19', 'admin', NULL, NULL),
 (3, 'sc', '827ccb0eea8a706c4c34a16891f84e7b', 'u', '2', 'a', '2022-01-04 05:15:33', 'admin', NULL, NULL);
 
@@ -1465,7 +1469,8 @@ INSERT INTO `mbr_dtl` (`mbrd_id`, `mbrd_emailid`, `mbrd_nckname`, `mbrd_fstname`
 (17, 'mktg@adroitinfoactive.net', NULL, 'mktg', NULL, 'basheerbagh', NULL, '', '', 2, 1, 'Hyderabad', 28, 1, '', '', '500029', '8978826021', 'y', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 2, NULL, '2022-03-03', 'mktg@adroitinfoactive.net', '2022-03-03', 'mktg@adroitinfoactive.net'),
 (18, 'mktg@adroitinfoactive.net', NULL, 'mktg', NULL, 'Liberty', NULL, '', '', 2, 9, 'Hyd', 28, 9, NULL, NULL, '500012', '8978826021', 'n', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 2, NULL, '2022-03-03', 'mktg@adroitinfoactive.net', NULL, NULL),
 (19, 'k123k@gmail.com', NULL, 'kalyani k', NULL, 'basheerbagh', NULL, '', '', 2, 1, 'Hyderabad', 28, 1, NULL, NULL, '500029', '+918978826021', 'y', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 4, NULL, '2022-10-27', 'k123k@gmail.com', NULL, NULL),
-(20, 'mktg@adroitinfoactive.net', NULL, 'mktg', NULL, 'test', NULL, '', '', 2, 9, 'Hyd', 28, 9, NULL, NULL, '500047', '8978826021', 'n', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 2, NULL, '2023-04-13', 'mktg@adroitinfoactive.net', NULL, NULL);
+(20, 'mktg@adroitinfoactive.net', NULL, 'mktg', NULL, 'test', NULL, '', '', 2, 9, 'Hyd', 28, 9, NULL, NULL, '500047', '8978826021', 'n', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 2, NULL, '2023-04-13', 'mktg@adroitinfoactive.net', NULL, NULL),
+(21, 'lokeshp@adroitinfoactive.net', NULL, 'lokesh', NULL, 'Test', NULL, '', '', 2, 10, 'Himayath Nagar', 28, 10, NULL, NULL, '520009', '9550710977', 'y', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 5, NULL, '2023-05-11', 'lokeshp@adroitinfoactive.net', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -1498,7 +1503,7 @@ CREATE TABLE `mbr_mst` (
 INSERT INTO `mbr_mst` (`mbrm_id`, `mbrm_name`, `mbrm_emailid`, `mbrm_pwd`, `mbrm_usernm`, `mbrm_phno`, `mbrm_area`, `mbrm_nwsltr`, `mbrm_vchr`, `mbrm_ipadrs`, `mbrm_sts`, `mbrm_crtdon`, `mbrm_crtdby`, `mbrm_mdfdon`, `mbrm_mdfdby`) VALUES
 (1, 'sravan Kumar', 'sravanstainely@gmail.com', '827ccb0eea8a706c4c34a16891f84e7b', 'sravan', '9100684386', '', NULL, NULL, '::1', 'a', '2021-12-28 09:50:13', 'sravanstainely@gmail.com', '2022-01-05 00:00:00', 'sravanstainely@gmail.com'),
 (2, 'mktg', 'mktg@adroitinfoactive.net', '16d30a720e0d18680d38d85fd99e1dbe', 'adroit', '8978826021', '', NULL, NULL, '49.204.221.117', 'a', '2022-03-03 12:06:36', 'mktg@adroitinfoactive.net', NULL, NULL),
-(3, 'bharath', 'bharat@adroitinfoactive.net', '827ccb0eea8a706c4c34a16891f84e7b', 'babblu2151', '9700802151', '', NULL, NULL, '115.98.216.25', 'a', '2022-03-05 07:01:02', 'bharat@adroitinfoactive.net', NULL, NULL),
+(5, 'lokesh', 'lokeshp@adroitinfoactive.net', '0a8bad7df4b858617b64c2169faabdd3', 'lokesh', '9550710977', '', NULL, NULL, '127.0.0.1', 'a', '2023-05-11 12:45:39', 'lokeshp@adroitinfoactive.net', NULL, NULL),
 (4, 'kalyani k', 'k123k@gmail.com', '81dc9bdb52d04dc20036dbd8313ed055', 'adroit', '8978826021', '', NULL, NULL, '49.204.220.165', 'a', '2022-10-27 07:20:46', 'k123k@gmail.com', NULL, NULL);
 
 -- --------------------------------------------------------
@@ -1512,7 +1517,7 @@ CREATE TABLE `ordsts_dtl` (
   `ordstsd_ordstsm_id` int(15) NOT NULL,
   `ordstsd_crtordm_id` int(15) NOT NULL,
   `ordstsd_dttm` datetime NOT NULL,
-  `ordstsd_desc` text DEFAULT NULL,
+  `ordstsd_desc` text,
   `ordstsd_sts` char(1) DEFAULT NULL,
   `ordstsd_prty` int(15) DEFAULT NULL,
   `ordstsd_crtdon` datetime DEFAULT NULL,
@@ -1690,7 +1695,7 @@ INSERT INTO `ordsts_dtl` (`ordstsd_id`, `ordstsd_ordstsm_id`, `ordstsd_crtordm_i
 CREATE TABLE `ordsts_mst` (
   `ordstsm_id` int(15) NOT NULL,
   `ordstsm_name` varchar(250) NOT NULL,
-  `ordstsm_desc` text DEFAULT NULL,
+  `ordstsm_desc` text,
   `ordstsm_sts` char(1) DEFAULT NULL,
   `ordstsm_prty` int(15) DEFAULT NULL,
   `ordstsm_crtdon` datetime DEFAULT NULL,
@@ -2243,6 +2248,37 @@ INSERT INTO `prdsle_inventory` (`prdsle_id`, `prdsle_prdid`, `prdsle_dat`, `prds
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `prodfetr_mst`
+--
+
+CREATE TABLE `prodfetr_mst` (
+  `prodfetrm_id` int(11) NOT NULL,
+  `prodfetrm_name` varchar(250) NOT NULL,
+  `prodfetrm_desc` text,
+  `prodfetrm_imgnm` varchar(250) DEFAULT NULL,
+  `prodfetrm_lnk` varchar(250) DEFAULT NULL,
+  `prodfetrm_prty` int(15) DEFAULT NULL,
+  `prodfetrm_sts` char(1) DEFAULT NULL,
+  `prodfetrm_crtdon` datetime DEFAULT NULL,
+  `prodfetrm_crtdby` varchar(250) DEFAULT NULL,
+  `prodfetrm_mdfdon` datetime DEFAULT NULL,
+  `prodfetrm_mdfdby` varchar(250) DEFAULT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `prodfetr_mst`
+--
+
+INSERT INTO `prodfetr_mst` (`prodfetrm_id`, `prodfetrm_name`, `prodfetrm_desc`, `prodfetrm_imgnm`, `prodfetrm_lnk`, `prodfetrm_prty`, `prodfetrm_sts`, `prodfetrm_crtdon`, `prodfetrm_crtdby`, `prodfetrm_mdfdon`, `prodfetrm_mdfdby`) VALUES
+(1, 'Low Noise', '', 'bnrimg645c9438e2c4e.jpg', '', 1, 'a', '2023-05-11 07:07:36', 'admin', NULL, NULL),
+(2, 'Smooth Ride', '', 'bnrimg645c9498a64f6.jpg', '', 2, 'a', '2023-05-11 07:09:12', 'admin', NULL, NULL),
+(3, 'Dry and Wet Grip', '', 'bnrimg645c94bd4ac6d.jpg', '', 3, 'a', '2023-05-11 07:09:49', 'admin', NULL, NULL),
+(4, 'Excellent Braking', '', '', '', 4, 'a', '2023-05-11 07:10:21', 'admin', NULL, NULL),
+(5, 'Long Life', '', '', '', 5, 'a', '2023-05-11 07:10:38', 'admin', NULL, NULL);
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `prodimg_dtl`
 --
 
@@ -2278,7 +2314,9 @@ INSERT INTO `prodimg_dtl` (`prodimgd_id`, `prodimgd_prodm_id`, `prodimgd_title`,
 (11, 13, 'p1', 'prodsimg635a053c63b12', 'prodbimg635a053c63b32', 180, 'a', '2022-10-27', 'admin', NULL, NULL),
 (12, 12, 'p1', 'prodsimg635a056586ab4', 'prodbimg635a056586ad4', 40, 'a', '2022-10-27', 'admin', NULL, NULL),
 (13, 26, 'i1', 'prodsimg644261d1baffa', 'prodbimg644261d1bb07e', 1, 'a', '2023-04-21', 'admin', NULL, NULL),
-(14, 35, 'i1', 'prodsimg6442764d81b0c', 'prodbimg6442764d81b7a', 1, 'a', '2023-04-21', 'admin', '2023-04-21', 'admin');
+(14, 35, 'i1', 'prodsimg6442764d81b0c', 'prodbimg6442764d81b7a', 1, 'a', '2023-04-21', 'admin', '2023-05-11', 'admin'),
+(15, 36, 'test', 'prodsimg645c95ff8ad2c', 'prodbimg645c95ff8b114', 1, 'a', '2023-05-11', 'admin', NULL, NULL),
+(16, 37, 'tyre', 'prodsimg645ccda2b99e9', 'prodbimg645ccda2bc0f9', 1, 'a', '2023-05-11', 'admin', '2023-05-11', 'admin');
 
 -- --------------------------------------------------------
 
@@ -2342,6 +2380,43 @@ INSERT INTO `product_inventory` (`prdinvt_id`, `prdinvt_prdprchs_id`, `prdinvt_p
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `prod_features_dtl`
+--
+
+CREATE TABLE `prod_features_dtl` (
+  `prods_fetrs_id` int(11) NOT NULL,
+  `prods_fetrs_prodm_id` int(15) NOT NULL,
+  `prods_fetrs_store_id` varchar(128) NOT NULL,
+  `prods_fetrs_sts` varchar(200) NOT NULL,
+  `prods_fetrs_crton` datetime NOT NULL,
+  `prods_fetrs_crtby` varchar(250) NOT NULL,
+  `prods_fetrs_mdyon` datetime NOT NULL,
+  `prods_fetrs_mdfyby` varchar(128) NOT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `prod_features_dtl`
+--
+
+INSERT INTO `prod_features_dtl` (`prods_fetrs_id`, `prods_fetrs_prodm_id`, `prods_fetrs_store_id`, `prods_fetrs_sts`, `prods_fetrs_crton`, `prods_fetrs_crtby`, `prods_fetrs_mdyon`, `prods_fetrs_mdfyby`) VALUES
+(12, 16, '5', 'a', '2023-05-11 11:32:24', 'admin', '0000-00-00 00:00:00', ''),
+(11, 16, '4', 'a', '2023-05-11 11:32:24', 'admin', '0000-00-00 00:00:00', ''),
+(10, 16, '3', 'a', '2023-05-11 11:32:24', 'admin', '0000-00-00 00:00:00', ''),
+(9, 37, '2', 'a', '2023-05-11 11:13:17', 'admin', '0000-00-00 00:00:00', ''),
+(8, 37, '1', 'a', '2023-05-11 11:13:17', 'admin', '0000-00-00 00:00:00', ''),
+(7, 37, '5', 'a', '2023-05-11 11:13:17', 'admin', '0000-00-00 00:00:00', ''),
+(13, 16, '1', 'a', '2023-05-11 11:32:24', 'admin', '0000-00-00 00:00:00', ''),
+(14, 16, '2', 'a', '2023-05-11 11:32:24', 'admin', '0000-00-00 00:00:00', ''),
+(15, 33, '3', 'a', '2023-05-11 11:43:58', 'admin', '0000-00-00 00:00:00', ''),
+(16, 33, '5', 'a', '2023-05-11 11:43:58', 'admin', '0000-00-00 00:00:00', ''),
+(17, 33, '1', 'a', '2023-05-11 11:43:58', 'admin', '0000-00-00 00:00:00', ''),
+(18, 21, '3', 'a', '2023-05-11 11:44:13', 'admin', '0000-00-00 00:00:00', ''),
+(19, 21, '4', 'a', '2023-05-11 11:44:13', 'admin', '0000-00-00 00:00:00', ''),
+(20, 21, '5', 'a', '2023-05-11 11:44:13', 'admin', '0000-00-00 00:00:00', '');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `prod_mst`
 --
 
@@ -2398,12 +2473,12 @@ INSERT INTO `prod_mst` (`prodm_id`, `prodm_sku`, `prodm_code`, `prodm_name`, `pr
 (13, '1111', '1111pcu', 'TL', '1', '1', '7', '3', '3', '1', 'yes', '10', 'Car Tyre', '4481', '3501', '1800', '', '', '', '', '', '', '', '', 'a', 100, '2022-10-26 01:16:32', 'admin', '2022-10-27 04:12:44', 'admin'),
 (14, '101', '111', 'CEAT 135/70R12 TL', '1', '1', '11', '', '16', '2', '', '135/70R12 TL', 'MILAZE X3', '2500', '2200', '', '', '', '', '', '', '', '', '', 'a', 10, '2023-04-17 08:45:11', 'admin', '2023-04-17 08:49:49', 'admin'),
 (15, '102', '222', 'CEAT 145/70R12 TL', '1', '1', '9', '11', '16', '2', '', '145/70R12 TL', 'MILAZE X3', '2000', '2075', '', '', '', '', '', '', '', '', '', 'a', 20, '2023-04-17 08:47:50', 'admin', '0000-00-00 00:00:00', ''),
-(16, '333', '103', '145/70R12 TT', '1', '1', '12', '14', '20', '1', 'yes', '145', 'MILAZE X3', '2000', '2375', '', '', '', '', '', '', '', '', '', 'a', 10, '2023-04-18 04:20:32', 'admin', '0000-00-00 00:00:00', ''),
+(16, '333', '103', '145/70R12 TT', '1', '1', '12', '14', '20', '1', 'yes', '145', 'MILAZE X3', '2000', '2375', '', '', '', '', '', '', '', '', '', 'a', 10, '2023-04-18 04:20:32', 'admin', '2023-05-11 11:32:24', 'admin'),
 (17, '444', '104', 'CEAT 145/80R12 TL', '1', '1', '9', '11', '16', '2', '', '145/80R12 TL', 'MILAZE X3', '2000', '2425', '', '', '', '', '', '', '', '', '', 'a', 10, '2023-04-20 04:13:10', 'admin', '0000-00-00 00:00:00', ''),
 (18, '555', '105', 'CEAT 145/80R12 TT', '1', '1', '9', '13', '22', '1', 'yes', '145/80R12 TT', 'MILAZE X3', '2000', '2525', '', '', '', '', '', '', '', '', '', 'a', 20, '2023-04-20 04:17:04', 'admin', '0000-00-00 00:00:00', ''),
 (19, '666', '106', 'CEAT 155/65R12 TL', '1', '1', '12', '15', '23', '2', '', '155/65R12 TL', 'MILAZE X3', '2000', '2775', '', '', '', '', '', '', '', '', '', 'a', 20, '2023-04-20 04:19:48', 'admin', '0000-00-00 00:00:00', ''),
 (20, '777', '107', 'CEAT 145/70R13 TL', '1', '1', '9', '11', '24', '2', '', '145/70R13 TL', 'MILAZE X3', '2000', '2800', '', '', '', '', '', '', '', '', '', 'a', 20, '2023-04-20 04:22:15', 'admin', '0000-00-00 00:00:00', ''),
-(21, '888', '108', 'CEAT 145/70R13 TT', '1', '1', '9', '13', '19', '1', 'yes', '145/70R13 TT', 'MILAZE X3', '2000', '2975', '', '', '', '', '', '', '', '', '', 'a', 50, '2023-04-20 04:23:27', 'admin', '0000-00-00 00:00:00', ''),
+(21, '888', '108', 'CEAT 145/70R13 TT', '1', '1', '9', '13', '19', '1', 'yes', '145/70R13 TT', 'MILAZE X3', '2000', '2975', '', '', '', '', '', '', '', '', '', 'a', 50, '2023-04-20 04:23:27', 'admin', '2023-05-11 11:44:13', 'admin'),
 (22, '999', '109', '155/65R13 TL', '1', '1', '12', '15', '8', '2', '', '155/65R13 TL', 'MILAZE X3', '2500', '3150', '', '', '', '', '', '', '', '', '', 'a', 50, '2023-04-20 04:24:30', 'admin', '2023-04-20 04:25:34', 'admin'),
 (23, '523760', '523760', 'GOODYEAR 145/70R12', '2', '1', '9', '13', '16', '1', 'yes', '145/70R12', 'DUCARO HI-MILER TT', '1888', '2256', '', '145/70R12 69T DUCARO HI-MILER TT', '', '', '', '', '', '', '', 'a', 10, '2023-04-21 04:14:14', 'admin', '2023-04-21 04:20:23', 'admin'),
 (24, '523761', '523761', 'GOODYEAR 145/70R12', '2', '1', '9', '11', '16', '2', '', '145/70R12', 'DUCARO HI-MILER TT', '1816', '2093', '', '145/70R12 69T DUCARO HI-MILER', '', '', '', '', '', '', '', 'a', 20, '2023-04-21 04:15:28', 'admin', '2023-04-21 04:19:58', 'admin'),
@@ -2415,9 +2490,11 @@ INSERT INTO `prod_mst` (`prodm_id`, `prodm_sku`, `prodm_code`, `prodm_name`, `pr
 (30, '544516', '544516', 'GOODYEAR 145/70R13 71T', '2', '1', '9', '11', '1', '2', '', '145/70R13 71T', 'ASSURANCE DURAPLUS 2', '2452', '2634', '', '145/70R13 71T ASSURANCE DURAPLUS 2', '', '', '', '', '', '', '', 'a', 60, '2023-04-21 05:01:41', 'admin', '2023-04-21 05:02:13', 'admin'),
 (31, '544517', '544517', 'GOODYEAR 145/80R13 75T', '2', '1', '9', '11', '19', '2', '', '145/80R13 75T', 'ASSURANCE DURAPLUS 2', '2497', '2685', '', '145/80R13 75T ASSURANCE DURAPLUS 2', '', '', '', '', '', '', '', 'a', 60, '2023-04-21 05:03:40', 'admin', '2023-04-21 05:05:15', 'admin'),
 (32, 'PSR0769', 'PSR0769', 'BRIDGESTONE 135 70 R12 65T', '3', '1', '11', '17', '26', '2', '', '135 70 R12 65T', 'STURDO', '2141', '3137', '', '', '', '', '', '', '', '', '', 'a', 20, '2023-04-21 05:19:16', 'admin', '0000-00-00 00:00:00', ''),
-(33, 'PSR0D252/018', 'PSR0D252/018', 'BRIDGESTONE 145 70 R12 69S', '3', '1', '9', '13', '19', '1', 'yes', '145 70 R12 69S', 'S322', '2422', '3550', '', '', '', '', '', '', '', '', '', 'a', 50, '2023-04-21 05:20:27', 'admin', '0000-00-00 00:00:00', ''),
+(33, 'PSR0D252/018', 'PSR0D252/018', 'BRIDGESTONE 145 70 R12 69S', '3', '1', '9', '13', '19', '1', 'yes', '145 70 R12 69S', 'S322', '2422', '3550', '', '', '', '', '', '', '', '', '', 'a', 50, '2023-04-21 05:20:27', 'admin', '2023-05-11 11:43:58', 'admin'),
 (34, 'PSR0D771', 'PSR0D771', 'BRIDGESTONE 145 80 R12 74T', '3', '1', '9', '11', '16', '2', '', '145 80 R12 74T', 'STURDO', '2597', '3806', '', '', '', '', '', '', '', '', '', 'a', 50, '2023-04-21 05:21:37', 'admin', '0000-00-00 00:00:00', ''),
-(35, 'test', 'test', 'test', '1', '1', '12', '14', '20', '1', 'yes', '50', 't1', '1500', '2000', '1800', 'test', '', '', '', '', '', '', '', 'a', 1, '2023-04-21 11:41:01', 'admin', '2023-04-21 12:56:24', 'admin');
+(35, 'test', 'test', 'test', '1', '1', '12', '14', '20', '1', 'yes', '50', 't1', '1500', '2000', '1000', 'test', '', '', '', '', '', '', '', 'a', 1, '2023-04-21 11:41:01', 'admin', '2023-05-11 12:39:50', 'admin'),
+(36, '1000', '1000', 'Test', '3', '2', '10', '12', '18', '2', '', '10', '1', '1000', '2000', '1500', '', '', '', '', '', '', '', '', 'a', 10, '2023-05-11 07:15:11', 'admin', '0000-00-00 00:00:00', ''),
+(37, '100', '100', 'new', '3', '2', '10', '12', '18', '2', '', '1', '1', '1000', '2000', '1500', '', '', '', '', '', '', '', '', 'a', 10, '2023-05-11 11:12:34', 'admin', '2023-05-11 11:13:17', 'admin');
 
 -- --------------------------------------------------------
 
@@ -2458,12 +2535,12 @@ INSERT INTO `prod_store_dtl` (`prods_id`, `prods_prodm_id`, `prods_store_id`, `p
 (29, 13, '1', 'a', '2022-10-27 04:12:44', 'admin', '0000-00-00 00:00:00', ''),
 (40, 14, '2', 'a', '2023-04-17 08:49:49', 'admin', '0000-00-00 00:00:00', ''),
 (39, 15, '1', 'a', '2023-04-17 08:47:50', 'admin', '0000-00-00 00:00:00', ''),
-(41, 16, '1', 'a', '2023-04-18 04:20:32', 'admin', '0000-00-00 00:00:00', ''),
+(81, 16, '1', 'a', '2023-05-11 11:32:24', 'admin', '0000-00-00 00:00:00', ''),
 (42, 17, '2', 'a', '2023-04-20 04:13:10', 'admin', '0000-00-00 00:00:00', ''),
 (43, 18, '2', 'a', '2023-04-20 04:17:04', 'admin', '0000-00-00 00:00:00', ''),
 (44, 19, '2', 'a', '2023-04-20 04:19:48', 'admin', '0000-00-00 00:00:00', ''),
 (45, 20, '2', 'a', '2023-04-20 04:22:15', 'admin', '0000-00-00 00:00:00', ''),
-(46, 21, '2', 'a', '2023-04-20 04:23:27', 'admin', '0000-00-00 00:00:00', ''),
+(83, 21, '2', 'a', '2023-05-11 11:44:13', 'admin', '0000-00-00 00:00:00', ''),
 (48, 22, '2', 'a', '2023-04-20 04:25:34', 'admin', '0000-00-00 00:00:00', ''),
 (55, 23, '2', 'a', '2023-04-21 04:20:23', 'admin', '0000-00-00 00:00:00', ''),
 (54, 24, '2', 'a', '2023-04-21 04:19:58', 'admin', '0000-00-00 00:00:00', ''),
@@ -2475,10 +2552,12 @@ INSERT INTO `prod_store_dtl` (`prods_id`, `prods_prodm_id`, `prods_store_id`, `p
 (62, 30, '2', 'a', '2023-04-21 05:02:13', 'admin', '0000-00-00 00:00:00', ''),
 (64, 31, '2', 'a', '2023-04-21 05:05:15', 'admin', '0000-00-00 00:00:00', ''),
 (65, 32, '2', 'a', '2023-04-21 05:19:16', 'admin', '0000-00-00 00:00:00', ''),
-(66, 33, '2', 'a', '2023-04-21 05:20:27', 'admin', '0000-00-00 00:00:00', ''),
+(82, 33, '2', 'a', '2023-05-11 11:43:58', 'admin', '0000-00-00 00:00:00', ''),
 (67, 34, '2', 'a', '2023-04-21 05:21:37', 'admin', '0000-00-00 00:00:00', ''),
-(74, 35, '2', 'a', '2023-04-21 12:56:24', 'admin', '0000-00-00 00:00:00', ''),
-(73, 35, '1', 'a', '2023-04-21 12:56:24', 'admin', '0000-00-00 00:00:00', '');
+(87, 35, '2', 'a', '2023-05-11 12:39:50', 'admin', '0000-00-00 00:00:00', ''),
+(86, 35, '1', 'a', '2023-05-11 12:39:50', 'admin', '0000-00-00 00:00:00', ''),
+(75, 36, '1', 'a', '2023-05-11 07:15:11', 'admin', '0000-00-00 00:00:00', ''),
+(80, 37, '1', 'a', '2023-05-11 11:13:17', 'admin', '0000-00-00 00:00:00', '');
 
 -- --------------------------------------------------------
 
@@ -2530,12 +2609,12 @@ INSERT INTO `prod_veh_dtl` (`prodd_id`, `prodd_prodm_id`, `prodd_veh_typ`, `prod
 (45, 14, '1', '4', '6', '5', 'a', '2023-04-17 08:49:49', 'admin', '0000-00-00 00:00:00', ''),
 (44, 14, '1', '5', '2', '2', 'a', '2023-04-17 08:49:49', 'admin', '0000-00-00 00:00:00', ''),
 (43, 15, '1', '4', '6', '5', 'a', '2023-04-17 08:47:50', 'admin', '0000-00-00 00:00:00', ''),
-(47, 16, '1', '5', '3', '1', 'a', '2023-04-18 04:20:32', 'admin', '0000-00-00 00:00:00', ''),
+(89, 16, '1', '5', '3', '1', 'a', '2023-05-11 11:32:24', 'admin', '0000-00-00 00:00:00', ''),
 (48, 17, '1', '', '', '', 'a', '2023-04-20 04:13:10', 'admin', '0000-00-00 00:00:00', ''),
 (49, 18, '1', '', '', '', 'a', '2023-04-20 04:17:04', 'admin', '0000-00-00 00:00:00', ''),
 (50, 19, '1', '4', '6', '5', 'a', '2023-04-20 04:19:48', 'admin', '0000-00-00 00:00:00', ''),
 (51, 20, '1', '', '', '', 'a', '2023-04-20 04:22:15', 'admin', '0000-00-00 00:00:00', ''),
-(52, 21, '1', '3', '7', '6', 'a', '2023-04-20 04:23:27', 'admin', '0000-00-00 00:00:00', ''),
+(91, 21, '1', '3', '7', '6', 'a', '2023-05-11 11:44:13', 'admin', '0000-00-00 00:00:00', ''),
 (54, 22, '1', '4', '6', '5', 'a', '2023-04-20 04:25:34', 'admin', '0000-00-00 00:00:00', ''),
 (61, 23, '1', '5', '2', '2', 'a', '2023-04-21 04:20:23', 'admin', '0000-00-00 00:00:00', ''),
 (60, 24, '1', '4', '6', '5', 'a', '2023-04-21 04:19:58', 'admin', '0000-00-00 00:00:00', ''),
@@ -2548,10 +2627,12 @@ INSERT INTO `prod_veh_dtl` (`prodd_id`, `prodd_prodm_id`, `prodd_veh_typ`, `prod
 (69, 30, '1', '', '', '', 'a', '2023-04-21 05:02:13', 'admin', '0000-00-00 00:00:00', ''),
 (71, 31, '1', '', '', '', 'a', '2023-04-21 05:05:15', 'admin', '0000-00-00 00:00:00', ''),
 (72, 32, '1', '', '', '', 'a', '2023-04-21 05:19:16', 'admin', '0000-00-00 00:00:00', ''),
-(73, 33, '1', '', '', '', 'a', '2023-04-21 05:20:27', 'admin', '0000-00-00 00:00:00', ''),
+(90, 33, '1', '', '', '', 'a', '2023-05-11 11:43:58', 'admin', '0000-00-00 00:00:00', ''),
 (74, 34, '1', '', '', '', 'a', '2023-04-21 05:21:37', 'admin', '0000-00-00 00:00:00', ''),
-(82, 35, '1', '4', '6', '5', 'a', '2023-04-21 12:56:24', 'admin', '0000-00-00 00:00:00', ''),
-(81, 35, '1', '5', '2', '2', 'a', '2023-04-21 12:56:24', 'admin', '0000-00-00 00:00:00', '');
+(95, 35, '1', '4', '6', '5', 'a', '2023-05-11 12:39:50', 'admin', '0000-00-00 00:00:00', ''),
+(94, 35, '1', '5', '2', '2', 'a', '2023-05-11 12:39:50', 'admin', '0000-00-00 00:00:00', ''),
+(83, 36, '2', '', '', '', 'a', '2023-05-11 07:15:11', 'admin', '0000-00-00 00:00:00', ''),
+(88, 37, '2', '', '', '', 'a', '2023-05-11 11:13:17', 'admin', '0000-00-00 00:00:00', '');
 
 -- --------------------------------------------------------
 
@@ -2562,14 +2643,14 @@ INSERT INTO `prod_veh_dtl` (`prodd_id`, `prodd_prodm_id`, `prodd_veh_typ`, `prod
 CREATE TABLE `store_loc_mst` (
   `strlocm_id` int(15) NOT NULL,
   `strlocm_name` varchar(250) NOT NULL COMMENT 'Unique name for each type',
-  `strlocm_desc` text DEFAULT NULL,
+  `strlocm_desc` text,
   `strlocm_seotitle` varchar(250) DEFAULT NULL,
-  `strlocm_seodesc` text DEFAULT NULL,
-  `strlocm_seokywrd` tinytext DEFAULT NULL,
+  `strlocm_seodesc` text,
+  `strlocm_seokywrd` tinytext,
   `strlocm_seohonetitle` varchar(250) DEFAULT NULL,
-  `strlocm_seohonedesc` text DEFAULT NULL,
+  `strlocm_seohonedesc` text,
   `strlocm_seohtwotitle` varchar(250) DEFAULT NULL,
-  `strlocm_seohtwodesc` text DEFAULT NULL,
+  `strlocm_seohtwodesc` text,
   `strlocm_sts` char(1) NOT NULL COMMENT 'Status of each type',
   `strlocm_prty` int(15) NOT NULL COMMENT 'Priority of each type',
   `strlocm_crtdon` date DEFAULT NULL COMMENT 'Date on which the type is created',
@@ -2624,17 +2705,17 @@ INSERT INTO `trnsfr_inventory` (`trnsfr_id`, `trnsfr_prdid`, `trnsfr_dat`, `trns
 CREATE TABLE `tyr_brnd_mst` (
   `tyrbrndm_id` int(15) NOT NULL,
   `tyrbrndm_name` varchar(250) NOT NULL COMMENT 'Name of the tyre brand',
-  `tyrbrndm_desc` text DEFAULT NULL,
+  `tyrbrndm_desc` text,
   `tyrbrndm_brndimg` varchar(250) DEFAULT NULL,
   `tyrbrndm_sts` char(1) DEFAULT NULL COMMENT 'Status of the tyre brand',
   `tyrbrndm_prty` int(15) DEFAULT NULL COMMENT 'Priority of the tyre brand',
   `tyrbrndm_seotitle` varchar(250) DEFAULT NULL,
-  `tyrbrndm_seodesc` text DEFAULT NULL,
-  `tyrbrndm_seokywrd` text DEFAULT NULL,
+  `tyrbrndm_seodesc` text,
+  `tyrbrndm_seokywrd` text,
   `tyrbrndm_seohonetitle` varchar(250) DEFAULT NULL,
-  `tyrbrndm_seohonedesc` text DEFAULT NULL,
+  `tyrbrndm_seohonedesc` text,
   `tyrbrndm_seohtwotitle` varchar(250) DEFAULT NULL,
-  `tyrbrndm_seohtwodesc` text DEFAULT NULL,
+  `tyrbrndm_seohtwodesc` text,
   `tyrbrndm_crtdon` datetime DEFAULT NULL COMMENT 'Date on which tyre brand is created',
   `tyrbrndm_crtdby` varchar(250) DEFAULT NULL COMMENT 'By whom the tyre brand is created',
   `tyrbrndm_mdfdon` datetime DEFAULT NULL COMMENT 'Date on which the tyre brand is modified',
@@ -2659,18 +2740,18 @@ INSERT INTO `tyr_brnd_mst` (`tyrbrndm_id`, `tyrbrndm_name`, `tyrbrndm_desc`, `ty
 CREATE TABLE `tyr_prfl_mst` (
   `tyrprflm_id` int(15) NOT NULL,
   `tyrprflm_name` varchar(250) NOT NULL COMMENT 'Name of the Tyre profile',
-  `tyrprflm_desc` text DEFAULT NULL,
+  `tyrprflm_desc` text,
   `tyrprflm_vehtypm_id` int(15) NOT NULL,
   `tyrprflm_tyrwdthm_id` int(15) NOT NULL,
   `tyrprflm_sts` char(1) DEFAULT NULL COMMENT 'Status of the Tyre profile',
   `tyrprflm_prty` int(15) DEFAULT NULL COMMENT 'Priority of the Tyre profile',
   `tyrprflm_seotitle` varchar(250) DEFAULT NULL,
-  `tyrprflm_seodesc` text DEFAULT NULL,
-  `tyrprflm_seokywrd` text DEFAULT NULL,
+  `tyrprflm_seodesc` text,
+  `tyrprflm_seokywrd` text,
   `tyrprflm_seohonetitle` varchar(250) DEFAULT NULL,
-  `tyrprflm_seohonedesc` text DEFAULT NULL,
+  `tyrprflm_seohonedesc` text,
   `tyrprflm_seohtwotitle` varchar(250) DEFAULT NULL,
-  `tyrprflm_seohtwodesc` text DEFAULT NULL,
+  `tyrprflm_seohtwodesc` text,
   `tyrprflm_crtdon` datetime DEFAULT NULL COMMENT 'Date on which Tyre profile is created',
   `tyrprflm_crtdby` varchar(250) DEFAULT NULL COMMENT 'By whom the Tyre profile is created',
   `tyrprflm_mdfdon` datetime DEFAULT NULL COMMENT 'Date on which the Tyre profile is modified',
@@ -2709,19 +2790,19 @@ INSERT INTO `tyr_prfl_mst` (`tyrprflm_id`, `tyrprflm_name`, `tyrprflm_desc`, `ty
 CREATE TABLE `tyr_rimsize_mst` (
   `tyrrmszm_id` int(15) NOT NULL,
   `tyrrmszm_name` varchar(250) NOT NULL COMMENT 'Name of the tyre rim size',
-  `tyrrmszm_desc` text DEFAULT NULL,
+  `tyrrmszm_desc` text,
   `tyrrmszm_vehtypm_id` int(15) NOT NULL,
   `tyrrmszm_tyrwdthm_id` int(15) NOT NULL,
   `tyrrmszm_tyrprflm_id` int(15) NOT NULL,
   `tyrrmszm_sts` char(1) DEFAULT NULL COMMENT 'Status of the tyre rim size',
   `tyrrmszm_prty` int(15) DEFAULT NULL COMMENT 'Priority of the tyre rim size',
   `tyrrmszm_seotitle` varchar(250) DEFAULT NULL,
-  `tyrrmszm_seodesc` text DEFAULT NULL,
-  `tyrrmszm_seokywrd` text DEFAULT NULL,
+  `tyrrmszm_seodesc` text,
+  `tyrrmszm_seokywrd` text,
   `tyrrmszm_seohonetitle` varchar(250) DEFAULT NULL,
-  `tyrrmszm_seohonedesc` text DEFAULT NULL,
+  `tyrrmszm_seohonedesc` text,
   `tyrrmszm_seohtwotitle` varchar(250) DEFAULT NULL,
-  `tyrrmszm_seohtwodesc` text DEFAULT NULL,
+  `tyrrmszm_seohtwodesc` text,
   `tyrrmszm_crtdon` datetime DEFAULT NULL COMMENT 'Date on which tyre rim size is created',
   `tyrrmszm_crtdby` varchar(250) DEFAULT NULL COMMENT 'By whom the tyre rim size is created',
   `tyrrmszm_mdfdon` datetime DEFAULT NULL COMMENT 'Date on which the vehicle variant is modified',
@@ -2770,14 +2851,14 @@ CREATE TABLE `tyr_type_mst` (
   `tyrtypm_id` int(15) NOT NULL,
   `tyrtypm_name` varchar(250) NOT NULL COMMENT 'Unique name for each tyre type',
   `tyrtypm_cde` varchar(250) NOT NULL COMMENT 'Unique code for each tyre type',
-  `tyrtypm_desc` text DEFAULT NULL,
+  `tyrtypm_desc` text,
   `tyrtypm_seotitle` varchar(250) DEFAULT NULL,
-  `tyrtypm_seodesc` text DEFAULT NULL,
-  `tyrtypm_seokywrd` tinytext DEFAULT NULL,
+  `tyrtypm_seodesc` text,
+  `tyrtypm_seokywrd` tinytext,
   `tyrtypm_seohonetitle` varchar(250) DEFAULT NULL,
-  `tyrtypm_seohonedesc` text DEFAULT NULL,
+  `tyrtypm_seohonedesc` text,
   `tyrtypm_seohtwotitle` varchar(250) DEFAULT NULL,
-  `tyrtypm_seohtwodesc` text DEFAULT NULL,
+  `tyrtypm_seohtwodesc` text,
   `tyrtypm_sts` char(1) NOT NULL COMMENT 'Status of each tyre type',
   `tyrtypm_prty` int(15) NOT NULL COMMENT 'Priority of each tyre type',
   `tyrtypm_hmprty` int(15) NOT NULL,
@@ -2805,16 +2886,16 @@ CREATE TABLE `tyr_wdth_mst` (
   `tyrwdthm_id` int(15) NOT NULL,
   `tyrwdthm_name` varchar(250) NOT NULL COMMENT 'Name of the tyre width',
   `tyrwdthm_vehtypm_id` varchar(250) NOT NULL COMMENT 'Vehicle type ID',
-  `tyrwdthm_desc` text DEFAULT NULL,
+  `tyrwdthm_desc` text,
   `tyrwdthm_sts` char(1) DEFAULT NULL COMMENT 'Status of the tyre width',
   `tyrwdthm_prty` int(15) DEFAULT NULL COMMENT 'Priority of the tyre width',
   `tyrwdthm_seotitle` varchar(250) DEFAULT NULL,
-  `tyrwdthm_seodesc` text DEFAULT NULL,
-  `tyrwdthm_seokywrd` text DEFAULT NULL,
+  `tyrwdthm_seodesc` text,
+  `tyrwdthm_seokywrd` text,
   `tyrwdthm_seohonetitle` varchar(250) DEFAULT NULL,
-  `tyrwdthm_seohonedesc` text DEFAULT NULL,
+  `tyrwdthm_seohonedesc` text,
   `tyrwdthm_seohtwotitle` varchar(250) DEFAULT NULL,
-  `tyrwdthm_seohtwodesc` text DEFAULT NULL,
+  `tyrwdthm_seohtwodesc` text,
   `tyrwdthm_crtdon` datetime DEFAULT NULL COMMENT 'Date on which tyre width is created',
   `tyrwdthm_crtdby` varchar(250) DEFAULT NULL COMMENT 'By whom the tyre width is created',
   `tyrwdthm_mdfdon` datetime DEFAULT NULL COMMENT 'Date on which the tyre width is modified',
@@ -2896,18 +2977,18 @@ INSERT INTO `usrwshlst_dtl` (`usrwshlstd_id`, `usrwshlstd_sesid`, `usrwshlstd_pr
 CREATE TABLE `veh_brnd_mst` (
   `vehbrndm_id` int(15) NOT NULL,
   `vehbrndm_name` varchar(250) NOT NULL COMMENT 'Name of the vehicle brand',
-  `vehbrndm_desc` text DEFAULT NULL,
+  `vehbrndm_desc` text,
   `vehbrndm_vehtypm_id` int(15) NOT NULL,
   `vehbrndm_brndimg` varchar(250) DEFAULT NULL,
   `vehbrndm_sts` char(1) DEFAULT NULL COMMENT 'Status of the vehicle brand',
   `vehbrndm_prty` int(15) DEFAULT NULL COMMENT 'Priority of the vehicle brand',
   `vehbrndm_seotitle` varchar(250) DEFAULT NULL,
-  `vehbrndm_seodesc` text DEFAULT NULL,
-  `vehbrndm_seokywrd` text DEFAULT NULL,
+  `vehbrndm_seodesc` text,
+  `vehbrndm_seokywrd` text,
   `vehbrndm_seohonetitle` varchar(250) DEFAULT NULL,
-  `vehbrndm_seohonedesc` text DEFAULT NULL,
+  `vehbrndm_seohonedesc` text,
   `vehbrndm_seohtwotitle` varchar(250) DEFAULT NULL,
-  `vehbrndm_seohtwodesc` text DEFAULT NULL,
+  `vehbrndm_seohtwodesc` text,
   `vehbrndm_crtdon` datetime DEFAULT NULL COMMENT 'Date on which vehicle brand is created',
   `vehbrndm_crtdby` varchar(250) DEFAULT NULL COMMENT 'By whom the vehicle brand is created',
   `vehbrndm_mdfdon` datetime DEFAULT NULL COMMENT 'Date on which the vehicle brand is modified',
@@ -2934,18 +3015,18 @@ INSERT INTO `veh_brnd_mst` (`vehbrndm_id`, `vehbrndm_name`, `vehbrndm_desc`, `ve
 CREATE TABLE `veh_model_mst` (
   `vehmodlm_id` int(15) NOT NULL,
   `vehmodlm_name` varchar(250) NOT NULL COMMENT 'Name of the vehicle model',
-  `vehmodlm_desc` text DEFAULT NULL,
+  `vehmodlm_desc` text,
   `vehmodlm_vehtypm_id` int(15) NOT NULL,
   `vehmodlm_vehbrndm_id` int(15) NOT NULL,
   `vehmodlm_sts` char(1) DEFAULT NULL COMMENT 'Status of the vehicle model',
   `vehmodlm_prty` int(15) DEFAULT NULL COMMENT 'Priority of the vehicle model',
   `vehmodlm_seotitle` varchar(250) DEFAULT NULL,
-  `vehmodlm_seodesc` text DEFAULT NULL,
-  `vehmodlm_seokywrd` text DEFAULT NULL,
+  `vehmodlm_seodesc` text,
+  `vehmodlm_seokywrd` text,
   `vehmodlm_seohonetitle` varchar(250) DEFAULT NULL,
-  `vehmodlm_seohonedesc` text DEFAULT NULL,
+  `vehmodlm_seohonedesc` text,
   `vehmodlm_seohtwotitle` varchar(250) DEFAULT NULL,
-  `vehmodlm_seohtwodesc` text DEFAULT NULL,
+  `vehmodlm_seohtwodesc` text,
   `vehmodlm_crtdon` datetime DEFAULT NULL COMMENT 'Date on which vehicle model is created',
   `vehmodlm_crtdby` varchar(250) DEFAULT NULL COMMENT 'By whom the vehicle model is created',
   `vehmodlm_mdfdon` datetime DEFAULT NULL COMMENT 'Date on which the vehicle model is modified',
@@ -2975,14 +3056,14 @@ INSERT INTO `veh_model_mst` (`vehmodlm_id`, `vehmodlm_name`, `vehmodlm_desc`, `v
 CREATE TABLE `veh_type_mst` (
   `vehtypm_id` int(15) NOT NULL,
   `vehtypm_name` varchar(250) NOT NULL COMMENT 'Unique name for each type',
-  `vehtypm_desc` text DEFAULT NULL,
+  `vehtypm_desc` text,
   `vehtypm_seotitle` varchar(250) DEFAULT NULL,
-  `vehtypm_seodesc` text DEFAULT NULL,
-  `vehtypm_seokywrd` tinytext DEFAULT NULL,
+  `vehtypm_seodesc` text,
+  `vehtypm_seokywrd` tinytext,
   `vehtypm_seohonetitle` varchar(250) DEFAULT NULL,
-  `vehtypm_seohonedesc` text DEFAULT NULL,
+  `vehtypm_seohonedesc` text,
   `vehtypm_seohtwotitle` varchar(250) DEFAULT NULL,
-  `vehtypm_seohtwodesc` text DEFAULT NULL,
+  `vehtypm_seohtwodesc` text,
   `vehtypm_sts` char(1) NOT NULL COMMENT 'Status of each type',
   `vehtypm_prty` int(15) NOT NULL COMMENT 'Priority of each type',
   `vehtypm_hmprty` int(15) NOT NULL,
@@ -3009,19 +3090,19 @@ INSERT INTO `veh_type_mst` (`vehtypm_id`, `vehtypm_name`, `vehtypm_desc`, `vehty
 CREATE TABLE `veh_vrnt_mst` (
   `vehvrntm_id` int(15) NOT NULL,
   `vehvrntm_name` varchar(250) NOT NULL COMMENT 'Name of the vehicle variant',
-  `vehvrntm_desc` text DEFAULT NULL,
+  `vehvrntm_desc` text,
   `vehvrntm_vehtypm_id` int(15) NOT NULL,
   `vehvrntm_vehbrndm_id` int(15) NOT NULL,
   `vehvrntm_vehmdlm_id` int(15) NOT NULL,
   `vehvrntm_sts` char(1) DEFAULT NULL COMMENT 'Status of the vehicle variant',
   `vehvrntm_prty` int(15) DEFAULT NULL COMMENT 'Priority of the vehicle variant',
   `vehvrntm_seotitle` varchar(250) DEFAULT NULL,
-  `vehvrntm_seodesc` text DEFAULT NULL,
-  `vehvrntm_seokywrd` text DEFAULT NULL,
+  `vehvrntm_seodesc` text,
+  `vehvrntm_seokywrd` text,
   `vehvrntm_seohonetitle` varchar(250) DEFAULT NULL,
-  `vehvrntm_seohonedesc` text DEFAULT NULL,
+  `vehvrntm_seohonedesc` text,
   `vehvrntm_seohtwotitle` varchar(250) DEFAULT NULL,
-  `vehvrntm_seohtwodesc` text DEFAULT NULL,
+  `vehvrntm_seohtwodesc` text,
   `vehvrntm_crtdon` datetime DEFAULT NULL COMMENT 'Date on which vehicle variant is created',
   `vehvrntm_crtdby` varchar(250) DEFAULT NULL COMMENT 'By whom the vehicle variant is created',
   `vehvrntm_mdfdon` datetime DEFAULT NULL COMMENT 'Date on which the vehicle variant is modified',
@@ -3421,7 +3502,7 @@ CREATE TABLE `vw_mbr_mst_dtl_bil` (
 --
 DROP TABLE IF EXISTS `vw_cntnt_cntry_cnty_cty_mst`;
 
-CREATE  VIEW `vw_cntnt_cntry_cnty_cty_mst`  AS   (select `cntnt_mst`.`cntntm_id` AS `cntntm_id`,`cntnt_mst`.`cntntm_name` AS `cntntm_name`,`cntnt_mst`.`cntntm_iso` AS `cntntm_iso`,`cntnt_mst`.`cntntm_prty` AS `cntntm_prty`,`cntnt_mst`.`cntntm_sts` AS `cntntm_sts`,`cntnt_mst`.`cntntm_crtdon` AS `cntntm_crtdon`,`cntnt_mst`.`cntntm_crtdby` AS `cntntm_crtdby`,`cntnt_mst`.`cntntm_mdfdon` AS `cntntm_mdfdon`,`cntnt_mst`.`cntntm_mdfdby` AS `cntntm_mdfdby`,`cntry_mst`.`cntrym_id` AS `cntrym_id`,`cntry_mst`.`cntrym_name` AS `cntrym_name`,`cntry_mst`.`cntrym_isothr` AS `cntrym_isothr`,`cntry_mst`.`cntrym_isotwo` AS `cntrym_isotwo`,`cntry_mst`.`cntrym_cntntm_id` AS `cntrym_cntntm_id`,`cntry_mst`.`cntrym_isonum` AS `cntrym_isonum`,`cntry_mst`.`cntrym_sts` AS `cntrym_sts`,`cntry_mst`.`cntrym_prty` AS `cntrym_prty`,`cntry_mst`.`cntrym_crtdon` AS `cntrym_crtdon`,`cntry_mst`.`cntrym_crtdby` AS `cntrym_crtdby`,`cntry_mst`.`cntrym_mdfdon` AS `cntrym_mdfdon`,`cntry_mst`.`cntrym_mdfdby` AS `cntrym_mdfdby`,`cnty_mst`.`cntym_id` AS `cntym_id`,`cnty_mst`.`cntym_name` AS `cntym_name`,`cnty_mst`.`cntym_cntrym_id` AS `cntym_cntrym_id`,`cnty_mst`.`cntym_iso` AS `cntym_iso`,`cnty_mst`.`cntym_sts` AS `cntym_sts`,`cnty_mst`.`cntym_prty` AS `cntym_prty`,`cnty_mst`.`cntym_crtdon` AS `cntym_crtdon`,`cnty_mst`.`cntym_crtdby` AS `cntym_crtdby`,`cnty_mst`.`cntym_mdfdon` AS `cntym_mdfdon`,`cnty_mst`.`cntym_mdfdby` AS `cntym_mdfdby`,`cty_mst`.`ctym_id` AS `ctym_id`,`cty_mst`.`ctym_name` AS `ctym_name`,`cty_mst`.`ctym_cntym_id` AS `ctym_cntym_id`,`cty_mst`.`ctym_cntrym_id` AS `ctym_cntrym_id`,`cty_mst`.`ctym_iso` AS `ctym_iso`,`cty_mst`.`ctym_sts` AS `ctym_sts`,`cty_mst`.`ctym_prty` AS `ctym_prty`,`cty_mst`.`ctym_crtdon` AS `ctym_crtdon`,`cty_mst`.`ctym_crtdby` AS `ctym_crtdby`,`cty_mst`.`ctym_mdfdon` AS `ctym_mdfdon`,`cty_mst`.`ctym_mdfdby` AS `ctym_mdfdby` from (((`cntnt_mst` join `cntry_mst` on(`cntry_mst`.`cntrym_cntntm_id` = `cntnt_mst`.`cntntm_id`)) left join `cnty_mst` on(`cnty_mst`.`cntym_cntrym_id` = `cntry_mst`.`cntrym_id`)) left join `cty_mst` on(`cty_mst`.`ctym_cntym_id` = `cnty_mst`.`cntym_id`)))  ;
+CREATE  VIEW `vw_cntnt_cntry_cnty_cty_mst`  AS  (select `cntnt_mst`.`cntntm_id` AS `cntntm_id`,`cntnt_mst`.`cntntm_name` AS `cntntm_name`,`cntnt_mst`.`cntntm_iso` AS `cntntm_iso`,`cntnt_mst`.`cntntm_prty` AS `cntntm_prty`,`cntnt_mst`.`cntntm_sts` AS `cntntm_sts`,`cntnt_mst`.`cntntm_crtdon` AS `cntntm_crtdon`,`cntnt_mst`.`cntntm_crtdby` AS `cntntm_crtdby`,`cntnt_mst`.`cntntm_mdfdon` AS `cntntm_mdfdon`,`cntnt_mst`.`cntntm_mdfdby` AS `cntntm_mdfdby`,`cntry_mst`.`cntrym_id` AS `cntrym_id`,`cntry_mst`.`cntrym_name` AS `cntrym_name`,`cntry_mst`.`cntrym_isothr` AS `cntrym_isothr`,`cntry_mst`.`cntrym_isotwo` AS `cntrym_isotwo`,`cntry_mst`.`cntrym_cntntm_id` AS `cntrym_cntntm_id`,`cntry_mst`.`cntrym_isonum` AS `cntrym_isonum`,`cntry_mst`.`cntrym_sts` AS `cntrym_sts`,`cntry_mst`.`cntrym_prty` AS `cntrym_prty`,`cntry_mst`.`cntrym_crtdon` AS `cntrym_crtdon`,`cntry_mst`.`cntrym_crtdby` AS `cntrym_crtdby`,`cntry_mst`.`cntrym_mdfdon` AS `cntrym_mdfdon`,`cntry_mst`.`cntrym_mdfdby` AS `cntrym_mdfdby`,`cnty_mst`.`cntym_id` AS `cntym_id`,`cnty_mst`.`cntym_name` AS `cntym_name`,`cnty_mst`.`cntym_cntrym_id` AS `cntym_cntrym_id`,`cnty_mst`.`cntym_iso` AS `cntym_iso`,`cnty_mst`.`cntym_sts` AS `cntym_sts`,`cnty_mst`.`cntym_prty` AS `cntym_prty`,`cnty_mst`.`cntym_crtdon` AS `cntym_crtdon`,`cnty_mst`.`cntym_crtdby` AS `cntym_crtdby`,`cnty_mst`.`cntym_mdfdon` AS `cntym_mdfdon`,`cnty_mst`.`cntym_mdfdby` AS `cntym_mdfdby`,`cty_mst`.`ctym_id` AS `ctym_id`,`cty_mst`.`ctym_name` AS `ctym_name`,`cty_mst`.`ctym_cntym_id` AS `ctym_cntym_id`,`cty_mst`.`ctym_cntrym_id` AS `ctym_cntrym_id`,`cty_mst`.`ctym_iso` AS `ctym_iso`,`cty_mst`.`ctym_sts` AS `ctym_sts`,`cty_mst`.`ctym_prty` AS `ctym_prty`,`cty_mst`.`ctym_crtdon` AS `ctym_crtdon`,`cty_mst`.`ctym_crtdby` AS `ctym_crtdby`,`cty_mst`.`ctym_mdfdon` AS `ctym_mdfdon`,`cty_mst`.`ctym_mdfdby` AS `ctym_mdfdby` from (((`cntnt_mst` join `cntry_mst` on((`cntry_mst`.`cntrym_cntntm_id` = `cntnt_mst`.`cntntm_id`))) left join `cnty_mst` on((`cnty_mst`.`cntym_cntrym_id` = `cntry_mst`.`cntrym_id`))) left join `cty_mst` on((`cty_mst`.`ctym_cntym_id` = `cnty_mst`.`cntym_id`)))) ;
 
 -- --------------------------------------------------------
 
@@ -3430,7 +3511,7 @@ CREATE  VIEW `vw_cntnt_cntry_cnty_cty_mst`  AS   (select `cntnt_mst`.`cntntm_id`
 --
 DROP TABLE IF EXISTS `vw_cntry_cntnt_mst`;
 
-CREATE  VIEW `vw_cntry_cntnt_mst`  AS   (select `cntry_mst`.`cntrym_id` AS `cntrym_id`,`cntry_mst`.`cntrym_name` AS `cntrym_name`,`cntry_mst`.`cntrym_isothr` AS `cntrym_isothr`,`cntry_mst`.`cntrym_isotwo` AS `cntrym_isotwo`,`cntry_mst`.`cntrym_cntntm_id` AS `cntrym_cntntm_id`,`cntry_mst`.`cntrym_isonum` AS `cntrym_isonum`,`cntry_mst`.`cntrym_sts` AS `cntrym_sts`,`cntry_mst`.`cntrym_prty` AS `cntrym_prty`,`cntry_mst`.`cntrym_crtdon` AS `cntrym_crtdon`,`cntry_mst`.`cntrym_crtdby` AS `cntrym_crtdby`,`cntry_mst`.`cntrym_mdfdon` AS `cntrym_mdfdon`,`cntry_mst`.`cntrym_mdfdby` AS `cntrym_mdfdby`,`cntnt_mst`.`cntntm_id` AS `cntntm_id`,`cntnt_mst`.`cntntm_name` AS `cntntm_name`,`cntnt_mst`.`cntntm_iso` AS `cntntm_iso`,`cntnt_mst`.`cntntm_prty` AS `cntntm_prty`,`cntnt_mst`.`cntntm_sts` AS `cntntm_sts`,`cntnt_mst`.`cntntm_crtdon` AS `cntntm_crtdon`,`cntnt_mst`.`cntntm_crtdby` AS `cntntm_crtdby`,`cntnt_mst`.`cntntm_mdfdon` AS `cntntm_mdfdon`,`cntnt_mst`.`cntntm_mdfdby` AS `cntntm_mdfdby` from (`cntry_mst` join `cntnt_mst` on(`cntry_mst`.`cntrym_cntntm_id` = `cntnt_mst`.`cntntm_id`)))  ;
+CREATE  VIEW `vw_cntry_cntnt_mst`  AS  (select `cntry_mst`.`cntrym_id` AS `cntrym_id`,`cntry_mst`.`cntrym_name` AS `cntrym_name`,`cntry_mst`.`cntrym_isothr` AS `cntrym_isothr`,`cntry_mst`.`cntrym_isotwo` AS `cntrym_isotwo`,`cntry_mst`.`cntrym_cntntm_id` AS `cntrym_cntntm_id`,`cntry_mst`.`cntrym_isonum` AS `cntrym_isonum`,`cntry_mst`.`cntrym_sts` AS `cntrym_sts`,`cntry_mst`.`cntrym_prty` AS `cntrym_prty`,`cntry_mst`.`cntrym_crtdon` AS `cntrym_crtdon`,`cntry_mst`.`cntrym_crtdby` AS `cntrym_crtdby`,`cntry_mst`.`cntrym_mdfdon` AS `cntrym_mdfdon`,`cntry_mst`.`cntrym_mdfdby` AS `cntrym_mdfdby`,`cntnt_mst`.`cntntm_id` AS `cntntm_id`,`cntnt_mst`.`cntntm_name` AS `cntntm_name`,`cntnt_mst`.`cntntm_iso` AS `cntntm_iso`,`cntnt_mst`.`cntntm_prty` AS `cntntm_prty`,`cntnt_mst`.`cntntm_sts` AS `cntntm_sts`,`cntnt_mst`.`cntntm_crtdon` AS `cntntm_crtdon`,`cntnt_mst`.`cntntm_crtdby` AS `cntntm_crtdby`,`cntnt_mst`.`cntntm_mdfdon` AS `cntntm_mdfdon`,`cntnt_mst`.`cntntm_mdfdby` AS `cntntm_mdfdby` from (`cntry_mst` join `cntnt_mst` on((`cntry_mst`.`cntrym_cntntm_id` = `cntnt_mst`.`cntntm_id`)))) ;
 
 -- --------------------------------------------------------
 
@@ -3439,7 +3520,7 @@ CREATE  VIEW `vw_cntry_cntnt_mst`  AS   (select `cntry_mst`.`cntrym_id` AS `cntr
 --
 DROP TABLE IF EXISTS `vw_cntry_cnty_cty_mst`;
 
-CREATE  VIEW `vw_cntry_cnty_cty_mst`  AS   (select `cty_mst`.`ctym_id` AS `ctym_id`,`cty_mst`.`ctym_name` AS `ctym_name`,`cty_mst`.`ctym_cntym_id` AS `ctym_cntym_id`,`cty_mst`.`ctym_cntrym_id` AS `ctym_cntrym_id`,`cty_mst`.`ctym_iso` AS `ctym_iso`,`cty_mst`.`ctym_sts` AS `ctym_sts`,`cty_mst`.`ctym_prty` AS `ctym_prty`,`cty_mst`.`ctym_crtdon` AS `ctym_crtdon`,`cty_mst`.`ctym_crtdby` AS `ctym_crtdby`,`cty_mst`.`ctym_mdfdon` AS `ctym_mdfdon`,`cty_mst`.`ctym_mdfdby` AS `ctym_mdfdby`,`cnty_mst`.`cntym_id` AS `cntym_id`,`cnty_mst`.`cntym_name` AS `cntym_name`,`cnty_mst`.`cntym_cntrym_id` AS `cntym_cntrym_id`,`cnty_mst`.`cntym_iso` AS `cntym_iso`,`cnty_mst`.`cntym_sts` AS `cntym_sts`,`cnty_mst`.`cntym_prty` AS `cntym_prty`,`cnty_mst`.`cntym_crtdon` AS `cntym_crtdon`,`cnty_mst`.`cntym_crtdby` AS `cntym_crtdby`,`cnty_mst`.`cntym_mdfdon` AS `cntym_mdfdon`,`cnty_mst`.`cntym_mdfdby` AS `cntym_mdfdby`,`cntry_mst`.`cntrym_id` AS `cntrym_id`,`cntry_mst`.`cntrym_name` AS `cntrym_name`,`cntry_mst`.`cntrym_isothr` AS `cntrym_isothr`,`cntry_mst`.`cntrym_isotwo` AS `cntrym_isotwo`,`cntry_mst`.`cntrym_cntntm_id` AS `cntrym_cntntm_id`,`cntry_mst`.`cntrym_isonum` AS `cntrym_isonum`,`cntry_mst`.`cntrym_sts` AS `cntrym_sts`,`cntry_mst`.`cntrym_prty` AS `cntrym_prty`,`cntry_mst`.`cntrym_crtdon` AS `cntrym_crtdon`,`cntry_mst`.`cntrym_crtdby` AS `cntrym_crtdby`,`cntry_mst`.`cntrym_mdfdon` AS `cntrym_mdfdon`,`cntry_mst`.`cntrym_mdfdby` AS `cntrym_mdfdby` from (`cty_mst` join (`cnty_mst` join `cntry_mst` on(`cnty_mst`.`cntym_cntrym_id` = `cntry_mst`.`cntrym_id`)) on(`cty_mst`.`ctym_cntym_id` = `cnty_mst`.`cntym_id`)))  ;
+CREATE  VIEW `vw_cntry_cnty_cty_mst`  AS  (select `cty_mst`.`ctym_id` AS `ctym_id`,`cty_mst`.`ctym_name` AS `ctym_name`,`cty_mst`.`ctym_cntym_id` AS `ctym_cntym_id`,`cty_mst`.`ctym_cntrym_id` AS `ctym_cntrym_id`,`cty_mst`.`ctym_iso` AS `ctym_iso`,`cty_mst`.`ctym_sts` AS `ctym_sts`,`cty_mst`.`ctym_prty` AS `ctym_prty`,`cty_mst`.`ctym_crtdon` AS `ctym_crtdon`,`cty_mst`.`ctym_crtdby` AS `ctym_crtdby`,`cty_mst`.`ctym_mdfdon` AS `ctym_mdfdon`,`cty_mst`.`ctym_mdfdby` AS `ctym_mdfdby`,`cnty_mst`.`cntym_id` AS `cntym_id`,`cnty_mst`.`cntym_name` AS `cntym_name`,`cnty_mst`.`cntym_cntrym_id` AS `cntym_cntrym_id`,`cnty_mst`.`cntym_iso` AS `cntym_iso`,`cnty_mst`.`cntym_sts` AS `cntym_sts`,`cnty_mst`.`cntym_prty` AS `cntym_prty`,`cnty_mst`.`cntym_crtdon` AS `cntym_crtdon`,`cnty_mst`.`cntym_crtdby` AS `cntym_crtdby`,`cnty_mst`.`cntym_mdfdon` AS `cntym_mdfdon`,`cnty_mst`.`cntym_mdfdby` AS `cntym_mdfdby`,`cntry_mst`.`cntrym_id` AS `cntrym_id`,`cntry_mst`.`cntrym_name` AS `cntrym_name`,`cntry_mst`.`cntrym_isothr` AS `cntrym_isothr`,`cntry_mst`.`cntrym_isotwo` AS `cntrym_isotwo`,`cntry_mst`.`cntrym_cntntm_id` AS `cntrym_cntntm_id`,`cntry_mst`.`cntrym_isonum` AS `cntrym_isonum`,`cntry_mst`.`cntrym_sts` AS `cntrym_sts`,`cntry_mst`.`cntrym_prty` AS `cntrym_prty`,`cntry_mst`.`cntrym_crtdon` AS `cntrym_crtdon`,`cntry_mst`.`cntrym_crtdby` AS `cntrym_crtdby`,`cntry_mst`.`cntrym_mdfdon` AS `cntrym_mdfdon`,`cntry_mst`.`cntrym_mdfdby` AS `cntrym_mdfdby` from (`cty_mst` join (`cnty_mst` join `cntry_mst` on((`cnty_mst`.`cntym_cntrym_id` = `cntry_mst`.`cntrym_id`))) on((`cty_mst`.`ctym_cntym_id` = `cnty_mst`.`cntym_id`)))) ;
 
 -- --------------------------------------------------------
 
@@ -3448,7 +3529,7 @@ CREATE  VIEW `vw_cntry_cnty_cty_mst`  AS   (select `cty_mst`.`ctym_id` AS `ctym_
 --
 DROP TABLE IF EXISTS `vw_cntry_cnty_mst`;
 
-CREATE  VIEW `vw_cntry_cnty_mst`  AS   (select `cnty_mst`.`cntym_id` AS `cntym_id`,`cnty_mst`.`cntym_name` AS `cntym_name`,`cnty_mst`.`cntym_cntrym_id` AS `cntym_cntrym_id`,`cnty_mst`.`cntym_iso` AS `cntym_iso`,`cnty_mst`.`cntym_sts` AS `cntym_sts`,`cnty_mst`.`cntym_prty` AS `cntym_prty`,`cnty_mst`.`cntym_crtdon` AS `cntym_crtdon`,`cnty_mst`.`cntym_crtdby` AS `cntym_crtdby`,`cnty_mst`.`cntym_mdfdon` AS `cntym_mdfdon`,`cnty_mst`.`cntym_mdfdby` AS `cntym_mdfdby`,`cntry_mst`.`cntrym_id` AS `cntrym_id`,`cntry_mst`.`cntrym_name` AS `cntrym_name`,`cntry_mst`.`cntrym_isothr` AS `cntrym_isothr`,`cntry_mst`.`cntrym_isotwo` AS `cntrym_isotwo`,`cntry_mst`.`cntrym_cntntm_id` AS `cntrym_cntntm_id`,`cntry_mst`.`cntrym_isonum` AS `cntrym_isonum`,`cntry_mst`.`cntrym_sts` AS `cntrym_sts`,`cntry_mst`.`cntrym_prty` AS `cntrym_prty`,`cntry_mst`.`cntrym_crtdon` AS `cntrym_crtdon`,`cntry_mst`.`cntrym_crtdby` AS `cntrym_crtdby`,`cntry_mst`.`cntrym_mdfdon` AS `cntrym_mdfdon`,`cntry_mst`.`cntrym_mdfdby` AS `cntrym_mdfdby` from (`cnty_mst` join `cntry_mst` on(`cnty_mst`.`cntym_cntrym_id` = `cntry_mst`.`cntrym_id`)))  ;
+CREATE  VIEW `vw_cntry_cnty_mst`  AS  (select `cnty_mst`.`cntym_id` AS `cntym_id`,`cnty_mst`.`cntym_name` AS `cntym_name`,`cnty_mst`.`cntym_cntrym_id` AS `cntym_cntrym_id`,`cnty_mst`.`cntym_iso` AS `cntym_iso`,`cnty_mst`.`cntym_sts` AS `cntym_sts`,`cnty_mst`.`cntym_prty` AS `cntym_prty`,`cnty_mst`.`cntym_crtdon` AS `cntym_crtdon`,`cnty_mst`.`cntym_crtdby` AS `cntym_crtdby`,`cnty_mst`.`cntym_mdfdon` AS `cntym_mdfdon`,`cnty_mst`.`cntym_mdfdby` AS `cntym_mdfdby`,`cntry_mst`.`cntrym_id` AS `cntrym_id`,`cntry_mst`.`cntrym_name` AS `cntrym_name`,`cntry_mst`.`cntrym_isothr` AS `cntrym_isothr`,`cntry_mst`.`cntrym_isotwo` AS `cntrym_isotwo`,`cntry_mst`.`cntrym_cntntm_id` AS `cntrym_cntntm_id`,`cntry_mst`.`cntrym_isonum` AS `cntrym_isonum`,`cntry_mst`.`cntrym_sts` AS `cntrym_sts`,`cntry_mst`.`cntrym_prty` AS `cntrym_prty`,`cntry_mst`.`cntrym_crtdon` AS `cntrym_crtdon`,`cntry_mst`.`cntrym_crtdby` AS `cntrym_crtdby`,`cntry_mst`.`cntrym_mdfdon` AS `cntrym_mdfdon`,`cntry_mst`.`cntrym_mdfdby` AS `cntrym_mdfdby` from (`cnty_mst` join `cntry_mst` on((`cnty_mst`.`cntym_cntrym_id` = `cntry_mst`.`cntrym_id`)))) ;
 
 -- --------------------------------------------------------
 
@@ -3457,7 +3538,7 @@ CREATE  VIEW `vw_cntry_cnty_mst`  AS   (select `cnty_mst`.`cntym_id` AS `cntym_i
 --
 DROP TABLE IF EXISTS `vw_cntry_mst`;
 
-CREATE  VIEW `vw_cntry_mst`  AS   (select `cntry_mst`.`cntrym_id` AS `cntrym_id`,`cntry_mst`.`cntrym_name` AS `cntrym_name`,`cntry_mst`.`cntrym_isothr` AS `cntrym_isothr`,`cntry_mst`.`cntrym_isotwo` AS `cntrym_isotwo`,`cntry_mst`.`cntrym_cntntm_id` AS `cntrym_cntntm_id`,`cntry_mst`.`cntrym_isonum` AS `cntrym_isonum`,`cntry_mst`.`cntrym_sts` AS `cntrym_sts`,`cntry_mst`.`cntrym_prty` AS `cntrym_prty`,`cntry_mst`.`cntrym_crtdon` AS `cntrym_crtdon`,`cntry_mst`.`cntrym_crtdby` AS `cntrym_crtdby`,`cntry_mst`.`cntrym_mdfdon` AS `cntrym_mdfdon`,`cntry_mst`.`cntrym_mdfdby` AS `cntrym_mdfdby` from `cntry_mst`)  ;
+CREATE  VIEW `vw_cntry_mst`  AS  (select `cntry_mst`.`cntrym_id` AS `cntrym_id`,`cntry_mst`.`cntrym_name` AS `cntrym_name`,`cntry_mst`.`cntrym_isothr` AS `cntrym_isothr`,`cntry_mst`.`cntrym_isotwo` AS `cntrym_isotwo`,`cntry_mst`.`cntrym_cntntm_id` AS `cntrym_cntntm_id`,`cntry_mst`.`cntrym_isonum` AS `cntrym_isonum`,`cntry_mst`.`cntrym_sts` AS `cntrym_sts`,`cntry_mst`.`cntrym_prty` AS `cntrym_prty`,`cntry_mst`.`cntrym_crtdon` AS `cntrym_crtdon`,`cntry_mst`.`cntrym_crtdby` AS `cntrym_crtdby`,`cntry_mst`.`cntrym_mdfdon` AS `cntrym_mdfdon`,`cntry_mst`.`cntrym_mdfdby` AS `cntrym_mdfdby` from `cntry_mst`) ;
 
 -- --------------------------------------------------------
 
@@ -3466,7 +3547,7 @@ CREATE  VIEW `vw_cntry_mst`  AS   (select `cntry_mst`.`cntrym_id` AS `cntrym_id`
 --
 DROP TABLE IF EXISTS `vw_cnty_mst`;
 
-CREATE  VIEW `vw_cnty_mst`  AS   (select `cnty_mst`.`cntym_id` AS `cntym_id`,`cnty_mst`.`cntym_name` AS `cntym_name`,`cnty_mst`.`cntym_cntrym_id` AS `cntym_cntrym_id`,`cnty_mst`.`cntym_iso` AS `cntym_iso`,`cnty_mst`.`cntym_sts` AS `cntym_sts`,`cnty_mst`.`cntym_prty` AS `cntym_prty`,`cnty_mst`.`cntym_crtdon` AS `cntym_crtdon`,`cnty_mst`.`cntym_crtdby` AS `cntym_crtdby`,`cnty_mst`.`cntym_mdfdon` AS `cntym_mdfdon`,`cnty_mst`.`cntym_mdfdby` AS `cntym_mdfdby`,`cntry_mst`.`cntrym_id` AS `cntrym_id`,`cntry_mst`.`cntrym_name` AS `cntrym_name`,`cntry_mst`.`cntrym_isothr` AS `cntrym_isothr`,`cntry_mst`.`cntrym_isotwo` AS `cntrym_isotwo`,`cntry_mst`.`cntrym_cntntm_id` AS `cntrym_cntntm_id`,`cntry_mst`.`cntrym_isonum` AS `cntrym_isonum`,`cntry_mst`.`cntrym_sts` AS `cntrym_sts`,`cntry_mst`.`cntrym_prty` AS `cntrym_prty`,`cntry_mst`.`cntrym_crtdon` AS `cntrym_crtdon`,`cntry_mst`.`cntrym_crtdby` AS `cntrym_crtdby`,`cntry_mst`.`cntrym_mdfdon` AS `cntrym_mdfdon`,`cntry_mst`.`cntrym_mdfdby` AS `cntrym_mdfdby` from (`cnty_mst` join `cntry_mst` on(`cnty_mst`.`cntym_cntrym_id` = `cntry_mst`.`cntrym_id`)))  ;
+CREATE  VIEW `vw_cnty_mst`  AS  (select `cnty_mst`.`cntym_id` AS `cntym_id`,`cnty_mst`.`cntym_name` AS `cntym_name`,`cnty_mst`.`cntym_cntrym_id` AS `cntym_cntrym_id`,`cnty_mst`.`cntym_iso` AS `cntym_iso`,`cnty_mst`.`cntym_sts` AS `cntym_sts`,`cnty_mst`.`cntym_prty` AS `cntym_prty`,`cnty_mst`.`cntym_crtdon` AS `cntym_crtdon`,`cnty_mst`.`cntym_crtdby` AS `cntym_crtdby`,`cnty_mst`.`cntym_mdfdon` AS `cntym_mdfdon`,`cnty_mst`.`cntym_mdfdby` AS `cntym_mdfdby`,`cntry_mst`.`cntrym_id` AS `cntrym_id`,`cntry_mst`.`cntrym_name` AS `cntrym_name`,`cntry_mst`.`cntrym_isothr` AS `cntrym_isothr`,`cntry_mst`.`cntrym_isotwo` AS `cntrym_isotwo`,`cntry_mst`.`cntrym_cntntm_id` AS `cntrym_cntntm_id`,`cntry_mst`.`cntrym_isonum` AS `cntrym_isonum`,`cntry_mst`.`cntrym_sts` AS `cntrym_sts`,`cntry_mst`.`cntrym_prty` AS `cntrym_prty`,`cntry_mst`.`cntrym_crtdon` AS `cntrym_crtdon`,`cntry_mst`.`cntrym_crtdby` AS `cntrym_crtdby`,`cntry_mst`.`cntrym_mdfdon` AS `cntrym_mdfdon`,`cntry_mst`.`cntrym_mdfdby` AS `cntrym_mdfdby` from (`cnty_mst` join `cntry_mst` on((`cnty_mst`.`cntym_cntrym_id` = `cntry_mst`.`cntrym_id`)))) ;
 
 -- --------------------------------------------------------
 
@@ -3475,7 +3556,7 @@ CREATE  VIEW `vw_cnty_mst`  AS   (select `cnty_mst`.`cntym_id` AS `cntym_id`,`cn
 --
 DROP TABLE IF EXISTS `vw_mbr_mst_bil`;
 
-CREATE  VIEW `vw_mbr_mst_bil`  AS   (select `mbr_mst`.`mbrm_id` AS `mbrm_id`,`mbr_mst`.`mbrm_name` AS `mbrm_name`,`mbr_mst`.`mbrm_usernm` AS `mbrm_usernm`,`mbr_mst`.`mbrm_emailid` AS `mbrm_emailid`,`mbr_mst`.`mbrm_pwd` AS `mbrm_pwd`,`mbr_mst`.`mbrm_nwsltr` AS `mbrm_nwsltr`,`mbr_mst`.`mbrm_vchr` AS `mbrm_vchr`,`mbr_mst`.`mbrm_phno` AS `mbrm_phno`,`mbr_mst`.`mbrm_ipadrs` AS `mbrm_ipadrs`,`mbr_mst`.`mbrm_sts` AS `mbrm_sts`,`mbr_mst`.`mbrm_crtdon` AS `mbrm_crtdon`,`mbr_mst`.`mbrm_crtdby` AS `mbrm_crtdby`,`mbr_mst`.`mbrm_mdfdon` AS `mbrm_mdfdon`,`mbr_mst`.`mbrm_mdfdby` AS `mbrm_mdfdby`,`mbr_dtl`.`mbrd_id` AS `mbrd_id`,`mbr_dtl`.`mbrd_emailid` AS `mbrd_emailid`,`mbr_dtl`.`mbrd_nckname` AS `mbrd_nckname`,`mbr_dtl`.`mbrd_fstname` AS `mbrd_fstname`,`mbr_dtl`.`mbrd_lstname` AS `mbrd_lstname`,`mbr_dtl`.`mbrd_badrs` AS `mbrd_badrs`,`mbr_dtl`.`mbrd_badrs2` AS `mbrd_badrs2`,`mbr_dtl`.`mbrd_bmbrcntrym_id` AS `mbrd_bmbrcntrym_id`,`mbr_dtl`.`mbrd_bctym_id` AS `mbrd_bctym_id`,`mbr_dtl`.`mbrd_bmbrcntym_id` AS `mbrd_bmbrcntym_id`,`mbr_dtl`.`mbrd_bmbrctym_name` AS `mbrd_bmbrctym_name`,`mbr_dtl`.`mbrd_bmbrcntym_name` AS `mbrd_bmbrcntym_name`,`mbr_dtl`.`mbrd_bzip` AS `mbrd_bzip`,`mbr_dtl`.`mbrd_bdayphone` AS `mbrd_bdayphone`,`mbr_dtl`.`mbrd_dfltbil` AS `mbrd_dfltbil`,`mbr_dtl`.`mbrd_dfltshp` AS `mbrd_dfltshp`,`mbr_dtl`.`mbrd_sfstname` AS `mbrd_sfstname`,`mbr_dtl`.`mbrd_slstname` AS `mbrd_slstname`,`mbr_dtl`.`mbrd_sadrs` AS `mbrd_sadrs`,`mbr_dtl`.`mbrd_sadrs2` AS `mbrd_sadrs2`,`mbr_dtl`.`mbrd_smbrcntrym_id` AS `mbrd_smbrcntrym_id`,`mbr_dtl`.`mbrd_scty_name` AS `mbrd_scty_name`,`mbr_dtl`.`mbrd_smbrcntym_id` AS `mbrd_smbrcntym_id`,`mbr_dtl`.`mbrd_szip` AS `mbrd_szip`,`mbr_dtl`.`mbrd_sdayphone` AS `mbrd_sdayphone`,`mbr_dtl`.`mbrd_shpchrgm_id` AS `mbrd_shpchrgm_id`,`mbr_dtl`.`mbrd_mbrm_id` AS `mbrd_mbrm_id`,`mbr_dtl`.`mbrd_sts` AS `mbrd_sts`,`mbr_dtl`.`mbrd_crtdon` AS `mbrd_crtdon`,`mbr_dtl`.`mbrd_crtdby` AS `mbrd_crtdby`,`mbr_dtl`.`mbrd_mdfdon` AS `mbrd_mdfdon`,`mbr_dtl`.`mbrd_mdfdby` AS `mbrd_mdfdby`,`cntry_mst`.`cntrym_id` AS `cntrym_id`,`cntry_mst`.`cntrym_name` AS `cntrym_name`,`cntry_mst`.`cntrym_isothr` AS `cntrym_isothr`,`cntry_mst`.`cntrym_isotwo` AS `cntrym_isotwo`,`cntry_mst`.`cntrym_cntntm_id` AS `cntrym_cntntm_id`,`cntry_mst`.`cntrym_isonum` AS `cntrym_isonum`,`cntry_mst`.`cntrym_sts` AS `cntrym_sts`,`cntry_mst`.`cntrym_prty` AS `cntrym_prty`,`cntry_mst`.`cntrym_crtdon` AS `cntrym_crtdon`,`cntry_mst`.`cntrym_crtdby` AS `cntrym_crtdby`,`cntry_mst`.`cntrym_mdfdon` AS `cntrym_mdfdon`,`cntry_mst`.`cntrym_mdfdby` AS `cntrym_mdfdby` from (`mbr_mst` left join (`mbr_dtl` left join `cntry_mst` on(`mbr_dtl`.`mbrd_bmbrcntrym_id` = `cntry_mst`.`cntrym_id`)) on(`mbr_dtl`.`mbrd_mbrm_id` = `mbr_mst`.`mbrm_id`)) where `mbr_mst`.`mbrm_sts` = 'a')  ;
+CREATE  VIEW `vw_mbr_mst_bil`  AS  (select `mbr_mst`.`mbrm_id` AS `mbrm_id`,`mbr_mst`.`mbrm_name` AS `mbrm_name`,`mbr_mst`.`mbrm_usernm` AS `mbrm_usernm`,`mbr_mst`.`mbrm_emailid` AS `mbrm_emailid`,`mbr_mst`.`mbrm_pwd` AS `mbrm_pwd`,`mbr_mst`.`mbrm_nwsltr` AS `mbrm_nwsltr`,`mbr_mst`.`mbrm_vchr` AS `mbrm_vchr`,`mbr_mst`.`mbrm_phno` AS `mbrm_phno`,`mbr_mst`.`mbrm_ipadrs` AS `mbrm_ipadrs`,`mbr_mst`.`mbrm_sts` AS `mbrm_sts`,`mbr_mst`.`mbrm_crtdon` AS `mbrm_crtdon`,`mbr_mst`.`mbrm_crtdby` AS `mbrm_crtdby`,`mbr_mst`.`mbrm_mdfdon` AS `mbrm_mdfdon`,`mbr_mst`.`mbrm_mdfdby` AS `mbrm_mdfdby`,`mbr_dtl`.`mbrd_id` AS `mbrd_id`,`mbr_dtl`.`mbrd_emailid` AS `mbrd_emailid`,`mbr_dtl`.`mbrd_nckname` AS `mbrd_nckname`,`mbr_dtl`.`mbrd_fstname` AS `mbrd_fstname`,`mbr_dtl`.`mbrd_lstname` AS `mbrd_lstname`,`mbr_dtl`.`mbrd_badrs` AS `mbrd_badrs`,`mbr_dtl`.`mbrd_badrs2` AS `mbrd_badrs2`,`mbr_dtl`.`mbrd_bmbrcntrym_id` AS `mbrd_bmbrcntrym_id`,`mbr_dtl`.`mbrd_bctym_id` AS `mbrd_bctym_id`,`mbr_dtl`.`mbrd_bmbrcntym_id` AS `mbrd_bmbrcntym_id`,`mbr_dtl`.`mbrd_bmbrctym_name` AS `mbrd_bmbrctym_name`,`mbr_dtl`.`mbrd_bmbrcntym_name` AS `mbrd_bmbrcntym_name`,`mbr_dtl`.`mbrd_bzip` AS `mbrd_bzip`,`mbr_dtl`.`mbrd_bdayphone` AS `mbrd_bdayphone`,`mbr_dtl`.`mbrd_dfltbil` AS `mbrd_dfltbil`,`mbr_dtl`.`mbrd_dfltshp` AS `mbrd_dfltshp`,`mbr_dtl`.`mbrd_sfstname` AS `mbrd_sfstname`,`mbr_dtl`.`mbrd_slstname` AS `mbrd_slstname`,`mbr_dtl`.`mbrd_sadrs` AS `mbrd_sadrs`,`mbr_dtl`.`mbrd_sadrs2` AS `mbrd_sadrs2`,`mbr_dtl`.`mbrd_smbrcntrym_id` AS `mbrd_smbrcntrym_id`,`mbr_dtl`.`mbrd_scty_name` AS `mbrd_scty_name`,`mbr_dtl`.`mbrd_smbrcntym_id` AS `mbrd_smbrcntym_id`,`mbr_dtl`.`mbrd_szip` AS `mbrd_szip`,`mbr_dtl`.`mbrd_sdayphone` AS `mbrd_sdayphone`,`mbr_dtl`.`mbrd_shpchrgm_id` AS `mbrd_shpchrgm_id`,`mbr_dtl`.`mbrd_mbrm_id` AS `mbrd_mbrm_id`,`mbr_dtl`.`mbrd_sts` AS `mbrd_sts`,`mbr_dtl`.`mbrd_crtdon` AS `mbrd_crtdon`,`mbr_dtl`.`mbrd_crtdby` AS `mbrd_crtdby`,`mbr_dtl`.`mbrd_mdfdon` AS `mbrd_mdfdon`,`mbr_dtl`.`mbrd_mdfdby` AS `mbrd_mdfdby`,`cntry_mst`.`cntrym_id` AS `cntrym_id`,`cntry_mst`.`cntrym_name` AS `cntrym_name`,`cntry_mst`.`cntrym_isothr` AS `cntrym_isothr`,`cntry_mst`.`cntrym_isotwo` AS `cntrym_isotwo`,`cntry_mst`.`cntrym_cntntm_id` AS `cntrym_cntntm_id`,`cntry_mst`.`cntrym_isonum` AS `cntrym_isonum`,`cntry_mst`.`cntrym_sts` AS `cntrym_sts`,`cntry_mst`.`cntrym_prty` AS `cntrym_prty`,`cntry_mst`.`cntrym_crtdon` AS `cntrym_crtdon`,`cntry_mst`.`cntrym_crtdby` AS `cntrym_crtdby`,`cntry_mst`.`cntrym_mdfdon` AS `cntrym_mdfdon`,`cntry_mst`.`cntrym_mdfdby` AS `cntrym_mdfdby` from (`mbr_mst` left join (`mbr_dtl` left join `cntry_mst` on((`mbr_dtl`.`mbrd_bmbrcntrym_id` = `cntry_mst`.`cntrym_id`))) on((`mbr_dtl`.`mbrd_mbrm_id` = `mbr_mst`.`mbrm_id`))) where (`mbr_mst`.`mbrm_sts` = 'a')) ;
 
 -- --------------------------------------------------------
 
@@ -3484,7 +3565,7 @@ CREATE  VIEW `vw_mbr_mst_bil`  AS   (select `mbr_mst`.`mbrm_id` AS `mbrm_id`,`mb
 --
 DROP TABLE IF EXISTS `vw_mbr_mst_dtl_bil`;
 
-CREATE  VIEW `vw_mbr_mst_dtl_bil`  AS   (select `mbr_mst`.`mbrm_id` AS `mbrm_id`,`mbr_mst`.`mbrm_name` AS `mbrm_name`,`mbr_mst`.`mbrm_emailid` AS `mbrm_emailid`,`mbr_mst`.`mbrm_pwd` AS `mbrm_pwd`,`mbr_mst`.`mbrm_usernm` AS `mbrm_usernm`,`mbr_mst`.`mbrm_phno` AS `mbrm_phno`,`mbr_mst`.`mbrm_area` AS `mbrm_area`,`mbr_mst`.`mbrm_nwsltr` AS `mbrm_nwsltr`,`mbr_mst`.`mbrm_vchr` AS `mbrm_vchr`,`mbr_mst`.`mbrm_ipadrs` AS `mbrm_ipadrs`,`mbr_mst`.`mbrm_sts` AS `mbrm_sts`,`mbr_mst`.`mbrm_crtdon` AS `mbrm_crtdon`,`mbr_mst`.`mbrm_crtdby` AS `mbrm_crtdby`,`mbr_mst`.`mbrm_mdfdon` AS `mbrm_mdfdon`,`mbr_mst`.`mbrm_mdfdby` AS `mbrm_mdfdby`,`mbr_dtl`.`mbrd_id` AS `mbrd_id`,`mbr_dtl`.`mbrd_emailid` AS `mbrd_emailid`,`mbr_dtl`.`mbrd_nckname` AS `mbrd_nckname`,`mbr_dtl`.`mbrd_fstname` AS `mbrd_fstname`,`mbr_dtl`.`mbrd_lstname` AS `mbrd_lstname`,`mbr_dtl`.`mbrd_badrs` AS `mbrd_badrs`,`mbr_dtl`.`mbrd_badrs2` AS `mbrd_badrs2`,`mbr_dtl`.`mbrd_gst` AS `mbrd_gst`,`mbr_dtl`.`mbrd_ctynm` AS `mbrd_ctynm`,`mbr_dtl`.`mbrd_cmpny` AS `mbrd_cmpny`,`mbr_dtl`.`mbrd_bmbrcntrym_id` AS `mbrd_bmbrcntrym_id`,`mbr_dtl`.`mbrd_bctym_id` AS `mbrd_bctym_id`,`mbr_dtl`.`mbrd_bmbrcntym_id` AS `mbrd_bmbrcntym_id`,`mbr_dtl`.`mbrd_bmbrctym_name` AS `mbrd_bmbrctym_name`,`mbr_dtl`.`mbrd_bmbrcntym_name` AS `mbrd_bmbrcntym_name`,`mbr_dtl`.`mbrd_bzip` AS `mbrd_bzip`,`mbr_dtl`.`mbrd_bdayphone` AS `mbrd_bdayphone`,`mbr_dtl`.`mbrd_dfltbil` AS `mbrd_dfltbil`,`mbr_dtl`.`mbrd_dfltshp` AS `mbrd_dfltshp`,`mbr_dtl`.`mbrd_sfstname` AS `mbrd_sfstname`,`mbr_dtl`.`mbrd_slstname` AS `mbrd_slstname`,`mbr_dtl`.`mbrd_sadrs` AS `mbrd_sadrs`,`mbr_dtl`.`mbrd_sadrs2` AS `mbrd_sadrs2`,`mbr_dtl`.`mbrd_smbrcntrym_id` AS `mbrd_smbrcntrym_id`,`mbr_dtl`.`mbrd_scty_name` AS `mbrd_scty_name`,`mbr_dtl`.`mbrd_smbrcntym_id` AS `mbrd_smbrcntym_id`,`mbr_dtl`.`mbrd_szip` AS `mbrd_szip`,`mbr_dtl`.`mbrd_sdayphone` AS `mbrd_sdayphone`,`mbr_dtl`.`mbrd_shpchrgm_id` AS `mbrd_shpchrgm_id`,`mbr_dtl`.`mbrd_mbrm_id` AS `mbrd_mbrm_id`,`mbr_dtl`.`mbrd_sts` AS `mbrd_sts`,`mbr_dtl`.`mbrd_crtdon` AS `mbrd_crtdon`,`mbr_dtl`.`mbrd_crtdby` AS `mbrd_crtdby`,`mbr_dtl`.`mbrd_mdfdon` AS `mbrd_mdfdon`,`mbr_dtl`.`mbrd_mdfdby` AS `mbrd_mdfdby`,`cty_mst`.`ctym_id` AS `ctym_id`,`cty_mst`.`ctym_name` AS `ctym_name`,`cty_mst`.`ctym_cntym_id` AS `ctym_cntym_id`,`cty_mst`.`ctym_cntrym_id` AS `ctym_cntrym_id`,`cty_mst`.`ctym_iso` AS `ctym_iso`,`cty_mst`.`ctym_sts` AS `ctym_sts`,`cty_mst`.`ctym_prty` AS `ctym_prty`,`cty_mst`.`ctym_crtdon` AS `ctym_crtdon`,`cty_mst`.`ctym_crtdby` AS `ctym_crtdby`,`cty_mst`.`ctym_mdfdon` AS `ctym_mdfdon`,`cty_mst`.`ctym_mdfdby` AS `ctym_mdfdby`,`cnty_mst`.`cntym_id` AS `cntym_id`,`cnty_mst`.`cntym_name` AS `cntym_name`,`cnty_mst`.`cntym_cntrym_id` AS `cntym_cntrym_id`,`cnty_mst`.`cntym_iso` AS `cntym_iso`,`cnty_mst`.`cntym_sts` AS `cntym_sts`,`cnty_mst`.`cntym_prty` AS `cntym_prty`,`cnty_mst`.`cntym_crtdon` AS `cntym_crtdon`,`cnty_mst`.`cntym_crtdby` AS `cntym_crtdby`,`cnty_mst`.`cntym_mdfdon` AS `cntym_mdfdon`,`cnty_mst`.`cntym_mdfdby` AS `cntym_mdfdby`,`cntry_mst`.`cntrym_id` AS `cntrym_id`,`cntry_mst`.`cntrym_name` AS `cntrym_name`,`cntry_mst`.`cntrym_isothr` AS `cntrym_isothr`,`cntry_mst`.`cntrym_isotwo` AS `cntrym_isotwo`,`cntry_mst`.`cntrym_cntntm_id` AS `cntrym_cntntm_id`,`cntry_mst`.`cntrym_isonum` AS `cntrym_isonum`,`cntry_mst`.`cntrym_sts` AS `cntrym_sts`,`cntry_mst`.`cntrym_prty` AS `cntrym_prty`,`cntry_mst`.`cntrym_crtdon` AS `cntrym_crtdon`,`cntry_mst`.`cntrym_crtdby` AS `cntrym_crtdby`,`cntry_mst`.`cntrym_mdfdon` AS `cntrym_mdfdon`,`cntry_mst`.`cntrym_mdfdby` AS `cntrym_mdfdby`,`cntnt_mst`.`cntntm_id` AS `cntntm_id`,`cntnt_mst`.`cntntm_name` AS `cntntm_name`,`cntnt_mst`.`cntntm_iso` AS `cntntm_iso`,`cntnt_mst`.`cntntm_prty` AS `cntntm_prty`,`cntnt_mst`.`cntntm_sts` AS `cntntm_sts`,`cntnt_mst`.`cntntm_crtdon` AS `cntntm_crtdon`,`cntnt_mst`.`cntntm_crtdby` AS `cntntm_crtdby`,`cntnt_mst`.`cntntm_mdfdon` AS `cntntm_mdfdon`,`cntnt_mst`.`cntntm_mdfdby` AS `cntntm_mdfdby` from (`mbr_mst` left join (`mbr_dtl` left join (`cty_mst` left join (`cnty_mst` left join (`cntry_mst` left join `cntnt_mst` on(`cntnt_mst`.`cntntm_id` = `cntry_mst`.`cntrym_cntntm_id`)) on(`cntry_mst`.`cntrym_id` = `cnty_mst`.`cntym_cntrym_id`)) on(`cnty_mst`.`cntym_id` = `cty_mst`.`ctym_cntym_id`)) on(`cty_mst`.`ctym_id` = `mbr_dtl`.`mbrd_bctym_id`)) on(`mbr_mst`.`mbrm_id` = `mbr_dtl`.`mbrd_mbrm_id`)))  ;
+CREATE  VIEW `vw_mbr_mst_dtl_bil`  AS  (select `mbr_mst`.`mbrm_id` AS `mbrm_id`,`mbr_mst`.`mbrm_name` AS `mbrm_name`,`mbr_mst`.`mbrm_emailid` AS `mbrm_emailid`,`mbr_mst`.`mbrm_pwd` AS `mbrm_pwd`,`mbr_mst`.`mbrm_usernm` AS `mbrm_usernm`,`mbr_mst`.`mbrm_phno` AS `mbrm_phno`,`mbr_mst`.`mbrm_area` AS `mbrm_area`,`mbr_mst`.`mbrm_nwsltr` AS `mbrm_nwsltr`,`mbr_mst`.`mbrm_vchr` AS `mbrm_vchr`,`mbr_mst`.`mbrm_ipadrs` AS `mbrm_ipadrs`,`mbr_mst`.`mbrm_sts` AS `mbrm_sts`,`mbr_mst`.`mbrm_crtdon` AS `mbrm_crtdon`,`mbr_mst`.`mbrm_crtdby` AS `mbrm_crtdby`,`mbr_mst`.`mbrm_mdfdon` AS `mbrm_mdfdon`,`mbr_mst`.`mbrm_mdfdby` AS `mbrm_mdfdby`,`mbr_dtl`.`mbrd_id` AS `mbrd_id`,`mbr_dtl`.`mbrd_emailid` AS `mbrd_emailid`,`mbr_dtl`.`mbrd_nckname` AS `mbrd_nckname`,`mbr_dtl`.`mbrd_fstname` AS `mbrd_fstname`,`mbr_dtl`.`mbrd_lstname` AS `mbrd_lstname`,`mbr_dtl`.`mbrd_badrs` AS `mbrd_badrs`,`mbr_dtl`.`mbrd_badrs2` AS `mbrd_badrs2`,`mbr_dtl`.`mbrd_gst` AS `mbrd_gst`,`mbr_dtl`.`mbrd_ctynm` AS `mbrd_ctynm`,`mbr_dtl`.`mbrd_cmpny` AS `mbrd_cmpny`,`mbr_dtl`.`mbrd_bmbrcntrym_id` AS `mbrd_bmbrcntrym_id`,`mbr_dtl`.`mbrd_bctym_id` AS `mbrd_bctym_id`,`mbr_dtl`.`mbrd_bmbrcntym_id` AS `mbrd_bmbrcntym_id`,`mbr_dtl`.`mbrd_bmbrctym_name` AS `mbrd_bmbrctym_name`,`mbr_dtl`.`mbrd_bmbrcntym_name` AS `mbrd_bmbrcntym_name`,`mbr_dtl`.`mbrd_bzip` AS `mbrd_bzip`,`mbr_dtl`.`mbrd_bdayphone` AS `mbrd_bdayphone`,`mbr_dtl`.`mbrd_dfltbil` AS `mbrd_dfltbil`,`mbr_dtl`.`mbrd_dfltshp` AS `mbrd_dfltshp`,`mbr_dtl`.`mbrd_sfstname` AS `mbrd_sfstname`,`mbr_dtl`.`mbrd_slstname` AS `mbrd_slstname`,`mbr_dtl`.`mbrd_sadrs` AS `mbrd_sadrs`,`mbr_dtl`.`mbrd_sadrs2` AS `mbrd_sadrs2`,`mbr_dtl`.`mbrd_smbrcntrym_id` AS `mbrd_smbrcntrym_id`,`mbr_dtl`.`mbrd_scty_name` AS `mbrd_scty_name`,`mbr_dtl`.`mbrd_smbrcntym_id` AS `mbrd_smbrcntym_id`,`mbr_dtl`.`mbrd_szip` AS `mbrd_szip`,`mbr_dtl`.`mbrd_sdayphone` AS `mbrd_sdayphone`,`mbr_dtl`.`mbrd_shpchrgm_id` AS `mbrd_shpchrgm_id`,`mbr_dtl`.`mbrd_mbrm_id` AS `mbrd_mbrm_id`,`mbr_dtl`.`mbrd_sts` AS `mbrd_sts`,`mbr_dtl`.`mbrd_crtdon` AS `mbrd_crtdon`,`mbr_dtl`.`mbrd_crtdby` AS `mbrd_crtdby`,`mbr_dtl`.`mbrd_mdfdon` AS `mbrd_mdfdon`,`mbr_dtl`.`mbrd_mdfdby` AS `mbrd_mdfdby`,`cty_mst`.`ctym_id` AS `ctym_id`,`cty_mst`.`ctym_name` AS `ctym_name`,`cty_mst`.`ctym_cntym_id` AS `ctym_cntym_id`,`cty_mst`.`ctym_cntrym_id` AS `ctym_cntrym_id`,`cty_mst`.`ctym_iso` AS `ctym_iso`,`cty_mst`.`ctym_sts` AS `ctym_sts`,`cty_mst`.`ctym_prty` AS `ctym_prty`,`cty_mst`.`ctym_crtdon` AS `ctym_crtdon`,`cty_mst`.`ctym_crtdby` AS `ctym_crtdby`,`cty_mst`.`ctym_mdfdon` AS `ctym_mdfdon`,`cty_mst`.`ctym_mdfdby` AS `ctym_mdfdby`,`cnty_mst`.`cntym_id` AS `cntym_id`,`cnty_mst`.`cntym_name` AS `cntym_name`,`cnty_mst`.`cntym_cntrym_id` AS `cntym_cntrym_id`,`cnty_mst`.`cntym_iso` AS `cntym_iso`,`cnty_mst`.`cntym_sts` AS `cntym_sts`,`cnty_mst`.`cntym_prty` AS `cntym_prty`,`cnty_mst`.`cntym_crtdon` AS `cntym_crtdon`,`cnty_mst`.`cntym_crtdby` AS `cntym_crtdby`,`cnty_mst`.`cntym_mdfdon` AS `cntym_mdfdon`,`cnty_mst`.`cntym_mdfdby` AS `cntym_mdfdby`,`cntry_mst`.`cntrym_id` AS `cntrym_id`,`cntry_mst`.`cntrym_name` AS `cntrym_name`,`cntry_mst`.`cntrym_isothr` AS `cntrym_isothr`,`cntry_mst`.`cntrym_isotwo` AS `cntrym_isotwo`,`cntry_mst`.`cntrym_cntntm_id` AS `cntrym_cntntm_id`,`cntry_mst`.`cntrym_isonum` AS `cntrym_isonum`,`cntry_mst`.`cntrym_sts` AS `cntrym_sts`,`cntry_mst`.`cntrym_prty` AS `cntrym_prty`,`cntry_mst`.`cntrym_crtdon` AS `cntrym_crtdon`,`cntry_mst`.`cntrym_crtdby` AS `cntrym_crtdby`,`cntry_mst`.`cntrym_mdfdon` AS `cntrym_mdfdon`,`cntry_mst`.`cntrym_mdfdby` AS `cntrym_mdfdby`,`cntnt_mst`.`cntntm_id` AS `cntntm_id`,`cntnt_mst`.`cntntm_name` AS `cntntm_name`,`cntnt_mst`.`cntntm_iso` AS `cntntm_iso`,`cntnt_mst`.`cntntm_prty` AS `cntntm_prty`,`cntnt_mst`.`cntntm_sts` AS `cntntm_sts`,`cntnt_mst`.`cntntm_crtdon` AS `cntntm_crtdon`,`cntnt_mst`.`cntntm_crtdby` AS `cntntm_crtdby`,`cntnt_mst`.`cntntm_mdfdon` AS `cntntm_mdfdon`,`cntnt_mst`.`cntntm_mdfdby` AS `cntntm_mdfdby` from (`mbr_mst` left join (`mbr_dtl` left join (`cty_mst` left join (`cnty_mst` left join (`cntry_mst` left join `cntnt_mst` on((`cntnt_mst`.`cntntm_id` = `cntry_mst`.`cntrym_cntntm_id`))) on((`cntry_mst`.`cntrym_id` = `cnty_mst`.`cntym_cntrym_id`))) on((`cnty_mst`.`cntym_id` = `cty_mst`.`ctym_cntym_id`))) on((`cty_mst`.`ctym_id` = `mbr_dtl`.`mbrd_bctym_id`))) on((`mbr_mst`.`mbrm_id` = `mbr_dtl`.`mbrd_mbrm_id`)))) ;
 
 --
 -- Indexes for dumped tables
@@ -3626,6 +3707,12 @@ ALTER TABLE `prdsle_inventory`
   ADD PRIMARY KEY (`prdsle_id`);
 
 --
+-- Indexes for table `prodfetr_mst`
+--
+ALTER TABLE `prodfetr_mst`
+  ADD PRIMARY KEY (`prodfetrm_id`);
+
+--
 -- Indexes for table `prodimg_dtl`
 --
 ALTER TABLE `prodimg_dtl`
@@ -3637,6 +3724,12 @@ ALTER TABLE `prodimg_dtl`
 --
 ALTER TABLE `product_inventory`
   ADD PRIMARY KEY (`prdinvt_id`);
+
+--
+-- Indexes for table `prod_features_dtl`
+--
+ALTER TABLE `prod_features_dtl`
+  ADD PRIMARY KEY (`prods_fetrs_id`);
 
 --
 -- Indexes for table `prod_mst`
@@ -3794,13 +3887,13 @@ ALTER TABLE `crtord_mst`
 -- AUTO_INCREMENT for table `cty_mst`
 --
 ALTER TABLE `cty_mst`
-  MODIFY `ctym_id` int(15) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `ctym_id` int(15) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT for table `lgntrck_mst`
 --
 ALTER TABLE `lgntrck_mst`
-  MODIFY `lgntrckm_id` int(15) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=450;
+  MODIFY `lgntrckm_id` int(15) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=452;
 
 --
 -- AUTO_INCREMENT for table `lgn_dtl`
@@ -3824,13 +3917,13 @@ ALTER TABLE `mbrinf_mst`
 -- AUTO_INCREMENT for table `mbr_dtl`
 --
 ALTER TABLE `mbr_dtl`
-  MODIFY `mbrd_id` int(15) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
+  MODIFY `mbrd_id` int(15) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
 
 --
 -- AUTO_INCREMENT for table `mbr_mst`
 --
 ALTER TABLE `mbr_mst`
-  MODIFY `mbrm_id` int(15) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `mbrm_id` int(15) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `ordsts_dtl`
@@ -3863,10 +3956,16 @@ ALTER TABLE `prdsle_inventory`
   MODIFY `prdsle_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
+-- AUTO_INCREMENT for table `prodfetr_mst`
+--
+ALTER TABLE `prodfetr_mst`
+  MODIFY `prodfetrm_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+
+--
 -- AUTO_INCREMENT for table `prodimg_dtl`
 --
 ALTER TABLE `prodimg_dtl`
-  MODIFY `prodimgd_id` int(15) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+  MODIFY `prodimgd_id` int(15) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
 -- AUTO_INCREMENT for table `product_inventory`
@@ -3875,22 +3974,28 @@ ALTER TABLE `product_inventory`
   MODIFY `prdinvt_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
 
 --
+-- AUTO_INCREMENT for table `prod_features_dtl`
+--
+ALTER TABLE `prod_features_dtl`
+  MODIFY `prods_fetrs_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
+
+--
 -- AUTO_INCREMENT for table `prod_mst`
 --
 ALTER TABLE `prod_mst`
-  MODIFY `prodm_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=36;
+  MODIFY `prodm_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=38;
 
 --
 -- AUTO_INCREMENT for table `prod_store_dtl`
 --
 ALTER TABLE `prod_store_dtl`
-  MODIFY `prods_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=75;
+  MODIFY `prods_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=88;
 
 --
 -- AUTO_INCREMENT for table `prod_veh_dtl`
 --
 ALTER TABLE `prod_veh_dtl`
-  MODIFY `prodd_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=83;
+  MODIFY `prodd_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=96;
 
 --
 -- AUTO_INCREMENT for table `store_loc_mst`
