@@ -63,7 +63,7 @@ if (isset($_REQUEST['prdprice']) && (trim($_REQUEST['prdprice']) != "")) {
 	$secvalarys = explode('-', $prdprice);
 	$minprc = $secvalarys[0];
 	$maxprc = $secvalarys[1];
-	$sqlprd_mst1 .= "and  prodm_cstprc between $minprc and $maxprc ";
+ $sqlprd_mst1 .= "and  prodm_cstprc between $minprc and $maxprc ";
 }
 if (isset($_REQUEST['prdsort']) && (trim($_REQUEST['prdsort']) != "")) {
 	$prdsortflt = trim($_REQUEST['prdsort']);

@@ -177,7 +177,7 @@
                         <span id="errorsDiv_txtsgnemail"></span> </div>
                       <div class="col-12 form-group">
                         <label for="txtsgnpwd">Password:</label>
-                        <input type="text" id="txtsgnpwd" name="txtsgnpwd"  class="form-control">
+                        <input type="Password" id="txtsgnpwd" name="txtsgnpwd"  class="form-control">
                         <span id="errorsDiv_txtsgnpwd"></span> </div>
                       <div class="col-12 form-group d-flex justify-content-between"> 
                         <!--          <button type="submit" class="btn btn-primary m-0" id="btnsbmt" name="btnsbmt" value="login">Login</button>-->

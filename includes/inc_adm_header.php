@@ -163,6 +163,12 @@ error_reporting(0);
                     </a>
                   </li>
                   <li class="nav-item">
+                    <a href="view_all_ordsts.php" class="nav-link <?php if($pagenm == "Order Status"){echo "active";} ?>">
+                      <i class="far fa-dot-circle nav-icon"></i>
+                      <p>Order Status</p>
+                    </a>
+                  </li>
+                  <li class="nav-item">
                     <a href="view_all_prod_features.php" class="nav-link <?php if($pagenm == "Product features"){echo "active";} ?>">
                       <i class="far fa-dot-circle nav-icon"></i>
                       <p>Product Features</p>
@@ -196,12 +202,19 @@ error_reporting(0);
                       <p>Purchase</p>
                     </a>
                   </li>
+                 
                 </ul>
                 <ul class="nav nav-treeview <?php if($pagemncat == "Stock" ){echo "menu-open";} ?>">
                   <li class="nav-item">
                     <a href="stock_transfer.php" class="nav-link <?php if($pagenm == "Transfer"){echo "active";} ?>">
                       <i class="far fa-dot-circle nav-icon"></i>
                       <p>Transfer</p>
+                    </a>
+                  </li>
+                  <li class="nav-item">
+                    <a href="view_all_orders.php" class="nav-link <?php if($pagenm == "Orders"){echo "active";} ?>">
+                      <i class="far fa-dot-circle nav-icon"></i>
+                      <p>Orders</p>
                     </a>
                   </li>
                 </ul>
