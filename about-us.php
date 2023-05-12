@@ -34,7 +34,7 @@ include('header.php');
 
     <section class="content-inner-2 py-5">
         <div class="container">
-            <h4 class="text-center py-5">Will be updated soon..</h4>
+            <h4 class="text-center py-5">Will be updated soon...</h4>
             <!-- <div class="row">
                 <div class="col-lg-5 me-auto">
                     <div class="section-head">
