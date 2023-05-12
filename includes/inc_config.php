@@ -28,7 +28,7 @@ $site_logo2 = 'images/Ashokatyre-logo.png';
 $site_mail_logo = 'images/Ashokatyre-logo.png';
 $adm_logo = '../images/Ashokatyre-logo.png';
 
-$rtpth = "/projects/a/ashokatyres_1/";
+$rtpth = "/projects/a/ashokatyres/";
 /**************include files*****************/
 /**************include files*****************/
 $inc_nocache = "../includes/inc_nocache.php";

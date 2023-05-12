@@ -1,7 +1,7 @@
 Options +FollowSymLinks
 
 RewriteEngine On
-RewriteBase /projects/a/ashokatyres_1/
+RewriteBase /projects/a/ashokatyres/
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
 
