@@ -17,7 +17,7 @@ include('header.php');
     <div class="dlab-bnr-inr style-1 overlay-black-middle" style="background-image: url(images/banner/bnr1.jpg);">
         <div class="container">
             <div class="dlab-bnr-inr-entry">
-                <h1 class="text-white">About Us </h1>
+                <h1 class="text-white"> About Us </h1>
                 <div class="d-flex justify-content-center align-items-center">
                         <nav aria-label="breadcrumb">
                             <ol class="breadcrumb">
