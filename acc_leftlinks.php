@@ -15,4 +15,7 @@
                              <a class="nav-link mb-3  " 
                             href="<?php echo $rtpth ?>wishlist" > <i class="fas fa-heart mr-2"></i> <span class="font-weight-bold small">Wish List</span></a>
                                 <a class="nav-link mb-3  " 
-                            href="<?php echo $rtpth ?>change-password" > <i class="fas fa-unlock-alt mr-2"></i> <span class="font-weight-bold small">Change Password</span></a> </div>
+                            href="<?php echo $rtpth ?>change-password" > <i class="fas fa-unlock-alt mr-2"></i> <span class="font-weight-bold small">Change Password</span></a>
+                            <a class="nav-link mb-3  " 
+                            href="<?php echo $rtpth ?>logout" > <i class="fas fa-unlock-alt mr-2"></i> <span class="font-weight-bold small">Logout</span></a>
+                          </div>
