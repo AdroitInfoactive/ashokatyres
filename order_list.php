@@ -21,7 +21,18 @@ $current_page = "oder-list";
 $body_class = "oder-list";
 include('header.php');
 ?>
-
+ <?php 
+    $mbmr_id = $_SESSION['sesmbrid'];
+    $order_qry = "SELECT crtordm_id, crtordm_code, crtordm_sesid, crtordm_fstname, crtordm_lstname, crtordm_badrs, crtordm_badrs2, crtordm_bcmpny, crtordm_bmbrctym_id, crtordm_bmbrcntym_id, crtordm_bzip, crtordm_bmbrcntrym_id, crtordm_bdayphone, crtordm_emailid, crtordm_sfstname, crtordm_slstname, crtordm_sadrs, crtordm_sadrs2, crtordm_scmpny, crtordm_smbrctym_id, crtordm_smbrcntym_id, crtordm_szip, crtordm_smbrcntrym_id, crtordm_sdayphone, crtordm_semailid, crtordm_qty, crtordm_shp_typ, crtordm_amt, crtordm_hsncde, crtordm_igst, crtordm_sgst, crtordm_cgst, crtordm_disamt, crtordm_wt, crtordm_pmode, crtordm_prcssts, crtordm_cartsts, crtordm_paysts, crtordm_rmks, crtordm_pgdtl, crtordm_shpchrgm_id, crtordm_shpchrgamt, crtordm_codamt, crtordm_cpnm_id, crtordm_cpnm_typ, crtordm_cpnm_val, crtordm_mbrm_id, crtordm_ordtyp,crtordm_crtdon,ordstsd_ordstsm_id FROM crtord_mst
+    inner join ordsts_dtl on ordstsd_crtordm_id = crtordm_id
+    WHERE crtordm_mbrm_id = $mbmr_id order by crtordm_id desc";
+    $order_mst = mysqli_query($conn,$order_qry);
+    $num_rows = mysqli_num_rows($order_mst);
+    while($order_dtl = mysqli_fetch_assoc($order_mst))
+    {
+        $data_array[] = $order_dtl;
+    }
+    ?>
 
 <div class="page-content bg-white"> 
   <!-- Banner  -->
@@ -60,40 +71,61 @@ include('header.php');
                 <table class="table table-bordered">
                   <thead>
                     <tr>
-                      <th class="">Order Id</th>
-                      <th class="">Total Amount</th>
-                      <th class="">Payment Mode</th>
-                      <th class="">No. Items</th>
-                      <th class="">Order Date</th>
-                      <th class="">Payment status</th>
-                      <th class="">Order status</th>
-                      <th class="">Action</th>
+                    <th class="ps-product__thumbnail">Order Id</th>
+                  <th class="ps-product__thumbnail">Order Date</th>
+                  <th class="ps-product__thumbnail">Payment Status</th>
+                  <th class="ps-product__thumbnail">No.Items</th>
+                  <th class="ps-product__thumbnail">Total Amount</th>
+                  <th class="ps-product__thumbnail">Order Status</th>
+                  <th class="ps-product__thumbnail">Action</th>
                     </tr>
                   </thead>
                   <tbody>
-                    <tr>
-                      <th scope="row">1</th>
-                      <td>400</td>
-                      <td>Online</td>
-                      <td>2</td>
-                      <td>02-11-2021 05:09:06</td>
-                      <td>Yes</td>
-                      <td align="center"><a
-                                                    class="btn btn-primary btn-sm text-white">Delivered</a></td>
-                      <td align="center"><a class="btn btn-primary btn-sm" href="#">View</a></td>
-                    </tr>
-                    <tr>
-                      <th scope="row">1</th>
-                      <td>400</td>
-                      <td>Online</td>
-                      <td>2</td>
-                      <td>02-11-2021 05:09:06</td>
-                      <td>Yes</td>
-                      <td align="center"><a
-                                                    class="btn btn-primary btn-sm text-white">Delivered</a></td>
-                      <td align="center"><a class="btn btn-primary btn-sm" href="#">View</a></td>
-                    </tr>
-                  </tbody>
+                <?php
+                foreach ($data_array as $ord_dtl)
+                {
+                  $id = $ord_dtl['crtordm_id'];
+                  $code = $ord_dtl['crtordm_code'];
+                  $date = $ord_dtl['crtordm_crtdon'];
+                  $paysts = $ord_dtl['crtordm_paysts'];
+                  if($paysts == 'n')
+                  {
+                    $psts = "No";
+                  }
+                  if($paysts == 'y')
+                  {
+                    $psts = "Yes";
+                  }
+                  $ordqnty = $ord_dtl['crtordm_qty'];
+                  $ordamt = $ord_dtl['crtordm_amt'];
+                  $ordsts = $ord_dtl['ordstsd_ordstsm_id'];
+                  $ordsts_qry = "SELECT ordstsm_id, ordstsm_name, ordstsm_desc, ordstsm_sts, ordstsm_prty FROM ordsts_mst WHERE ordstsm_id = $ordsts";
+                  $ordersts_mst = mysqli_query($conn,$ordsts_qry);
+                  $ordersts_dtl = mysqli_fetch_assoc($ordersts_mst);
+                  $ordstsid = $ordersts_dtl['ordstsm_id'];
+                  $type = $ordersts_dtl['ordstsm_name'];
+                  if ($ordstsid == '2')
+                  {
+                    $sts_cls = "ps-product__status-cancel";
+                  }
+                  else
+                  {
+                    $sts_cls = "ps-product__status";
+                  }
+                  ?>
+                  <tr class="mb-2">
+                    <td class="ps-product__name"><?php echo $code; ?></a></td>
+                    <td class="ps-product__name"><?php echo $date; ?></a></td>
+                    <td class="ps-product__name"><?php echo $psts; ?></a></td>
+                    <td class="ps-product__name"><?php echo $ordqnty; ?></a></td>
+                    <td class="ps-product__name"><?php echo $ordamt; ?></a></td>
+                    <td class="<?php echo $sts_cls; ?>"><span><?php echo $type; ?></span></td>
+                    <td><a class="ps-btn ps-btn--warning p-2" href="<?php echo $rtpth; ?>order-details/<?php echo $id; ?>">View</a></td>
+                  </tr>
+                  <?php
+                }
+                ?>
+              </tbody>
                 </table>
               </div>
             </div>
