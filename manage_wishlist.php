@@ -13,23 +13,17 @@ error_reporting(0);
 		
 	$wshprdid=$_REQUEST['prodid'];
 	$wshmemid=$_REQUEST['memid'];
+	$wshmemid1=md5($wshmemid);
 	$email= $_SESSION['sesmbremail'];
 	 $vehbrndid=$_REQUEST['vehcbrndid'] ;
 	
 $dt=date('Y-m-d');
 			
-			 $sqryusrwshlst_dtl="select 
-		 						* 
-		 					  from 
-		 						usrwshlst_dtl 
-							  where
-								usrwshlstd_prodm_id='$wshprdid' and
-								
-								usrwshlstd_mbrm_id='$wshmemid' and usrwshlstd_vehbrnd_id='$vehbrndid'";
+		echo	 $sqryusrwshlst_dtl="SELECT	*  from	usrwshlst_dtl  where	usrwshlstd_prodm_id='$wshprdid' and	usrwshlstd_mbrm_id='$wshmemid' and usrwshlstd_vehbrnd_id='$vehbrndid'";
 		$srsusrwshlst_dtl=mysqli_query($conn,$sqryusrwshlst_dtl);
 		$norusrwshlst_dtl=mysqli_num_rows($srsusrwshlst_dtl);
 		if($norusrwshlst_dtl == 0){ 
-			 $iqryusrwshlst_dtl="		INSERT into usrwshlst_dtl ( usrwshlstd_sesid,usrwshlstd_prodm_id,usrwshlstd_untm_id, usrwshlstd_vehbrnd_id,usrwshlstd_qty,usrwshlstd_mbrm_id,usrwshlstd_sts,usrwshlstd_crtdon,usrwshlstd_crtdby) values ('$sessid', '$wshprdid', '1', '$vehbrndid', '1', '$membrid', 'a', '$dt', '$email')";
+			 $iqryusrwshlst_dtl="		INSERT into usrwshlst_dtl ( usrwshlstd_sesid,usrwshlstd_prodm_id,usrwshlstd_untm_id, usrwshlstd_vehbrnd_id,usrwshlstd_qty,usrwshlstd_mbrm_id,usrwshlstd_sts,usrwshlstd_crtdon,usrwshlstd_crtdby) values ('$wshmemid1', '$wshprdid', '1', '$vehbrndid', '1', '$membrid', 'a', '$dt', '$email')";
 
 		
 			$irsusrwshlst_dtl	=mysqli_query($conn,$iqryusrwshlst_dtl);	

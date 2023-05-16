@@ -755,7 +755,7 @@ include('header.php');
 				if (xmlHttp.readyState == 4 || xmlHttp.readyState == "complete") {
 					var temp = xmlHttp.responseText;
 					temp = temp.trim();
-				//	alert(temp);
+					alert(temp);
 				
 					if (temp == 'wy') {
 						prdadd();
