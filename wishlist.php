@@ -58,7 +58,7 @@ include('header.php');
               
               <div class="row lightgallery wis-items">
               <?php
-			  $sqlwshlst="select usrwshlstd_id, usrwshlstd_sesid, usrwshlstd_prodm_id, usrwshlstd_untm_id, usrwshlstd_vehbrnd_id, usrwshlstd_qty, usrwshlstd_mbrm_id, usrwshlstd_sts from usrwshlst_dtl where usrwshlstd_mbrm_id='$membrid' order by usrwshlstd_id";
+			 $sqlwshlst="SELECT usrwshlstd_id, usrwshlstd_sesid, usrwshlstd_prodm_id, usrwshlstd_untm_id, usrwshlstd_qty, usrwshlstd_mbrm_id, usrwshlstd_sts from usrwshlst_dtl where usrwshlstd_mbrm_id='$membrid' order by usrwshlstd_id";// remove usrwshlstd_vehbrnd_id this column present
 			  $srswshlst  = mysqli_query($conn,$sqlwshlst);
 
 		$cntwshlst  = mysqli_num_rows($srswshlst);
