@@ -99,7 +99,7 @@ if($srowscrtmbr_dtl['mbrd_dfltshp'] == 'y')
 }	
 $crtwt		= "";
 $totqty		= $_SESSION['totqty'];	
-$totamt     = $_POST['hdngnetcartprc'];
+$totamt     = $_POST['ntTogPrc'];
 $shipprcAry     = explode("-",$_POST['hdnshpngchrgesid']);
 $shpchrgtyp        = $_POST['hdnmnshpprc'];
 //echo  "Shipping".$shpchrgtyp;exit;
