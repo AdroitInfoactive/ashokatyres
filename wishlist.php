@@ -58,7 +58,7 @@ include('header.php');
               
               <div class="row lightgallery wis-items">
               <?php
-			 $sqlwshlst="SELECT usrwshlstd_id, usrwshlstd_sesid, usrwshlstd_prodm_id, usrwshlstd_untm_id, usrwshlstd_qty, usrwshlstd_mbrm_id, usrwshlstd_sts from usrwshlst_dtl where usrwshlstd_mbrm_id='$membrid' order by usrwshlstd_id";// remove usrwshlstd_vehbrnd_id this column present
+			 $sqlwshlst="SELECT usrwshlstd_id, usrwshlstd_sesid, usrwshlstd_prodm_id, usrwshlstd_untm_id,usrwshlstd_vehbrnd_id, usrwshlstd_qty, usrwshlstd_mbrm_id, usrwshlstd_sts from usrwshlst_dtl where usrwshlstd_mbrm_id='$membrid' order by usrwshlstd_id";// add usrwshlstd_vehbrnd_id this column in database
 			  $srswshlst  = mysqli_query($conn,$sqlwshlst);
 
 		$cntwshlst  = mysqli_num_rows($srswshlst);
@@ -68,7 +68,7 @@ include('header.php');
 			  $wshlstprodid  =$srowwshlst['usrwshlstd_prodm_id'];
 				$wshlstvechbrndid =$srowwshlst['usrwshlstd_vehbrnd_id'];
 				$wshlstmembrid =$srowwshlst['usrwshlstd_mbrm_id'];
-			    echo 	 $sqlprd_mst1="select  prodm_id, prodm_sku, prodm_code, prodm_name, prodm_size, prodm_ptrn, prodm_cstprc,                       prodm_sleprc,  prodm_ofrprc, prodm_dsc, prodm_sdsc, prodm_st, prodm_sky, prodm_sotl,                       prodm_sodsc, prodm_sttle, prodm_stdsc, prodm_sts, prodm_rnk,vehtypm_id, vehtypm_name,
+			     	 $sqlprd_mst1="select  prodm_id, prodm_sku, prodm_code, prodm_name, prodm_size, prodm_ptrn, prodm_cstprc,                       prodm_sleprc,  prodm_ofrprc, prodm_dsc, prodm_sdsc, prodm_st, prodm_sky, prodm_sotl,                       prodm_sodsc, prodm_sttle, prodm_stdsc, prodm_sts, prodm_rnk,vehtypm_id, vehtypm_name,
 		              vehtypm_desc, vehtypm_seotitle, vehtypm_seodesc, vehtypm_seokywrd, vehtypm_seohonetitle,
 		              vehtypm_seohonedesc, vehtypm_seohtwotitle, vehtypm_seohtwodesc, vehtypm_sts,
 					  vehtypm_prty,vehbrndm_id, vehbrndm_name, vehbrndm_desc, vehbrndm_vehtypm_id, vehbrndm_brndimg,                       vehbrndm_sts, vehbrndm_prty, vehbrndm_seotitle, vehbrndm_seodesc, vehbrndm_seokywrd,                       vehbrndm_seohonetitle, vehbrndm_seohonedesc, vehbrndm_seohtwotitle, vehbrndm_seohtwodesc,

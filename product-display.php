@@ -732,6 +732,7 @@ include('header.php');
 					xmlHttp.open("GET", url, true);
 					xmlHttp.send(null);
 				} else if (crtactn == 'w') {
+					debugger;
 					prdid = pcode;
 					var memid = document.getElementById('mbrid').value;
 					if (memid == "") {
@@ -754,6 +755,8 @@ include('header.php');
 				if (xmlHttp.readyState == 4 || xmlHttp.readyState == "complete") {
 					var temp = xmlHttp.responseText;
 					temp = temp.trim();
+				//	alert(temp);
+				
 					if (temp == 'wy') {
 						prdadd();
 					} else {

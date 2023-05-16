@@ -18,7 +18,7 @@ error_reporting(0);
 	
 $dt=date('Y-m-d');
 			
-				 $sqryusrwshlst_dtl="select 
+			 $sqryusrwshlst_dtl="select 
 		 						* 
 		 					  from 
 		 						usrwshlst_dtl 
@@ -29,7 +29,7 @@ $dt=date('Y-m-d');
 		$srsusrwshlst_dtl=mysqli_query($conn,$sqryusrwshlst_dtl);
 		$norusrwshlst_dtl=mysqli_num_rows($srsusrwshlst_dtl);
 		if($norusrwshlst_dtl == 0){ 
-			 $iqryusrwshlst_dtl="		insert into usrwshlst_dtl ( usrwshlstd_sesid,usrwshlstd_prodm_id,usrwshlstd_untm_id, usrwshlstd_vehbrnd_id,usrwshlstd_qty,usrwshlstd_mbrm_id,usrwshlstd_sts,usrwshlstd_crtdon,usrwshlstd_crtdby) values ('$sessid', '$wshprdid', '1', '$vehbrndid', '1', '$membrid', 'a', '$dt', '$email')";
+			 $iqryusrwshlst_dtl="		INSERT into usrwshlst_dtl ( usrwshlstd_sesid,usrwshlstd_prodm_id,usrwshlstd_untm_id, usrwshlstd_vehbrnd_id,usrwshlstd_qty,usrwshlstd_mbrm_id,usrwshlstd_sts,usrwshlstd_crtdon,usrwshlstd_crtdby) values ('$sessid', '$wshprdid', '1', '$vehbrndid', '1', '$membrid', 'a', '$dt', '$email')";
 
 		
 			$irsusrwshlst_dtl	=mysqli_query($conn,$iqryusrwshlst_dtl);	
