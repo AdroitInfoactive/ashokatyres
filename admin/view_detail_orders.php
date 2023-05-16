@@ -41,7 +41,7 @@ if (isset($_REQUEST['vw']) && (trim($_REQUEST['vw']) != "") && isset($_REQUEST['
 	$srchval = glb_func_chkvl($_REQUEST['val']);
 	$chk = glb_func_chkvl($_REQUEST['chk']);
 }
-$sqryord_mst = "SELECT crtordm_id, crtordm_code, crtordm_fstname, crtordm_lstname, crtordm_badrs, crtordm_badrs2, blcty.ctym_name as bctynm,blcnty.cntym_name as bcntynm, crtordm_bzip,blcntry.cntrym_name as bcntrynm, blcntry.cntrym_id as bcntryid, crtordm_bdayphone, crtordm_emailid,crtordm_sfstname, crtordm_slstname, crtordm_sadrs, crtordm_sadrs2, shpcty.ctym_name as sctynm, shpcnty.cntym_name as scntynm, shpcnty.cntym_id as scntyid, crtordm_szip, shpcntry.cntrym_name as scntrynm, crtordm_sdayphone, crtordm_semailid, crtordm_qty, crtordm_amt, crtordm_wt, crtordm_pmode, crtordm_prcssts, crtordm_cartsts, crtordm_paysts, crtordm_rmks, crtordm_shpchrgm_id, crtordm_shpchrgamt, crtordm_cpnm_val, crtordm_mbrm_id, crtordm_ordtyp, date_format(crtordm_crtdon,'%d-%m-%Y %h:%i:%s') as crtordm_crtdon, blcty.ctym_sts as bctysts, shpcty.ctym_sts as sctysts, blcnty.cntym_sts as bcntysts, shpcnty.cntym_sts as scntysts, blcntnt.cntntm_name as bcntntm_name, shpcntnt.cntntm_name as scntntm_name, crtordm_cpnm_id, crtordm_pmode, crtordm_pmode, ordstsd_ordstsm_id
+echo $sqryord_mst = "SELECT crtordm_id, crtordm_code, crtordm_fstname, crtordm_lstname, crtordm_badrs, crtordm_badrs2, blcty.ctym_name as bctynm,blcnty.cntym_name as bcntynm, crtordm_bzip,blcntry.cntrym_name as bcntrynm, blcntry.cntrym_id as bcntryid, crtordm_bdayphone, crtordm_emailid,crtordm_sfstname, crtordm_slstname, crtordm_sadrs, crtordm_sadrs2, shpcty.ctym_name as sctynm, shpcnty.cntym_name as scntynm, shpcnty.cntym_id as scntyid, crtordm_szip, shpcntry.cntrym_name as scntrynm, crtordm_sdayphone, crtordm_semailid, crtordm_qty, crtordm_amt, crtordm_wt, crtordm_pmode, crtordm_prcssts, crtordm_cartsts, crtordm_paysts, crtordm_rmks, crtordm_shpchrgm_id, crtordm_shpchrgamt, crtordm_cpnm_val, crtordm_mbrm_id, crtordm_ordtyp, date_format(crtordm_crtdon,'%d-%m-%Y %h:%i:%s') as crtordm_crtdon, blcty.ctym_sts as bctysts, shpcty.ctym_sts as sctysts, blcnty.cntym_sts as bcntysts, shpcnty.cntym_sts as scntysts, blcntnt.cntntm_name as bcntntm_name, shpcntnt.cntntm_name as scntntm_name, crtordm_cpnm_id, crtordm_pmode, crtordm_pmode, ordstsd_ordstsm_id
 	from crtord_mst crtord
 	left join cntry_mst blcntry on blcntry.cntrym_id=crtord.crtordm_bmbrcntrym_id
 	left join cnty_mst blcnty on blcnty.cntym_id = crtord.crtordm_bmbrcntym_id
@@ -300,12 +300,12 @@ include_once('../includes/inc_fnct_ajax_validation.php');
 											<?php
 											$pototqty = $rowsord_mst['crtordm_qty'];
 											$pototprc = $rowsord_mst['crtordm_amt'];
-											$sqrycrtord_dtl = "SELECT  crtordd_id, crtordd_qty,crtordd_prc,prodm_id,prodm_name, crtordd_prc as unprcval,prodszvrtnm_vrtn_nms,prodszvrtnm_id,prodprcm_id,prodprcm_sku,prodprcm_sleprc,prodprcm_ofrprc ,prodm_name,crtordm_shpchrgm_id,crtordd_igst,crtordd_sgst,crtordd_cgst
-											from crtord_dtl 
+										echo 	$sqrycrtord_dtl = "SELECT  crtordd_id, crtordd_qty,crtordd_prc,prodm_id,prodm_name, crtordd_prc as unprcval,prodm_name,crtordm_shpchrgm_id,crtordd_igst,crtordd_sgst,crtordd_cgst from crtord_dtl 
 											inner join crtord_mst on crtordd_crtordm_id = crtordm_id
 											left join prod_mst on prod_mst.prodm_id = crtord_dtl.crtordd_prodm_id 
-											inner join prodsz_vrtns_mst on prodszvrtnm_id = crtordd_sizem_id 
-											inner join prodprc_mst on crtordd_prodprcd_id = prodprcm_id where crtordd_crtordm_id=$id group by crtordd_id";
+										where crtordd_crtordm_id=$id group by crtordd_id";
+									/* 	prodszvrtnm_vrtn_nms,prodszvrtnm_id,prodprcm_id,prodprcm_sku,prodprcm_sleprc,prodprcm_ofrprc , */
+											/*	inner join prodprc_mst on crtordd_prodprcd_id = prodprcm_id  	inner join prodsz_vrtns_mst on prodszvrtnm_id = crtordd_sizem_id  */
 											$sqrycrtord_dtl;
 											$srscrtord_dtl = mysqli_query($conn, $sqrycrtord_dtl);
 											$cnttorec = mysqli_num_rows($srscrtord_dtl);

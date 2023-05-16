@@ -201,32 +201,27 @@ if($irscrtordmst == true)
 			$cart_szid	  = trim($arr_cartcodeval[2],' '); // Stores the product colour
 			$untqty 		  = trim($qtyarr[$cartcodeid],' '); // Stores the unit quantities
 			$cart_ordsts	  = "a";
-			$sqryprod_dtl1 = "SELECT  
-			prodm_id,prodm_hsncde,prodm_sku,prodprcm_sleprc,prodprcm_ofrprc,prodscatm_igst
-			from 
-			prod_mst 
-			inner join prodprc_mst on prodprcm_prodm_id = prodm_id 	
-			inner join prodscat_mst on prodm_prodscatid = prodscatm_id									 
-			where 
-			prodm_id='$cart_prodid' and
-			prodprcm_id ='$cart_prodprc'";
+		$sqryprod_dtl1 = "SELECT 	prodm_id,prodm_sku,prodm_code,prodm_sleprc,prodm_ofrprc
+			from 	prod_mst 	where 	prodm_id='$cart_prodid' ";
+		/* and prodprcm_id ='$cart_prodprc'	inner join prodprc_mst on prodprcm_prodm_id = prodm_id 	
+			inner join prodscat_mst on prodm_prodscatid = prodscatm_id */
 			$srsprod_dtl1  = mysqli_query($conn,$sqryprod_dtl1);				
 			$srowprod_dtl1 = mysqli_fetch_assoc($srsprod_dtl1);
 			$qty_val 		= $srowprod_dtl1['untm_qty'];
-			$igst 		= $srowprod_dtl1['prodscatm_igst'];
+		/* 	$igst 		= $srowprod_dtl1['prodscatm_igst'];
 			$cgst 		= $srowprod_dtl1['prodscatm_cgst'];
-			$sgst		= $srowprod_dtl1['prodscatm_sgst'];
+			$sgst		= $srowprod_dtl1['prodscatm_sgst']; */
 			
-			if($srowprod_dtl1['prodprcm_ofrprc'] > 0)
+			if($srowprod_dtl1['prodm_ofrprc'] > 0)
 			{					
-				$produntprc = $srowprod_dtl1['prodprcm_ofrprc'];
+				$produntprc = $srowprod_dtl1['prodm_ofrprc'];
 			}
 			else
 			{
-				$produntprc = $srowprod_dtl1['prodprcm_sleprc'];
+				$produntprc = $srowprod_dtl1['prodm_sleprc'];
 			}
 		
-
+/* 
 			$sqryprodsz_dtl = "select 
 			prodprcm_id,prodprcm_vrtn_id
 			from 
@@ -239,8 +234,8 @@ if($irscrtordmst == true)
 			
 			//echo $sqryprodsz_dtl;
 			$srsprodsz_dtl  = mysqli_query($conn,$sqryprodsz_dtl);				
-			$srowprodsz_dtl  = mysqli_fetch_assoc($srsprodsz_dtl);
-			$sz_id 		= $srowprodsz_dtl['prodprcm_id'];
+			$srowprodsz_dtl  = mysqli_fetch_assoc($srsprodsz_dtl); */
+			//$sz_id 		= $srowprodsz_dtl['prodprcm_id'];
 			//$totuntprc    = ($untqty * $produntprc); 
 			//$produntprc ;exit;
 			$iqrycrtord_dtl  ="insert into crtord_dtl(
@@ -251,10 +246,10 @@ if($irscrtordmst == true)
 			'$crtsesval','$cart_prodid','$produntprc','$untqty','$sgst','$cgst','$igst','$cart_szid',
 			'$cart_prodprc','$cart_ordsts','$ordmstid','$dt',
 			'$qty_val','$membremail')";
-			//echo $iqrycrtord_dtl ;exit;
+			echo $iqrycrtord_dtl ;exit;
 			$irscrtord_dtl	= mysqli_query($conn,$iqrycrtord_dtl)  or die(mysqli_error($conn));
 			//-----------------------------------------------update--------------------------------------------------------------//
-			$sqlprcdtl = "select prodprcd_id,prodprcd_qty 
+		/* 	$sqlprcdtl = "select prodprcd_id,prodprcd_qty 
 			from
 			prodprc_dtl
 			where prodprcd_id = '$sz_id'";
@@ -272,7 +267,7 @@ if($irscrtordmst == true)
 			$uqryprcdtl = "update prodprc_dtl set
 			prodprcd_qty = $updtqty
 			where prodprcd_id = '$sz_id'";
-			$resprcdtl = mysqli_query($conn,$uqryprcdtl);
+			$resprcdtl = mysqli_query($conn,$uqryprcdtl); */
 			//  echo $uqryprcdtl; exit;
 			//-----------------------------------------------update--------------------------------------------------------------//				
 		}		// End of For each		
