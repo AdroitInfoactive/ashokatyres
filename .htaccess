@@ -45,6 +45,10 @@ RewriteRule ^order-list$ order_list.php?typ=$1 [L,QSA]
 
 RewriteCond %{REQUEST_URI} !^/[0-9]+\..+\.cpaneldcv$
 RewriteCond %{REQUEST_URI} !^/\.well-known/pki-validation/[A-F0-9]{32}\.txt(?:\ Comodo\ DCV)?$
+RewriteRule ^order-details/([A-Za-z0-9-_()]+)$ order-details.php?orderid=$1 [L,QSA]
+
+RewriteCond %{REQUEST_URI} !^/[0-9]+\..+\.cpaneldcv$
+RewriteCond %{REQUEST_URI} !^/\.well-known/pki-validation/[A-F0-9]{32}\.txt(?:\ Comodo\ DCV)?$
 RewriteRule ^wishlist$ wishlist.php?typ=$1 [L,QSA]
 
 RewriteCond %{REQUEST_URI} !^/[0-9]+\..+\.cpaneldcv$

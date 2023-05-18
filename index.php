@@ -346,7 +346,7 @@ $vehnmb=funcStrRplc($arrvehnm[$vbrnd]);?>
                  
 					<div class="tab-pane <?php if( $arrvehids[$vbrnd]=='1'){ echo 'active'; } ?> clearfix" id="vhbrnd<?php echo $arrvehids[$vbrnd] ?>">
 						<div class="swiper-container deal-swiper swiper-dots-1">
-							<div class="swiper-wrapper">
+					<div class="swiper-wrapper">
    <?php     $sqlvehbrnd_mst2="SELECT vehbrndm_vehtypm_id,vehbrndm_name,vehbrndm_id,
 					  vehbrndm_brndimg, 
 					vehbrndm_sts, vehbrndm_prty, 
@@ -610,7 +610,7 @@ while($rowsvehbrnd_mst2=mysqli_fetch_assoc($rwsvehbrnd_mst2)){
 					 
 					 
 $vehnmb=funcStrRplc($arrvehnm[$vbrnd]);?>
-   <?php     $sqlvehbrnd_mst2="SELECT vehbrndm_vehtypm_id,tyrbrndm_id,tyrbrndm_name,
+   <?php    $sqlvehbrnd_mst2="SELECT vehbrndm_vehtypm_id,tyrbrndm_id,tyrbrndm_name,
 					  tyrbrndm_brndimg, 
 					vehbrndm_sts, vehbrndm_prty, 
 					  prodm_id, prodm_sku, prodm_code, prodm_name,

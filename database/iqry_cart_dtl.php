@@ -246,7 +246,7 @@ if($irscrtordmst == true)
 			'$crtsesval','$cart_prodid','$produntprc','$untqty','$sgst','$cgst','$igst','$cart_szid',
 			'$cart_prodprc','$cart_ordsts','$ordmstid','$dt',
 			'$qty_val','$membremail')";
-			echo $iqrycrtord_dtl ;exit;
+		//	echo $iqrycrtord_dtl ;exit;
 			$irscrtord_dtl	= mysqli_query($conn,$iqrycrtord_dtl)  or die(mysqli_error($conn));
 			//-----------------------------------------------update--------------------------------------------------------------//
 		/* 	$sqlprcdtl = "select prodprcd_id,prodprcd_qty 

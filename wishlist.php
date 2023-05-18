@@ -23,10 +23,10 @@ include('header.php');
 ?>
 
 
-<div class="page-content bg-white"> 
+<div class="page-content bg-white">
   <!-- Banner  -->
   <div class="dlab-bnr-inr short-banner style-1 overlay-black-middle"
-        style="background-image: url(<?php echo $rtpth;?>images/banner/bnr1.jpg);">
+    style="background-image: url(<?php echo $rtpth;?>images/banner/bnr1.jpg);">
     <div class="container">
       <div class="dlab-bnr-inr-entry">
         <h1 class="text-white"><?php echo $page_title ?></h1>
@@ -41,23 +41,23 @@ include('header.php');
       </div>
     </div>
   </div>
-  <!-- Banner End --> 
-  
+  <!-- Banner End -->
+
   <!-- Demo header-->
   <section class="py-4 header ac-pages-style">
     <div class="container py-4">
       <div class="row">
-        <div class="col-md-3"> 
+        <div class="col-md-3">
           <!-- Tabs nav -->
-       <?php  include('acc_leftlinks.php'); ?>
+          <?php  include('acc_leftlinks.php'); ?>
         </div>
-        <div class="col-md-9"> 
+        <div class="col-md-9">
           <!-- Tabs content -->
-       
-            <!-------------------------------WishList Start------------------------------------------>
-              
-              <div class="row lightgallery wis-items">
-              <?php
+
+          <!-------------------------------WishList Start------------------------------------------>
+
+          <div class="row lightgallery wis-items">
+            <?php
 			 $sqlwshlst="SELECT usrwshlstd_id, usrwshlstd_sesid, usrwshlstd_prodm_id, usrwshlstd_untm_id,usrwshlstd_vehbrnd_id, usrwshlstd_qty, usrwshlstd_mbrm_id, usrwshlstd_sts from usrwshlst_dtl where usrwshlstd_mbrm_id='$membrid' order by usrwshlstd_id";// add usrwshlstd_vehbrnd_id this column in database
 			  $srswshlst  = mysqli_query($conn,$sqlwshlst);
 
@@ -163,8 +163,14 @@ include('header.php');
 		 $resimgdtl =mysqli_query($conn,$sqlimgdtl);
 		 $rwsimgdtl = mysqli_fetch_array($resimgdtl);
 		  $smlImgNm 	= $rwsimgdtl['prodimgd_simg'];
-		
-	       $smlImgPth 	= $rtpth.$gprodsimg_usrpth.$smlImgNm.'.jpg';
+			
+			$smlImgPth 	=$gprodsimg_usrpth.$smlImgNm.'.jpg';
+			if (file_exists($smlImgPth)) {
+				$smlImgPth 	= $rtpth.$gprodsimg_usrpth.$smlImgNm.'.jpg';
+			} else {
+				$smlImgPth = $rtpth . 'images/ashoka-no-image.jpg';
+			}
+	      
 		 
 			                                
 		$sqry_loc = "SELECT strlocm_id, strlocm_name from store_loc_mst where strlocm_sts = 'a' order by strlocm_id ASC";
@@ -189,283 +195,342 @@ include('header.php');
 		  $clsbls = $prdinvt;
 			  
 			   ?>
-                <div class="col-lg-4 col-md-4 col-sm-6 col-12 m-b30">
-                  <div class="car-list-box list-view">
-                                  <?php if($clsbls <1){?>
-                    <div class="align-items-center bg-primary p-2 text-white text-center" width="100%" ><strong>Out of stock</strong></div><?php }?>
-                    <div class="media-box">
-                   
-                     <img src="<?php echo $smlImgPth ;?>" alt="">
-      
-                      <div class="rm-wsh"><span onclick=remvwshlstprd(<?php echo $wshlst_id ?>)><i class="fas fa-times"></i></span></div>
-                      <div class="overlay-bx"> <span data-exthumbimage="<?php echo $smlImgPth ;?>"
-                                                    data-src="<?php echo $smlImgPth ;?>" class="view-btn lightimg"> </span> </div>
-                    </div>
-                    <div class="list-info">
-                      <h6 class="title mb-0"><a href="product-display.php" data-splitting
-                                                    class="text-white"><?php echo $prod_name; ?></a></h6>
-                      <div class="car-type">Sku:<?php echo $prodm_sku ;?><br/>
-                       Tyre Brand: <?php echo $vehtyrebrnd_name ;?>
-               
-              </div>
-                      <div class="d-flex justify-content-between align-items-center"> <span class="badge m-b10 mr-rt-5"><span>₹</span><?php echo $prod_fnlprc ; ?></span>
-                          <?php if($clsbls >=1){?>
-                      
-                       <a href="javascript:;" onClick="javascript:frmprdsub('<?php echo $prod_id;?>','a')"
-                                                    class="m-b10 view-details-btn btn btn-primary light phone-no shadow-none effect-1 w-100 text-center d-block"><span ><i
-                                                            class="fas fa-cart-plus"></i></span></a><?php }
+            <div class="col-lg-4 col-md-4 col-sm-6 col-12 m-b30">
+              <div class="car-list-box list-view">
+                <?php if($clsbls <1){?>
+                <div class="align-items-center bg-primary p-2 text-white text-center" width="100%"><strong>Out of
+                    stock</strong></div><?php }?>
+                <div class="media-box">
+
+                  <img src="<?php echo $smlImgPth ;?>" alt="">
+
+                  <div class="rm-wsh"><span onclick=remvwshlstprd(<?php echo $wshlst_id ?>)><i
+                        class="fas fa-times"></i></span></div>
+                  <div class="overlay-bx"> <span data-exthumbimage="<?php echo $smlImgPth ;?>"
+                      data-src="<?php echo $smlImgPth ;?>" class="view-btn lightimg"> </span> </div>
+                </div>
+                <div class="list-info">
+                  <h6 class="title mb-0"><a href="product-display.php" data-splitting
+                      class="text-white"><?php echo $prod_name; ?></a></h6>
+                  <div class="car-type">Sku:<?php echo $prodm_sku ;?><br />
+                    Tyre Brand: <?php echo $vehtyrebrnd_name ;?>
+
+                  </div>
+                  <div class="d-flex justify-content-between align-items-center"> <span
+                      class="badge m-b10 mr-rt-5"><span>₹</span><?php echo $prod_fnlprc ; ?></span>
+                    <?php if($clsbls >=1){?>
+
+                    <a href="javascript:;" onClick="javascript:frmprdsub('<?php echo $prod_id;?>','a')"
+                      class="m-b10 view-details-btn btn btn-primary light phone-no shadow-none effect-1 w-100 text-center d-block"><span><i
+                          class="fas fa-cart-plus"></i></span></a><?php }
 															
 															
 														/*	else{ ?>
-                                  <a href=""
-                                                    class="m-b10 view-details-btn btn btn-primary light phone-no shadow-none effect-1 w-100 text-center d-block"><span>Remove</span></a><?php }*/ ?>                            
-                                                            
-                                                            
-                                                             </div>
-                      <div class="prdt-prop mt-2">
-                        <div class="d-flex justify-content-stretch align-items-center">
-                          <div class="mr-rt-5">
-                            <div class="prop-container">
-                              <p>Low Noise</p>
-                              <i class="fas fa-volume-down"></i> </div>
-                          </div>
-                          <div class="mr-rt-5">
-                            <div class="prop-container">
-                              <p>Smooth Ride</p>
-                              <i class="fas fa-car-side"></i> </div>
-                          </div>
-                          <div class="">
-                            <div class="prop-container">
-                              <p>Dry & Wet Grip</p>
-                              <i class="fas fa-cloud"></i> </div>
-                          </div>
+                    <a href=""
+                      class="m-b10 view-details-btn btn btn-primary light phone-no shadow-none effect-1 w-100 text-center d-block"><span>Remove</span></a><?php }*/ ?>
+
+
+                  </div>
+									<?php
+							$sqryfet = "SELECT prodfetrm_name,prodfetrm_imgnm from prodfetr_mst
+									inner join prod_features_dtl on prod_features_dtl.prods_fetrs_store_id = prodfetr_mst.prodfetrm_id where prods_fetrs_prodm_id = $prod_id limit 3";
+								// echo $sqryfet;
+								$srsfet = mysqli_query($conn,$sqryfet);
+								$cnt_fet = mysqli_num_rows($srsfet);
+								if ($cnt_fet > 0)
+								{?>
+									<div class="prdt-prop mt-2">
+													<div class="d-flex justify-content-stretch align-items-center">
+													
+										<?php
+									//$fet_dspl = array();
+									while($rowfet_mst = mysqli_fetch_assoc($srsfet))
+									{
+										$fetnm = $rowfet_mst['prodfetrm_name'];
+										$db_szchrt = $rowfet_mst['prodfetrm_imgnm'];
+										//$fet_dspl[] = "&nbsp; ".$fetnm;
+								?>
+								<div class="mr-rt-5">
+								<div class="prop-container"><?php
+										$imgnm1 = $db_szchrt;
+										$imgpath1 = $gprodfetr_fldnm1.$imgnm1;
+										if(($imgnm1 !="") && file_exists($imgpath1))
+										{
+										 $frt= "<img src='$imgpath1' width='50 pixel' height='50pixel'>";     
+										}
+										else
+										{
+											$noimg= $gprodfetr_fldnm1.'ashoka-no-image.jpg';
+											$frt= "<img src='$noimg' width='50 pixel' height='50pixel'>";              
+										}
+										
+										?>
+									<p><?php echo $fetnm; ?></p>
+									<p><?php echo $frt; ?></p>
+															
+																
+															</div>
+														</div>
+												
+								<?php	}
+									?>
+									</div>
+									</div>
+									<?php
+								}
+								
+								?>
+
+                 <!--  <div class="prdt-prop mt-2">
+                    <div class="d-flex justify-content-stretch align-items-center">
+                      <div class="mr-rt-5">
+                        <div class="prop-container">
+                          <p>Low Noise</p>
+                          <i class="fas fa-volume-down"></i>
+                        </div>
+                      </div>
+                      <div class="mr-rt-5">
+                        <div class="prop-container">
+                          <p>Smooth Ride</p>
+                          <i class="fas fa-car-side"></i>
+                        </div>
+                      </div>
+                      <div class="">
+                        <div class="prop-container">
+                          <p>Dry & Wet Grip</p>
+                          <i class="fas fa-cloud"></i>
                         </div>
                       </div>
                     </div>
-                  </div>
+                  </div> -->
                 </div>
-           <?php }}?>
               </div>
             </div>
-            <!-------------------------------WishList End------------------------------------------>
-          
+            <?php }}?>
+          </div>
         </div>
-      </div>
-   
-  </section>
-  
+        <!-------------------------------WishList End------------------------------------------>
 
-  
+      </div>
+    </div>
+
+  </section>
+
+
+
 </div>
 
 <?php include_once("includes/inc_fnct_ajax_validation.php"); ?>
- <script src="<?php echo $rtpth ;?>js/yav.js" type="text/javascript"></script>
+<script src="<?php echo $rtpth ;?>js/yav.js" type="text/javascript"></script>
 <script src="<?php echo $rtpth ;?>js/yav-config.js" type="text/javascript"></script>
 
 <?php include_once('footer.php'); ?>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/js/bootstrap.bundle.min.js"></script>
 <script>
-function remvwshlstprd(wshlstproid){
-	
+function remvwshlstprd(wshlstproid) {
 
-	if (confirm("Are you sure.Do you want to remove this product from wishlist") == true) {
-	url="<?php echo $rtpth;?>manage_wishlist.php?wshlstprodid="+wshlstproid+"&wshlstacton=d";
-		//alert(url);
-	xmlHttp	= GetXmlHttpObject(stchng_Updtwshlst);
-				xmlHttp.open("GET", url , true);
-				xmlHttp.send(null);}else{
-					
-					}
 
-	}
-	function stchng_Updtwshlst(){
-		
-		if (xmlHttp.readyState==4 || xmlHttp.readyState=="complete"){ 					
+  if (confirm("Are you sure.Do you want to remove this product from wishlist") == true) {
+    url = "<?php echo $rtpth;?>manage_wishlist.php?wshlstprodid=" + wshlstproid + "&wshlstacton=d";
+    //alert(url);
+    xmlHttp = GetXmlHttpObject(stchng_Updtwshlst);
+    xmlHttp.open("GET", url, true);
+    xmlHttp.send(null);
+  } else {
 
-			  var temp=xmlHttp.responseText;
-			  temp=temp.trim();
+  }
 
-if(temp=='y'){
-	location.reload();
-	
-	}else{
-		alert("Product not Deleted from wishlist");
-		
-		}
+}
 
-		}
-		
-		
-		
-		}
+function stchng_Updtwshlst() {
+
+  if (xmlHttp.readyState == 4 || xmlHttp.readyState == "complete") {
+
+    var temp = xmlHttp.responseText;
+    temp = temp.trim();
+
+    if (temp == 'y') {
+      location.reload();
+
+    } else {
+      alert("Product not Deleted from wishlist");
+
+    }
+
+  }
+
+
+
+}
 </script>
 <script>
-function frmprdsub(pcode,crtactn){	
+function frmprdsub(pcode, crtactn) {
 
-		 		var qtyval = 1;		  	
+  var qtyval = 1;
 
-			if(crtactn == 'a'){		
-							
+  if (crtactn == 'a') {
 
-				var url = "<?php echo $rtpth;?>manage_cart.php?prodidval="+pcode+"&cartaction="+crtactn+"&rqst_prodqty="+qtyval;
-				//alert(url);
-				xmlHttp	= GetXmlHttpObject(stchng_UpdtCart);
-				xmlHttp.open("GET", url , true);
-				xmlHttp.send(null);
 
-			}
+    var url = "<?php echo $rtpth;?>manage_cart.php?prodidval=" + pcode + "&cartaction=" + crtactn + "&rqst_prodqty=" +
+      qtyval;
+    //alert(url);
+    xmlHttp = GetXmlHttpObject(stchng_UpdtCart);
+    xmlHttp.open("GET", url, true);
+    xmlHttp.send(null);
 
+  }
 
 
-		
 
 
 
-	}
 
 
+}
 
 
 
-	function stchng_UpdtCart(){ 
 
 
+function stchng_UpdtCart() {
 
-		if (xmlHttp.readyState==4 || xmlHttp.readyState=="complete"){ 					
 
 
+  if (xmlHttp.readyState == 4 || xmlHttp.readyState == "complete") {
 
-		   var temp=xmlHttp.responseText;
 
 
+    var temp = xmlHttp.responseText;
 
-		   var crtval = new Array();
 
 
+    var crtval = new Array();
 
-		   crtval = temp.split('->');
 
-//alert(temp)
 
-		   var addsts  		= crtval[0];
+    crtval = temp.split('->');
 
+    //alert(temp)
 
+    var addsts = crtval[0];
 
-		   var dispval 		= crtval[1];
 
 
+    var dispval = crtval[1];
 
-		   var disptopcart  = crtval[2];
 
 
+    var disptopcart = crtval[2];
 
-		   var displstitm   = crtval[3];		   
 
 
+    var displstitm = crtval[3];
 
-		   var atchslvs   = crtval[4];		   
 
 
+    var atchslvs = crtval[4];
 
-		   var altrned   = crtval[5];
 
 
+    var altrned = crtval[5];
 
-		  var altrtyp   = crtval[6];		   
 
 
+    var altrtyp = crtval[6];
 
-		  var incval   = crtval[7];		   
 
 
+    var incval = crtval[7];
 
-		  var prdnm   = crtval[8];		   
 
 
+    var prdnm = crtval[8];
 
-		  var prdqty   = crtval[9];		   
 
 
+    var prdqty = crtval[9];
 
-		  var prdsz  = crtval[10];		   
 
 
+    var prdsz = crtval[10];
 
-            
 
 
 
-//	alert(addsts)
 
 
 
-		 
+    //	alert(addsts)
 
 
 
-		   if(addsts == 1){
 
 
 
-		               location.href="<?php echo $rtpth;?>my-cart.php";
 
+    if (addsts == 1) {
 
 
-				document.getElementById('divshopbag').innerHTML = dispval;
 
+      location.href = "<?php echo $rtpth;?>my-cart.php";
 
 
-				document.getElementById('divcart_top').innerHTML = disptopcart;
 
+      document.getElementById('divshopbag').innerHTML = dispval;
 
 
-				document.getElementById('dialog').innerHTML = displstitm;				
 
+      document.getElementById('divcart_top').innerHTML = disptopcart;
 
 
-			    document.getElementById('prdqty').innerHTML = prdqty;	
 
+      document.getElementById('dialog').innerHTML = displstitm;
 
 
-				document.getElementById('prdnm').innerHTML = prdnm;	
 
+      document.getElementById('prdqty').innerHTML = prdqty;
 
 
-				document.getElementById('prdsz').innerHTML = prdsz;	
 
+      document.getElementById('prdnm').innerHTML = prdnm;
 
 
-		   }else{
 
+      document.getElementById('prdsz').innerHTML = prdsz;
 
 
-			   document.getElementById("prdext").style.display="inline-block";
 
+    } else {
 
 
-			   document.getElementById("discrt").style.display="inline-block";
 
+      document.getElementById("prdext").style.display = "inline-block";
 
 
-			   document.getElementById("addcrt").style.display="none";
 
+      document.getElementById("discrt").style.display = "inline-block";
 
 
 
+      document.getElementById("addcrt").style.display = "none";
 
 
 
-			   
 
 
 
-			   }
 
 
 
-		}
 
 
+    }
 
-	}
+
+
+  }
+
+
+
+}
 </script>

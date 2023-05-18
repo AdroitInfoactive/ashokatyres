@@ -61,6 +61,7 @@ if (isset($_REQUEST['tyrwdth']) && (trim($_REQUEST['tyrwdth']) != "")) {
 if (isset($_REQUEST['prdprice']) && (trim($_REQUEST['prdprice']) != "")) {
 	$prdprice = glb_func_chkvl($_REQUEST['prdprice']);
 	$secvalarys = explode('-', $prdprice);
+	print_r($secvalarys);
 	$minprc = $secvalarys[0];
 	$maxprc = $secvalarys[1];
  $sqlprd_mst1 .= "and  prodm_cstprc between $minprc and $maxprc ";
@@ -85,7 +86,7 @@ if (isset($_REQUEST['prdsort']) && (trim($_REQUEST['prdsort']) != "")) {
 	$sqlprd_mst2 = "  order by prodm_name asc ";
 }
 //$sqlprd_mst2="  order by prodm_rnk limit $offset,   $rowsprpg";
-$sqlprd_mst = $sqlprd_mst1 . 'group by prodm_id' . $sqlprd_mst2;
+echo $sqlprd_mst = $sqlprd_mst1 . 'group by prodm_id' . $sqlprd_mst2;
 $srsprod_mst = mysqli_query($conn, $sqlprd_mst);
 $cntrec_prod = mysqli_num_rows($srsprod_mst);
 ?>

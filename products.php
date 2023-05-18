@@ -559,28 +559,7 @@ include('header.php');
 								}
 								
 								?>
-												<!-- <div class="prdt-prop mt-2">
-													<div class="d-flex justify-content-stretch align-items-center">
-														<div class="mr-rt-5">
-															<div class="prop-container">
-																<p>Low Noise</p>
-																<i class="fas fa-volume-down"></i>
-															</div>
-														</div>
-														<div class="mr-rt-5">
-															<div class="prop-container">
-																<p>Smooth Ride</p>
-																<i class="fas fa-car-side"></i>
-															</div>
-														</div>
-														<div class="">
-															<div class="prop-container">
-																<p>Dry & Wet Grip</p>
-																<i class="fas fa-cloud"></i>
-															</div>
-														</div>
-													</div>
-												</div> -->
+											
 											</div>
 										</div>
 									</a>
