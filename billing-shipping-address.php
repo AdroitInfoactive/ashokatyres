@@ -15,10 +15,7 @@
 	$mdid 	   = trim($_REQUEST['hdnmdid']);
 
 	$sqrymbr_dtl =   "select mbrd_id,mbrd_fstname,mbrd_lstname, mbrd_badrs,mbrd_badrs2,mbrd_cmpny,ctym_name, mbrd_bzip,mbrd_bdayphone,cntrym_name, mbrd_ctynm,mbrd_bdayphone,mbrd_dfltbil,mbrd_dfltshp,mbrd_mbrm_id,mbrm_phno,mbrd_emailid,cntrym_name,cntym_name,cntntm_name,ctym_sts, cntym_sts,mbrm_emailid,mbrd_bmbrcntrym_id,mbrd_bmbrcntym_id,cntym_name,cntrym_name from vw_mbr_mst_dtl_bil 
-	
-	
-	where mbrd_mbrm_id=$membrid and mbrm_id = $membrid order by mbrd_dfltbil = 'y'  desc
-				";
+	where mbrd_mbrm_id=$membrid and mbrm_id = $membrid order by mbrd_dfltbil = 'y'  desc	";
 
 
 	  $srsmbr_mst	 =	mysqli_query($conn,$sqrymbr_dtl); 

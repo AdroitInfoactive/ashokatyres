@@ -52,13 +52,13 @@ $crncyid	= $_SESSION['sescrncy'];
 $shpchrgprc	  =  $gselshpchrg;		
 $shipprc = 0;		
 
- $sqrycrtmbr_dtl_adrs  = "select * from 
+  $sqrycrtmbr_dtl_adrs  = "select * from 
 						vw_mbr_mst_dtl_bil 
 						where 
 						mbrm_id = '$membrid' 
 						and (mbrd_dfltbil='y' or 
 						mbrd_dfltshp='y') limit 2"; 
-//	echo $sqrycrtmbr_dtl_adrs; exit;
+	//echo $sqrycrtmbr_dtl_adrs; exit;
 $srscrtmbr_dtl   = mysqli_query($conn,$sqrycrtmbr_dtl_adrs);
 while($srowscrtmbr_dtl = mysqli_fetch_assoc($srscrtmbr_dtl))
 {
@@ -81,7 +81,7 @@ if($srowscrtmbr_dtl['mbrd_dfltbil'] == 'y')
 }
 if($srowscrtmbr_dtl['mbrd_dfltshp'] == 'y')
 {
-	$sfname 	  = $srowscrtmbr_dtl['mbrd_fstname'];
+$sfname 	  = $srowscrtmbr_dtl['mbrd_fstname'];
 	$slname		  = $srowscrtmbr_dtl['mbrd_lstname'];	 
 	$sadrs	  	  = $srowscrtmbr_dtl['mbrd_badrs'];
 	$sadrs2   	  = $srowscrtmbr_dtl['mbrd_badrs2'];
@@ -163,7 +163,7 @@ $iqrycrtordmst = "INSERT into crtord_mst(
 					'$bzip','$bcountry','$bph','$bemail',
 					'$sfname','$slname','$sadrs','$sadrs2','$scmpny',
 					'$scty','$scounty','$szip','$scountry',
-					'$sph','$semail','$totqty','$paygrsamt','$disc','$hsn','$gst',
+					'$sph','$bemail','$totqty','$paygrsamt','$disc','$hsn','$gst',
 					'r','$cartsts','$paymode',
 					'$paysts','$rmrks','$membrid','$shipprc','$chkshop',
 					'$cpnid','$cpnscat','$cpnval',

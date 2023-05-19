@@ -43,14 +43,14 @@ session_start();
 
 ?>
 
-   
-    
-    <?php 
+
+
+<?php 
 	if($gmsg != ''){
 		echo"<div class='alert alert-success'>$gmsg</div>";
 	}
 ?>
-    <?php include_once ("includes/inc_fnct_ajax_validation.php");
+<?php include_once ("includes/inc_fnct_ajax_validation.php");
 $page_title = "Ashoka Tyres | Add Address";
 $page_seo_title = "Ashoka Tyres | Add Address";
 $db_seokywrd = "";
@@ -61,113 +61,115 @@ include('header.php');
 ?>
 
 <div class="page-content bg-white">
-    <!-- Banner  -->
-    <div class="dlab-bnr-inr style-1 overlay-black-middle" style="background-image: url(<?php echo $rtpth ?>images/banner/bnr1.jpg);">
-        <div class="container">
-            <div class="dlab-bnr-inr-entry">
-                <h1 class="text-white">Add Address</h1>
-                <div class="d-flex justify-content-center align-items-center">
-                    <nav aria-label="breadcrumb">
-                        <ol class="breadcrumb">
-                            <li class="breadcrumb-item"><a href="#">Home</a></li>
-                            <li class="breadcrumb-item active" aria-current="page">Add Address</li>
-                        </ol>
-                    </nav>
-                </div>
-            </div>
+  <!-- Banner  -->
+  <div class="dlab-bnr-inr style-1 overlay-black-middle"
+    style="background-image: url(<?php echo $rtpth ?>images/banner/bnr1.jpg);">
+    <div class="container">
+      <div class="dlab-bnr-inr-entry">
+        <h1 class="text-white">Add Address</h1>
+        <div class="d-flex justify-content-center align-items-center">
+          <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+              <li class="breadcrumb-item"><a href="#">Home</a></li>
+              <li class="breadcrumb-item active" aria-current="page">Add Address</li>
+            </ol>
+          </nav>
         </div>
+      </div>
     </div>
-    <!-- Banner End -->
+  </div>
+  <!-- Banner End -->
 
-<?php include_once("includes/inc_fnct_ajax_validation.php"); ?>
-<script src="<?php echo $rtpth ;?>js/yav.js" type="text/javascript"></script>
-<script src="<?php echo $rtpth ;?>js/yav-config.js" type="text/javascript"></script>
-<script language="javascript" type="text/javascript"> 
-			  var addrrules=new Array();
-			
-			 addrrules[0]='txtaddr: Address|required|Enter Address ';
-			  addrrules[1]='lststate: State|required|Enter State ';
-			  
-			 addrrules[2]='txtcty: City|required|Enter City ';
-			  addrrules[3]='txtpin: Pin Code|required|Enter Pin Code ';
-			 
-			
-		</script>
-        <style>
-.innerError {
-	color: red;
-}
-</style>
-    <section class="content-inner bg-gray bottom-shape conact-section">
-        <div class="container">
-            <div class="row justify-content-center">
-   
-                <div class="col-xl-12 m-b40">
-                    <div class="contact-area1 add-address">
-                        <form name="frmaddbilngdtl" id="frmaddbilngdtl" action="<?php $_SERVER['PHP_SELF'];?>" method="post" onSubmit="return performCheck('frmaddbilngdtl', addrrules, 'inline');" >
-                     
-                    <input type="hidden" class="form-control" name="hnsname"  value="<?php echo $membname ;?>">
-                   
-                    <input type="hidden" class="form-control" name="hnsemail"  value="<?php echo $membemail;?>">
-                    <input type="hidden" class="form-control" name="hnsmembid"  value="<?php echo $memid;?>">
-                            <div class="dlabFormMsg"></div>
+  <?php include_once("includes/inc_fnct_ajax_validation.php"); ?>
+  <script src="<?php echo $rtpth ;?>js/yav.js" type="text/javascript"></script>
+  <script src="<?php echo $rtpth ;?>js/yav-config.js" type="text/javascript"></script>
+  <script language="javascript" type="text/javascript">
+  var addrrules = new Array();
 
-                            <div class="row sp10">
+  addrrules[0] = 'txtaddr: Address|required|Enter Address ';
+  addrrules[1] = 'lststate: State|required|Enter State ';
 
+  addrrules[2] = 'txtcty: City|required|Enter City ';
+  addrrules[3] = 'txtpin: Pin Code|required|Enter Pin Code ';
+  </script>
+  <style>
+  .innerError {
+    color: red;
+  }
+  </style>
+  <section class="content-inner bg-gray bottom-shape conact-section">
+    <div class="container">
+      <div class="row justify-content-center">
 
-                                <div class="col-sm-4">
-                                    <div class="form-group">
-        <label>Name</label> <input type="text" class="form-control" placeholder="Name" name="txtname" id="txtname" value="<?php echo $membname ;?>" disabled>
-                                  
-                                    </div>
-                                </div>
+        <div class="col-xl-12 m-b40">
+          <div class="contact-area1 add-address">
+            <form name="frmaddbilngdtl" id="frmaddbilngdtl" action="<?php $_SERVER['PHP_SELF'];?>" method="post"
+              onSubmit="return performCheck('frmaddbilngdtl', addrrules, 'inline');">
+
+              <input type="hidden" class="form-control" name="hnsname" value="<?php echo $membname ;?>">
+
+              <input type="hidden" class="form-control" name="hnsemail" value="<?php echo $membemail;?>">
+              <input type="hidden" class="form-control" name="hnsmembid" value="<?php echo $memid;?>">
+              <div class="dlabFormMsg"></div>
+
+              <div class="row sp10">
 
 
+                <div class="col-sm-4">
+                  <div class="form-group">
+                    <label>Name</label> <input type="text" class="form-control" placeholder="Name" name="txtname"
+                      id="txtname" value="<?php echo $membname ;?>" disabled>
 
-
-                                <div class="col-sm-4">
-                                    <div class="form-group">
-                                        <label>Phone</label>
-           <input type="text" class="form-control" placeholder="Mobile Number" name="txtphno"  id="txtphno" value="<?php echo $membphno;?>" >
-       
-                                    </div>
-                                </div>
+                  </div>
+                </div>
 
 
 
-                                <div class="col-sm-4">
-                                    <div class="form-group">
-                                        <label>Email</label>
-                                  <input type="text" class="form-control" placeholder="Email" name="txtemail" id="txtemail" value="<?php echo $membemail;?>" disabled>
-                                    </div>
-                                </div>
 
-                                <div class="col-sm-12">
-                                    <div class="form-group">
-                                        <label>Address</label>
-                              
-                                            <textarea name="txtaddr"  id="txtaddr" rows="2" placeholder="Address" class="form-control"></textarea>
-                                            <span id="errorsDiv_txtaddr"></span>
-                                    </div>
-                                </div>
-<div class="col-sm-3">
-                                    <div class="form-group">
-                                        <label>Country</label>
-                                       <select name="lstcntry" id="lstcntry"
-                                                                        class="form-control" onchange="funcPopCnty()">
-                                                                       
-                                                                        <option value="2" selected="">
-                                                                            India</option>
-                                                                       
-                                                                    </select>
-                                    </div>
-                                </div>
-                                <div class="col-sm-3">
-                                    <div class="form-group">
-                                        <label>State</label>
-                       <select name="lststate" id="lststate"
-                                                                        class="form-control">
-                                                                        <?php   $sqrymbrcnty_mst =  "select 
+                <div class="col-sm-4">
+                  <div class="form-group">
+                    <label>Phone</label>
+                    <input type="text" class="form-control" placeholder="Mobile Number" name="txtphno" id="txtphno"
+                      value="<?php echo $membphno;?>">
+
+                  </div>
+                </div>
+
+
+
+                <div class="col-sm-4">
+                  <div class="form-group">
+                    <label>Email</label>
+                    <input type="text" class="form-control" placeholder="Email" name="txtemail" id="txtemail"
+                      value="<?php echo $membemail;?>" disabled>
+                  </div>
+                </div>
+
+                <div class="col-sm-12">
+                  <div class="form-group">
+                    <label>Address</label>
+
+                    <textarea name="txtaddr" id="txtaddr" rows="2" placeholder="Address"
+                      class="form-control"></textarea>
+                    <span id="errorsDiv_txtaddr"></span>
+                  </div>
+                </div>
+                <div class="col-sm-3">
+                  <div class="form-group">
+                    <label>Country</label>
+                    <select name="lstcntry" id="lstcntry" class="form-control" onchange="funcPopCnty()">
+
+                      <option value="2" selected="">
+                        India</option>
+
+                    </select>
+                  </div>
+                </div>
+                <div class="col-sm-3">
+                  <div class="form-group">
+                    <label>State</label>
+                    <select name="lststate" id="lststate" class="form-control">
+                      <?php   $sqrymbrcnty_mst =  "select 
 								  cntym_id,cntym_name,cntym_sts
 						     from 
 							     cnty_mst 
@@ -185,35 +187,36 @@ include('header.php');
 			$cntymid  = $srowmbrcnty_mst['cntym_id'];
 			$cntymnm  = $srowmbrcnty_mst['cntym_name'];	
 			$cntysts  = $srowmbrcnty_mst['cntym_sts'];	
-           ?>                                                          <option value="<?php echo $cntymid ?>" <?php if($cntymid=='28' ){ echo 'selected';}else{echo '';}?>><?php echo $cntymnm ?></option>
-                                                                       <?php } ?>
-                                                                    </select>  
-                                                                      <span id="errorsDiv_lststate"></span>
-                                    </div>
-                                </div>
+           ?> <option value="<?php echo $cntymid ?>" <?php if($cntymid=='28' ){ echo 'selected';}else{echo '';}?>>
+                        <?php echo $cntymnm ?></option>
+                      <?php } ?>
+                    </select>
+                    <span id="errorsDiv_lststate"></span>
+                  </div>
+                </div>
 
-                                <div class="col-sm-3">
-                                    <div class="form-group">
-                                        <label>City</label>
-                               <input type="text" class="form-control" placeholder="City" name="txtcty" id="txtcty" >
-                                      <span id="errorsDiv_txtcty"></span>
-                                    </div>
-                                </div>
+                <div class="col-sm-3">
+                  <div class="form-group">
+                    <label>City</label>
+                    <input type="text" class="form-control" placeholder="City" name="txtcty" id="txtcty">
+                    <span id="errorsDiv_txtcty"></span>
+                  </div>
+                </div>
 
-                                <div class="col-sm-3">
-                                    <div class="form-group">
-                                        <label>Pin code</label>
-                          <input type="text" class="form-control" placeholder="Pin code" name="txtpin" id="txtpin">
-                                   <span id="errorsDiv_txtpin"></span>
-                                    </div>
-                                </div>
-
-                       
-
+                <div class="col-sm-3">
+                  <div class="form-group">
+                    <label>Pin code</label>
+                    <input type="text" class="form-control" placeholder="Pin code" name="txtpin" id="txtpin">
+                    <span id="errorsDiv_txtpin"></span>
+                  </div>
+                </div>
 
 
 
-                         <!--       <div class="col-sm-12">
+
+
+
+                <!--       <div class="col-sm-12">
                                     <div class="form-group">
                                         <div class="g-recaptcha" data-sitekey="6LefsVUUAAAAADBPsLZzsNnETChealv6PYGzv3ZN"
                                             data-callback="verifyRecaptchaCallback"
@@ -235,17 +238,17 @@ include('header.php');
                                 </div>
 
 -->
-                                <div class="col-sm-12">
-                                    <input name="btnsubmtadd" type="submit" id="btnsubmtadd" value="Submit"
-                                        class="btn btn-primary  btn-rounded"/> 
-                                </div>
-                            </div>
-                        </form>
-                    </div>
+                <div class="col-sm-12">
+                  <input name="btnsubmtadd" type="submit" id="btnsubmtadd" value="Submit"
+                    class="btn btn-primary  btn-rounded" />
                 </div>
-            </div>
+              </div>
+            </form>
+          </div>
         </div>
-    </section>
+      </div>
+    </div>
+  </section>
 
 
 
