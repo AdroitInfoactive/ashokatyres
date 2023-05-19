@@ -117,7 +117,7 @@ if(isset($_REQUEST['lstordsts']) && (trim($_REQUEST['lstordsts'])!=""))
 }
 $sqrycrtord_mst1 = $sqrycrtord_mst1.$sqrycrtord_mst2;
 $sqrycrtord_mst = $sqrycrtord_mst1." group by crtordm_id order by crtordm_id desc limit $offset, $rowsprpg";
-//echo $sqrycrtord_mst; //exit;
+ $sqrycrtord_mst; //exit;
 $srsord_mst = mysqli_query($conn,$sqrycrtord_mst);
 $cnt_recs	 = mysqli_num_rows($srsord_mst);
 include_once ('script.php');

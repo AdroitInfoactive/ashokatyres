@@ -75,9 +75,13 @@ include('header.php');
 										if($paysts == 'y'){
 												$psts = "Yes";
 										}
+										$sqry_crtord_sts = "SELECT ordstsd_ordstsm_id from ordsts_dtl where ordstsd_crtordm_id = $id order by ordstsd_id desc limit 1";
+										$ordsts_dtl = mysqli_query($conn, $sqry_crtord_sts);
+										$srs_ordsts_dtl = mysqli_fetch_assoc($ordsts_dtl);
+										$ordsts = $srs_ordsts_dtl['ordstsd_ordstsm_id'];
 										$ordqnty = $order_dtl['crtordm_qty'];
 										$ordamt = $order_dtl['crtordm_amt'];
-										$ordsts = $order_dtl['ordstsd_ordstsm_id'];
+										//$ordsts = $order_dtl['ordstsd_ordstsm_id'];
 										$state=$order_dtl['scntynm'];
 										$ordsts_qry = "SELECT ordstsm_id, ordstsm_name, ordstsm_desc, ordstsm_sts, ordstsm_prty FROM ordsts_mst WHERE ordstsm_id = $ordsts ";
 										$ordersts_mst = mysqli_query($conn,$ordsts_qry);

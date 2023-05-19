@@ -604,6 +604,7 @@ include('header.php');
 	function funcchklprd() {
 		var url = '';
 		var prcflt = document.getElementById('amount').value;
+	prcflt = prcflt.replace(/[$]/g, '');
 	prcflt = prcflt.replace(/[₹]/g, '');
 		var vehbrnd = document.getElementById('vehbrndflt').value;
 		var vehmodl = document.getElementById('tyrvehmodlflt').value;

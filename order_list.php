@@ -1,17 +1,13 @@
 <?php
            
-			include_once "includes/inc_membr_session.php";//checking for session	
-			include_once 'includes/inc_nocache.php'; // Clearing the cache information
-            include_once 'includes/inc_connection.php';//Make connection with the database  	
-            include_once "includes/inc_config.php";	//path config file
-		    include_once "includes/inc_usr_functions.php";//Including user session value
+include_once "includes/inc_membr_session.php";//checking for session	
+include_once 'includes/inc_nocache.php'; // Clearing the cache information
+include_once 'includes/inc_connection.php';//Make connection with the database  	
+include_once "includes/inc_config.php";	//path config file
+include_once "includes/inc_usr_functions.php";//Including user session value
 	global $gmsg,$email;		
-	
 
 	 $membrid   = $_SESSION['sesmbrid'];	
-
-	
-
 
 $page_title = "Order List";
 $page_seo_title = "Oder List";
@@ -23,9 +19,9 @@ include('header.php');
 ?>
  <?php 
     $mbmr_id = $_SESSION['sesmbrid'];
-echo  $order_qry = "SELECT crtordm_id, crtordm_code, crtordm_sesid, crtordm_fstname, crtordm_lstname, crtordm_badrs, crtordm_badrs2, crtordm_bcmpny, crtordm_bmbrctym_id, crtordm_bmbrcntym_id, crtordm_bzip, crtordm_bmbrcntrym_id, crtordm_bdayphone, crtordm_emailid, crtordm_sfstname, crtordm_slstname, crtordm_sadrs, crtordm_sadrs2, crtordm_scmpny, crtordm_smbrctym_id, crtordm_smbrcntym_id, crtordm_szip, crtordm_smbrcntrym_id, crtordm_sdayphone, crtordm_semailid, crtordm_qty, crtordm_shp_typ, crtordm_amt, crtordm_hsncde, crtordm_igst, crtordm_sgst, crtordm_cgst, crtordm_disamt, crtordm_wt, crtordm_pmode, crtordm_prcssts, crtordm_cartsts, crtordm_paysts, crtordm_rmks, crtordm_pgdtl, crtordm_shpchrgm_id, crtordm_shpchrgamt, crtordm_codamt, crtordm_cpnm_id, crtordm_cpnm_typ, crtordm_cpnm_val, crtordm_mbrm_id, crtordm_ordtyp,crtordm_crtdon,ordstsd_ordstsm_id FROM crtord_mst
+  $order_qry = "SELECT crtordm_id, crtordm_code, crtordm_sesid, crtordm_fstname, crtordm_lstname, crtordm_badrs, crtordm_badrs2, crtordm_bcmpny, crtordm_bmbrctym_id, crtordm_bmbrcntym_id, crtordm_bzip, crtordm_bmbrcntrym_id, crtordm_bdayphone, crtordm_emailid, crtordm_sfstname, crtordm_slstname, crtordm_sadrs, crtordm_sadrs2, crtordm_scmpny, crtordm_smbrctym_id, crtordm_smbrcntym_id, crtordm_szip, crtordm_smbrcntrym_id, crtordm_sdayphone, crtordm_semailid, crtordm_qty, crtordm_shp_typ, crtordm_amt, crtordm_hsncde, crtordm_igst, crtordm_sgst, crtordm_cgst, crtordm_disamt, crtordm_wt, crtordm_pmode, crtordm_prcssts, crtordm_cartsts, crtordm_paysts, crtordm_rmks, crtordm_pgdtl, crtordm_shpchrgm_id, crtordm_shpchrgamt, crtordm_codamt, crtordm_cpnm_id, crtordm_cpnm_typ, crtordm_cpnm_val, crtordm_mbrm_id, crtordm_ordtyp,crtordm_crtdon,ordstsd_ordstsm_id FROM crtord_mst
     inner join ordsts_dtl on ordstsd_crtordm_id = crtordm_id
-    WHERE crtordm_mbrm_id = $mbmr_id group by crtordm_id order by ordstsd_ordstsm_id desc";
+    WHERE crtordm_mbrm_id = $mbmr_id  group by crtordm_id order by crtordm_id desc";
     $order_mst = mysqli_query($conn,$order_qry);
     $num_rows = mysqli_num_rows($order_mst);
     while($order_dtl = mysqli_fetch_assoc($order_mst))
@@ -96,15 +92,19 @@ echo  $order_qry = "SELECT crtordm_id, crtordm_code, crtordm_sesid, crtordm_fstn
                   {
                     $psts = "Yes";
                   }
+                  $sqry_crtord_sts = "SELECT ordstsd_ordstsm_id from ordsts_dtl where ordstsd_crtordm_id = $id order by ordstsd_id desc limit 1";
+								$ordsts_dtl = mysqli_query($conn, $sqry_crtord_sts);
+								$srs_ordsts_dtl = mysqli_fetch_assoc($ordsts_dtl);
+								$ordsts = $srs_ordsts_dtl['ordstsd_ordstsm_id'];
                   $ordqnty = $ord_dtl['crtordm_qty'];
                   $ordamt = $ord_dtl['crtordm_amt'];
-                  $ordsts = $ord_dtl['ordstsd_ordstsm_id'];
-                 echo $ordsts_qry = "SELECT ordstsm_id, ordstsm_name, ordstsm_desc, ordstsm_sts, ordstsm_prty FROM ordsts_mst WHERE ordstsm_id = $ordsts";
+                 // $ordsts = $ord_dtl['ordstsd_ordstsm_id'];
+                 $ordsts_qry = "SELECT ordstsm_id, ordstsm_name, ordstsm_desc, ordstsm_sts, ordstsm_prty FROM ordsts_mst WHERE ordstsm_id = $ordsts";
                   $ordersts_mst = mysqli_query($conn,$ordsts_qry);
                   $ordersts_dtl = mysqli_fetch_assoc($ordersts_mst);
                   $ordstsid = $ordersts_dtl['ordstsm_id'];
                   $type = $ordersts_dtl['ordstsm_name'];
-                  if ($ordstsid == '2')
+                  if ($ordstsid == '6')
                   {
                     $sts_cls = "ps-product__status-cancel";
                   }

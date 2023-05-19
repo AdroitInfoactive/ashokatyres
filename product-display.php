@@ -179,17 +179,17 @@ include('header.php');
 							<div class="swiper-container sync1">
 								<div class="swiper-wrapper">
 									<?php
-									$sqlbimgdtl = "SELECT prodimgd_bimg from prodimg_dtl where prodimgd_prodm_id = $prod_id order by prodimgd_prty desc";
+					$sqlbimgdtl = "SELECT prodimgd_bimg from prodimg_dtl where prodimgd_prodm_id = $prod_id order by prodimgd_prty desc";
 									$resbimgdtl = mysqli_query($conn, $sqlbimgdtl);
 									$cntbgimg = mysqli_num_rows($resbimgdtl);
 									if ($cntbgimg > 0)
 									{
-										while ($rwsimgdtl = mysqli_fetch_array($resimgdtl)) {
-											$bgImgNm = $rwsimgdtl['prodimgd_bimg'];
+										while ($rwsimgdtl = mysqli_fetch_array($resbimgdtl)) {
+									$bgImgNm = $rwsimgdtl['prodimgd_bimg'];
 											// $bgImgPth = $rtpth . $gprodbimg_usrpth . $bgImgNm . '.jpg';
-											$bgImgPth = $gprodbimg_usrpth . $bgImgNm . '.jpg';
+										$bgImgPth = $gprodbimg_usrpth . $bgImgNm . '.jpg';
 											if (file_exists($bgImgPth)) {
-												$bgImgPth = $rtpth . $gprodbimg_usrpth . $bgImgNm . '.jpg';
+											$bgImgPth = $rtpth . $gprodbimg_usrpth . $bgImgNm . '.jpg';
 											} else {
 												$bgImgPth = $rtpth . 'images/ashoka-no-image.jpg';
 											}

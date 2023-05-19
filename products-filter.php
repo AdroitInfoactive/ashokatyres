@@ -65,19 +65,21 @@ if (isset($_REQUEST['prdprice']) && (trim($_REQUEST['prdprice']) != "")) {
 	 $minprc = $secvalarys[0];
 
 	$maxprc = $secvalarys[1];
+	
+$sqlprd_mst1 .= "and  prodm_sleprc between $minprc and $maxprc ";
 
- $sqlprd_mst1 .= "and  prodm_cstprc between $minprc and $maxprc ";
 }
 if (isset($_REQUEST['prdsort']) && (trim($_REQUEST['prdsort']) != "")) {
 	$prdsortflt = trim($_REQUEST['prdsort']);
 	if ($prdsortflt == "plp") {
+		
 		$sqlprd_mst2 = "  order by prodm_sleprc asc ";
 	} elseif ($prdsortflt == "php") {
 		$sqlprd_mst2 = "  order by prodm_sleprc desc ";
 	} elseif ($prdsortflt == "paz") {
-		$sqlprd_mst2 = "  order by prodm_name desc ";
-	} elseif ($prdsortflt == "pza") {
 		$sqlprd_mst2 = "  order by prodm_name asc ";
+	} elseif ($prdsortflt == "pza") {
+		$sqlprd_mst2 = "  order by prodm_name desc ";
 	} elseif ($prdsortflt == "pis") {
 		$sqlprd_mst2 = "  order by prodm_name desc ";
 	}
@@ -88,7 +90,7 @@ if (isset($_REQUEST['prdsort']) && (trim($_REQUEST['prdsort']) != "")) {
 	$sqlprd_mst2 = "  order by prodm_name asc ";
 }
 //$sqlprd_mst2="  order by prodm_rnk limit $offset,   $rowsprpg";
-echo $sqlprd_mst = $sqlprd_mst1 . 'group by prodm_id' . $sqlprd_mst2;
+ $sqlprd_mst = $sqlprd_mst1 . 'group by prodm_id' . $sqlprd_mst2;
 $srsprod_mst = mysqli_query($conn, $sqlprd_mst);
 $cntrec_prod = mysqli_num_rows($srsprod_mst);
 ?>
