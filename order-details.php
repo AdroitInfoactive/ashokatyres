@@ -189,6 +189,7 @@ include('header.php');
 																	left join prodimg_dtl on prodimgd_prodm_id = prodm_id
 																	 where crtordd_crtordm_id=$id group by crtordd_id";
 																		//echo $sqrycrtord_dtl;
+																		error_reporting(0);
 																		$srscrtord_dtl = mysqli_query($conn,$sqrycrtord_dtl);
 																		$cnttorec = mysqli_num_rows($srscrtord_dtl);
 																		$totqty = "";
@@ -377,7 +378,7 @@ include('header.php');
                   </div>
                 </div>
               </div>
-              <a href="<?php echo $rtpth; ?>my-orders" class="ps-btn ps-btn--primary clr-btn">Back</a>
+              <a href="<?php echo $rtpth; ?>order-list" class="ps-btn ps-btn--primary clr-btn">Back</a>
             </div>
           </div>
         </div>

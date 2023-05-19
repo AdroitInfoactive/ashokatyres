@@ -6,6 +6,7 @@ include_once $inc_cnctn; //Making database Connection
 include_once $inc_usr_fnctn; //checking for session	
 include_once $inc_pgng_fnctns; //Making paging validation
 include_once $inc_fldr_pth; //Making paging validation
+
 /***************************************************************
 Programm : view_detail_orders.php	
 Purpose : For Viewing Order Details
@@ -508,7 +509,7 @@ include_once('../includes/inc_fnct_ajax_validation.php');
 								<div class="col-sm-8">
 									<?php
 									$sqryordsts_mst = "SELECT ordstsm_id,ordstsm_name from
-									ordsts_mst where ordstsm_sts='a' order by ordstsm_prty desc";
+									ordsts_mst where ordstsm_sts='a' order by ordstsm_prty asc";
 									$srsordsts_mst = mysqli_query($conn, $sqryordsts_mst);
 									?>
 									<!-- <select id="ordsts" name="ordsts" onChange="ordstsdesc(); ask_qty();" class="form-control"> -->
@@ -661,7 +662,9 @@ include_once('../includes/inc_fnct_ajax_validation.php');
 	}
 </script>
 <script type="text/javascript">
+	
 	$(function () {
+		debugger;
 
 		$('#txtdt').datetimepicker({
 			timeFormat: 'H:m:00', dateFormat: "yy-mm-dd", showOn: "button",

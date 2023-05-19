@@ -13,7 +13,7 @@ if (
 	isset($_POST['txtdt']) && (trim($_POST['txtdt']) != "")
 ) {
 	$orderid = glb_func_chkvl($_POST['hdnordid']);
-	$stsdt = glb_func_chkvl($_POST['txtdt']);
+$stsdt = glb_func_chkvl($_POST['txtdt']);
 	$paymod = glb_func_chkvl($_POST['hdnpaymod']);
 	//echo  $stsdt    	= dateFormat('Y-m-d h:i:s', strtotime($sdate));
 	$stsid = glb_func_chkvl($_POST['ordsts']);

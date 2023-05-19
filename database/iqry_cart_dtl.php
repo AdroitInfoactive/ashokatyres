@@ -275,7 +275,7 @@ if($irscrtordmst == true)
 	if($irscrtord_dtl==true)
 	{
 		//	echo "-------------------------"."hello"; exit;
-		$sqryordsts_mst="select ordstsm_id from ordsts_mst where ordstsm_sts='a' order by ordstsm_prty desc limit 1";
+		$sqryordsts_mst="SELECT ordstsm_id from ordsts_mst where ordstsm_sts='a' order by ordstsm_prty asc limit 1";
 		$irsordsts_mst  = mysqli_query($conn,$sqryordsts_mst);
 		$srowordsts_mst = mysqli_fetch_assoc($irsordsts_mst);
 		$newid=$srowordsts_mst['ordstsm_id'];
