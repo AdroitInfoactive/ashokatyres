@@ -383,7 +383,7 @@ include('header.php');
 								<option value="php">Price: Highest first </option>
 								<option value="paz">Product Name: A to Z </option>
 								<option value="pza">Product Name: Z to A </option>
-								<option value="pis">In stock</option>
+								<!-- <option value="pis">In stock</option> -->
 							</select>
 						</div>
 					</div>

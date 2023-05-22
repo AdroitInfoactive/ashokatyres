@@ -290,7 +290,7 @@ include('header.php');
 
 
                                   <input type="text" name="txtqty" id="txtqty<?php echo $crtprodid?>"
-                                    value="<?php echo $untqty ?>" />
+                                    value="<?php echo $untqty ?>">
 
 
                                   <button class="plus" id="qntydec<?php echo $crtprodid ?>"
@@ -662,7 +662,7 @@ function cuntdec(decqty, prcid, totqty, cntinc) {
   cnt = cntinc;
 
   dqty = document.getElementById("txtqty" + prdid).value;
-
+  window.location.reload();
   var count = dqty;
 
   if (count > 0) {
@@ -672,6 +672,7 @@ function cuntdec(decqty, prcid, totqty, cntinc) {
     if ((count - 1) > 0) {
 
       document.getElementById("txtqty" + prdid).value = count;
+      window.location.reload();
 
     }
 
@@ -816,4 +817,5 @@ function funChsdeltyp(sts) {
 
 }
 </script>
+
 <?php include_once('footer.php'); ?>
