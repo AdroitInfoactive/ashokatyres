@@ -570,8 +570,11 @@ include_once('../includes/inc_fnct_ajax_validation.php');
 			</div>
 		</div>
 	</body>
+	
 </section>
+
 <?php include_once "../includes/inc_adm_footer.php"; ?>
+<!-- <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script> -->
 <script type="text/javascript" src="../js/jquery-ui-timepicker-addon.js"></script>
 <script type="text/javascript" src="../js/jquery-ui-sliderAccess.js"></script>
 <script language="javaScript" type="text/javascript" src="js/ckeditor.js"></script>
@@ -662,21 +665,11 @@ include_once('../includes/inc_fnct_ajax_validation.php');
 	}
 </script>
 <script type="text/javascript">
-	
-	$(function () {
-		debugger;
-
-		$('#txtdt').datetimepicker({
-			timeFormat: 'H:m:00', dateFormat: "yy-mm-dd", showOn: "button",
-
-
-
-			buttonImage: "images/calendar.gif",
-
-
-
-			buttonImageOnly: true, buttonText: ""
+		$(function () {debugger;
+			$('#txtdt').datetimepicker ({
+								timeFormat: 'H:m:00', dateFormat: "yy-mm-dd", showOn: "button",
+				buttonImage: "images/calendar.gif",
+				buttonImageOnly: true, buttonText: ""
+			});
 		});
-
-	});
 </script>

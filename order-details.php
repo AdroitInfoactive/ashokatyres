@@ -266,7 +266,7 @@ include('header.php');
                                       <td class="ps-product__remove"> <a href="#"><?php echo $cntord;?></a></td>
                                       <td class="ps-product__thumbnail">
                                         <a class="ps-product__image" href="#">
-                                          <figure><img src="<?php echo $imgpth; ?>" alt=""></figure>
+                                          <figure><img src="<?php echo $imgpth; ?>" width="100px" height="100px" alt=""></figure>
                                         </a>
                                       </td>
                                       <td class="ps-product__name"> <a href="#">
