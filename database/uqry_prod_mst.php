@@ -6,7 +6,7 @@ include_once $inc_cnctn; //Making database Connection
 include_once $inc_usr_fnctn; //checking for session	
 include_once $inc_pgng_fnctns; //Making paging validation
 include_once $inc_fldr_pth; //Making paging validation
-if(isset($_POST['btneprod']) && ($_POST['btneprod'] != "") && isset($_POST['txtsku']) && ($_POST['txtsku'] != "") && isset($_POST['txtcde']) && ($_POST['txtcde']!= "") && isset($_POST['txtname']) && ($_POST['txtname'] != "") && isset($_POST['txtcstprc']) && ($_POST['txtcstprc'] != "") && isset($_POST['txtsleprc']) && ($_POST['txtsleprc'] != "") && isset($_POST['txtprior']) && ($_POST['txtprior'] != ""))
+if(isset($_POST['btneprod']) && ($_POST['btneprod'] != "") && isset($_POST['txtsku']) && ($_POST['txtsku'] != "") && isset($_POST['txtcde']) && ($_POST['txtcde']!= "") && isset($_POST['txtname']) && ($_POST['txtname'] != "") && isset($_POST['txtcstprc']) && ($_POST['txtcstprc'] != "") && isset($_POST['txtsleprc']) && ($_POST['txtsleprc'] != "") && isset($_POST['txtprior']) && ($_POST['txtprior'] != "") && isset($_POST['txtwrnty']) && ($_POST['txtwrnty'] != "") && isset($_POST['txtrtng']) && ($_POST['txtrtng'] != ""))
 {
 	$id = glb_func_chkvl($_POST['hdnprodid']);
 	$sku = glb_func_chkvl($_POST['txtsku']);
@@ -26,7 +26,8 @@ if(isset($_POST['btneprod']) && ($_POST['btneprod'] != "") && isset($_POST['txts
 	$rdtub = glb_func_chkvl($_POST['rdtub']);
 	$chkloc = $_POST['ckhloc'];
 	$ckhfetrs = $_POST['ckhfetrs'];
-	
+	$wrnty=  glb_func_chkvl($_POST['txtwrnty']);
+	$rtng=glb_func_chkvl($_POST['txtrtng']);
 	$size = glb_func_chkvl($_POST['txtsize']);
 	$ptrn = glb_func_chkvl($_POST['txtptrn']);
 	$cstprc = glb_func_chkvl($_POST['txtcstprc']);
@@ -53,7 +54,7 @@ if(isset($_POST['btneprod']) && ($_POST['btneprod'] != "") && isset($_POST['txts
 	$cntprodm = mysqli_num_rows($srsprod_mst);
 	if($cntprodm < 1)
 	{
-		$uqryprod_mst="UPDATE prod_mst set prodm_sku = '$sku', prodm_code = '$code', prodm_name='$name', prodm_tyr_brnd = '$tyrbrnd', prodm_vehtyp = '$vehtyp', prodm_tyrwdth = '$tyrwdth', prodm_tyrprfl = '$tyrprfl', prodm_tyrrmsz = '$tyrrmsz', prodm_tyrtyp = '$tyrtyp', prodm_tub_dtl = '$rdtub', prodm_size = '$size', prodm_ptrn = '$ptrn', prodm_cstprc = '$cstprc', prodm_sleprc = '$sleprc', prodm_ofrprc = '$ofrprc', prodm_dsc = '$desc', prodm_st = '$seottl', prodm_sdsc = '$seodesc', prodm_sky = '$seokywrd', prodm_sotl = '$seoh1_tle', prodm_sodsc = '$seoh1_desc', prodm_sttle = '$seoh2_tle', prodm_stdsc = '$seoh2_desc', prodm_sts = '$sts', prodm_rnk = '$prty', prodm_mdyon = '$curdt', prodm_mdfyby = '$ses_admin' where prodm_id = '$id'";
+		$uqryprod_mst="UPDATE prod_mst set prodm_sku = '$sku', prodm_code = '$code', prodm_name='$name', prodm_tyr_brnd = '$tyrbrnd', prodm_vehtyp = '$vehtyp', prodm_tyrwdth = '$tyrwdth', prodm_tyrprfl = '$tyrprfl', prodm_tyrrmsz = '$tyrrmsz', prodm_tyrtyp = '$tyrtyp', prodm_tub_dtl = '$rdtub',prodm_wrnty = '$wrnty',prodm_rtng='$rtng',prodm_size = '$size', prodm_ptrn = '$ptrn', prodm_cstprc = '$cstprc', prodm_sleprc = '$sleprc', prodm_ofrprc = '$ofrprc', prodm_dsc = '$desc', prodm_st = '$seottl', prodm_sdsc = '$seodesc', prodm_sky = '$seokywrd', prodm_sotl = '$seoh1_tle', prodm_sodsc = '$seoh1_desc', prodm_sttle = '$seoh2_tle', prodm_stdsc = '$seoh2_desc', prodm_sts = '$sts', prodm_rnk = '$prty', prodm_mdyon = '$curdt', prodm_mdfyby = '$ses_admin' where prodm_id = '$id'";
 		// echo $uqryprod_mst; exit;
 		$ursprod_mst = mysqli_query($conn,$uqryprod_mst);
 		if($ursprod_mst == true)

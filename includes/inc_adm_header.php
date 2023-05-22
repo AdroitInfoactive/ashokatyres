@@ -151,6 +151,12 @@ error_reporting(0);
                     </ul>
                   </li>
                   <li class="nav-item">
+                    <a href="view_all_custmer_views.php" class="nav-link <?php if($pagenm == "Customers Views"){echo "active";} ?>">
+                      <i class="far fa-dot-circle nav-icon"></i>
+                      <p>Customers Views</p>
+                    </a>
+                  </li>
+                  <li class="nav-item">
                     <a href="view_all_banner.php" class="nav-link <?php if($pagenm == "Banner"){echo "active";} ?>">
                       <i class="far fa-dot-circle nav-icon"></i>
                       <p>Banner</p>

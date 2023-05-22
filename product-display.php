@@ -17,7 +17,7 @@ if (
 	isset($_REQUEST['tyrwdth']) && (trim($_REQUEST['tyrwdth']) != "") or
 	isset($_REQUEST['txtsrchval']) && (trim($_REQUEST['txtsrchval']) != '')
 ) {
-	$sqlprd_mst1 = "SELECT prodm_id, prodm_sku, prodm_code, prodm_name, prodm_size, prodm_ptrn, prodm_cstprc, prodm_sleprc,  prodm_ofrprc, prodm_dsc,prodm_tub_dtl,prodm_tyrtyp, prodm_sdsc, prodm_st, prodm_sky, prodm_sotl, prodm_sodsc, prodm_sttle, prodm_stdsc, prodm_sts, prodm_rnk,vehtypm_id, vehtypm_name, vehtypm_desc, vehtypm_seotitle, vehtypm_seodesc, vehtypm_seokywrd, vehtypm_seohonetitle, vehtypm_seohonedesc, vehtypm_seohtwotitle, vehtypm_seohtwodesc, vehtypm_sts, vehtypm_prty,vehbrndm_id, vehbrndm_name, vehbrndm_desc, vehbrndm_vehtypm_id, vehbrndm_brndimg, vehbrndm_sts, vehbrndm_prty, vehbrndm_seotitle, vehbrndm_seodesc, vehbrndm_seokywrd, vehbrndm_seohonetitle, vehbrndm_seohonedesc, vehbrndm_seohtwotitle, vehbrndm_seohtwodesc, vehmodlm_id, vehmodlm_name,vehvrntm_id, vehvrntm_name,tyrprflm_id,tyrprflm_name, tyrrmszm_id,tyrrmszm_name,tyrwdthm_id,tyrwdthm_name,tyrbrndm_id,tyrbrndm_name
+	$sqlprd_mst1 = "SELECT prodm_id, prodm_sku, prodm_code, prodm_name, prodm_size, prodm_ptrn, prodm_cstprc, prodm_sleprc,  prodm_ofrprc, prodm_dsc,prodm_tub_dtl,prodm_tyrtyp, prodm_sdsc, prodm_st, prodm_sky, prodm_sotl, prodm_sodsc, prodm_sttle, prodm_stdsc, prodm_sts, prodm_rnk,vehtypm_id, vehtypm_name, vehtypm_desc, vehtypm_seotitle, vehtypm_seodesc, vehtypm_seokywrd, vehtypm_seohonetitle, vehtypm_seohonedesc, vehtypm_seohtwotitle, vehtypm_seohtwodesc, vehtypm_sts, vehtypm_prty,vehbrndm_id, vehbrndm_name, vehbrndm_desc, vehbrndm_vehtypm_id, vehbrndm_brndimg, vehbrndm_sts, vehbrndm_prty, vehbrndm_seotitle, vehbrndm_seodesc, vehbrndm_seokywrd, vehbrndm_seohonetitle, vehbrndm_seohonedesc, vehbrndm_seohtwotitle, vehbrndm_seohtwodesc, vehmodlm_id, vehmodlm_name,vehvrntm_id, vehvrntm_name,tyrprflm_id,tyrprflm_name, tyrrmszm_id,tyrrmszm_name,tyrwdthm_id,tyrwdthm_name,tyrbrndm_id,tyrbrndm_name,prodm_wrnty,prodm_rtng
 	from prod_mst
 		inner join prod_veh_dtl on prod_veh_dtl.prodd_prodm_id	= prod_mst.prodm_id
 		LEFT join veh_type_mst on veh_type_mst.vehtypm_id=	prod_veh_dtl.prodd_veh_typ
@@ -95,6 +95,8 @@ if (
 		$prod_desc = $srowsprod_mst['prodm_dsc'];
 		$prod_size = $srowsprod_mst['prodm_size'];
 		$prod_ptrn = $srowsprod_mst['prodm_ptrn'];
+		$prod_wrnty = $srowsprod_mst['prodm_wrnty'];
+		$prod_rtng = $srowsprod_mst['prodm_rtng'];
 		$prod_cstprc = $srowsprod_mst['prodm_cstprc'];
 		$prod_sleprc = $srowsprod_mst['prodm_sleprc'];
 		$prod_ofrprc = $srowsprod_mst['prodm_ofrprc'];
@@ -410,14 +412,17 @@ include('header.php');
 												
 												echo "<strong>Product Code:</strong> $prod_code " . '<br />';
 											} ?>
-													<?php if ($vehtyrprflm_name != '') {
-														echo "<strong>Size:</strong> $vehtyrprflm_name " . '<br />';
+													<?php if ($prod_size != '') {
+														echo "<strong>Size:</strong> $prod_size " . '<br />';
 													} ?>
-													<?php if ($vehtyrrmszm_name != '') {
-														echo "<strong>Pattern:</strong> $vehtyrrmszm_name " . '<br />';
+													<?php if ($prod_ptrn != '') {
+														echo "<strong>Pattern:</strong> $prod_ptrn " . '<br />';
 													} ?>
-														<?php if ($vehtyrrmszm_name != '') {
-														echo "<strong>Speed rating & Load index:</strong> $vehtyrrmszm_name " . '<br />';
+														<?php if ($prod_wrnty != '') {
+														echo "<strong>Warrenty:</strong> $prod_wrnty " . 'Years'.'<br />';
+													} ?>
+														<?php if ($prod_rtng!= '') {
+														echo "<strong>Speed rating & Load index:</strong> $prod_rtng " . '<br />';
 													} ?>
 													<?php if ($vehtyrtyp != '') {
 														$sqrytyr_typ_mst = "SELECT tyrtypm_id, tyrtypm_name from tyr_type_mst where tyrtypm_id='$vehtyrtyp' order by tyrtypm_name";
@@ -431,6 +436,9 @@ include('header.php');
 													<?php if ($vehtyrtub != '') {
 														echo "<strong>Tube included:</strong> $vehtyrtub " . '<br />';
 													} ?>
+													<!-- <?php if ($vehtyrtub != '') {
+														//echo "<strong> Warrenty:</strong> $vehtyrtub " . '<br />';
+													} ?> -->
 												</li>
 												<?php
 												$sqlvehcompblty_mst1 = "SELECT prodm_id,vehtypm_id, vehtypm_name,vehbrndm_id, vehbrndm_name, vehbrndm_desc, vehbrndm_vehtypm_id, vehbrndm_brndimg,  vehmodlm_id, vehmodlm_name,vehvrntm_id, vehvrntm_name
@@ -443,23 +451,24 @@ include('header.php');
 												where prodm_id !='' and prodm_sts ='a' and vehtypm_sts='a' and vehbrndm_sts='a' and vehmodlm_sts='a' and vehvrntm_sts='a' and prodm_id='$prod_id' group  by vehbrndm_name,vehmodlm_name";
 												$srsvehcompblty_mst = mysqli_query($conn, $sqlvehcompblty_mst1);
 												$cntrec_vehcompblty = mysqli_num_rows($srsvehcompblty_mst);
-												if ($cntrec_vehcompblty > 0) {
-													?>
-													<li><strong>Vehicle Compatibility: </strong>
+												// if ($cntrec_vehcompblty > 0) {
+												// 	?>
+													<!-- <li><strong>Vehicle Compatibility: </strong> -->
 														<?php
-														while ($srowsvehcompblty_mst = mysqli_fetch_assoc($srsvehcompblty_mst)) {
-															$cntvehcompblty += 1;
-															?>
-															<?php echo $srowsvehcompblty_mst['vehbrndm_name'] . ' ' . $srowsvehcompblty_mst['vehmodlm_name'];
-															if ($cntvehcompblty < $cntrec_vehcompblty) {
-																echo ',';
-															} else {
-																echo ' .';
-															}
-															;
-														} ?><br />
+														// while ($srowsvehcompblty_mst = mysqli_fetch_assoc($srsvehcompblty_mst)) {
+														// 	$cntvehcompblty += 1;
+														// 	?>
+														  <!-- <?php echo $srowsvehcompblty_mst['vehbrndm_name'] . ' ' . $srowsvehcompblty_mst['vehmodlm_name']; ?> -->
+														<!-- // 	if ($cntvehcompblty < $cntrec_vehcompblty) {
+														// 		echo ',';
+														// 	} else {
+														// 		echo ' .';
+														// 	}
+														// 	;
+														// } ?><br /> -->
 													<!-- </li> -->
-												<?php } ?>
+												<!-- <?php 
+											// } ?> -->
 											
 												<!-- <li>- Doorstep fitment includes Product Installation, Toe Alignment, Wheel balancing and
 													Rotation. Consumables charged as per actuals.</li> -->
@@ -476,9 +485,27 @@ include('header.php');
 									</div>
 								</div>-->
 									<div class="amount-div mb-2">
-										<h4 class="m-0"><span>&#8377;</span>
-											<?php echo $prod_fnlprc ?>
+									<?php
+										if($prod_sleprc!='' && $prod_ofrprc>0) {
+											?>
+										<s>	<h4 class="m-0"><span>&#8377;</span>
+										<?php echo $prod_sleprc ;?></s>
+									<?php	}else{
+											?>
+											<h4 class="m-0"><span>&#8377;</span>
+											<?php echo $prod_sleprc ;?>
+
+									<?php }
+											?>
 										</h4>
+										<?php 
+										  if($prod_ofrprc!=''){?>
+										<h4 class="m-0"><span>&#8377;</span>
+											<?php echo $prod_ofrprc ?>
+										</h4>
+										<?php	}
+											?>
+									
 										<p class="tax">(inclusive of all taxes)</p>
 									</div>
 									<?php
@@ -627,7 +654,7 @@ include('header.php');
 						</div>
 						<div class="swiper-container similar-slider lightgallery">
 							<div class="swiper-wrapper">
-								<?php $sqlquklookprd_mst1 = "SELECT prodm_id, prodm_sku, prodm_code, prodm_name, prodm_size, prodm_ptrn, prodm_cstprc, prodm_sleprc,  prodm_ofrprc, prodm_dsc, prodm_sdsc, prodm_st, prodm_sky, prodm_sotl, prodm_sodsc, prodm_sttle, prodm_stdsc, prodm_sts, prodm_rnk,vehtypm_id, vehtypm_name, vehtypm_desc, vehtypm_seotitle, vehtypm_seodesc, vehtypm_seokywrd, vehtypm_seohonetitle, vehtypm_seohonedesc, vehtypm_seohtwotitle, vehtypm_seohtwodesc, vehtypm_sts, vehtypm_prty,vehbrndm_id, vehbrndm_name, vehbrndm_desc, vehbrndm_vehtypm_id, vehbrndm_brndimg, vehbrndm_sts, vehbrndm_prty, vehbrndm_seotitle, vehbrndm_seodesc,  vehbrndm_seokywrd, vehbrndm_seohonetitle, vehbrndm_seohonedesc, vehbrndm_seohtwotitle, vehbrndm_seohtwodesc, vehmodlm_id, vehmodlm_name,vehvrntm_id, vehvrntm_name,tyrprflm_id,tyrprflm_name, tyrrmszm_id,tyrrmszm_name,tyrwdthm_id,tyrwdthm_name,tyrbrndm_id,tyrbrndm_name
+								<?php $sqlquklookprd_mst1 = "SELECT prodm_id, prodm_sku, prodm_code, prodm_name, prodm_size, prodm_ptrn, prodm_cstprc, prodm_sleprc,  prodm_ofrprc, prodm_dsc, prodm_sdsc, prodm_st, prodm_sky, prodm_sotl, prodm_sodsc, prodm_sttle, prodm_stdsc, prodm_sts, prodm_rnk,vehtypm_id, vehtypm_name, vehtypm_desc, vehtypm_seotitle, vehtypm_seodesc, vehtypm_seokywrd, vehtypm_seohonetitle, vehtypm_seohonedesc, vehtypm_seohtwotitle, vehtypm_seohtwodesc, vehtypm_sts, vehtypm_prty,vehbrndm_id, vehbrndm_name, vehbrndm_desc, vehbrndm_vehtypm_id, vehbrndm_brndimg, vehbrndm_sts, vehbrndm_prty, vehbrndm_seotitle, vehbrndm_seodesc,  vehbrndm_seokywrd, vehbrndm_seohonetitle, vehbrndm_seohonedesc, vehbrndm_seohtwotitle, vehbrndm_seohtwodesc, vehmodlm_id, vehmodlm_name,vehvrntm_id, vehvrntm_name,tyrprflm_id,tyrprflm_name, tyrrmszm_id,tyrrmszm_name,tyrwdthm_id,tyrwdthm_name,tyrbrndm_id,tyrbrndm_name,prodm_wrnty,prodm_rtng
 								from prod_mst
 									inner join prod_veh_dtl on prod_veh_dtl.prodd_prodm_id	= prod_mst.prodm_id
 									LEFT join veh_type_mst on veh_type_mst.vehtypm_id=	prod_veh_dtl.prodd_veh_typ
@@ -659,6 +686,8 @@ include('header.php');
 										$quklookprod_name = $srowsquklookprod_mst['prodm_name'];
 										$quklookprod_desc = $srowsquklookprod_mst['prodm_dsc'];
 										$quklookprod_size = $srowsquklookprod_mst['prodm_size'];
+										$quklookprod_wrnty = $srowsquklookprod_mst['prodm_wrnty'];
+										$quklookprod_rtng = $srowsquklookprod_mst['prodm_rtng'];
 										$quklookprod_ptrn = $srowsquklookprod_mst['prodm_ptrn'];
 										$quklookprod_cstprc = $srowsquklookprod_mst['prodm_cstprc'];
 										$quklookprod_sleprc = $srowsquklookprod_mst['prodm_sleprc'];

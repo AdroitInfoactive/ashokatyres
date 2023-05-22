@@ -19,6 +19,7 @@ $gprodbimg_usrpth = "images/products/bimg/";
 // ----------------------------- Banner upload path------------------
 $gbnr_fldnm = "../images/main-slider/";
 $gusrbnr_fldnm = "images/main-slider/";
+$gusrbnr_fldnm1 = "images/main-slider/";
 // ------------------------end----------------------------------------
 // ----------------------------- product features upload path------------------
 $gprodfetr_fldnm = "../images/product-features/";

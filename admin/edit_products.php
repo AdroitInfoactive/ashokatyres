@@ -25,7 +25,7 @@ global $id,$pg,$countstart;
 $rd_vwpgnm = "view_detail_prod.php";
 $rd_crntpgnm = "view_all_products.php";
 $clspn_val = "4";
-if(isset($_POST['btneprod']) && ($_POST['btneprod'] != "") && isset($_POST['txtsku']) && ($_POST['txtsku'] != "") && isset($_POST['txtcde']) && ($_POST['txtcde']!= "") && isset($_POST['txtname']) && ($_POST['txtname'] != "") && isset($_POST['txtcstprc']) && ($_POST['txtcstprc'] != "") && isset($_POST['txtsleprc']) && ($_POST['txtsleprc'] != "") && isset($_POST['txtprior']) && ($_POST['txtprior'] != ""))
+if(isset($_POST['btneprod']) && ($_POST['btneprod'] != "") && isset($_POST['txtsku']) && ($_POST['txtsku'] != "") && isset($_POST['txtcde']) && ($_POST['txtcde']!= "") && isset($_POST['txtname']) && ($_POST['txtname'] != "") && isset($_POST['txtcstprc']) && ($_POST['txtcstprc'] != "") && isset($_POST['txtsleprc']) && ($_POST['txtsleprc'] != "") && isset($_POST['txtprior']) && ($_POST['txtprior'] != "")  && isset($_POST['txtwrnty']) && ($_POST['txtwrnty'] != "") && isset($_POST['txtrtng']) && ($_POST['txtrtng'] != ""))
 {
 	include_once "../includes/inc_fnct_fleupld.php"; // For uploading files
 	include_once "../database/uqry_prod_mst.php";
@@ -42,7 +42,7 @@ elseif(isset($_REQUEST['hdnprodid']) && (trim($_REQUEST['hdnprodid'])!="") && is
 	$pg = glb_func_chkvl($_REQUEST['hdnpage']);
 	$countstart = glb_func_chkvl($_REQUEST['hdncnt']);
 }
-$sqryprod_mst = "SELECT prodm_id, prodm_sku, prodm_code, prodm_name, prodm_tyr_brnd, prodm_tyrwdth, prodm_tyrprfl, prodm_tyrrmsz, prodm_tyrtyp, prodm_tub_dtl, prodm_size, prodm_ptrn, prodm_cstprc, prodm_sleprc, prodm_ofrprc, prodm_dsc, prodm_sdsc, prodm_st, prodm_sky, prodm_sotl, prodm_sodsc, prodm_sttle, prodm_stdsc, prodm_sts, prodm_rnk, tyrbrndm_id, tyrbrndm_name, tyrtypm_name, vehtypm_id, vehtypm_name, tyrwdthm_id, tyrwdthm_name, tyrprflm_id, tyrprflm_name, tyrrmszm_id, tyrrmszm_name
+$sqryprod_mst = "SELECT prodm_id, prodm_sku, prodm_code, prodm_name, prodm_tyr_brnd, prodm_tyrwdth, prodm_tyrprfl, prodm_tyrrmsz, prodm_tyrtyp, prodm_tub_dtl, prodm_size, prodm_ptrn, prodm_cstprc, prodm_sleprc, prodm_ofrprc, prodm_dsc, prodm_sdsc, prodm_st, prodm_sky, prodm_sotl, prodm_sodsc, prodm_sttle, prodm_stdsc, prodm_sts, prodm_rnk, tyrbrndm_id, tyrbrndm_name, tyrtypm_name, vehtypm_id, vehtypm_name, tyrwdthm_id, tyrwdthm_name, tyrprflm_id, tyrprflm_name, tyrrmszm_id, tyrrmszm_name,prodm_wrnty,prodm_rtng
 	from prod_mst
 	left join tyr_brnd_mst on tyr_brnd_mst.tyrbrndm_id = prod_mst.prodm_tyr_brnd
 	left join tyr_type_mst on tyr_type_mst.tyrtypm_id = prod_mst.prodm_tyrtyp
@@ -90,6 +90,10 @@ else
 	rules[16]='txtsleprc:Sale Price|double|Enter Numeric Values';
 	rules[17]='txtprior:Priority|required|Enter Rank';
 	rules[18]='txtprior:Priority|numeric|Enter Only Numbers';
+	rules[19]='txtwrnty:Warrenty|required|Enter Warrenty';
+	rules[20]='txtwrnty:Warrenty|numeric|Enter Only Numbers';
+	rules[21]='txtrtng:Rating|required|Enter Speed rating & Load index';
+	rules[22]='txtrtng:Rating|numeric|Enter Only Numbers';
   function setfocus()
   {
   	document.getElementById('txtsku').focus();
@@ -719,6 +723,28 @@ include_once ('../includes/inc_fnct_ajax_validation.php');
 									<?php
 								}
 								?>
+							</div>
+						</div>
+					</div>
+					<div class="col-md-12">
+						<div class="row mb-2 mt-2">
+							<div class="col-sm-3">
+								<label>Warrenty *</label>
+							</div>
+							<div class="col-sm-9"> 
+								<input type="text" name="txtwrnty" id="txtwrnty" size="45" maxlength="250" class="form-control" value="<?php echo $rowsprod_mst['prodm_wrnty']; ?>">
+								<span id="errorsDiv_txtwrnty"></span>
+							</div>
+						</div>
+					</div> 
+					<div class="col-md-12">
+						<div class="row mb-2 mt-2">
+							<div class="col-sm-3">
+								<label>Speed rating & Load index *</label>
+							</div>
+							<div class="col-sm-9"> 
+								<input type="text" name="txtrtng" id="txtrtng" size="45" maxlength="250" class="form-control" value="<?php echo $rowsprod_mst['prodm_rtng']; ?>">
+								<span id="errorsDiv_txtrtng"></span>
 							</div>
 						</div>
 					</div>

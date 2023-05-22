@@ -721,51 +721,59 @@ while($rowsvehbrnd_mst2=mysqli_fetch_assoc($rwsvehbrnd_mst2)){
 
 
 		<!-- What peolpe are saying style 3 -->
-		<div class="section-full bg-gray content-inner-1" id="client">
+		<?php
+		
+		$sqrycust_views_mst="SELECT custmer_name,custmer_desc,custmer_imgnm,custmer_sts from cust_views_mst where custmer_sts='a' order by custmer_name asc";
+		$srscust_views_mst = mysqli_query($conn,$sqrycust_views_mst);
+		$cnt_recs = mysqli_num_rows($srscust_views_mst);
+		if($cnt_recs > 0)
+		{ ?>
+			<div class="section-full bg-gray content-inner-1" id="client">
 			<div class="container">
 				<div class="text-center head-style-2 wow fadeIn" data-wow-duration="2s" data-wow-delay="0.2s">
 					<h3 class="title text-center text-uppercase mb-4">Customers Views</h3>
 				</div>
 				<div class="section-content">
-					<div class="testimonial-one swiper-container">
-						<div class="swiper-wrapper">
-							<div class="swiper-slide">
+				<div class="testimonial-one swiper-container">
+				<div class="swiper-wrapper">
+						<?php 
+						while($srowcust_views_mst=mysqli_fetch_assoc($srscust_views_mst))
+						{
+							$db_subname = $srowcust_views_mst['custmer_name'];
+							$db_desc = $srowcust_views_mst['custmer_desc'];
+							$db_sts  = $srowcust_views_mst['custmer_sts'];
+							$db_szchrt = $srowcust_views_mst['custmer_imgnm'];
+						?>
+						
+						
+						<div class="swiper-slide">
 								<div class="testimonial-1 wow fadeInUp" data-wow-duration="2s" data-wow-delay="0.2s">
 									<div class="testimonial-text">
-										<p>I, Anand Agarwal, Director at Manik Advertisers, engaged in the business of Media Buying & Advertising services would like to acknowledge the amazing service provided by Mr. Pradeep Agarwal.</p>
+										<p><?php echo $db_desc;?></p>
 									</div>
+									<?php 
+												$imgnm = $db_szchrt;
+										 	 $imgpath =$gusrbnr_fldnm.$imgnm;
+												if(($imgnm !="") && file_exists($imgpath))
+												{
+												//echo "<img src='$imgpath' width='50pixel' height='50pixel'>";    
+												$img= $rtpth.$imgpath ;
+												}
+												else
+												{
+													// echo "NA"; 
+													$img= $rtpth."images/main-slider/no-img.jpg";           
+												}
+												?>
 									<div class="testimonial-detail clearfix">
-										<div class="testimonial-pic quote-left radius shadow"><img src="images/testimonials/pic1.jpg" width="100" height="100" alt=""></div>
-										<strong class="testimonial-name">Anand Agarwal</strong> 
+										<div class="testimonial-pic quote-left radius shadow"><img src="<?php echo $img;?>" width="100" height="100" alt=""></div>
+										<strong class="testimonial-name"><?php echo $db_subname;?></strong> 
 									</div>
 								</div>
-							</div>
-							<div class="swiper-slide">
-								<div class="testimonial-1 wow fadeInUp" data-wow-duration="2s" data-wow-delay="0.4s">
-									<div class="testimonial-text">
-										<p>I, Sanjay C jain from Agromaech Industries, am extremely pleased to associate with Adroit Infoactive Services. for my web based software development</p>
-									
-									</div>
-									<div class="testimonial-detail clearfix">
-										<div class="testimonial-pic quote-left radius shadow"><img src="images/testimonials/pic2.jpg" width="100" height="100" alt=""></div>
-										<strong class="testimonial-name">Sanjay C Jain</strong> 
-									</div>
 								</div>
-							</div>
-							<div class="swiper-slide">
-								<div class="testimonial-1 wow fadeInUp" data-wow-duration="2s" data-wow-delay="0.6s">
-									<div class="testimonial-text">
-									
-										<p>Architect Pradeep Agarwal, from Location Aarchitect, Interiors and Design. We are in to the project Management Consultants Category in BNI Artha. Hyderabad.</p>
-									
-									</div>
-									<div class="testimonial-detail clearfix">
-										<div class="testimonial-pic quote-left radius shadow"><img src="images/testimonials/pic3.jpg" width="100" height="100" alt=""></div>
-										<strong class="testimonial-name">Rajesh Mishara</strong> 
-									</div>
-								</div>
-							</div>
+								<?php } ?>
 						</div>
+					
 						<div class="testimonial-pagination text-center m-t50">
 							<div class="btn-prev swiper-button-prev7"><i class="las la-arrow-left"></i></div>
 							<div class="btn-next swiper-button-next7"><i class="las la-arrow-right"></i></div>
@@ -774,6 +782,7 @@ while($rowsvehbrnd_mst2=mysqli_fetch_assoc($rwsvehbrnd_mst2)){
 				</div>
 			</div>
 		</div>
+		<?php } ?>
 		<!-- What peolpe are saying style 3 END -->
 
 

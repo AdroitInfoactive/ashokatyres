@@ -23,7 +23,7 @@ $pagenm = "View Products";
 global $gmsg;		 
 $rd_crntpgnm = "view_all_products.php";
 $clspn_val = "4";
-if(isset($_POST['btnaprod']) && ($_POST['btnaprod'] != "") && isset($_POST['txtsku']) && ($_POST['txtsku'] != "") && isset($_POST['txtcde']) && ($_POST['txtcde']!= "") && isset($_POST['txtname']) && ($_POST['txtname'] != "") && isset($_POST['lsttyrbrnd']) && ($_POST['lsttyrbrnd'] != "") && isset($_POST['lstvehtyp']) && ($_POST['lstvehtyp']!= "") && isset($_POST['txtsize']) && ($_POST['txtsize'] != "") && isset($_POST['txtptrn']) && ($_POST['txtptrn'] != "") && isset($_POST['txtcstprc']) && ($_POST['txtcstprc'] != "") && isset($_POST['txtsleprc']) && ($_POST['txtsleprc'] != "") && isset($_POST['txtprior']) && ($_POST['txtprior'] != ""))
+if(isset($_POST['btnaprod']) && ($_POST['btnaprod'] != "") && isset($_POST['txtsku']) && ($_POST['txtsku'] != "") && isset($_POST['txtcde']) && ($_POST['txtcde']!= "") && isset($_POST['txtname']) && ($_POST['txtname'] != "") && isset($_POST['lsttyrbrnd']) && ($_POST['lsttyrbrnd'] != "") && isset($_POST['lstvehtyp']) && ($_POST['lstvehtyp']!= "") && isset($_POST['txtsize']) && ($_POST['txtsize'] != "") && isset($_POST['txtptrn']) && ($_POST['txtptrn'] != "") && isset($_POST['txtcstprc']) && ($_POST['txtcstprc'] != "") && isset($_POST['txtsleprc']) && ($_POST['txtsleprc'] != "") && isset($_POST['txtprior']) && ($_POST['txtprior'] != "") && isset($_POST['txtwrnty']) && ($_POST['txtwrnty'] != "") && isset($_POST['txtrtng']) && ($_POST['txtrtng'] != ""))
 {
 	include_once "../includes/inc_fnct_fleupld.php"; // For uploading files		
 	include_once "../database/iqry_prod_mst.php";
@@ -60,6 +60,10 @@ if(isset($_POST['btnaprod']) && ($_POST['btnaprod'] != "") && isset($_POST['txts
 			rules[16]='txtsleprc:Sale Price|double|Enter Numeric Values';
 			rules[17]='txtprior:Priority|required|Enter Rank';
 			rules[18]='txtprior:Priority|numeric|Enter Only Numbers';
+			rules[19]='txtwrnty:Warrenty|required|Enter Warrenty';
+			rules[20]='txtwrnty:Warrenty|numeric|Enter Only Numbers';
+			rules[21]='txtrtng:Rating|required|Enter Speed rating & Load index';
+			rules[22]='txtrtng:Rating|numeric|Enter Only Numbers';
 			function setfocus()
 			{
 				document.getElementById('txtsku').focus();
@@ -588,6 +592,28 @@ if(isset($_POST['btnaprod']) && ($_POST['btnaprod'] != "") && isset($_POST['txts
 												<?php
 											}
 											?>
+										</div>
+									</div>
+								</div>
+								<div class="col-md-12">
+									<div class="row mb-2 mt-2">
+										<div class="col-sm-3">
+											<label>Warrenty *</label>
+										</div>
+										<div class="col-sm-9">
+											<input name="txtwrnty" type="text" id="txtwrnty" size="45" maxlength="40" class="form-control">
+											<span id="errorsDiv_txtwrnty"></span>
+										</div>
+									</div>
+								</div>
+								<div class="col-md-12">
+									<div class="row mb-2 mt-2">
+										<div class="col-sm-3">
+											<label>Speed rating & Load index *</label>
+										</div>
+										<div class="col-sm-9">
+											<input name="txtrtng" type="text" id="txtrtng" size="45" maxlength="40" class="form-control">
+											<span id="errorsDiv_txtrtng"></span>
 										</div>
 									</div>
 								</div>

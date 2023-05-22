@@ -6,7 +6,7 @@ include_once $inc_cnctn; //Making database Connection
 include_once $inc_usr_fnctn; //checking for session 
 include_once $inc_pgng_fnctns; //Making paging validation
 include_once $inc_fldr_pth; //Making paging validation
-if(isset($_POST['btnaprod']) && ($_POST['btnaprod'] != "") && isset($_POST['txtsku']) && ($_POST['txtsku'] != "") && isset($_POST['txtcde']) && ($_POST['txtcde']!= "") && isset($_POST['txtname']) && ($_POST['txtname'] != "") && isset($_POST['lsttyrbrnd']) && ($_POST['lsttyrbrnd'] != "") && isset($_POST['lstvehtyp']) && ($_POST['lstvehtyp']!= "") && isset($_POST['txtsize']) && ($_POST['txtsize'] != "") && isset($_POST['txtptrn']) && ($_POST['txtptrn'] != "") && isset($_POST['txtcstprc']) && ($_POST['txtcstprc'] != "") && isset($_POST['txtsleprc']) && ($_POST['txtsleprc'] != "") && isset($_POST['txtprior']) && ($_POST['txtprior'] != ""))
+if(isset($_POST['btnaprod']) && ($_POST['btnaprod'] != "") && isset($_POST['txtsku']) && ($_POST['txtsku'] != "") && isset($_POST['txtcde']) && ($_POST['txtcde']!= "") && isset($_POST['txtname']) && ($_POST['txtname'] != "") && isset($_POST['lsttyrbrnd']) && ($_POST['lsttyrbrnd'] != "") && isset($_POST['lstvehtyp']) && ($_POST['lstvehtyp']!= "") && isset($_POST['txtsize']) && ($_POST['txtsize'] != "") && isset($_POST['txtptrn']) && ($_POST['txtptrn'] != "") && isset($_POST['txtcstprc']) && ($_POST['txtcstprc'] != "") && isset($_POST['txtsleprc']) && ($_POST['txtsleprc'] != "") && isset($_POST['txtprior']) && ($_POST['txtprior'] != "") && isset($_POST['txtwrnty']) && ($_POST['txtwrnty'] != "") && isset($_POST['txtrtng']) && ($_POST['txtrtng'] != ""))
 {
 	$sku = glb_func_chkvl($_POST['txtsku']);
 	$code = glb_func_chkvl($_POST['txtcde']);
@@ -20,6 +20,8 @@ if(isset($_POST['btnaprod']) && ($_POST['btnaprod'] != "") && isset($_POST['txts
 	$tyrrmsz = glb_func_chkvl($_POST['lsttyrrmsz']);
   $chkloc = $_POST['ckhloc'];
   $ckhfetrs = $_POST['ckhfetrs'];
+  $wrnty=  glb_func_chkvl($_POST['txtwrnty']);
+	$rtng= glb_func_chkvl($_POST['txtrtng']);
   $tyrtyp = glb_func_chkvl($_POST['tyrtyp']);
   $rdtub = glb_func_chkvl($_POST['rdtub']);
 	$size = glb_func_chkvl($_POST['txtsize']);
@@ -44,7 +46,7 @@ if(isset($_POST['btnaprod']) && ($_POST['btnaprod'] != "") && isset($_POST['txts
   $cntrec  = mysqli_num_rows($srsprod_mst);
   if($cntrec < 1)
   {
-    $iqryprod_mst	="INSERT into prod_mst(prodm_sku, prodm_code, prodm_name, prodm_tyr_brnd, prodm_vehtyp, prodm_tyrwdth, prodm_tyrprfl, prodm_tyrrmsz, prodm_tyrtyp, prodm_tub_dtl, prodm_size, prodm_ptrn, prodm_cstprc, prodm_sleprc, prodm_ofrprc, prodm_dsc, prodm_st, prodm_sdsc, prodm_sky, prodm_sotl, prodm_sodsc, prodm_sttle, prodm_stdsc, prodm_sts, prodm_rnk, prodm_crton, prodm_crtby)values('$sku','$code','$name','$tyrbrnd', '$vehtyp', '$tyrwdth', '$tyrprfl', '$tyrrmsz', '$tyrtyp', '$rdtub', '$size','$ptrn','$cstprc','$sleprc','$ofrprc','$desc','$seottl','$seodesc','$seokywrd','$seoh1_tle','$seoh1_desc','$seoh2_tle','$seoh2_desc','$sts','$prty','$dt','$ses_admin')";
+    $iqryprod_mst	="INSERT into prod_mst(prodm_sku, prodm_code, prodm_name, prodm_tyr_brnd, prodm_vehtyp, prodm_tyrwdth, prodm_tyrprfl, prodm_tyrrmsz, prodm_tyrtyp, prodm_tub_dtl,prodm_wrnty,prodm_rtng, prodm_size, prodm_ptrn, prodm_cstprc, prodm_sleprc, prodm_ofrprc, prodm_dsc, prodm_st, prodm_sdsc, prodm_sky, prodm_sotl, prodm_sodsc, prodm_sttle, prodm_stdsc, prodm_sts, prodm_rnk, prodm_crton, prodm_crtby)values('$sku','$code','$name','$tyrbrnd', '$vehtyp', '$tyrwdth', '$tyrprfl', '$tyrrmsz', '$tyrtyp', '$rdtub','$wrnty','$rtng','$size','$ptrn','$cstprc','$sleprc','$ofrprc','$desc','$seottl','$seodesc','$seokywrd','$seoh1_tle','$seoh1_desc','$seoh2_tle','$seoh2_desc','$sts','$prty','$dt','$ses_admin')";
     // echo $iqryprod_mst;exit;
     $irsprod_mst = mysqli_query($conn,$iqryprod_mst) or die(mysqli_error());
     if($irsprod_mst==true)

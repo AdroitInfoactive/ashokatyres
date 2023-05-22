@@ -33,7 +33,7 @@ if(isset($_REQUEST['vw']) && (trim($_REQUEST['vw'])!="") && isset($_REQUEST['pg'
 	$srchval = glb_func_chkvl($_REQUEST['val']);
 	$chk = glb_func_chkvl($_REQUEST['chk']);
 }
-$sqryprod_mst="SELECT prodm_id, prodm_sku, prodm_code, prodm_name, prodm_tyr_brnd, prodm_vehtyp, prodm_size, prodm_tyrtyp, prodm_tub_dtl, prodm_ptrn, prodm_cstprc, prodm_sleprc, prodm_ofrprc, prodm_dsc, prodm_sdsc, prodm_st, prodm_sky, prodm_sotl, prodm_sodsc, prodm_sttle, prodm_stdsc, if(prodm_sts = 'a', 'Active','Inactive') as prodm_sts, prodm_rnk, tyrbrndm_id, tyrbrndm_name, vehtypm_name, vehtypm_id, tyrwdthm_name, tyrprflm_name, tyrrmszm_name, tyrtypm_name
+$sqryprod_mst="SELECT prodm_id, prodm_sku, prodm_code, prodm_name, prodm_tyr_brnd, prodm_vehtyp, prodm_size, prodm_tyrtyp, prodm_tub_dtl, prodm_ptrn, prodm_cstprc, prodm_sleprc, prodm_ofrprc, prodm_dsc, prodm_sdsc, prodm_st, prodm_sky, prodm_sotl, prodm_sodsc, prodm_sttle, prodm_stdsc, if(prodm_sts = 'a', 'Active','Inactive') as prodm_sts, prodm_rnk, tyrbrndm_id, tyrbrndm_name, vehtypm_name, vehtypm_id, tyrwdthm_name, tyrprflm_name, tyrrmszm_name, tyrtypm_name,prodm_wrnty,prodm_rtng
 	from prod_mst
 	inner join veh_type_mst on prodm_vehtyp = vehtypm_id
 	inner join tyr_brnd_mst on prodm_tyr_brnd = tyrbrndm_id
@@ -238,6 +238,19 @@ include_once $inc_adm_lftlnk;
 							<label for="txtname" class="col-sm-2 col-md-3 col-form-label">Size</label>
 							<div class="col-sm-8">
 								<?php echo $rowsprod_mst['prodm_size'];?>
+							</div>
+						</div>
+						<div class="form-group row">
+							<label for="txtname" class="col-sm-2 col-md-3 col-form-label">Warrenty</label>
+							<div class="col-sm-8">
+								<?php echo $rowsprod_mst['prodm_wrnty']. ' Years'?>
+							</div>
+						</div>
+						<div class="form-group row">
+							<label for="txtname" class="col-sm-2 col-md-3 col-form-label">Speed rating & Load index
+</label>
+							<div class="col-sm-8">
+								<?php echo $rowsprod_mst['prodm_rtng'];?>
 							</div>
 						</div>
 						<div class="form-group row">
