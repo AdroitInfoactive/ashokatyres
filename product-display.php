@@ -398,14 +398,26 @@ include('header.php');
 										<div class="inclu-info">
 											<ul>
 												<li>
-													<?php if ($vehtyrwdthm_name != '') {
+													<!-- <?php if ($vehtyrwdthm_name != '') {
+													
 														echo "<strong>Width:</strong> $vehtyrwdthm_name " . '<br />';
+													} ?> -->
+													<?php if ($vehbrnd_name != '') {
+												
+														echo "<strong>Brand:</strong> $vehbrnd_name " . '<br />';
 													} ?>
+														<?php if ($prod_code != '') {
+												
+												echo "<strong>Product Code:</strong> $prod_code " . '<br />';
+											} ?>
 													<?php if ($vehtyrprflm_name != '') {
-														echo "<strong>Aspect Ratio:</strong> $vehtyrprflm_name " . '<br />';
+														echo "<strong>Size:</strong> $vehtyrprflm_name " . '<br />';
 													} ?>
 													<?php if ($vehtyrrmszm_name != '') {
-														echo "<strong>Rim Diameter:</strong> $vehtyrrmszm_name " . '<br />';
+														echo "<strong>Pattern:</strong> $vehtyrrmszm_name " . '<br />';
+													} ?>
+														<?php if ($vehtyrrmszm_name != '') {
+														echo "<strong>Speed rating & Load index:</strong> $vehtyrrmszm_name " . '<br />';
 													} ?>
 													<?php if ($vehtyrtyp != '') {
 														$sqrytyr_typ_mst = "SELECT tyrtypm_id, tyrtypm_name from tyr_type_mst where tyrtypm_id='$vehtyrtyp' order by tyrtypm_name";
@@ -446,10 +458,11 @@ include('header.php');
 															}
 															;
 														} ?><br />
-													</li>
+													<!-- </li> -->
 												<?php } ?>
-												<li>- Doorstep fitment includes Product Installation, Toe Alignment, Wheel balancing and
-													Rotation. Consumables charged as per actuals.</li>
+											
+												<!-- <li>- Doorstep fitment includes Product Installation, Toe Alignment, Wheel balancing and
+													Rotation. Consumables charged as per actuals.</li> -->
 											</ul>
 										</div>
 									</div>
