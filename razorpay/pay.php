@@ -1,3 +1,7 @@
+
+<script language="javascript" type="text/javascript">
+location.href = "../order-list";
+</script>
 <?php
 
 require('config.php');

@@ -143,7 +143,8 @@ include('header.php');
 																			echo $order_dtl['crtordm_sdayphone'];
 																	}
 																	?></p>
-                          <p><strong>Email Id: </strong><?php echo $rowsord_mst['crtordm_semailid'];?></p>
+                          <!-- <p><strong>Email Id: </strong><?php echo $rowsord_mst['crtordm_semailid'];?></p> -->
+													<p><strong>Email Id: </strong><?php echo $order_dtl['crtordm_emailid'];?></p>
                           <p><strong>Address: </strong><?php echo $order_dtl['crtordm_sadrs'];?></p>
                           <p><strong>City: </strong><?php echo $order_dtl['sctynm'];?></p>
                           <p><strong>State: </strong><?php echo $order_dtl['scntynm'];?></p>
