@@ -549,8 +549,7 @@ include('header.php');
 									<div class="clearfix">
 										<?php if ($clsbls > 0) { ?>
 											<button type="button" onclick="frmprdsub('<?php echo $prod_id; ?>','a');"
-												class="mt-3 view-details-btn btn btn-primary light phone-no shadow-none effect-1 w-100 text-center d-block"><span>Add
-													To Cart</span></button>
+												class="mt-3 view-details-btn btn btn-primary light phone-no shadow-none effect-1 w-100 text-center d-block"><span>Add To Cart</span></button>
 										<?php } ?>
 									</div>
 									<div class="clearfix">
