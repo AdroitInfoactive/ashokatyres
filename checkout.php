@@ -276,10 +276,10 @@ Store</strong></label>
 </div>
 <div class="row mult-addr" id="chkdeladd">
 <div class="pt-4">
-<h6 id="dchrg">Devilery Charges :<?php echo $od;?> /- rs
+<h6 id="dchrg1">Devilery Charges :<?php echo $od;?> /- rs
 <input type="hidden" name="txtdevlrychrg" id="txtdevlrychrg" value="<?php echo $od;?>" />
 </h6>
-<h6 id="fchrgs" style="display:none">Fitting Charges :<?php echo $df;?> /- rs
+<h6 id="fchrgs1" style="display:none">Fitting Charges :<?php echo $df;?> /- rs
 <input type="hidden" name="txtftngchrg" id="txtftngchrg" value="<?php echo $df;?>" />
 </h6>
 <h5 class="">Expected shipping delivery</h5>
@@ -405,23 +405,23 @@ echo '0.00';}; ?></span>
 
 <div  id="chkdeladd1">
 <div class="pt-4">
-<h6 id="dchrg">Devilery Charges :<?php echo $od;?> /- rs
+<!-- <h6 id="dchrg">Devilery Charges :<?php echo $od;?> /- rs
 <input type="hidden" name="txtdevlrychrg" id="txtdevlrychrg" value="<?php echo $od;?>" />
 </h6>
 <h6 id="fchrgs" style="display:none">Fitting Charges :<?php echo $df;?> /- rs
 <input type="hidden" name="txtftngchrg" id="txtftngchrg" value="<?php echo $df;?>" />
-</h6>
+</h6> -->
 
 
 
-<!-- <h5 id="dchrg" >Charges
+<h5 id="dchrg" >Charges
 <span>₹<?php  if($od > 0){echo $chrg =$od ;}else{
 echo '0.00';}; ?></span>
 </h5>
 <h5 id="fchrgs" style="display:none" >Charges
 <span >₹<?php  if($df > 0){echo $chrg= $df ;}else{
 echo '0.00';}; ?></span>
-</h5> -->
+</h5>
 </div>
 </div>
 
@@ -562,21 +562,26 @@ document.getElementById('chkdeladd1').style.display = "block";
 document.getElementById('chkstr').style.display = "none";
 document.getElementById('fchrgs').style.display = "block";
 document.getElementById('dchrg').style.display = "none";
-document.getElementById('charges').style.display = "block";
+document.getElementById('fchrgs1').style.display = "block";
+document.getElementById('dchrg1').style.display = "none";
 } else if (sts == 'd') {
 document.getElementById('chkdeladd').style.display = "block";
 document.getElementById('chkdeladd1').style.display = "block";
 document.getElementById('chkstr').style.display = "none";
 document.getElementById('fchrgs').style.display = "none";
 document.getElementById('dchrg').style.display = "block";
-document.getElementById('charges').style.display = "block";
+document.getElementById('fchrgs1').style.display = "none";
+document.getElementById('dchrg1').style.display = "block";
+
 } else {
 document.getElementById('chkdeladd').style.display = "none";
 document.getElementById('chkdeladd1').style.display = "none";
 document.getElementById('chkstr').style.display = "block";
 document.getElementById('fchrgs').style.display = "none";
 document.getElementById('dchrg').style.display = "none";
-document.getElementById('charges').style.display = "block";
+document.getElementById('fchrgs1').style.display = "none";
+document.getElementById('dchrg1').style.display = "none";
+
 }
 }
 </script>
