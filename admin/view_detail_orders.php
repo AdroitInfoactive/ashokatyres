@@ -338,7 +338,9 @@ include_once('../includes/inc_fnct_ajax_validation.php');
 													$shpngqry = "SELECT shpngm_id,shpngm_prc from  shpng_mst WHERE shpngm_id = $db_shpprcid and shpngm_sts = 'a' ";
 													$shpng_mst = mysqli_query($conn, $shpngqry);
 													$shpng_dtl = mysqli_fetch_assoc($shpng_mst);
-													$db_shpprc = $shpng_dtl['shpngm_prc'];
+													
+													$db_shpprc=$rowsord_mst['crtordm_shpchrgamt'];
+													//$db_shpprc = $shpng_dtl['shpngm_prc'];
 													$igstval = $rowspo_mst['crtordd_igst'];
 													$sgstval = $rowspo_mst['crtordd_sgst'];
 													$cgstval = $rowspo_mst['crtordd_cgst'];

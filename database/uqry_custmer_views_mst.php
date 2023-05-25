@@ -50,18 +50,18 @@ if(isset($_POST['btnebnrsbmt']) && (trim($_POST['btnebnrsbmt']) != "") && isset(
 				move_uploaded_file($bnrsource,$gbnr_fldnm.$bnrdest);
 			}
 			?>
-			<script>location.href="view_detail_banner.php?vw=<?php echo $id;?>&sts=y&pg=<?php echo $pg;?>&countstart=<?php echo $countstart.$srchval;?>";</script>
+			<script>location.href="view_detail_custmer_views.php?vw=<?php echo $id;?>&sts=y&pg=<?php echo $pg;?>&countstart=<?php echo $countstart.$srchval;?>";</script>
 			<?php
 		}
 		else
 		{ ?>
-			<script>location.href="view_detail_banner.php?vw=<?php echo $id;?>&sts=n&pg=<?php echo $pg;?>&countstart=<?php echo $countstart.$srchval;?>";</script>
+			<script>location.href="view_detail_custmer_views.php?vw=<?php echo $id;?>&sts=n&pg=<?php echo $pg;?>&countstart=<?php echo $countstart.$srchval;?>";</script>
 			<?php
 		}
 	}
 	else
 	{ ?>
-		<script>location.href="view_detail_banner.php?vw=<?php echo $id;?>&sts=d&pg=<?php echo $pg;?>&countstart=<?php echo $countstart;?>";
+		<script>location.href="view_detail_custmer_views.php?vw=<?php echo $id;?>&sts=d&pg=<?php echo $pg;?>&countstart=<?php echo $countstart;?>";
 		</script>
 		<?php
 	}

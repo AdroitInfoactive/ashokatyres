@@ -969,7 +969,7 @@ include_once ('../includes/inc_fnct_ajax_validation.php');
 					<div class="table-responsive">
 						<table width="100%"  border="0" cellspacing="1" cellpadding="1" class="table table-striped table-bordered">
 							<?php
-							$sqryimg_dtl="SELECT prodimgd_id,prodimgd_title,prodimgd_simg,prodimgd_bimg,prodimgd_prty, prodimgd_sts from prodimg_dtl where prodimgd_prodm_id ='$id' order by prodimgd_id";
+				$sqryimg_dtl="SELECT prodimgd_id,prodimgd_title,prodimgd_simg,prodimgd_bimg,prodimgd_prty, prodimgd_sts from prodimg_dtl where prodimgd_prodm_id ='$id' order by prodimgd_id";
 							$srsimg_dtl	= mysqli_query($conn,$sqryimg_dtl);
 							$cntprodimg_dtl  = mysqli_num_rows($srsimg_dtl);
 							$nfiles = 0;
@@ -1022,9 +1022,13 @@ include_once ('../includes/inc_fnct_ajax_validation.php');
                       ?>
                       <span id="errorsDiv_flesmlimg1"></span>
                     </td>
-										<td width="15%"  align="center" >
+										<!-- <td width="15%"  align="center" >
 											<input type="file" name="flesimg<?php echo $nfiles;?>" class="form-control" id="flesimg<?php echo $nfiles;?>"><br/>
 											<span id="errorsDiv_flesimg<?php echo $nfiles;?>" style="color:#FF0000"></span>
+										</td> -->
+										<td width="15%"  align="center" >
+											<input type="file" name="flebimg<?php echo $nfiles;?>" class="form-control" id="flebimg<?php echo $nfiles;?>"><br/>
+											<span id="errorsDiv_flebimg<?php echo $nfiles;?>" style="color:#FF0000"></span>
 										</td>
 										<td align="left" width='10%'>
                       <?php
@@ -1052,6 +1056,7 @@ include_once ('../includes/inc_fnct_ajax_validation.php');
                       ?>
                       <span id="errorsDiv_flebmlimg<?php echo $nfiles?>"></span>
                     </td>
+										
 										<td width="10%"  align="center">
 											<input type="text" name="txtphtprior<?php echo $nfiles?>" id="txtphtprior<?php echo $nfiles?>" class="form-control" placeholder="Priority" size="5" maxlength="3" value="<?php echo $rowsprodimgd_mdtl['prodimgd_prty'];?>"><br>
 											<span id="errorsDiv_txtphtprior<?php echo $nfiles?>" style="color:#FF0000"></span>

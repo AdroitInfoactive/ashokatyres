@@ -165,6 +165,7 @@ if(isset($_POST['btneprod']) && ($_POST['btneprod'] != "") && isset($_POST['txts
 							}
 							if(($bsource!='none') && ($bsource!='') && ($bdest != ""))
 							{
+							
 								if(isset($_FILES[$bimg]['tmp_name']) && ($_FILES[$bimg]['tmp_name']!=""))
 								{
 									$bgimgpth = $gprodbimg_upldpth.$hdnbgimg;
