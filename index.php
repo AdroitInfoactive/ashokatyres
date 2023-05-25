@@ -1,11 +1,10 @@
 <?php
-     error_reporting(0);      	
-			include_once 'includes/inc_nocache.php'; // Clearing the cache information
-            include_once 'includes/inc_connection.php';//Make connection with the database  	
-            include_once "includes/inc_config.php";	//path config file
-		    include_once "includes/inc_usr_functions.php";//Including user session value
-			include_once "includes/inc_folder_path.php";//Including user session value
-			
+error_reporting(0);
+include_once 'includes/inc_nocache.php'; // Clearing the cache information
+include_once 'includes/inc_connection.php'; //Make connection with the database  	
+include_once "includes/inc_config.php";	//path config file
+include_once "includes/inc_usr_functions.php"; //Including user session value
+include_once "includes/inc_folder_path.php"; //Including user session value
 $page_title = "Ashoka Tyres | Home";
 $page_seo_title = "Ashoka Tyres | Home";
 $db_seokywrd = "";
@@ -14,113 +13,77 @@ $current_page = "home";
 $body_class = "homepage";
 include('header.php');
 ?>
-
-
-
-
-
-
 <div class="page-wraper">
-
-
-
-
 	<div class="page-content bg-white">
 		<!-- Slider -->
 		<div class="main-slider style-two default-banner">
 			<div class="tp-banner-container">
 				<div class="tp-banner">
-					<div id="rev_slider_1061_1_wrapper" class="rev_slider_wrapper fullscreen-container" data-alias="creative-freedom" data-source="gallery" style="background-color:#1f1d24;padding:0px;">
+				<div id="rev_slider_1061_1_wrapper" class="rev_slider_wrapper fullscreen-container" data-alias="creative-freedom" 			data-source="gallery" style="background-color:#1f1d24;padding:0px;">
 						<!-- START REVOLUTION SLIDER 5.4.1 fullscreen mode -->
-						<div id="rev_slider_1061_1" class="rev_slider fullscreenbanner" style="display:none;" data-version="5.4.1">
-							<ul>
-								<!-- SLIDE  -->
-								<li data-index="rs-2978" data-transition="fadethroughdark" data-slotamount="default" data-hideafterloop="0" data-hideslideonmobile="off" data-easein="default" data-easeout="default" data-masterspeed="2000" data-thumb="images/main-slider/slide2.jpg" data-rotate="0" data-saveperformance="off" data-title="Brands" data-param1="01" data-param2="" data-param3="" data-param4="" data-param5="" data-param6="" data-param7="" data-param8="" data-param9="" data-param10="" data-description="">
+						
+								<?php 
+								$sqrybnr_mst1 = "SELECT bnrm_desc, bnrm_name, bnrm_lnk, bnrm_imgnm, bnrm_sts from bnr_mst where bnrm_sts='a'";
+								$srsbnr_mst = mysqli_query($conn,$sqrybnr_mst1);
+								$cnt_recs1 = mysqli_num_rows($srsbnr_mst);
+								$cnt1 =0;
+								$dt_in=2978;
+								if($cnt_recs1 > 0)
+								{?>
+								<div id="rev_slider_1061_1" class="rev_slider fullscreenbanner" style="display:none;" data-version="5.4.1">
+								<ul>
+								<?php
+									while($srowbnr_mst=mysqli_fetch_assoc($srsbnr_mst))
+									{
+										$cnt1+=1;
+										$dt_in+=1;
+										$db_desc = $srowbnr_mst['bnrm_desc'];
+										$db_subname = $srowbnr_mst['bnrm_name'];
+										$db_sts  = $srowbnr_mst['bnrm_sts'];
+										$db_szchrt = $srowbnr_mst['bnrm_imgnm'];
+										$imgnm = $db_szchrt;
+										$imgpath = $gusrbnr_fldnm1.$imgnm;
+										if(($imgnm !="") && file_exists($imgpath))
+										{
+											//echo "<img src='$imgpath' width='50pixel' height='50pixel'>"; 
+											$baner= $imgpath;   
+										}
+										else
+										{
+											echo "NA";            
+										}
+										?>
+										<!-- SLIDE  -->
+								<li data-index="rs-<?php echo $dt_in;?>" data-transition="fadethroughdark" data-slotamount="default" data-hideafterloop="0" data-hideslideonmobile="off" data-easein="default" data-easeout="default" data-masterspeed="2000" data-thumb="<?php echo 	$baner;?>" data-rotate="0" data-saveperformance="off" data-title="Brands" data-param1="<?php echo '0'.$cnt1;?>" data-param2="" data-param3="" data-param4="" data-param5="" data-param6="" data-param7="" data-param8="" data-param9="" data-param10="" data-description="">
 									<!-- MAIN IMAGE -->
-									<img src="images/main-slider/slide2.jpg" alt="" data-bgposition="center center" data-bgfit="cover" data-bgparallax="3" class="rev-slidebg" data-no-retina>
-
+									<img src="<?php echo 	$baner;?>" alt="" data-bgposition="center center" data-bgfit="cover" data-bgrepeat="no-repeat" data-bgparallax="3" class="rev-slidebg" data-no-retina>
+								
 									<!-- LAYER NR. 1 -->
-									<div class="tp-caption tp-shape tp-shapewrapper " id="slide-2978-layer-1" data-x="['center','center','center','center']" data-hoffset="['0','0','0','0']" data-y="['middle','middle','middle','middle']" data-voffset="['0','0','0','0']" data-fontweight="['100','100','400','400']" data-width="full" data-height="full" data-whitespace="nowrap" data-type="shape" data-basealign="slide" data-responsive_offset="off" data-responsive="off" data-frames='[{"from":"opacity:0;","speed":1500,"to":"o:1;","delay":150,"ease":"Power2.easeInOut"},{"delay":"wait","speed":1500,"to":"opacity:0;","ease":"Power2.easeInOut"}]' data-textAlign="['left','left','left','left']" data-paddingtop="[0,0,0,0]" data-paddingright="[0,0,0,0]" data-paddingbottom="[0,0,0,0]" data-paddingleft="[0,0,0,0]" style="z-index: 5;border-color:rgba(0, 0, 0, 0);background-color: rgba(0,0,0,0.5);border-width:0px;">
+									<div class="tp-caption tp-shape tp-shapewrapper " id="slide-2979-layer-1" data-x="['center','center','center','center']" data-hoffset="['0','0','0','0']" data-y="['middle','middle','middle','middle']" data-voffset="['0','0','0','0']" data-fontweight="['100','100','400','400']" data-width="full" data-height="full" data-whitespace="nowrap" data-type="shape" data-basealign="slide" data-responsive_offset="off" data-responsive="off" data-frames='[{"from":"opacity:0;","speed":1500,"to":"o:1;","delay":150,"ease":"Power2.easeInOut"},{"delay":"wait","speed":1500,"to":"opacity:0;","ease":"Power2.easeInOut"}]' data-textAlign="['left','left','left','left']" data-paddingtop="[0,0,0,0]" data-paddingright="[0,0,0,0]" data-paddingbottom="[0,0,0,0]" data-paddingleft="[0,0,0,0]" style="z-index: 5;border-color:rgba(0, 0, 0, 0);background-color: rgba(0,0,0,0.5);border-width:0px;">
 									</div>
-
 									<!-- LAYER NR. 4 -->
-									<div class="tp-caption Creative-Title   tp-resizeme" id="slide-2978-layer-2" data-x="['right','right','right','center']" data-hoffset="['60','140','90','0']" data-y="['middle','middle','middle','middle']" data-voffset="['-91','-91','-120','-120']" data-fontsize="['80','80','60','60']" data-lineheight="['120','100','90','60']" data-width="['none','none','none','320']" data-height="none" data-whitespace="nowrap" data-type="text" data-responsive_offset="on" data-frames='[{"from":"y:50px;opacity:0;","speed":1500,"to":"o:1;","delay":2550,"ease":"Power3.easeOut"},{"delay":"wait","speed":1000,"to":"x:0;y:0;z:0;rX:0;rY:0;rZ:0;sX:0.9;sY:0.9;skX:0;skY:0;opacity:0;","ease":"Power3.easeInOut"}]' data-textAlign="['right','right','right','center']" data-paddingtop="[0,0,0,0]" data-paddingright="[0,0,0,0]" data-paddingbottom="[0,0,0,0]" data-paddingleft="[0,0,0,0]" style="z-index: 8; white-space: nowrap;font-family:'Poppins', sans-serif; font-weight: 800">Excellence in Tyre
+									<div class="tp-caption Creative-Title   tp-resizeme" id="slide-2979-layer-2" data-x="['right','right','right','center']" data-hoffset="['60','140','90','0']" data-y="['middle','middle','middle','middle']" data-voffset="['-91','-91','-120','-120']" data-fontsize="['80','80','90','60']" data-lineheight="['120','100','90','60']" data-width="['none','none','none','320']" data-height="none" data-whitespace="nowrap" data-type="text" data-responsive_offset="on" data-frames='[{"from":"y:50px;opacity:0;","speed":1500,"to":"o:1;","delay":2550,"ease":"Power3.easeOut"},{"delay":"wait","speed":1000,"to":"x:0;y:0;z:0;rX:0;rY:0;rZ:0;sX:0.9;sY:0.9;skX:0;skY:0;opacity:0;","ease":"Power3.easeInOut"}]' data-textAlign="['right','right','right','center']" data-paddingtop="[0,0,0,0]" data-paddingright="[0,0,0,0]" data-paddingbottom="[0,0,0,0]" data-paddingleft="[0,0,0,0]" style="z-index: 8; white-space: nowrap;font-family:'Poppins', sans-serif; font-weight: 800"><?php echo 	$db_subname; ?>
 									</div>
-
 									<!-- LAYER NR. 3 -->
-									<div class="tp-caption Creative-SubTitle   tp-resizeme" id="slide-2978-layer-3" data-x="['right','right','right','center']" data-hoffset="['60','140','90','0']" data-y="['middle','middle','middle','center']" data-voffset="['-10','-10','-60','-55']" data-fontsize="['23','23','23','23']" data-lineheight="['23','23','23','23']" data-width="none" data-height="none" data-whitespace="nowrap" data-type="text" data-responsive_offset="on" data-frames='[{"from":"y:50px;opacity:0;","speed":1500,"to":"o:1;","delay":2350,"ease":"Power3.easeOut"},{"delay":"wait","speed":1000,"to":"x:0;y:0;z:0;rX:0;rY:0;rZ:0;sX:0.9;sY:0.9;skX:0;skY:0;opacity:0;","ease":"Power3.easeInOut"}]' data-textAlign="['right','right','right','right']" data-paddingtop="[0,0,0,0]" data-paddingright="[0,0,0,0]" data-paddingbottom="[0,0,0,0]" data-paddingleft="[0,0,0,0]" style="z-index: 7; white-space: nowrap;color: #fff;font-family:'Poppins';font-weight: 600;">Friendly Service At Competitive Prices.
+									<div class="tp-caption Creative-SubTitle   tp-resizeme" id="slide-2979-layer-3" data-x="['right','right','right','center']" data-hoffset="['60','140','90','0']" data-y="['middle','middle','middle','center']" data-voffset="['-10','-10','-60','-55']" data-fontsize="['23','23','23','23']" data-lineheight="['23','23','23','23']" data-width="none" data-height="none" data-whitespace="nowrap" data-type="text" data-responsive_offset="on" data-frames='[{"from":"y:50px;opacity:0;","speed":1500,"to":"o:1;","delay":2350,"ease":"Power3.easeOut"},{"delay":"wait","speed":1000,"to":"x:0;y:0;z:0;rX:0;rY:0;rZ:0;sX:0.9;sY:0.9;skX:0;skY:0;opacity:0;","ease":"Power3.easeInOut"}]' data-textAlign="['right','right','right','right']" data-paddingtop="[0,0,0,0]" data-paddingright="[0,0,0,0]" data-paddingbottom="[0,0,0,0]" data-paddingleft="[0,0,0,0]" style="z-index: 7; white-space: nowrap;color: #fff;font-family:'Poppins';font-weight: 600;"><?php echo 	$db_desc; ?>
 									</div>
-
 								</li>
-								<!-- SLIDE  -->
-								<li data-index="rs-2979" data-transition="fadethroughdark" data-slotamount="default" data-hideafterloop="0" data-hideslideonmobile="off" data-easein="default" data-easeout="default" data-masterspeed="2000" data-thumb="images/main-slider/slide1.jpg" data-rotate="0" data-saveperformance="off" data-title="Quality" data-param1="02" data-param2="" data-param3="" data-param4="" data-param5="" data-param6="" data-param7="" data-param8="" data-param9="" data-param10="" data-description="">
-									<!-- MAIN IMAGE -->
-									<img src="images/main-slider/slide1.jpg" alt="" data-bgposition="center center" data-bgfit="cover" data-bgrepeat="no-repeat" data-bgparallax="3" class="rev-slidebg" data-no-retina>
-									<!-- LAYERS -->
+										<?php
+									}
+?></ul>
+<div class="tp-bannertimer tp-bottom" style="visibility: hidden !important;"></div>
+</div><?php
+								}
+										?>
 
-									<!-- LAYER NR. 7 -->
-									<div class="tp-caption tp-shape tp-shapewrapper " id="slide-2979-layer-1" data-x="['center','center','center','center']" data-hoffset="['0','0','0','0']" data-y="['middle','middle','middle','middle']" data-voffset="['0','0','0','0']" data-fontweight="['100','100','400','400']" data-width="full" data-height="full" data-whitespace="nowrap" data-type="shape" data-basealign="slide" data-responsive_offset="off" data-responsive="off" data-frames='[{"from":"opacity:0;","speed":1500,"to":"o:1;","delay":150,"ease":"Power2.easeInOut"},{"delay":"wait","speed":1500,"to":"opacity:0;","ease":"Power2.easeInOut"}]' data-textAlign="['left','left','left','left']" data-paddingtop="[0,0,0,0]" data-paddingright="[0,0,0,0]" data-paddingbottom="[0,0,0,0]" data-paddingleft="[0,0,0,0]" style="z-index: 5;border-color:rgba(0, 0, 0, 0);background-color: rgba(0,0,0,0.5);border-width:0px;">
-									</div>
-
-									<!-- LAYER NR. 10 -->
-									<div class="tp-caption Creative-Title   tp-resizeme" id="slide-2979-layer-2" data-x="['right','right','right','center']" data-hoffset="['60','140','90','0']" data-y="['middle','middle','middle','middle']" data-voffset="['-91','-91','-120','-120']" data-fontsize="['80','80','90','60']" data-lineheight="['120','100','90','60']" data-width="['none','none','none','320']" data-height="none" data-whitespace="nowrap" data-type="text" data-responsive_offset="on" data-frames='[{"from":"y:50px;opacity:0;","speed":1500,"to":"o:1;","delay":2550,"ease":"Power3.easeOut"},{"delay":"wait","speed":1000,"to":"x:0;y:0;z:0;rX:0;rY:0;rZ:0;sX:0.9;sY:0.9;skX:0;skY:0;opacity:0;","ease":"Power3.easeInOut"}]' data-textAlign="['right','right','right','center']" data-paddingtop="[0,0,0,0]" data-paddingright="[0,0,0,0]" data-paddingbottom="[0,0,0,0]" data-paddingleft="[0,0,0,0]" style="z-index: 8; white-space: nowrap;font-family:'Poppins', sans-serif; font-weight: 800">Bringing Joy of Every journey
-									</div>
-
-									<!-- LAYER NR. 9 -->
-									<div class="tp-caption Creative-SubTitle   tp-resizeme" id="slide-2979-layer-3" data-x="['right','right','right','center']" data-hoffset="['60','140','90','0']" data-y="['middle','middle','middle','center']" data-voffset="['-10','-10','-60','-55']" data-fontsize="['23','23','23','23']" data-lineheight="['23','23','23','23']" data-width="none" data-height="none" data-whitespace="nowrap" data-type="text" data-responsive_offset="on" data-frames='[{"from":"y:50px;opacity:0;","speed":1500,"to":"o:1;","delay":2350,"ease":"Power3.easeOut"},{"delay":"wait","speed":1000,"to":"x:0;y:0;z:0;rX:0;rY:0;rZ:0;sX:0.9;sY:0.9;skX:0;skY:0;opacity:0;","ease":"Power3.easeInOut"}]' data-textAlign="['right','right','right','right']" data-paddingtop="[0,0,0,0]" data-paddingright="[0,0,0,0]" data-paddingbottom="[0,0,0,0]" data-paddingleft="[0,0,0,0]" style="z-index: 7; white-space: nowrap;color: #fff;font-family:'Poppins';font-weight: 600;">Go where the moment takes you.
-									</div>
-
-								</li>
-
-
-								<li data-index="rs-2980" data-transition="fadethroughdark" data-slotamount="default" data-hideafterloop="0" data-hideslideonmobile="off" data-easein="default" data-easeout="default" data-masterspeed="2000" data-thumb="images/main-slider/slide3.jpg" data-rotate="0" data-saveperformance="off" data-title="Quality" data-param1="03" data-param2="" data-param3="" data-param4="" data-param5="" data-param6="" data-param7="" data-param8="" data-param9="" data-param10="" data-description="">
-									<!-- MAIN IMAGE -->
-									<img src="images/main-slider/slide3.jpg" alt="" data-bgposition="center center" data-bgfit="cover" data-bgrepeat="no-repeat" data-bgparallax="3" class="rev-slidebg" data-no-retina>
-									<!-- LAYERS -->
-
-									<!-- LAYER NR. 7 -->
-									<div class="tp-caption tp-shape tp-shapewrapper " id="slide-2979-layer-1" data-x="['center','center','center','center']" data-hoffset="['0','0','0','0']" data-y="['middle','middle','middle','middle']" data-voffset="['0','0','0','0']" data-fontweight="['100','100','400','400']" data-width="full" data-height="full" data-whitespace="nowrap" data-type="shape" data-basealign="slide" data-responsive_offset="off" data-responsive="off" data-frames='[{"from":"opacity:0;","speed":1500,"to":"o:1;","delay":150,"ease":"Power2.easeInOut"},{"delay":"wait","speed":1500,"to":"opacity:0;","ease":"Power2.easeInOut"}]' data-textAlign="['left','left','left','left']" data-paddingtop="[0,0,0,0]" data-paddingright="[0,0,0,0]" data-paddingbottom="[0,0,0,0]" data-paddingleft="[0,0,0,0]" style="z-index: 5;border-color:rgba(0, 0, 0, 0);background-color: rgba(0,0,0,0.5);border-width:0px;">
-									</div>
-
-									<!-- LAYER NR. 10 -->
-									<div class="tp-caption Creative-Title   tp-resizeme" id="slide-2979-layer-2" data-x="['right','right','right','center']" data-hoffset="['60','140','90','0']" data-y="['middle','middle','middle','middle']" data-voffset="['-91','-91','-120','-120']" data-fontsize="['80','80','90','60']" data-lineheight="['120','100','90','60']" data-width="['none','none','none','320']" data-height="none" data-whitespace="nowrap" data-type="text" data-responsive_offset="on" data-frames='[{"from":"y:50px;opacity:0;","speed":1500,"to":"o:1;","delay":2550,"ease":"Power3.easeOut"},{"delay":"wait","speed":1000,"to":"x:0;y:0;z:0;rX:0;rY:0;rZ:0;sX:0.9;sY:0.9;skX:0;skY:0;opacity:0;","ease":"Power3.easeInOut"}]' data-textAlign="['right','right','right','center']" data-paddingtop="[0,0,0,0]" data-paddingright="[0,0,0,0]" data-paddingbottom="[0,0,0,0]" data-paddingleft="[0,0,0,0]" style="z-index: 8; white-space: nowrap;font-family:'Poppins', sans-serif; font-weight: 800">Next Century Tyre
-									</div>
-
-									<!-- LAYER NR. 9 -->
-									<div class="tp-caption Creative-SubTitle   tp-resizeme" id="slide-2979-layer-3" data-x="['right','right','right','center']" data-hoffset="['60','140','90','0']" data-y="['middle','middle','middle','center']" data-voffset="['-10','-10','-60','-55']" data-fontsize="['23','23','23','23']" data-lineheight="['23','23','23','23']" data-width="none" data-height="none" data-whitespace="nowrap" data-type="text" data-responsive_offset="on" data-frames='[{"from":"y:50px;opacity:0;","speed":1500,"to":"o:1;","delay":2350,"ease":"Power3.easeOut"},{"delay":"wait","speed":1000,"to":"x:0;y:0;z:0;rX:0;rY:0;rZ:0;sX:0.9;sY:0.9;skX:0;skY:0;opacity:0;","ease":"Power3.easeInOut"}]' data-textAlign="['right','right','right','right']" data-paddingtop="[0,0,0,0]" data-paddingright="[0,0,0,0]" data-paddingbottom="[0,0,0,0]" data-paddingleft="[0,0,0,0]" style="z-index: 7; white-space: nowrap;color: #fff;font-family:'Poppins';font-weight: 600;">Your Partner In Auto Service.
-									</div>
-
-								</li>
-								<li data-index="rs-2981" data-transition="fadethroughdark" data-slotamount="default" data-hideafterloop="0" data-hideslideonmobile="off" data-easein="default" data-easeout="default" data-masterspeed="2000" data-thumb="images/main-slider/slide4.jpg" data-rotate="0" data-saveperformance="off" data-title="Quality" data-param1="04" data-param2="" data-param3="" data-param4="" data-param5="" data-param6="" data-param7="" data-param8="" data-param9="" data-param10="" data-description="">
-									<!-- MAIN IMAGE -->
-									<img src="images/main-slider/slide4.jpg" alt="" data-bgposition="center center" data-bgfit="cover" data-bgrepeat="no-repeat" data-bgparallax="3" class="rev-slidebg" data-no-retina>
-									<!-- LAYERS -->
-
-									<!-- LAYER NR. 7 -->
-									<div class="tp-caption tp-shape tp-shapewrapper " id="slide-2979-layer-1" data-x="['center','center','center','center']" data-hoffset="['0','0','0','0']" data-y="['middle','middle','middle','middle']" data-voffset="['0','0','0','0']" data-fontweight="['100','100','400','400']" data-width="full" data-height="full" data-whitespace="nowrap" data-type="shape" data-basealign="slide" data-responsive_offset="off" data-responsive="off" data-frames='[{"from":"opacity:0;","speed":1500,"to":"o:1;","delay":150,"ease":"Power2.easeInOut"},{"delay":"wait","speed":1500,"to":"opacity:0;","ease":"Power2.easeInOut"}]' data-textAlign="['left','left','left','left']" data-paddingtop="[0,0,0,0]" data-paddingright="[0,0,0,0]" data-paddingbottom="[0,0,0,0]" data-paddingleft="[0,0,0,0]" style="z-index: 5;border-color:rgba(0, 0, 0, 0);background-color: rgba(0,0,0,0.5);border-width:0px;">
-									</div>
-
-									<!-- LAYER NR. 10 -->
-									<div class="tp-caption Creative-Title   tp-resizeme" id="slide-2979-layer-2" data-x="['right','right','right','center']" data-hoffset="['60','140','90','0']" data-y="['middle','middle','middle','middle']" data-voffset="['-91','-91','-120','-120']" data-fontsize="['80','80','90','60']" data-lineheight="['120','100','90','60']" data-width="['none','none','none','320']" data-height="none" data-whitespace="nowrap" data-type="text" data-responsive_offset="on" data-frames='[{"from":"y:50px;opacity:0;","speed":1500,"to":"o:1;","delay":2550,"ease":"Power3.easeOut"},{"delay":"wait","speed":1000,"to":"x:0;y:0;z:0;rX:0;rY:0;rZ:0;sX:0.9;sY:0.9;skX:0;skY:0;opacity:0;","ease":"Power3.easeInOut"}]' data-textAlign="['right','right','right','center']" data-paddingtop="[0,0,0,0]" data-paddingright="[0,0,0,0]" data-paddingbottom="[0,0,0,0]" data-paddingleft="[0,0,0,0]" style="z-index: 8; white-space: nowrap;font-family:'Poppins', sans-serif; font-weight: 800">Lets you Drive Smoothly
-									</div>
-
-									<!-- LAYER NR. 9 -->
-									<div class="tp-caption Creative-SubTitle   tp-resizeme" id="slide-2979-layer-3" data-x="['right','right','right','center']" data-hoffset="['60','140','90','0']" data-y="['middle','middle','middle','center']" data-voffset="['-10','-10','-60','-55']" data-fontsize="['23','23','23','23']" data-lineheight="['23','23','23','23']" data-width="none" data-height="none" data-whitespace="nowrap" data-type="text" data-responsive_offset="on" data-frames='[{"from":"y:50px;opacity:0;","speed":1500,"to":"o:1;","delay":2350,"ease":"Power3.easeOut"},{"delay":"wait","speed":1000,"to":"x:0;y:0;z:0;rX:0;rY:0;rZ:0;sX:0.9;sY:0.9;skX:0;skY:0;opacity:0;","ease":"Power3.easeInOut"}]' data-textAlign="['right','right','right','right']" data-paddingtop="[0,0,0,0]" data-paddingright="[0,0,0,0]" data-paddingbottom="[0,0,0,0]" data-paddingleft="[0,0,0,0]" style="z-index: 7; white-space: nowrap;color: #fff;font-family:'Poppins';font-weight: 600;">Feel The Ultimate Performance.
-									</div>
-
-								</li>
-
-							</ul>
-							<div class="tp-bannertimer tp-bottom" style="visibility: hidden !important;"></div>
-
-						</div>
+										
+							
 					</div><!-- END REVOLUTION SLIDER -->
 				</div>
 			</div>
-<?php  $sqlprdvechtyp_mst1="select  prodm_id, prodm_sku, prodm_code, prodm_name,
+			<?php $sqlprdvechtyp_mst1 = "select  prodm_id, prodm_sku, prodm_code, prodm_name,
 		             vehtypm_id,vehtypm_name
 		 from prod_mst
-		 
 		inner join prod_veh_dtl on prod_veh_dtl.prodd_prodm_id	= prod_mst.prodm_id
 		LEFT join veh_type_mst on veh_type_mst.vehtypm_id=	prod_veh_dtl.prodd_veh_typ
 		LEFT join veh_brnd_mst on veh_brnd_mst.vehbrndm_id=prod_veh_dtl.prodd_veh_brnd
@@ -130,22 +93,15 @@ include('header.php');
 	    inner join tyr_wdth_mst on tyr_wdth_mst.tyrwdthm_id = prod_mst.prodm_tyrwdth		
 	    inner join tyr_rimsize_mst on tyr_rimsize_mst.tyrrmszm_id = prod_mst.prodm_tyrrmsz
 		inner join tyr_prfl_mst on tyr_prfl_mst.tyrprflm_id = prod_mst.prodm_tyrprfl
-		
 		  where 
-		  
 		prodm_id !='' and prodm_sts ='a' and vehtypm_sts='a' and vehbrndm_sts='a' and vehmodlm_sts='a' and
 		vehvrntm_sts='a' and tyrprflm_sts='a' and tyrrmszm_sts='a' and tyrwdthm_sts='a' and tyrbrndm_sts='a'
-		
-		
 		";
-        	 $sqlprdvechtyp_mst1 .=" group by vehtypm_id  order by  vehtypm_prty desc";
-        	 // echo $sqlprdvechtyp_mst1;
-				$rwprdvechtyp_mst  = mysqli_query($conn,$sqlprdvechtyp_mst1);
-
-
-		$cntrec_prodvechtyp_mst  = mysqli_num_rows($rwprdvechtyp_mst);
-?>
-
+			$sqlprdvechtyp_mst1 .= " group by vehtypm_id  order by  vehtypm_prty desc";
+			// echo $sqlprdvechtyp_mst1;
+			$rwprdvechtyp_mst  = mysqli_query($conn, $sqlprdvechtyp_mst1);
+			$cntrec_prodvechtyp_mst  = mysqli_num_rows($rwprdvechtyp_mst);
+			?>
 			<!-- searching cars form -->
 			<div class="car-searching text-white">
 				<div class="container">
@@ -154,65 +110,58 @@ include('header.php');
 						<li class="nav-item"><a data-bs-toggle="tab" class="nav-link" aria-controls="popular" href="#used-car">Tyre Size</a></li>
 					</ul>
 				</div>
-
-
-				<form  method="POST" class="searching-form tab-content">
+				<form method="POST" class="searching-form tab-content">
 					<div id="new-car" class="container tab-pane active clearfix">
 						<div class="row search-row">
 							<div class="col-lg-2 col-md-6">
 								<div class="form-group">
 									<label>Tyres For</label>
 									<ul class="nav justify-content-evenly m-b20">
-                                    <?php 
-  if($cntrec_prodvechtyp_mst > 0){
-		  $cnt = 0;
-		  mysqli_data_seek($rwprdvechtyp_mst,0);
-  
-		  while($srowsprodvechtyp_mst=mysqli_fetch_assoc($rwprdvechtyp_mst)){ 
-		  
-		  $cntvechtyp1  += 1; ?>
-										<li class="form-check">
-											<input class="form-check-input" type="radio" name="vechtye" id="vechtye<?php echo $srowsprodvechtyp_mst['vehtypm_id']; ?>" onclick="funcfltvechtype('<?php echo trim($srowsprodvechtyp_mst['vehtypm_id']); ?>')" value="<?php echo ucwords($srowsprodvechtyp_mst['vehtypm_name']); ?>">
-											<label class="form-check-label" for="vechtye<?php echo $srowsprodvechtyp_mst['vehtypm_id']; ?>" >
-											<?php echo ucwords($srowsprodvechtyp_mst['vehtypm_name']); ?>
-											</label>
-										</li>
-					<?php $cntvechtyp1++ ; }} ?>
+										<?php
+										if ($cntrec_prodvechtyp_mst > 0) {
+											$cnt = 0;
+											mysqli_data_seek($rwprdvechtyp_mst, 0);
+											while ($srowsprodvechtyp_mst = mysqli_fetch_assoc($rwprdvechtyp_mst)) {
+												$cntvechtyp1  += 1; ?>
+												<li class="form-check">
+													<input class="form-check-input" type="radio" name="vechtye" id="vechtye<?php echo $srowsprodvechtyp_mst['vehtypm_id']; ?>" onclick="funcfltvechtype('<?php echo trim($srowsprodvechtyp_mst['vehtypm_id']); ?>')" value="<?php echo ucwords($srowsprodvechtyp_mst['vehtypm_name']); ?>">
+													<label class="form-check-label" for="vechtye<?php echo $srowsprodvechtyp_mst['vehtypm_id']; ?>">
+														<?php echo ucwords($srowsprodvechtyp_mst['vehtypm_name']); ?>
+													</label>
+												</li>
+										<?php $cntvechtyp1++;
+											}
+										} ?>
 									</ul>
 								</div>
 							</div>
-    
-
-                            <div class="col-lg-2 col-md-6">
+							<div class="col-lg-2 col-md-6">
 								<div class="form-group">
 									<label>Select Brand</label>
 									<select class="form-control sm" id="getbrnd" name="getbrnd" onchange="funcfltvechbrnd()">
-									 <option value="">Select</option>
-							
+										<option value="">Select</option>
 									</select>
 								</div>
 							</div>
 							<div class="col-lg-2 col-md-6">
 								<div class="form-group">
 									<label>Select Model</label>
-									<select class="form-control sm select2-hidden-accessible" data-selector="model profile" tabindex="-1"  aria-hidden="true" data-select2-id="51" id="getmold" name="getmold" onchange="funcfltvechmold()">
-                                        <option value="">Select</option>
-                           </select>
+									<select class="form-control sm select2-hidden-accessible" data-selector="model profile" tabindex="-1" aria-hidden="true" data-select2-id="51" id="getmold" name="getmold" onchange="funcfltvechmold()">
+										<option value="">Select</option>
+									</select>
 								</div>
 							</div>
-
 							<div class="col-lg-2 col-md-6">
 								<div class="form-group">
 									<label>Select Variant</label>
-									<select class="form-control sm   select2-hidden-accessible" data-selector="variant rim" tabindex="-1"  aria-hidden="true" data-select2-id="74" id="getvarnt" name="getvarnt" onchange="funcfltvechvarnt()"><option value="">Select</option></select>
+									<select class="form-control sm   select2-hidden-accessible" data-selector="variant rim" tabindex="-1" aria-hidden="true" data-select2-id="74" id="getvarnt" name="getvarnt" onchange="funcfltvechvarnt()">
+										<option value="">Select</option>
+									</select>
 								</div>
 							</div>
-
-
-
 							<div class="col-lg-3 col-md-6">
 								<div class="form-group">
-									<button type="button" onclick="suBmitvechbrnd()"  id="suBvechbrnd" class="btn d-block w-100 btn-primary btn-md">Search</button>
+									<button type="button" onclick="suBmitvechbrnd()" id="suBvechbrnd" class="btn d-block w-100 btn-primary btn-md">Search</button>
 								</div>
 							</div>
 						</div>
@@ -223,42 +172,36 @@ include('header.php');
 								<div class="form-group">
 									<label>Tyres For</label>
 									<ul class="nav justify-content-evenly m-b20">
-						<?php   if($cntrec_prodvechtyp_mst > 0){
-		  $cnt = 0;
-		  mysqli_data_seek($rwprdvechtyp_mst,0);
-  
-		  while($srowsprodvechtyp_mst=mysqli_fetch_assoc($rwprdvechtyp_mst)){ 
-		  
-		  $cntvechtyp1  += 1; ?>
-						<li class="form-check">
-											<input class="form-check-input" type="radio" name="tyrtyp" id="tyrtyp<?php echo $srowsprodvechtyp_mst['vehtypm_id']; ?>" onclick="funcflttyrtype('<?php echo trim($srowsprodvechtyp_mst['vehtypm_id']); ?>')" value="<?php echo ucwords($srowsprodvechtyp_mst['vehtypm_name']); ?>">
-											<label class="form-check-label" for="vechtye<?php echo $srowsprodvechtyp_mst['vehtypm_id']; ?>" >
-											<?php echo ucwords($srowsprodvechtyp_mst['vehtypm_name']); ?>
-											</label>
-										</li>
-					<?php $cntvechtyp1++ ; }}  ?>
+										<?php if ($cntrec_prodvechtyp_mst > 0) {
+											$cnt = 0;
+											mysqli_data_seek($rwprdvechtyp_mst, 0);
+											while ($srowsprodvechtyp_mst = mysqli_fetch_assoc($rwprdvechtyp_mst)) {
+												$cntvechtyp1  += 1; ?>
+												<li class="form-check">
+													<input class="form-check-input" type="radio" name="tyrtyp" id="tyrtyp<?php echo $srowsprodvechtyp_mst['vehtypm_id']; ?>" onclick="funcflttyrtype('<?php echo trim($srowsprodvechtyp_mst['vehtypm_id']); ?>')" value="<?php echo ucwords($srowsprodvechtyp_mst['vehtypm_name']); ?>">
+													<label class="form-check-label" for="vechtye<?php echo $srowsprodvechtyp_mst['vehtypm_id']; ?>">
+														<?php echo ucwords($srowsprodvechtyp_mst['vehtypm_name']); ?>
+													</label>
+												</li>
+										<?php $cntvechtyp1++;
+											}
+										}  ?>
 									</ul>
 								</div>
 							</div>
-
-
-
 							<div class="col-lg-2 col-md-6">
 								<div class="form-group">
 									<label>Select Width</label>
 									<select class="form-control sm" name="getwdth" id="getwdth" onchange="funprofle()">
-										
-									<option value="">Select</option>
-							
+										<option value="">Select</option>
 									</select>
 								</div>
 							</div>
 							<div class="col-lg-2 col-md-6">
 								<div class="form-group">
 									<label>Select Profile</label>
-									<select class="form-control sm" id="getprofle" name="getprofle" onchange="funrim()"><option value="">Select</option>
-										
-										
+									<select class="form-control sm" id="getprofle" name="getprofle" onchange="funrim()">
+										<option value="">Select</option>
 									</select>
 								</div>
 							</div>
@@ -266,11 +209,10 @@ include('header.php');
 								<div class="form-group">
 									<label>Select Rim</label>
 									<select class="form-control sm" name="getrim" id="getrim" onchange=" functyrrm()">
-									<option value="">Select</option>
+										<option value="">Select</option>
 									</select>
 								</div>
 							</div>
-                        
 							<div class="col-lg-3 col-md-6">
 								<div class="form-group">
 									<button type="button" onclick="suBtyrszserch()" id="tyrszserch" class="btn d-block w-100 btn-primary btn-md">Search</button>
@@ -283,12 +225,10 @@ include('header.php');
 			<!-- searching cars form end -->
 		</div>
 		<!-- Slider END -->
-
-   <?php  $sqlvehbrnd_mst="SELECT vehtypm_id, vehtypm_name, vehtypm_desc,
+		<?php $sqlvehbrnd_mst = "SELECT vehtypm_id, vehtypm_name, vehtypm_desc,
 					 vehbrndm_id, vehbrndm_name, vehbrndm_desc, vehbrndm_vehtypm_id, 
 					 vehtypm_sts, vehtypm_prty
 					  from prod_mst
-		 
 		inner join prod_veh_dtl on prod_veh_dtl.prodd_prodm_id	= prod_mst.prodm_id
 		LEFT join veh_type_mst on veh_type_mst.vehtypm_id=	prod_veh_dtl.prodd_veh_typ
 		LEFT join veh_brnd_mst on veh_brnd_mst.vehbrndm_id=prod_veh_dtl.prodd_veh_brnd
@@ -298,62 +238,51 @@ include('header.php');
 	    inner join tyr_wdth_mst on tyr_wdth_mst.tyrwdthm_id = prod_mst.prodm_tyrwdth		
 	    inner join tyr_rimsize_mst on tyr_rimsize_mst.tyrrmszm_id = prod_mst.prodm_tyrrmsz
 		inner join tyr_prfl_mst on tyr_prfl_mst.tyrprflm_id = prod_mst.prodm_tyrprfl
-		
 		  where 
-		  
 		prodm_id !='' and prodm_sts ='a' and vehtypm_sts='a' and vehbrndm_sts='a' and vehmodlm_sts='a' and
 		vehvrntm_sts='a' and tyrprflm_sts='a' and tyrrmszm_sts='a' and tyrwdthm_sts='a' and tyrbrndm_sts='a'  ";
-
-$rwsvehbrnd_mst=mysqli_query($conn,$sqlvehbrnd_mst);
-$carbrndcnt=mysqli_num_rows($rwsvehbrnd_mst);
-$arrvehid=array();
-$arrvehnm=array();
-
-while($rowsvehbrnd_mst=mysqli_fetch_assoc($rwsvehbrnd_mst)){
-	$arrvehid[]=$vehbrndid=$rowsvehbrnd_mst['vehtypm_id'];
-	$arrvehids[$vehbrndid]=$vehbrndid;
-	$arrvehnm[$vehbrndid]=$rowsvehbrnd_mst['vehtypm_name'];
-	
-	}
-	 $brndvehcnt=count($arrvehid);
-	
-?>
+		$rwsvehbrnd_mst = mysqli_query($conn, $sqlvehbrnd_mst);
+		$carbrndcnt = mysqli_num_rows($rwsvehbrnd_mst);
+		$arrvehid = array();
+		$arrvehnm = array();
+		while ($rowsvehbrnd_mst = mysqli_fetch_assoc($rwsvehbrnd_mst)) {
+			$arrvehid[] = $vehbrndid = $rowsvehbrnd_mst['vehtypm_id'];
+			$arrvehids[$vehbrndid] = $vehbrndid;
+			$arrvehnm[$vehbrndid] = $rowsvehbrnd_mst['vehtypm_name'];
+		}
+		$brndvehcnt = count($arrvehid);
+		?>
 		<section class="content-inner-2">
 			<div class="container-fluid">
 				<div class="section-head mb-4 text-center">
 					<h3 class="title">Tyres By Vehicle Brands</h3>
 				</div>
-
 				<div class="d-flex justify-content-center mb-2">
 					<ul class="nav nav-tabs style-1 m-b20">
-                    <?php for($vbrnd=0;$vbrnd<$brndvehcnt;$vbrnd++){
-                    if($arrvehnm[$vbrnd] !=''){?>
-						<li class="nav-item"><a data-bs-toggle="tab" class="nav-link <?php if( $arrvehids[$vbrnd]=='1'){ echo 'active'; } ?>" aria-controls="car-brand" href="#vhbrnd<?php echo $arrvehids[$vbrnd] ?>"><?php echo $arrvehnm[$vbrnd] ?></a></li>
-                            <?php } }?>
-					
+						<?php for ($vbrnd = 0; $vbrnd < $brndvehcnt; $vbrnd++) {
+							if ($arrvehnm[$vbrnd] != '') { ?>
+								<li class="nav-item"><a data-bs-toggle="tab" class="nav-link <?php if ($arrvehids[$vbrnd] == '1') {
+																																								echo 'active';
+																																							} ?>" aria-controls="car-brand" href="#vhbrnd<?php echo $arrvehids[$vbrnd] ?>"><?php echo $arrvehnm[$vbrnd] ?></a></li>
+						<?php }
+						} ?>
 					</ul>
-
 				</div>
-
-
 				<div class="tab-content brand-vehicles container">
-                 <?php for($vbrnd=0;$vbrnd<$brndvehcnt;$vbrnd++){
-					 if($arrvehnm[$vbrnd] !=''){ 
-					 
-					 
-					 
-$vehnmb=funcStrRplc($arrvehnm[$vbrnd]);?>
-                 
-					<div class="tab-pane <?php if( $arrvehids[$vbrnd]=='1'){ echo 'active'; } ?> clearfix" id="vhbrnd<?php echo $arrvehids[$vbrnd] ?>">
-						<div class="swiper-container deal-swiper swiper-dots-1">
-					<div class="swiper-wrapper">
-   <?php     $sqlvehbrnd_mst2="SELECT vehbrndm_vehtypm_id,vehbrndm_name,vehbrndm_id,
+					<?php for ($vbrnd = 0; $vbrnd < $brndvehcnt; $vbrnd++) {
+						if ($arrvehnm[$vbrnd] != '') {
+							$vehnmb = funcStrRplc($arrvehnm[$vbrnd]); ?>
+							<div class="tab-pane <?php if ($arrvehids[$vbrnd] == '1') {
+																			echo 'active';
+																		} ?> clearfix" id="vhbrnd<?php echo $arrvehids[$vbrnd] ?>">
+								<div class="swiper-container deal-swiper swiper-dots-1">
+									<div class="swiper-wrapper">
+										<?php $sqlvehbrnd_mst2 = "SELECT vehbrndm_vehtypm_id,vehbrndm_name,vehbrndm_id,
 					  vehbrndm_brndimg, 
 					vehbrndm_sts, vehbrndm_prty, 
 					  prodm_id, prodm_sku, prodm_code, prodm_name,
 		             tyrprflm_id,prodm_tyrrmsz,tyrrmszm_name
 		 from prod_mst
-		 
 		inner join prod_veh_dtl on prod_veh_dtl.prodd_prodm_id	= prod_mst.prodm_id
 		LEFT join veh_type_mst on veh_type_mst.vehtypm_id=	prod_veh_dtl.prodd_veh_typ
 		LEFT join veh_brnd_mst on veh_brnd_mst.vehbrndm_id=prod_veh_dtl.prodd_veh_brnd
@@ -363,68 +292,46 @@ $vehnmb=funcStrRplc($arrvehnm[$vbrnd]);?>
 	    inner join tyr_wdth_mst on tyr_wdth_mst.tyrwdthm_id = prod_mst.prodm_tyrwdth		
 	    inner join tyr_rimsize_mst on tyr_rimsize_mst.tyrrmszm_id = prod_mst.prodm_tyrrmsz
 		inner join tyr_prfl_mst on tyr_prfl_mst.tyrprflm_id = prod_mst.prodm_tyrprfl
-		
 		  where 
-		  
 		prodm_id !='' and prodm_sts ='a' and vehtypm_sts='a' and vehbrndm_sts='a' and vehmodlm_sts='a' and
 		vehvrntm_sts='a' and tyrprflm_sts='a' and tyrrmszm_sts='a' and tyrwdthm_sts='a' and tyrbrndm_sts='a' and    vehbrndm_vehtypm_id= $arrvehids[$vbrnd] group by vehbrndm_id order by vehbrndm_prty desc";
-
-$rwsvehbrnd_mst2=mysqli_query($conn,$sqlvehbrnd_mst2);
- $carbrndcnt2=mysqli_num_rows($rwsvehbrnd_mst2);
-
-while($rowsvehbrnd_mst2=mysqli_fetch_assoc($rwsvehbrnd_mst2)){
-
-	$vehbrndimgnm=$rowsvehbrnd_mst2['vehbrndm_brndimg'];
-	$vehbrndimgpth=$gvehbrndimg_usrpth.$vehbrndimgnm;
-	if($vehbrndimgnm !='' && file_exists($vehbrndimgpth) ){
-		$vehbrndimgpth=$rtpth.$gvehbrndimg_usrpth.$vehbrndimgnm;
-		}else{
-			$vehbrndimgpth="images/no-image.png";
-			}
-	$vehbrndname=$rowsvehbrnd_mst2['vehbrndm_name'];
-	$vehbrndid =$rowsvehbrnd_mst2['vehbrndm_id'];
-	$sr_vehbrndname=funcStrRplc($vehbrndname);
-	
-	$sr_vchtype=funcStrRplc($arrvehnm[$vbrnd]);
-?>
-								<div class="swiper-slide">
-									<!--<a href="<?php echo $rtpth.$vehnmb.'/'.$sr_vehbrndname?>">-->
-                                   <a href="<?php echo $rtpth ; ?>products.php?type=<?php echo $sr_vchtype?>&vehbrnd=<?php echo $vehbrndname ?>">
-                                    
-										<div class="vehicle-brand-img w-100">
-											<img src="<?php echo $vehbrndimgpth ?>" class="w-100" alt="">
-											<p class="text-center"><?php echo $vehbrndname ?></p>
-										</div>
-									</a>
+										$rwsvehbrnd_mst2 = mysqli_query($conn, $sqlvehbrnd_mst2);
+										$carbrndcnt2 = mysqli_num_rows($rwsvehbrnd_mst2);
+										while ($rowsvehbrnd_mst2 = mysqli_fetch_assoc($rwsvehbrnd_mst2)) {
+											$vehbrndimgnm = $rowsvehbrnd_mst2['vehbrndm_brndimg'];
+											$vehbrndimgpth = $gvehbrndimg_usrpth . $vehbrndimgnm;
+											if ($vehbrndimgnm != '' && file_exists($vehbrndimgpth)) {
+												$vehbrndimgpth = $rtpth . $gvehbrndimg_usrpth . $vehbrndimgnm;
+											} else {
+												$vehbrndimgpth = "images/no-image.png";
+											}
+											$vehbrndname = $rowsvehbrnd_mst2['vehbrndm_name'];
+											$vehbrndid = $rowsvehbrnd_mst2['vehbrndm_id'];
+											$sr_vehbrndname = funcStrRplc($vehbrndname);
+											$sr_vchtype = funcStrRplc($arrvehnm[$vbrnd]);
+										?>
+											<div class="swiper-slide">
+												<!--<a href="<?php echo $rtpth . $vehnmb . '/' . $sr_vehbrndname ?>">-->
+												<a href="<?php echo $rtpth; ?>products.php?type=<?php echo $sr_vchtype ?>&vehbrnd=<?php echo $vehbrndname ?>">
+													<div class="vehicle-brand-img w-100">
+														<img src="<?php echo $vehbrndimgpth ?>" class="w-100" alt="">
+														<p class="text-center"><?php echo $vehbrndname ?></p>
+													</div>
+												</a>
+											</div>
+										<?php } ?>
+									</div>
+									<div class="slider-one-pagination m-t40 m-sm-t20">
+										<!-- Add Navigation -->
+										<div class="swiper-pagination"></div>
+									</div>
 								</div>
-			<?php }?>
-					
-
 							</div>
-							<div class="slider-one-pagination m-t40 m-sm-t20">
-								<!-- Add Navigation -->
-								<div class="swiper-pagination"></div>
-							</div>
-						</div>
-					</div>
-                    <?php } }?>
-                    
-			
-
-
-
-
-
+					<?php }
+					} ?>
 				</div>
-
-
-
-
-
 			</div>
 		</section>
-
-
 		<section class="content-inner about-sc content-inner-1 overlay-black-middle " style="background-image: url(images/background/home-abt-bg.jpg);background-size:cover;background-position: center;background-repeat:no-repeat;">
 			<div class="container">
 				<div class="row">
@@ -436,7 +343,7 @@ while($rowsvehbrnd_mst2=mysqli_fetch_assoc($rwsvehbrnd_mst2)){
 						</div>
 						<div class="row">
 							<div class="col-md-6 m-b60">
-							<p class="text-white">You’ve built best of the products. You’ve created best systems and processes to deliver what your customers are expecting of you. You’ve built a website that’s best in class, style and substance with end-to-end processes to browse, select and pay. Your business is truly digital isn’t it? Sadly no. Your customers need to find you on the Wide World Web. </p>
+								<p class="text-white">You’ve built best of the products. You’ve created best systems and processes to deliver what your customers are expecting of you. You’ve built a website that’s best in class, style and substance with end-to-end processes to browse, select and pay. Your business is truly digital isn’t it? Sadly no. Your customers need to find you on the Wide World Web. </p>
 							</div>
 							<div class="col-md-6 m-b60">
 								<blockquote>
@@ -461,7 +368,7 @@ while($rowsvehbrnd_mst2=mysqli_fetch_assoc($rwsvehbrnd_mst2)){
 					<div class="col-lg-3 col-sm-6 m-b30">
 						<div class="icon-bx-wraper box-hover active style-5 p-a30 ">
 							<div class="icon-md text-primary m-b10"> <a href="#" class="icon-cell">
-							<i class="bi bi-hand-thumbs-up-fill"></i>
+									<i class="bi bi-hand-thumbs-up-fill"></i>
 								</a> </div>
 							<div class="icon-content">
 								<h5 class="dlab-tilte">GRIPPING CAPABILITY</h5>
@@ -472,7 +379,7 @@ while($rowsvehbrnd_mst2=mysqli_fetch_assoc($rwsvehbrnd_mst2)){
 					<div class="col-lg-3 col-sm-6 m-b30">
 						<div class="icon-bx-wraper box-hover active style-5 p-a30 ">
 							<div class="icon-md text-primary m-b10"> <a href="#" class="icon-cell">
-							<i class="bi bi-check2-square"></i>
+									<i class="bi bi-check2-square"></i>
 								</a> </div>
 							<div class="icon-content">
 								<h5 class="dlab-tilte">QUALITY</h5>
@@ -483,7 +390,7 @@ while($rowsvehbrnd_mst2=mysqli_fetch_assoc($rwsvehbrnd_mst2)){
 					<div class="col-lg-3 col-sm-6 m-b30">
 						<div class="icon-bx-wraper box-hover active style-5 p-a30 ">
 							<div class="icon-md text-primary m-b10"> <a href="#" class="icon-cell">
-							<i class="bi bi-emoji-smile"></i>
+									<i class="bi bi-emoji-smile"></i>
 								</a> </div>
 							<div class="icon-content">
 								<h5 class="dlab-tilte">TRUST</h5>
@@ -491,23 +398,16 @@ while($rowsvehbrnd_mst2=mysqli_fetch_assoc($rwsvehbrnd_mst2)){
 							</div>
 						</div>
 					</div>
-
-
 				</div>
 				<div class="row">
 					<div class="col-lg-12">
 						<div class="about-des-link text-center">
-							<a href="<?php echo $rtpth;?>about-us" class="btn btn-primary m-r15 m-b10">Read more</a>
-
+							<a href="<?php echo $rtpth; ?>about-us" class="btn btn-primary m-r15 m-b10">Read more</a>
 						</div>
 					</div>
 				</div>
 			</div>
 		</section>
-
-
-
-
 		<!-- About Us -->
 		<section class="content-inner overflow-hidden bg-gray">
 			<div class="container">
@@ -516,11 +416,9 @@ while($rowsvehbrnd_mst2=mysqli_fetch_assoc($rwsvehbrnd_mst2)){
 						<div class="section-head style-1">
 							<div class="row justify-content-center display-align">
 								<div class="col-lg-8 m-b0 m-lg-b20">
-								
 									<h2 class="h2 text-center">Advantages</h2>
 									<p class="m-b0 text-center">For your prospects to be your customers they need to find you where they are looking.</p>
 								</div>
-						
 							</div>
 						</div>
 					</div>
@@ -535,7 +433,6 @@ while($rowsvehbrnd_mst2=mysqli_fetch_assoc($rwsvehbrnd_mst2)){
 								</a> </div>
 							<div class="icon-content">
 								<h4 class="dlab-tilte m-b20 text-capitalize">Customer Support</h4>
-								
 							</div>
 						</div>
 					</div>
@@ -548,11 +445,9 @@ while($rowsvehbrnd_mst2=mysqli_fetch_assoc($rwsvehbrnd_mst2)){
 								</a> </div>
 							<div class="icon-content">
 								<h4 class="dlab-tilte m-b20 text-capitalize">Reservation any time</h4>
-								
 							</div>
 						</div>
 					</div>
-				
 					<div class="col-lg-4 col-md-6">
 						<div class="icon-bx-wraper style-4 text-center box-hover m-b30">
 							<div class="icon-lg m-b20 text-primary"> <a href="#" class="icon-cell">
@@ -569,54 +464,45 @@ while($rowsvehbrnd_mst2=mysqli_fetch_assoc($rwsvehbrnd_mst2)){
 								</a> </div>
 							<div class="icon-content">
 								<h4 class="dlab-tilte m-b20 text-capitalize">All Tyre Brands</h4>
-								
 							</div>
 						</div>
 					</div>
-				
 				</div>
 			</div>
 		</section>
 		<!-- About Us -->
-<section>
-
-		<div class="section-full bg-img-fix content-inner bg-gray" id="project">
-			<div class="container">
-				<div class="text-center head-style-2 wow fadeIn" data-wow-duration="2s" data-wow-delay="0.2s">
-					<h3 class="title text-uppercase mb-4">Tyres By Brands</h3>
-				</div>
-				<div class="site-filters style-1 clearfix center  m-b40">
-					<ul class="filters" data-toggle="buttons">
-						<li data-filter="" class="btn active">
-							<input type="radio">
-							<a href="javascript:void(0);" class="site-button-secondry wow fadeInUp" data-wow-duration="1s" data-wow-delay="0.2s"><span>Show All</span></a>
-						</li>
-						
-                                       <?php for($vbrnd=0;$vbrnd<$brndvehcnt;$vbrnd++){
-                    if($arrvehnm[$vbrnd] !=''){?>
-					
-                        		<li data-filter=".<?php echo $arrvehids[$vbrnd] ?>-filter" class="btn">
-							<input type="radio">
-							<a href="javascript:void(0);" class="site-button-secondry wow fadeInUp" data-wow-duration="1s" data-wow-delay="0.6s"><span><?php echo $arrvehnm[$vbrnd] ?></span></a>
-						</li>
-                            <?php } }?>
-
-					</ul>
-				</div>
-				<ul id="masonry" class="row justify-content-center dlab-gallery-listing gallery-grid-4 gallery lightgallery m-b0">
-   <?php for($vbrnd=0;$vbrnd<$brndvehcnt;$vbrnd++){
-					 if($arrvehnm[$vbrnd] !=''){ 
-					 
-					 
-					 
-$vehnmb=funcStrRplc($arrvehnm[$vbrnd]);?>
-   <?php    $sqlvehbrnd_mst2="SELECT vehbrndm_vehtypm_id,tyrbrndm_id,tyrbrndm_name,
+		<section>
+			<div class="section-full bg-img-fix content-inner bg-gray" id="project">
+				<div class="container">
+					<div class="text-center head-style-2 wow fadeIn" data-wow-duration="2s" data-wow-delay="0.2s">
+						<h3 class="title text-uppercase mb-4">Tyres By Brands</h3>
+					</div>
+					<div class="site-filters style-1 clearfix center  m-b40">
+						<ul class="filters" data-toggle="buttons">
+							<li data-filter="" class="btn active">
+								<input type="radio">
+								<a href="javascript:void(0);" class="site-button-secondry wow fadeInUp" data-wow-duration="1s" data-wow-delay="0.2s"><span>Show All</span></a>
+							</li>
+							<?php for ($vbrnd = 0; $vbrnd < $brndvehcnt; $vbrnd++) {
+								if ($arrvehnm[$vbrnd] != '') { ?>
+									<li data-filter=".<?php echo $arrvehids[$vbrnd] ?>-filter" class="btn">
+										<input type="radio">
+										<a href="javascript:void(0);" class="site-button-secondry wow fadeInUp" data-wow-duration="1s" data-wow-delay="0.6s"><span><?php echo $arrvehnm[$vbrnd] ?></span></a>
+									</li>
+							<?php }
+							} ?>
+						</ul>
+					</div>
+					<ul id="masonry" class="row justify-content-center dlab-gallery-listing gallery-grid-4 gallery lightgallery m-b0">
+						<?php for ($vbrnd = 0; $vbrnd < $brndvehcnt; $vbrnd++) {
+							if ($arrvehnm[$vbrnd] != '') {
+								$vehnmb = funcStrRplc($arrvehnm[$vbrnd]); ?>
+								<?php $sqlvehbrnd_mst2 = "SELECT vehbrndm_vehtypm_id,tyrbrndm_id,tyrbrndm_name,
 					  tyrbrndm_brndimg, 
 					vehbrndm_sts, vehbrndm_prty, 
 					  prodm_id, prodm_sku, prodm_code, prodm_name,
 		             tyrprflm_id,prodm_tyrrmsz,tyrrmszm_name
 		 from prod_mst
-		 
 		inner join prod_veh_dtl on prod_veh_dtl.prodd_prodm_id	= prod_mst.prodm_id
 		LEFT join veh_type_mst on veh_type_mst.vehtypm_id=	prod_veh_dtl.prodd_veh_typ
 		LEFT join veh_brnd_mst on veh_brnd_mst.vehbrndm_id=prod_veh_dtl.prodd_veh_brnd
@@ -626,53 +512,46 @@ $vehnmb=funcStrRplc($arrvehnm[$vbrnd]);?>
 	    inner join tyr_wdth_mst on tyr_wdth_mst.tyrwdthm_id = prod_mst.prodm_tyrwdth		
 	    inner join tyr_rimsize_mst on tyr_rimsize_mst.tyrrmszm_id = prod_mst.prodm_tyrrmsz
 		inner join tyr_prfl_mst on tyr_prfl_mst.tyrprflm_id = prod_mst.prodm_tyrprfl
-		
 		  where 
-		  
 		prodm_id !='' and prodm_sts ='a' and vehtypm_sts='a' and vehbrndm_sts='a' and vehmodlm_sts='a' and
 		vehvrntm_sts='a' and tyrprflm_sts='a' and tyrrmszm_sts='a' and tyrwdthm_sts='a' and tyrbrndm_sts='a' and    vehbrndm_vehtypm_id= $arrvehids[$vbrnd] group by tyrbrndm_id order by tyrbrndm_prty desc";
-
-$rwsvehbrnd_mst2=mysqli_query($conn,$sqlvehbrnd_mst2);
- $carbrndcnt2=mysqli_num_rows($rwsvehbrnd_mst2);
-
-while($rowsvehbrnd_mst2=mysqli_fetch_assoc($rwsvehbrnd_mst2)){
-
-	$vehbrndimgnm=$rowsvehbrnd_mst2['tyrbrndm_brndimg'];
-	$vehbrndimgpth=$gtyrbrndimg_usrpth.$vehbrndimgnm;
-	if($vehbrndimgnm !='' && file_exists($vehbrndimgpth) ){
-		$vehbrndimgpth=$rtpth.$gtyrbrndimg_usrpth.$vehbrndimgnm;
-		}else{
-			$vehbrndimgpth="images/no-image.png";
-			}
-	$vehbrndname=$rowsvehbrnd_mst2['tyrbrndm_name'];
-	$vehbrndid =$rowsvehbrnd_mst2['tyrbrndm_id'];
-	$sr_vehbrndname=funcStrRplc($vehbrndname);
-	$sr_vchtype=funcStrRplc($arrvehnm[$vbrnd]);
-	
-?>
-					<li class="<?php echo $arrvehids[$vbrnd] ?>-filter card-container col-lg-2 col-md-3 col-sm-4 col-6 wow fadeInUp m-b30" data-wow-duration="2s" data-wow-delay="0.1s">
-						<div class="dlab-box dlab-gallery-box">
-							<div class="dlab-media dlab-img-overlay1 dlab-img-effect zoom-slow"> <a href="<?php echo $rtpth ?>products.php?type=<?php echo $sr_vchtype?>&tyrbrnd=<?php echo $vehbrndname ?>"> <img src="<?php echo $vehbrndimgpth ?>" alt="">
-								</a>
-								<div class="overlay-bx">
-									<div class="overlay-icon">
-										<a href="<?php echo $rtpth ?>products.php?type=<?php echo $sr_vchtype ?>&tyrbrnd=<?php echo $vehbrndname ?>"> <i class="fa fa-link icon-bx-xs check-km"></i> </a>
-										<span data-exthumbimage="<?php echo $vehbrndimgpth ?>" data-src="<?php echo $vehbrndimgpth ?>" class="fas fa-image icon-bx-xs check-km lightimg" title="Tyre Brands"></span>
-									</div>
-								</div>
-							</div>
-						</div>
-					</li>
-
-				
-<?php }}} ?>
-
-				</ul>
+								$rwsvehbrnd_mst2 = mysqli_query($conn, $sqlvehbrnd_mst2);
+								$carbrndcnt2 = mysqli_num_rows($rwsvehbrnd_mst2);
+								while ($rowsvehbrnd_mst2 = mysqli_fetch_assoc($rwsvehbrnd_mst2)) {
+									$vehbrndimgnm = $rowsvehbrnd_mst2['tyrbrndm_brndimg'];
+									$vehbrndimgpth = $gtyrbrndimg_usrpth . $vehbrndimgnm;
+									if ($vehbrndimgnm != '' && file_exists($vehbrndimgpth)) {
+										$vehbrndimgpth = $rtpth . $gtyrbrndimg_usrpth . $vehbrndimgnm;
+									} else {
+										$vehbrndimgpth = "images/no-image.png";
+									}
+									$vehbrndname = $rowsvehbrnd_mst2['tyrbrndm_name'];
+									$vehbrndid = $rowsvehbrnd_mst2['tyrbrndm_id'];
+									$sr_vehbrndname = funcStrRplc($vehbrndname);
+									$sr_vchtype = funcStrRplc($arrvehnm[$vbrnd]);
+								?>
+									<li class="<?php echo $arrvehids[$vbrnd] ?>-filter card-container col-lg-2 col-md-3 col-sm-4 col-6 wow fadeInUp m-b30" data-wow-duration="2s" data-wow-delay="0.1s">
+										<div class="dlab-box dlab-gallery-box">
+											<div class="dlab-media dlab-img-overlay1 dlab-img-effect zoom-slow"> <a href="<?php echo $rtpth ?>products.php?type=<?php echo $sr_vchtype ?>&tyrbrnd=<?php echo $vehbrndname ?>"> <img src="<?php echo $vehbrndimgpth ?>" alt="">
+												</a>
+												<div class="overlay-bx">
+													<div class="overlay-icon">
+														<a href="<?php echo $rtpth ?>products.php?type=<?php echo $sr_vchtype ?>&tyrbrnd=<?php echo $vehbrndname ?>"> <i class="fa fa-link icon-bx-xs check-km"></i> </a>
+														<span data-exthumbimage="<?php echo $vehbrndimgpth ?>" data-src="<?php echo $vehbrndimgpth ?>" class="fas fa-image icon-bx-xs check-km lightimg" title="Tyre Brands"></span>
+													</div>
+												</div>
+											</div>
+										</div>
+									</li>
+						<?php }
+							}
+						} ?>
+					</ul>
+				</div>
 			</div>
-		</div>
-</section>
-				<!-- OUR SERVICES -->
-				<div class="section-full bg-blue content-inner" id="our-service">
+		</section>
+		<!-- OUR SERVICES -->
+		<div class="section-full bg-blue content-inner" id="our-service">
 			<div class="container">
 				<div class="text-center head-style-2 wow fadeIn" data-wow-duration="2s" data-wow-delay="0.2s">
 					<h3 class="title text-center text-uppercase text-white mb-4">How It Works</h3>
@@ -682,110 +561,89 @@ while($rowsvehbrnd_mst2=mysqli_fetch_assoc($rwsvehbrnd_mst2)){
 					<div class="col-lg-4 col-md-6 col-sm-6 wow fadeInUp" data-wow-duration="2s" data-wow-delay="0.2s">
 						<div class="cs-item style-6 center m-b40">
 							<img src="images/how-it-works/tyre.png" class="mb-40 bg-orange" alt="">
-
 							<div class="icon-content">
 								<h5 class="dlab-tilte text-uppercase text-center mt-4">Select Tyres for Your Bike or Car</h5>
-								
 								<p class="text-center">The tyres that come with your car/bike are the best ones , unless you are looking to change your vehicle's ride quality. </p>
 							</div>
 						</div>
 					</div>
-
 					<div class="col-lg-4 col-md-6 col-sm-6 wow fadeInUp" data-wow-duration="2s" data-wow-delay="0.2s">
 						<div class="cs-item style-6 center m-b40">
 							<img src="images/how-it-works/clock.png" class="mb-40 bg-orange" alt="">
-
 							<div class="icon-content">
 								<h5 class="dlab-tilte text-uppercase text-center mt-4">Fix your time slot and share your address</h5>
 								<p class="text-center">Let us dive into the details that you provided to deliver the product.</p>
 							</div>
 						</div>
 					</div>
-
 					<div class="col-lg-4 col-md-6 col-sm-6 wow fadeInUp" data-wow-duration="2s" data-wow-delay="0.2s">
 						<div class="cs-item style-6 center m-b40">
 							<img src="images/how-it-works/fast-delivery.png" class="mb-40 bg-orange" alt="">
-
 							<div class="icon-content">
 								<h5 class="dlab-tilte text-uppercase text-center mt-4">Our tyre experts will change tyres at your doorstep</h5>
 								<p class="text-center">Now get your tyres fitted by our expert technician at your doorstep</p>
 							</div>
 						</div>
 					</div>
-
-
 				</div>
 			</div>
 		</div>
 		<!-- OUR SERVICES END-->
-
-
 		<!-- What peolpe are saying style 3 -->
 		<?php
-		
-		$sqrycust_views_mst="SELECT custmer_name,custmer_desc,custmer_imgnm,custmer_sts from cust_views_mst where custmer_sts='a' order by custmer_name asc";
-		$srscust_views_mst = mysqli_query($conn,$sqrycust_views_mst);
+		$sqrycust_views_mst = "SELECT custmer_name,custmer_desc,custmer_imgnm,custmer_sts from cust_views_mst where custmer_sts='a' order by custmer_name asc";
+		$srscust_views_mst = mysqli_query($conn, $sqrycust_views_mst);
 		$cnt_recs = mysqli_num_rows($srscust_views_mst);
-		if($cnt_recs > 0)
-		{ ?>
+		if ($cnt_recs > 0) { ?>
 			<div class="section-full bg-gray content-inner-1" id="client">
-			<div class="container">
-				<div class="text-center head-style-2 wow fadeIn" data-wow-duration="2s" data-wow-delay="0.2s">
-					<h3 class="title text-center text-uppercase mb-4">Customers Views</h3>
-				</div>
-				<div class="section-content">
-				<div class="testimonial-one swiper-container">
-				<div class="swiper-wrapper">
-						<?php 
-						while($srowcust_views_mst=mysqli_fetch_assoc($srscust_views_mst))
-						{
-							$db_subname = $srowcust_views_mst['custmer_name'];
-							$db_desc = $srowcust_views_mst['custmer_desc'];
-							$db_sts  = $srowcust_views_mst['custmer_sts'];
-							$db_szchrt = $srowcust_views_mst['custmer_imgnm'];
-						?>
-						
-						
-						<div class="swiper-slide">
-								<div class="testimonial-1 wow fadeInUp" data-wow-duration="2s" data-wow-delay="0.2s">
-									<div class="testimonial-text">
-										<p><?php echo $db_desc;?></p>
-									</div>
-									<?php 
-												$imgnm = $db_szchrt;
-										 	 $imgpath =$gusrbnr_fldnm.$imgnm;
-												if(($imgnm !="") && file_exists($imgpath))
-												{
+				<div class="container">
+					<div class="text-center head-style-2 wow fadeIn" data-wow-duration="2s" data-wow-delay="0.2s">
+						<h3 class="title text-center text-uppercase mb-4">Customers Views</h3>
+					</div>
+					<div class="section-content">
+						<div class="testimonial-one swiper-container">
+							<div class="swiper-wrapper">
+								<?php
+								while ($srowcust_views_mst = mysqli_fetch_assoc($srscust_views_mst)) {
+									$db_subname = $srowcust_views_mst['custmer_name'];
+									$db_desc = $srowcust_views_mst['custmer_desc'];
+									$db_sts  = $srowcust_views_mst['custmer_sts'];
+									$db_szchrt = $srowcust_views_mst['custmer_imgnm'];
+								?>
+									<div class="swiper-slide">
+										<div class="testimonial-1 wow fadeInUp" data-wow-duration="2s" data-wow-delay="0.2s">
+											<div class="testimonial-text">
+												<p><?php echo $db_desc; ?></p>
+											</div>
+											<?php
+											$imgnm = $db_szchrt;
+											$imgpath = $gusrbnr_fldnm . $imgnm;
+											if (($imgnm != "") && file_exists($imgpath)) {
 												//echo "<img src='$imgpath' width='50pixel' height='50pixel'>";    
-												$img= $rtpth.$imgpath ;
-												}
-												else
-												{
-													// echo "NA"; 
-													$img= $rtpth."images/main-slider/no-img.jpg";           
-												}
-												?>
-									<div class="testimonial-detail clearfix">
-										<div class="testimonial-pic quote-left radius shadow"><img src="<?php echo $img;?>" width="100" height="100" alt=""></div>
-										<strong class="testimonial-name"><?php echo $db_subname;?></strong> 
+												$img = $rtpth . $imgpath;
+											} else {
+												// echo "NA"; 
+												$img = $rtpth . "images/main-slider/no-img.jpg";
+											}
+											?>
+											<div class="testimonial-detail clearfix">
+												<div class="testimonial-pic quote-left radius shadow"><img src="<?php echo $img; ?>" width="100" height="100" alt=""></div>
+												<strong class="testimonial-name"><?php echo $db_subname; ?></strong>
+											</div>
+										</div>
 									</div>
-								</div>
-								</div>
 								<?php } ?>
-						</div>
-					
-						<div class="testimonial-pagination text-center m-t50">
-							<div class="btn-prev swiper-button-prev7"><i class="las la-arrow-left"></i></div>
-							<div class="btn-next swiper-button-next7"><i class="las la-arrow-right"></i></div>
+							</div>
+							<div class="testimonial-pagination text-center m-t50">
+								<div class="btn-prev swiper-button-prev7"><i class="las la-arrow-left"></i></div>
+								<div class="btn-next swiper-button-next7"><i class="las la-arrow-right"></i></div>
+							</div>
 						</div>
 					</div>
 				</div>
 			</div>
-		</div>
 		<?php } ?>
 		<!-- What peolpe are saying style 3 END -->
-
-
 		<section class="content-inner">
 			<div class="container">
 				<div class="row call-to-action-bx">
@@ -806,315 +664,247 @@ while($rowsvehbrnd_mst2=mysqli_fetch_assoc($rwsvehbrnd_mst2)){
 				</div>
 			</div>
 		</section>
-
-
-
-
-
-
-
 	</div>
-
-
 </div>
 <?php include_once('footer.php'); ?>
-
 <script>
-							
-  function funcflttyrtype(tyrtype){
-
-	
-  var tyrtypnm,tyrtypid; 
-
-			 tyrtypid= document.getElementsByName('tyrtyp');
-			
-	for(i=0;i<tyrtypid.length;i++){
-		if(tyrtypid[i].checked){
-		tyrtypnm = tyrtypid[i].value;
+	function funcflttyrtype(tyrtype) {
+		var tyrtypnm, tyrtypid;
+		tyrtypid = document.getElementsByName('tyrtyp');
+		for (i = 0; i < tyrtypid.length; i++) {
+			if (tyrtypid[i].checked) {
+				tyrtypnm = tyrtypid[i].value;
+			}
 		}
-		
+		// alert(vehtypnm);
+		$.ajax({
+			type: "POST",
+			url: "prdserchflt.php",
+			data: 'vechtyrtypnm=' + tyrtypnm,
+			success: function(data) {
+				//debugger;
+				// alert(data);
+				$("#getwdth").html(data);
+				$('#getprofle').empty().append('<option  value="">Select</option>');
+				$('#getrim').empty().append('<option  value="">Select</option>');
+			}
+		});
+	}
+	function funprofle() {
+		var tyrtypnm, tyrtypid;
+		tyrtypid = document.getElementsByName('tyrtyp');
+		for (i = 0; i < tyrtypid.length; i++) {
+			if (tyrtypid[i].checked) {
+				tyrtypnm = tyrtypid[i].value;
+			}
 		}
-  	
-   // alert(vehtypnm);
-  	$.ajax({
-  		type: "POST",
-  		url: "prdserchflt.php",
-  		data:'vechtyrtypnm='+tyrtypnm,
-  		success: function(data){
-			//debugger;
-  		// alert(data);
-  			$("#getwdth").html(data);
-			$('#getprofle').empty().append('<option  value="">Select</option>');
-			$('#getrim').empty().append('<option  value="">Select</option>');
-  		}
-  	});
-  }
-    function funprofle(){
-
-	
-  var tyrtypnm,tyrtypid; 
-
-			 tyrtypid= document.getElementsByName('tyrtyp');
-			
-	for(i=0;i<tyrtypid.length;i++){
-		if(tyrtypid[i].checked){
-		tyrtypnm = tyrtypid[i].value;
+		var tyrewidth = document.getElementById('getwdth').value;
+		// alert(tyrtypnm);
+		$.ajax({
+			type: "POST",
+			url: "prdserchflt.php",
+			data: 'vechtyrtypnm1=' + tyrtypnm + '&tyrewidth=' + tyrewidth,
+			success: function(data) {
+				//debugger;
+				// alert(data);
+				$("#getprofle").html(data);
+				$('#getrim').empty().append('<option  value="">Select</option>');
+			}
+		});
+	}
+	function funrim() {
+		var tyrtypnm, tyrtypid;
+		tyrtypid = document.getElementsByName('tyrtyp');
+		for (i = 0; i < tyrtypid.length; i++) {
+			if (tyrtypid[i].checked) {
+				tyrtypnm = tyrtypid[i].value;
+			}
 		}
-		
-		}
-		var tyrewidth=document.getElementById('getwdth').value;
-  	
-   // alert(tyrtypnm);
-  	$.ajax({
-  		type: "POST",
-  		url: "prdserchflt.php",
-  		data:'vechtyrtypnm1='+tyrtypnm+'&tyrewidth='+tyrewidth,
-		
-  		success: function(data){
-			//debugger;
-  		// alert(data);
-  			$("#getprofle").html(data);
-			$('#getrim').empty().append('<option  value="">Select</option>');
-  		}
-  	});
-  }
- function  funrim(){
-
-	
-  var tyrtypnm,tyrtypid; 
-
-			 tyrtypid= document.getElementsByName('tyrtyp');
-			
-	for(i=0;i<tyrtypid.length;i++){
-		if(tyrtypid[i].checked){
-		tyrtypnm = tyrtypid[i].value;
-		}
-		
-		}
-		var tyrewidth=document.getElementById('getwdth').value;
-		var tyreprfile=document.getElementById('getprofle').value;
-  	
-   // alert(tyrtypnm);
-  	$.ajax({
-  		type: "POST",
-  		url: "prdserchflt.php",
-  		data:'vechtyrtypnm2='+tyrtypnm+'&tyrewidth1='+tyrewidth+'&tyreprfile='+tyreprfile,
-		
-  		success: function(data){
-			//debugger;
-  		// alert(data);
-  			$("#getrim").html(data);
-  		}
-  	});
-  }
-  
-     function functyrrm(){
-		   
-		   $("#tyrszserch").removeAttr('disabled');	
-	  
-	  }
-  </script>
+		var tyrewidth = document.getElementById('getwdth').value;
+		var tyreprfile = document.getElementById('getprofle').value;
+		// alert(tyrtypnm);
+		$.ajax({
+			type: "POST",
+			url: "prdserchflt.php",
+			data: 'vechtyrtypnm2=' + tyrtypnm + '&tyrewidth1=' + tyrewidth + '&tyreprfile=' + tyreprfile,
+			success: function(data) {
+				//debugger;
+				// alert(data);
+				$("#getrim").html(data);
+			}
+		});
+	}
+	function functyrrm() {
+		$("#tyrszserch").removeAttr('disabled');
+	}
+</script>
 <script>
-							
-  function funcfltvechtype(vechtype)
-  {
-	//alert(typeof (vechtype))
-  	// debugger;
-	
-  var vehtypnm,vehtypid; 
-
-			 vehtypid= document.getElementsByName('vechtye');
-			
-	for(i=0;i<vehtypid.length;i++){
-		if(vehtypid[i].checked){
-		vehtypnm = vehtypid[i].value;
+	function funcfltvechtype(vechtype) {
+		//alert(typeof (vechtype))
+		// debugger;
+		var vehtypnm, vehtypid;
+		vehtypid = document.getElementsByName('vechtye');
+		for (i = 0; i < vehtypid.length; i++) {
+			if (vehtypid[i].checked) {
+				vehtypnm = vehtypid[i].value;
+			}
 		}
-		
+		// alert(vehtypnm);
+		$.ajax({
+			type: "POST",
+			url: "prdserchflt.php",
+			data: 'vechtypnm=' + vehtypnm,
+			success: function(data) {
+				//debugger;
+				// alert(data);
+				$("#getbrnd").html(data);
+				$('#getmold').empty().append('<option  value="">Select</option>');
+				$('#getvarnt').empty().append('<option  value="">Select</option>');
+			}
+		});
+	}
+	function funcfltvechbrnd() {
+		//alert(typeof (vechtype))
+		//debugger;
+		vehtypid = document.getElementsByName('vechtye');
+		for (i = 0; i < vehtypid.length; i++) {
+			if (vehtypid[i].checked) {
+				vehtypnm = vehtypid[i].value;
+			}
 		}
-  	
-   // alert(vehtypnm);
-  	$.ajax({
-  		type: "POST",
-  		url: "prdserchflt.php",
-  		data:'vechtypnm='+vehtypnm,
-  		success: function(data){
-			//debugger;
-  		// alert(data);
-  			$("#getbrnd").html(data);
-			
-			
-			
-			$('#getmold').empty().append('<option  value="">Select</option>');
-			$('#getvarnt').empty().append('<option  value="">Select</option>');
-			
-  		}
-  	});
-  }
-    function funcfltvechbrnd()
-  {
-	//alert(typeof (vechtype))
-  	//debugger;
-				 vehtypid= document.getElementsByName('vechtye');
-			
-	for(i=0;i<vehtypid.length;i++){
-		if(vehtypid[i].checked){
-		vehtypnm = vehtypid[i].value;
+		var vechbrnd = $('#getbrnd').val();
+		// alert(vehtypnm);
+		$.ajax({
+			type: "POST",
+			url: "prdserchflt.php",
+			data: 'vechtypnm1=' + vehtypnm + '&vechbrnd=' + vechbrnd,
+			success: function(data) {
+				//debugger;
+				// alert(data);
+				$("#getmold").html(data);
+				$('#getvarnt').empty().append('<option  value="">Select</option>');
+			}
+		});
+	}
+	function funcfltvechmold() {
+		//alert(typeof (vechtype))
+		//	debugger;
+		vehtypid = document.getElementsByName('vechtye');
+		for (i = 0; i < vehtypid.length; i++) {
+			if (vehtypid[i].checked) {
+				vehtypnm = vehtypid[i].value;
+			}
 		}
-		
-		}
-  	var vechbrnd = $('#getbrnd').val();
- // alert(vehtypnm);
-  	$.ajax({
-  		type: "POST",
-  		url: "prdserchflt.php",
-  		data:'vechtypnm1='+vehtypnm+'&vechbrnd='+vechbrnd,
-  		success: function(data){
-			//debugger;
-  		// alert(data);
-  			$("#getmold").html(data);
-			
-			$('#getvarnt').empty().append('<option  value="">Select</option>');
-			
-  		}
-  	});
-  }
-  
-      function funcfltvechmold()
-  {
-	//alert(typeof (vechtype))
-  //	debugger;
-				 vehtypid= document.getElementsByName('vechtye');
-			
-	for(i=0;i<vehtypid.length;i++){
-		if(vehtypid[i].checked){
-		vehtypnm = vehtypid[i].value;
-		}
-		
-		}
-  	var vechbrnd = $('#getbrnd').val();
+		var vechbrnd = $('#getbrnd').val();
 		var vechmodle = $('#getmold').val();
- // alert(vehtypnm);
-  	$.ajax({
-  		type: "POST",
-  		url: "prdserchflt.php",
-  		data:'vechtypnm2='+vehtypnm+'&vechbrnd='+vechbrnd+'&vechmodle='+vechmodle,
-  		success: function(data){
-			//debugger;
-  		 //alert(data);
-  			$("#getvarnt").html(data);
-			
-  		}
-  	});
-  }
-       function funcfltvechvarnt(){
-		   
-		   $("#suBvechbrnd").removeAttr('disabled');	
-	  
-	  }
-	  
-	
-	  
-function suBmitvechbrnd(){
-	var serurl="";
-	var vehtypnm,vehtypid,
-	 vehtypid= document.getElementsByName('vechtye');
-			
-	for(i=0;i<vehtypid.length;i++){
-		if(vehtypid[i].checked){
-		vehtypnm = vehtypid[i].value;
+		// alert(vehtypnm);
+		$.ajax({
+			type: "POST",
+			url: "prdserchflt.php",
+			data: 'vechtypnm2=' + vehtypnm + '&vechbrnd=' + vechbrnd + '&vechmodle=' + vechmodle,
+			success: function(data) {
+				//debugger;
+				//alert(data);
+				$("#getvarnt").html(data);
+			}
+		});
+	}
+	function funcfltvechvarnt() {
+		$("#suBvechbrnd").removeAttr('disabled');
+	}
+	function suBmitvechbrnd() {
+		var serurl = "";
+		var vehtypnm, vehtypid,
+			vehtypid = document.getElementsByName('vechtye');
+		for (i = 0; i < vehtypid.length; i++) {
+			if (vehtypid[i].checked) {
+				vehtypnm = vehtypid[i].value;
+			}
 		}
-		
-		}
-  	var serchvechbrnd = $('#getbrnd').val();
+		var serchvechbrnd = $('#getbrnd').val();
 		var serchvechmodle = $('#getmold').val();
 		var serchvechvarnt = $('#getvarnt').val();
 		//alert(vehtypnm);
-		if(vehtypnm !=''){
-			if(serurl !=''){
-		serurl +="&type="+vehtypnm;
-		}else{
-			serurl +="type="+vehtypnm;
+		if (vehtypnm != '') {
+			if (serurl != '') {
+				serurl += "&type=" + vehtypnm;
+			} else {
+				serurl += "type=" + vehtypnm;
 			}
 		}
-		
-		if(serchvechbrnd !=''){
-			if(serurl !=''){
-		serurl +="&vehbrnd="+serchvechbrnd;}else{
-			serurl +="vehbrnd="+serchvechbrnd;
+		if (serchvechbrnd != '') {
+			if (serurl != '') {
+				serurl += "&vehbrnd=" + serchvechbrnd;
+			} else {
+				serurl += "vehbrnd=" + serchvechbrnd;
 			}
 		}
-			if(serchvechmodle !=''){
-			if(serurl !=''){
-		serurl +="&vehmodel="+serchvechmodle;}else{
-			serurl +="vehmodel="+serchvechmodle;
+		if (serchvechmodle != '') {
+			if (serurl != '') {
+				serurl += "&vehmodel=" + serchvechmodle;
+			} else {
+				serurl += "vehmodel=" + serchvechmodle;
 			}
 		}
-			if(serchvechvarnt !=''){
-			if(serurl !=''){
-		serurl +="&vehvarent="+serchvechvarnt;}else{
-			serurl +="vehvarent="+serchvechvarnt;
+		if (serchvechvarnt != '') {
+			if (serurl != '') {
+				serurl += "&vehvarent=" + serchvechvarnt;
+			} else {
+				serurl += "vehvarent=" + serchvechvarnt;
 			}
-		
 		}
-		if(serchvechvarnt !='' && serchvechmodle !='' && serchvechbrnd !='' && vehtypnm !='' ){
-			location.href="<?php echo $rtpth ?>products.php?"+serurl;}else{
-				document.getElementById('suBvechbrnd').disabled=true;
-				
-				}
+		if (serchvechvarnt != '' && serchvechmodle != '' && serchvechbrnd != '' && vehtypnm != '') {
+			location.href = "<?php echo $rtpth ?>products.php?" + serurl;
+		} else {
+			document.getElementById('suBvechbrnd').disabled = true;
+		}
 	}
-	
-	
-	function suBtyrszserch(){
-		
-		  var tyrtypnm,tyrtypid; 
-var serurl='';
-			 tyrtypid= document.getElementsByName('tyrtyp');
-			
-	for(i=0;i<tyrtypid.length;i++){
-		if(tyrtypid[i].checked){
-		tyrtypnm = tyrtypid[i].value;
+	function suBtyrszserch() {
+		var tyrtypnm, tyrtypid;
+		var serurl = '';
+		tyrtypid = document.getElementsByName('tyrtyp');
+		for (i = 0; i < tyrtypid.length; i++) {
+			if (tyrtypid[i].checked) {
+				tyrtypnm = tyrtypid[i].value;
+			}
 		}
-		
-		}
-		var tyrewidth=document.getElementById('getwdth').value;
-		var tyreprfile=document.getElementById('getprofle').value;
-		var tyrerimsz=document.getElementById('getrim').value;
+		var tyrewidth = document.getElementById('getwdth').value;
+		var tyreprfile = document.getElementById('getprofle').value;
+		var tyrerimsz = document.getElementById('getrim').value;
 		//alert(tyrerimsz);
-  			if(tyrtypnm !=''){
-			if(serurl !=''){
-		serurl +="&type="+tyrtypnm;}else{
-			serurl +="type="+tyrtypnm;
+		if (tyrtypnm != '') {
+			if (serurl != '') {
+				serurl += "&type=" + tyrtypnm;
+			} else {
+				serurl += "type=" + tyrtypnm;
 			}
-		
 		}
-					if(tyrewidth !=''){
-			if(serurl !=''){
-		serurl +="&tyrwdth="+tyrewidth;}else{
-			serurl +="tyrwdth="+tyrewidth;
+		if (tyrewidth != '') {
+			if (serurl != '') {
+				serurl += "&tyrwdth=" + tyrewidth;
+			} else {
+				serurl += "tyrwdth=" + tyrewidth;
 			}
-		
 		}
-						if(tyreprfile !=''){
-			if(serurl !=''){
-		serurl +="&tyrprfl="+tyreprfile;}else{
-			serurl +="tyrprfl="+tyreprfile;
+		if (tyreprfile != '') {
+			if (serurl != '') {
+				serurl += "&tyrprfl=" + tyreprfile;
+			} else {
+				serurl += "tyrprfl=" + tyreprfile;
 			}
-		
 		}
-						if(tyrerimsz !=''){
-			if(serurl !=''){
-		serurl +="&rimsz="+tyrerimsz;}else{
-			serurl +="rimsz="+tyrerimsz;
+		if (tyrerimsz != '') {
+			if (serurl != '') {
+				serurl += "&rimsz=" + tyrerimsz;
+			} else {
+				serurl += "rimsz=" + tyrerimsz;
 			}
-		
 		}
-		if(tyrerimsz !='' && tyreprfile !='' && tyrewidth !='' && tyrtypnm !=''){
+		if (tyrerimsz != '' && tyreprfile != '' && tyrewidth != '' && tyrtypnm != '') {
 			//alert(serurl);
-			location.href="<?php echo $rtpth ?>products.php?"+serurl;
-			
-		}else{
-			document.getElementById('tyrszserch').disabled=true;
-			}
-		
+			location.href = "<?php echo $rtpth ?>products.php?" + serurl;
+		} else {
+			document.getElementById('tyrszserch').disabled = true;
 		}
+	}
 </script>

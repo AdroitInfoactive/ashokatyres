@@ -376,8 +376,10 @@ include('header.php');
                     </select>
                   </div>
                 </div>
+                
                 <?php }else{ ?>
-                <?php }?> -->
+                <?php }?>
+             
                 <!-- Card -->
                 <!-- Card -->
                 <!-- <div class="mb-3">
@@ -422,11 +424,11 @@ include('header.php');
                         <span>₹<?php  if($totcartprc >0){echo $totcartprc ;}else{
 											echo '0.00';}; ?></span>
                       </li>
-											<li class="list-group-item d-flex justify-content-between align-items-center border-0 px-0 pb-0">
+											<!-- <li class="list-group-item d-flex justify-content-between align-items-center border-0 px-0 pb-0">
 											Charges
                         <span id="charges" style="display:none">₹<?php  if($totcartprc >0){echo $totcartprc ;}else{
 											echo '0.00';}; ?></span>
-                      </li>
+                      </li> -->
                       <li class="list-group-item d-flex justify-content-between align-items-center px-0">
                         Total Cart Value
                         <span>₹<?php  if($totcartprc >0){echo $totcartprc; }else{

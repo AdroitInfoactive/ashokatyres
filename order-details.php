@@ -229,7 +229,10 @@ include('header.php');
 																				}
 																				$prcid = $rowspo_mst['crtordd_prodprcd_id'];
 																				$totprc = ($db_qty * $db_prc);
-																				$db_shpprcid = $rowspo_mst['crtordm_shpchrgm_id'];
+																				$db_shpprcid = $order_dtl['crtordm_shpchrgamt'];
+
+																				//$db_shpprcid = $rowspo_mst['crtordm_shpchrgm_id'];
+
 																			/* 	$shpngqry = "SELECT shpngm_id,shpngm_prc from  shpng_mst WHERE shpngm_id = $db_shpprcid and shpngm_sts = 'a' ";
 																				$shpng_mst = mysqli_query($conn,$shpngqry);
 																				$shpng_dtl = mysqli_fetch_assoc($shpng_mst);
@@ -341,8 +344,8 @@ include('header.php');
                           <div class="mt-3">
                             <p class="mb-0"><strong>Total <?php echo $totqty;?> Item(s) :
                               </strong><?php echo number_format($prodprcwgst,2,'.',',');?></p>
-                            <p class="mb-0"><strong>Total Tax: </strong><?php echo number_format($tottax,2,'.',','); ?>
-                            </p>
+                            <!-- <p class="mb-0"><strong>Total Tax: </strong><?php echo number_format($tottax,2,'.',','); ?>
+                            </p> -->
                             <?php
 																$cupid  = $order_dtl['crtordm_cpnm_id'];
 																$cupnm  = $order_dtl['cpnm_name'];
@@ -355,6 +358,7 @@ include('header.php');
 																}
 																?>
                             <?php 
+															$db_shpprc = $order_dtl['crtordm_shpchrgamt'];
 																if($db_shpprc != ''){
 																?>
                             <p class="mb-0"><strong>Total Shipping Charges: </strong>

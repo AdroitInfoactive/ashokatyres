@@ -1,11 +1,10 @@
 <?php
-//error_reporting(0);
-include_once "includes/inc_config.php"; // site and  files confige
-include_once "includes/inc_connection.php"; // database connection
-include_once "includes/inc_usr_functions.php"; // user define functions(code reuse)
-include_once "includes/inc_folder_path.php"; //  folder path confige
-include_once "includes/inc_usr_sessions.php";
-$regid = $_SESSION['sesmbrid'];
+include_once "includes/inc_membr_session.php";//checking for session	
+include_once 'includes/inc_nocache.php'; // Clearing the cache information
+include_once 'includes/inc_connection.php';//Make connection with the database  	
+include_once "includes/inc_config.php";	//path config file
+include_once "includes/inc_usr_functions.php";//Including user session value
+
 if (
 	isset($_REQUEST['type']) && (trim($_REQUEST['type']) != "") or
 	isset($_REQUEST['vehbrnd']) && (trim($_REQUEST['vehbrnd']) != "") or
@@ -148,8 +147,9 @@ $db_seodesc = "";
 $current_page = "home";
 $body_class = "homepage";
 include('header.php');
+$regid = $_SESSION['sesmbrid'];
 ?>
-<input type="hidden" value="<?php echo $_SESSION['sesmbrid']; ?>" id="mbrid">
+<input type="hidden" value="<?php echo $regid ?>" id="mbrid"/>
 <div class="page-wraper">
 	<div class="page-content bg-white">
 		<!-- Banner  -->
@@ -485,10 +485,10 @@ include('header.php');
 									</div>
 								</div>-->
 									<div class="amount-div mb-2">
-									<?php
+									<?php 
 										if($prod_sleprc!='' && $prod_ofrprc>0) {
 											?>
-										<s>	<h4 class="m-0"><span>&#8377;</span>
+										<s>	<h4 class="m-0"><span >&#8377;</span>
 										<?php echo $prod_sleprc ;?></s>
 									<?php	}else{
 											?>
@@ -497,10 +497,11 @@ include('header.php');
 
 									<?php }
 											?>
-										</h4>
+										<!-- </h4> -->
 										<?php 
 										  if($prod_ofrprc!=''){?>
-										<h4 class="m-0"><span>&#8377;</span>
+										<!-- <h4 class="m-0"> -->
+											<span>&#8377;</span>
 											<?php echo $prod_ofrprc ?>
 										</h4>
 										<?php	}
@@ -534,9 +535,10 @@ include('header.php');
 									<?php if ($clsbls > 0) { ?>
 										<div class="d-flex">
 											<div class="number">
+						
 												<button class="minus" id="qntyinc<?php echo $prod_id ?>"
 													onclick="cuntdec(<?php echo $prod_id ?>)">-</button>
-												<input type="text" id="lstqty" name="lstqty" value="1" />
+												<input type="number" id="lstqty" name="lstqty" value="1" readonly />
 												<button class="plus" id="qntydec<?php echo $prod_id ?>"
 													onclick="cuntinc(<?php echo $prod_id ?>)">+</button>
 											</div>
@@ -799,6 +801,7 @@ include('header.php');
 					//alert(temp);
 				
 					if (temp == 'wy') {
+				
 						prdadd();
 					} else {
 						prdalrdy();
@@ -813,6 +816,7 @@ include('header.php');
 				$('#wishlistalrdyModal').modal('show');
 			}
 			function stchng_UpdtCart() {
+				//debugger;
 				if (xmlHttp.readyState == 4 || xmlHttp.readyState == "complete") {
 					var temp = xmlHttp.responseText;
 					var crtval = new Array();
@@ -839,12 +843,18 @@ include('header.php');
 						document.getElementById('prdnm').innerHTML = prdnm;
 						document.getElementById('prdsz').innerHTML = prdsz;
 					} else {
-						document.getElementById("prdext").style.display = "inline-block";
-						document.getElementById("discrt").style.display = "inline-block";
-						document.getElementById("addcrt").style.display = "none";
+						crtprdalrdy();
+						
+						
+						// document.getElementById("prdext").style.display = "inline-block";
+						// document.getElementById("discrt").style.display = "inline-block";
+						// document.getElementById("addcrt").style.display = "none";
 					}
 				}
 			}
+			function crtprdalrdy() {
+			$('#cartitemalrdyModal').modal('show');
+						}
 		</script>
 		<script type="text/javascript">
 			function cuntinc(prcid) {

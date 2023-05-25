@@ -1,4 +1,4 @@
- <?php session_start();
+ <?php 
 include_once 'includes/inc_connection.php';//Make connection with the database  	
 include_once 'includes/inc_usr_functions.php';//reuse  Code
 include_once "includes/inc_config.php";// path configuration

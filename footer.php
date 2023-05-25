@@ -5,186 +5,96 @@
 		</div>
 	</div> -->
 <!--------------------------------------------model signin---------->
-<div class="modal " id="wishlistModal">
-
+<div class="modal" id="wishlistModal">
     <div class="modal-dialog ">
-
         <div class="modal-content text-center">
-
-            <!-- Modal Header -->
-
+             <!-- Modal Header  -->
             <div class="modal-header">
-
                 <h4 class="modal-title"><i class="fas fa-heart"></i> Wishlist</h4>
-
-                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span></button>
-
+			
+								<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-
             <!-- Modal body -->
-
             <div class="modal-body">
-
                 <span class="text-red2">You need to login to acccess your Wishlist. </span><br />
-
                 <a class="btn btn-link text-dark btn-sm text-semibold" href="<?php echo $rtpth;?>signin">Login Now</a>
                 <div class="clearfix"></div>
-
             </div>
-
             <!-- Modal footer -->
-
-            <div class="modal-footer">
-
+             <div class="modal-footer">
+						 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
             </div>
-
         </div>
-
     </div>
+</div> 
 
-</div>
+
 <!---------------------------------------->
 <div class="modal sh-modal" id="wishlistprdModal">
-
     <div class="modal-dialog modal-sm">
-
         <div class="modal-content text-center">
-
             <!-- Modal Header -->
-
             <div class="modal-header">
-
                 <h4 class="modal-title"><i class="fas fa-heart"></i> Wishlist</h4>
-
-                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span></button>
-
+								<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-
             <!-- Modal body -->
-
             <div class="modal-body">
-
                 <div class="clearfix"></div>
-
                 <span class="text-red2">Product Successfully added to <a
                         class="btn btn-link text-dark btn-sm text-semibold" href="<?php echo $rtpth;?>wishlist"
                         ;>your Wishlist</a> </span>
-
                 <div class="clearfix"></div>
-
             </div>
-
             <div class="modal-footer">
-
             </div>
-
         </div>
-
     </div>
-
 </div>
-
-
-
 <div class="modal sh-modal" id="wishlistalrdyModal">
-
-
-
     <div class="modal-dialog modal-sm">
-
-
-
         <div class="modal-content text-center">
-
-
-
-
-
-
-
             <!-- Modal Header -->
-
-
-
             <div class="modal-header">
-
-
-
                 <h4 class="modal-title"><i class="fas fa-heart"></i> Wishlist</h4>
-
-
-
-                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span></button>
-
-
-
+              	<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-
-
-
-
-
-
-
             <!-- Modal body -->
-
-
-
             <div class="modal-body">
-
-
-
                 <span class="text-red2">This product is already in <a
                         class="btn btn-link text-dark btn-sm text-semibold" href="<?php echo $rtpth;?>wishlist"
                         ;>your Wishlist</a> </span>
-
-
-
-
-
-
-
-
-
-
-
                 <div class="clearfix"></div>
-
-
-
             </div>
-
-
-
-
-
-
-
             <!-- Modal footer -->
-
-
-
             <div class="modal-footer">
-
-
             </div>
-
-
-
-
-
-
-
         </div>
-
-
-
     </div>
-
-
-
 </div>
-
+<!-- cart item alredy exists -->
+<div class="modal sh-modal" id="cartitemalrdyModal">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content text-center">
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <h4 class="modal-title"><i class="bi bi-cart"></i> Cart</h4>
+              	<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <!-- Modal body -->
+            <div class="modal-body">
+                <span class="text-red2">This product is already in <a
+                        class="btn btn-link text-dark btn-sm text-semibold" href="<?php echo $rtpth;?>my-cart.php"
+                        ;>your Cart</a> </span>
+                <div class="clearfix"></div>
+            </div>
+            <!-- Modal footer -->
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div>
+<!-- cart item alredy exists end -->
     <footer class="site-footer style-1" id="footer">
 			<div class="footer-top">
 				<div class="container">
@@ -214,7 +124,6 @@
 									<li class="cat-item"><a href="<?php echo $rtpth ?>">Car Tyres</a></li>
 									<li class="cat-item"><a href="<?php echo $rtpth ?>">Bike Tyres</a></li>
 									<li class="cat-item"><a href="<?php echo $rtpth ?>contact-us">Contact Us</a></li>
-									
 								</ul>
 							</div>
 						</div>
@@ -224,17 +133,10 @@
 									<h5 class="title">Policies</h5>
 								</div>
 								<ul>
-								
 								<li class="cat-item"><a href="<?php echo $rtpth ?>terms-and-conditions.php">Terms and Conditions</a></li>
 								<li class="cat-item"><a href="<?php echo $rtpth ?>cancellation-and-refund-policy.php">Cancellation & Refund Policy</a></li>
 								<li class="cat-item"><a href="<?php echo $rtpth ?>privacy-policy.php">Privacy Policy</a></li>
 								<li class="cat-item"><a href="<?php echo $rtpth ?>disclaimer.php">Disclaimer</a></li>
-								
-								
-								
-
-								
-								
 									<!-- <li class="cat-item"><a href="<?php echo $rtpth ?>cancellation-policy.php">Cancellation Policy</a></li>
 									<li class="cat-item"><a href="<?php echo $rtpth ?>privacy-policy.php">Privacy Policy</a></li>
 									<li class="cat-item"><a href="<?php echo $rtpth ?>legal-disclaimer.php">Legal Disclaimer</a></li> -->
@@ -276,8 +178,6 @@
 										<p>984 900 3100</p>
 									</div>
 								</div>
-
-								
 							</div>
 						</div>
 					</div>
@@ -297,11 +197,9 @@
 		</footer>
 		<!-- Footer End -->
 		<button class="scroltop icon-up" type="button"><i class="fas fa-arrow-up"></i></button>
-
 <!-- JAVASCRIPT FILES ========================================= -->
 <script src="<?php echo $rtpth ?>js/jquery.min.js"></script><!-- JQUERY.MIN JS -->
 <script src="<?php echo $rtpth ?>vendor/bootstrap/js/bootstrap.bundle.min.js"></script><!-- BOOTSTRAP.MIN JS -->
-
 <?php /*?><script src="<?php echo $rtpth ?>vendor/bootstrap-select/js/bootstrap-select.min.js"></script><?php */?><!-- BOOTSTRAP.MIN JS -->
 <script src="<?php echo $rtpth ?>vendor/rangeslider/rangeslider.js"></script><!-- RANGESLIDER -->
 <script src="<?php echo $rtpth ?>vendor/magnific-popup/magnific-popup.js"></script><!-- MAGNIFIC POPUP JS -->
@@ -311,7 +209,6 @@
 <script src="<?php echo $rtpth ?>vendor/counter/counterup.min.js"></script><!-- COUNTERUP JS -->
 <script src="<?php echo $rtpth ?>vendor/swiper/swiper-bundle.min.js"></script><!-- OWL-CAROUSEL -->
 <script src="<?php echo $rtpth ?>vendor/aos/aos.js"></script><!-- AOS -->
-
 <!-- revolution JS FILES -->
 <script src="<?php echo $rtpth ?>vendor/revolution/v5.4.3/js/jquery.themepunch.tools.min.js"></script>
 <script src="<?php echo $rtpth ?>vendor/revolution/v5.4.3/js/jquery.themepunch.revolution.min.js"></script>
@@ -324,13 +221,9 @@
 <script src="<?php echo $rtpth ?>vendor/revolution/v5.4.3/js/extensions/revolution.extension.parallax.min.js"></script>
 <script src="<?php echo $rtpth ?>vendor/revolution/v5.4.3/js/extensions/revolution.extension.video.min.js"></script>
 <script src="<?php echo $rtpth ?>vendor/revolution/v5.4.3/js/extensions/revolution.extension.slideanims.min.js"></script>
-
 <script src="<?php echo $rtpth ?>vendor/masonry/isotope.pkgd.min.js"></script><!-- ISOTOPE -->
 <script  src="<?php echo $rtpth ?>js/rev.slider.js"></script>
-
-
 <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js" integrity="sha512-bPs7Ae6pVvhOSiIcyUClR7/q2OAsRiovw4vAkX+zJbw3ShAeeqezq50RIIcIURq7Oa20rW2n2q+fyXBNcU9lrw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-
 <script src="<?php echo $rtpth ?>js/dlab.carousel.js"></script><!-- OWL-CAROUSEL -->
 <script src="<?php echo $rtpth ?>js/dlab.ajax.js"></script><!-- AJAX -->
 <script src="<?php echo $rtpth ?>js/custom.js"></script><!-- CUSTOM JS -->
@@ -349,16 +242,13 @@
 	<script src="<?php echo $rtpth ?>js/dlab.carousel.js"></script><!-- OWL-CAROUSEL -->
 	<script src="<?php echo $rtpth ?>js/dlab.ajax.js"></script><!-- AJAX -->
 	<script src="<?php echo $rtpth ?>js/custom.js"></script><!-- CUSTOM JS -->
-
 <?php include('includes/inc_fnct_ajax_validation.php') ;?>
-
 <script>
 	jQuery(document).ready(function() {
 		'use strict';
 		dz_rev_slider_4();	
 	});	/*ready*/
 </script>
-
 <script type="text/javascript">
 	$('.prdt-views-owl').owlCarousel({
     loop:true,
@@ -382,7 +272,6 @@
     }
 })
 </script>
-
 <script type="text/javascript">
 	$('.also-like-owl').owlCarousel({
     loop:true,
@@ -406,7 +295,6 @@
     }
 })
 </script>
-
 <script type="text/javascript">
 		$(document).ready(function() {
 			$('.minus').click(function () {

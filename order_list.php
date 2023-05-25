@@ -84,6 +84,7 @@ include('header.php');
                   $code = $ord_dtl['crtordm_code'];
                   $date = $ord_dtl['crtordm_crtdon'];
                   $paysts = $ord_dtl['crtordm_paysts'];
+                 
                   if($paysts == 'n')
                   {
                     $psts = "No";
@@ -98,6 +99,8 @@ include('header.php');
 								$ordsts = $srs_ordsts_dtl['ordstsd_ordstsm_id'];
                   $ordqnty = $ord_dtl['crtordm_qty'];
                   $ordamt = $ord_dtl['crtordm_amt'];
+                  $chrgs = $ord_dtl['crtordm_shpchrgamt'];
+                  $totalamt = $ordamt + $chrgs;
                  // $ordsts = $ord_dtl['ordstsd_ordstsm_id'];
                  $ordsts_qry = "SELECT ordstsm_id, ordstsm_name, ordstsm_desc, ordstsm_sts, ordstsm_prty FROM ordsts_mst WHERE ordstsm_id = $ordsts";
                   $ordersts_mst = mysqli_query($conn,$ordsts_qry);
@@ -118,7 +121,7 @@ include('header.php');
                     <td class="ps-product__name"><?php echo $date; ?></a></td>
                     <td class="ps-product__name"><?php echo $psts; ?></a></td>
                     <td class="ps-product__name"><?php echo $ordqnty; ?></a></td>
-                    <td class="ps-product__name"><?php echo $ordamt; ?></a></td>
+                    <td class="ps-product__name"><?php echo $totalamt; ?></a></td>
                     <td class="<?php echo $sts_cls; ?>"><span><?php echo $type; ?></span></td>
                     <td><a class="ps-btn ps-btn--warning p-2" href="<?php echo $rtpth; ?>order-details/<?php echo $id; ?>">View</a></td>
                   </tr>
