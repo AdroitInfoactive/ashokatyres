@@ -31,7 +31,7 @@
 			   (trim($_POST['txtsgnemail']) != "") && (trim($_POST['txtsgnpwd']) != "")){
 			  $uid		 = glb_func_chkvl($_POST['txtsgnemail']);
 			  $pwd		 = md5(trim($_POST['txtsgnpwd']));
-			  $sqrymbr_mst = "select 
+			 $sqrymbr_mst = "select 
 			  mbrm_id,mbrm_emailid,
 			  mbrd_lstname,mbrd_badrs,mbrd_bmbrcntrym_id,
 			  mbrd_bmbrcntym_id,mbrd_bzip,
@@ -44,14 +44,17 @@
 			   mbrm_usernm=binary('".mysqli_real_escape_string($conn,$uid)."') or
 			  mbrm_emailid=binary('".mysqli_real_escape_string($conn,$uid)."'))
 			  and mbrm_pwd=binary('".mysqli_real_escape_string($conn,$pwd)."')";
-		 $sqrymbr_mst;
+		  // echo $sqrymbr_mst;
 			  $srsmbr_mst	 =	mysqli_query($conn,$sqrymbr_mst); 
 			  $cntrec  	 =	mysqli_num_rows($srsmbr_mst);
 			  if($cntrec==0){
 		  //if record is equal to zero
-			  $gmsg = "<div class='alert alert-danger'>Either the email address or password entered is incorrect. 
-			   <br>Enter the information again</div>";
-			  }elseif($cntrec >= 1){	
+			  $gmsg = "<div  class='alert alert-danger alert-dismissible fade show' role='alert'>Either the email address or password entered is incorrect. 
+			  <button type='button' class='btn-close' data-bs-dismiss='alert' aria-label='Close'></button>
+         </div>";
+
+			  }
+        elseif($cntrec >= 1){	
 			  while($srowmbr_mst = mysqli_fetch_assoc($srsmbr_mst)){
 			  $_SESSION['sesmbremail']   = $srowmbr_mst['mbrm_emailid'];//assing value of user id to admin session
 			  $_SESSION['sesmbrid']      = $srowmbr_mst['mbrm_id'];//assing value of user id to admin session	
@@ -165,6 +168,11 @@
           <div class="col-lg-6 col-md-6 col-sm-8 col-12">
             <div class="accordion" id="accordionExample">
               <div class="accordion-item">
+              <div>
+              <?php echo $gmsg;?> 
+              
+              </div>
+               
                 <h2 class="accordion-header" id="headingOne">
                   <button class="accordion-button lock-icon" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne"> Login to your Account </button>
                 </h2>
