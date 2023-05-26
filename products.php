@@ -109,12 +109,12 @@ include('header.php');
 	<div class="dlab-bnr-inr style-1 overlay-black-middle" style="background-image: url(images/banner/bnr1.jpg);">
 		<div class="container">
 			<div class="dlab-bnr-inr-entry">
-				<h1 class="text-white">Car Tyres</h1>
+				<h1 class="text-white"><?php echo $vehtypenm;?> Tyres</h1>
 				<div class="d-flex justify-content-center align-items-center">
 					<nav aria-label="breadcrumb">
 						<ol class="breadcrumb">
 							<li class="breadcrumb-item"><a href="#">Home</a></li>
-							<li class="breadcrumb-item active" aria-current="page">Car Tyres</li>
+							<li class="breadcrumb-item active" aria-current="page"><?php echo  ucfirst($vehtypenm);?> Tyres</li>
 						</ol>
 					</nav>
 				</div>
