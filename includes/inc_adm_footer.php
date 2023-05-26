@@ -34,5 +34,6 @@
 
 <!-- PAGE SCRIPTS -->
 <script src="../admin/dist/js/pages/dashboard2.js"></script>
+<script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.2/jquery-ui.min.js"></script>
 </body>
 </html>

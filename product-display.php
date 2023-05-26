@@ -4,6 +4,7 @@ include_once 'includes/inc_nocache.php'; // Clearing the cache information
 include_once 'includes/inc_connection.php';//Make connection with the database  	
 include_once "includes/inc_config.php";	//path config file
 include_once "includes/inc_usr_functions.php";//Including user session value
+include_once "includes/inc_folder_path.php"; //  folder path confige
 
 if (
 	isset($_REQUEST['type']) && (trim($_REQUEST['type']) != "") or
@@ -531,9 +532,11 @@ $regid = $_SESSION['sesmbrid'];
 									$clsbls = $prdinvt;
 									?>
 									<input type="hidden" value="<?php echo $vehbrnd_id ?>" id="vechbrndnid">
+									
 									<input type="hidden" id='prdqnty' name="prdqnty" value="<?php echo $clsbls; ?>" />
+									<input type="hidden" id="lstqty" name="lstqty" value="1" readonly />
 									<?php if ($clsbls > 0) { ?>
-										<div class="d-flex">
+										<!-- <div class="d-flex">
 											<div class="number">
 						
 												<button class="minus" id="qntyinc<?php echo $prod_id ?>"
@@ -542,7 +545,7 @@ $regid = $_SESSION['sesmbrid'];
 												<button class="plus" id="qntydec<?php echo $prod_id ?>"
 													onclick="cuntinc(<?php echo $prod_id ?>)">+</button>
 											</div>
-										</div>
+										</div> -->
 									<?php } else { ?>
 										<div class="d-flex" style="color:red;">
 											Out Of Stock
@@ -574,7 +577,7 @@ $regid = $_SESSION['sesmbrid'];
 									while($rowfet_mst = mysqli_fetch_assoc($srsfet))
 									{
 										$fetnm = $rowfet_mst['prodfetrm_name'];
-										$db_szchrt = $rowfet_mst['prodfetrm_imgnm'];
+									 $db_szchrt = $rowfet_mst['prodfetrm_imgnm'];
 									?>
 									<div class="car-features">	
 									<?php
@@ -593,7 +596,7 @@ $regid = $_SESSION['sesmbrid'];
 									?>
 										
 										
-										<!-- <i class="bi bi-volume-down"></i> -->
+						
 											<p><?php echo $frt; ?></p>
 											<h6><?php echo $fetnm;?></h6>
 								</div>

@@ -400,10 +400,28 @@ include('header.php');
                   </div>
                 </div> -->
                 <!-- Card -->
-                <?php }else{?>
-                <a href="<?php $rtpth?>home"
+                <?php }
+                else{?>
+              
+                <div class="row justify-content-center text-center">
+                    <div class="col-lg-5 col-md-5">
+                        <section class="justify-content-center">
+                            <div class="">
+                                <div class="cust-div-1 log-reg-forms mb-3">
+                                    <img src="images/no-item-in-cart.png" alt="">
+                                    <h3 class="title-msg">No item in your cart.</h3>
+                                    <a href="<?php $rtpth?>home"
                   class="mt-3 view-details-btn btn btn-primary light phone-no shadow-none effect-1 w-100 text-center d-block"><span>Click
                     Here to Add Products</span></a>
+
+                                  
+                                </div>
+                            </div>
+                        </section>
+
+                    </div>
+                </div>
+              
                 <?php } ?>
               </div>
               <!--Grid column-->
@@ -411,7 +429,8 @@ include('header.php');
               <div class="col-lg-4">
                 <!-- Card -->
                 
-                  <?php if($totcartprc !=0){?>
+                  <?php if($totcartprc !=0){
+                    ?>
                     <div class="mb-3">
                   <div class="clearfix">
                     <a href="<?php $rtpth?>home"
@@ -471,7 +490,12 @@ include('header.php');
                     </div>
                   </div>
                   </div>
-                 <?php }?>
+                 <?php }
+                 else{
+                 
+                 }
+                 
+                 ?>
                  
                
                 <!-- Card -->

@@ -579,7 +579,6 @@ include_once('../includes/inc_fnct_ajax_validation.php');
 </section>
 
 <?php include_once "../includes/inc_adm_footer.php"; ?>
-<!-- <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script> -->
 <script type="text/javascript" src="../js/jquery-ui-timepicker-addon.js"></script>
 <script type="text/javascript" src="../js/jquery-ui-sliderAccess.js"></script>
 <script language="javaScript" type="text/javascript" src="js/ckeditor.js"></script>
