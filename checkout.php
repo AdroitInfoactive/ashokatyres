@@ -445,9 +445,9 @@ href="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
 Add a discount code (optional)
 <span><i class="fas fa-chevron-down pt-1"></i></span>
 </a> -->
-                    <a class="dark-grey-text d-flex justify-content-between" data-bs-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
+                    <!-- <a class="dark-grey-text d-flex justify-content-between" data-bs-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
                       Add a discount code (optional)<span><i class="fas fa-chevron-down pt-1"></i></span>
-                    </a>
+                    </a> -->
                     <div class="collapse" id="collapseExample">
                       <div class="mt-3">
                         <div class="cp-code md-form md-outline mb-0">
