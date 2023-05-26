@@ -286,10 +286,16 @@ include('header.php');
 										<option value=""> Vehicle Varient</option>
 									</select>
 								</div>
+								<!-- <div class="form-group m-b20">
+									<select class="form-control" id="tyrbrndflt1" onchange="funcfltvechtype1()">
+										<option value="">  All Tyre Brand</option>
+									</select>
+								</div> -->
 								<div class="form-group m-b20">
 									<select class="form-control" id="tyrbrndflt"
 										onchange="funcfltvechtype('<?php echo $_REQUEST['type']; ?>');">
 										<option value=""> All Tyre Brand</option>
+									
 										<?php
 										$sqlprdtyrbrnd_mst1 = "SELECT prodm_id, prodm_sku, prodm_code, prodm_name,tyrbrndm_id,tyrbrndm_name from prod_mst
 											inner join prod_veh_dtl on prod_veh_dtl.prodd_prodm_id	= prod_mst.prodm_id
@@ -301,7 +307,7 @@ include('header.php');
 											inner join tyr_wdth_mst on tyr_wdth_mst.tyrwdthm_id = prod_mst.prodm_tyrwdth		
 											inner join tyr_rimsize_mst on tyr_rimsize_mst.tyrrmszm_id = prod_mst.prodm_tyrrmsz
 											inner join tyr_prfl_mst on tyr_prfl_mst.tyrprflm_id = prod_mst.prodm_tyrprfl
-										where prodm_id !='' and prodm_sts ='a' and vehtypm_sts='a' and vehbrndm_sts='a' and vehmodlm_sts='a' andvehvrntm_sts='a' and tyrprflm_sts='a' and tyrrmszm_sts='a' and tyrwdthm_sts='a' and tyrbrndm_sts='a'";
+										where prodm_id !='' and prodm_sts ='a' and vehtypm_sts='a' and vehbrndm_sts='a' and vehmodlm_sts='a' and vehvrntm_sts='a' and tyrprflm_sts='a' and tyrrmszm_sts='a' and tyrwdthm_sts='a' and tyrbrndm_sts='a'";
 										if (isset($_REQUEST['type']) && (trim($_REQUEST['type']) != "")) {
 											$vehtypenm = glb_func_chkvl($_REQUEST['type']);
 											$vehtypenm = funcStrUnRplc($vehtypenm);
@@ -353,7 +359,7 @@ include('header.php');
 													data-select2-id="<?php echo $srowsprodtyrbrnd_mst['tyrbrndm_name']; ?>"><?php echo $srowsprodtyrbrnd_mst['tyrbrndm_name']; ?></option>
 											<?php }
 										} ?>
-									</select>
+									</select>									
 								</div>
 							</div>
 							<div class="widget widget_price_range">
@@ -671,8 +677,10 @@ include('header.php');
 </script>
 <script>
 	function funcfltvechtype(vechtype) {
-		// debugger;
-		var vehtypnm = vechtype;
+		//function funcfltvechtype() {
+		 //debugger;
+		var vehtypnm = document.getElementById('vechtye').value;
+		
 		//alert(vehtypnm);
 		$.ajax({
 			type: "POST",
@@ -680,7 +688,8 @@ include('header.php');
 			data: 'vechtypnm=' + vehtypnm,
 			success: function (data) {
 				//alert(data);
-				$("#getmolnm").html(data);
+				// $("#tyrbrndflt").html(data);
+				// $('#tyrbrndflt').empty().append('<option  value="">Select</option>');
 			}
 		});
 	}
@@ -691,6 +700,7 @@ include('header.php');
 <!--------------------------------------------->
 <script>
 	function funcfltvechbrnd() {
+		
 		var vehtypnm = document.getElementById('vechtye').value;
 		var vechbrnd = $('#vehbrndflt').val();
 		//alert(vehtypnm);
@@ -698,7 +708,8 @@ include('header.php');
 			type: "POST",
 			url: "prdserchflt.php",
 			data: 'vechtypnm1=' + vehtypnm + '&vechbrnd=' + vechbrnd,
-			success: function (data) {
+			success: function (data)
+		{
 				$("#tyrvehmodlflt").html(data);
 				$('#tyrvehvarntflt').empty().append('<option  value="">Select</option>');
 			}
