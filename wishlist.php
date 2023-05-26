@@ -68,13 +68,13 @@ include('header.php');
 			  $wshlstprodid  =$srowwshlst['usrwshlstd_prodm_id'];
 				$wshlstvechbrndid =$srowwshlst['usrwshlstd_vehbrnd_id'];
 				$wshlstmembrid =$srowwshlst['usrwshlstd_mbrm_id'];
-			     	 $sqlprd_mst1="select  prodm_id, prodm_sku, prodm_code, prodm_name, prodm_size, prodm_ptrn, prodm_cstprc,                       prodm_sleprc,  prodm_ofrprc, prodm_dsc, prodm_sdsc, prodm_st, prodm_sky, prodm_sotl,                       prodm_sodsc, prodm_sttle, prodm_stdsc, prodm_sts, prodm_rnk,vehtypm_id, vehtypm_name,
+			     	 $sqlprd_mst1="SELECT  prodm_id, prodm_sku, prodm_code, prodm_name, prodm_size, prodm_ptrn, prodm_cstprc,                       prodm_sleprc,  prodm_ofrprc, prodm_dsc, prodm_sdsc, prodm_st, prodm_sky, prodm_sotl,                       prodm_sodsc, prodm_sttle, prodm_stdsc, prodm_sts, prodm_rnk,vehtypm_id, vehtypm_name,
 		              vehtypm_desc, vehtypm_seotitle, vehtypm_seodesc, vehtypm_seokywrd, vehtypm_seohonetitle,
 		              vehtypm_seohonedesc, vehtypm_seohtwotitle, vehtypm_seohtwodesc, vehtypm_sts,
 					  vehtypm_prty,vehbrndm_id, vehbrndm_name, vehbrndm_desc, vehbrndm_vehtypm_id, vehbrndm_brndimg,                       vehbrndm_sts, vehbrndm_prty, vehbrndm_seotitle, vehbrndm_seodesc, vehbrndm_seokywrd,                       vehbrndm_seohonetitle, vehbrndm_seohonedesc, vehbrndm_seohtwotitle, vehbrndm_seohtwodesc,
 		              vehmodlm_id, vehmodlm_name,vehvrntm_id, vehvrntm_name,tyrprflm_id,tyrprflm_name,
-		              tyrrmszm_id,tyrrmszm_name,tyrwdthm_id,tyrwdthm_name,tyrbrndm_id,tyrbrndm_name,
-					   if(prodm_sleprc > 10,prodm_sleprc, prodm_cstprc) as prodm_fnlprc
+		              tyrrmszm_id,tyrrmszm_name,tyrwdthm_id,tyrwdthm_name,tyrbrndm_id,tyrbrndm_name
+					  
 		 from prod_mst
 		
 		inner join prod_veh_dtl on prod_veh_dtl.prodd_prodm_id	= prod_mst.prodm_id
@@ -114,8 +114,18 @@ include('header.php');
 				$prod_ptrn          = $srowsprod_mst['prodm_ptrn'];	
 				$prod_cstprc        = $srowsprod_mst['prodm_cstprc'];	
 				$prod_sleprc	      = $srowsprod_mst['prodm_sleprc'];
-				$prod_fnlprc          = $srowsprod_mst['prodm_fnlprc'];
-				$prod_ofrprc        = $srowsprod_mst['prodm_ofrprc'];
+			//	$prod_fnlprc          = $srowsprod_mst['prodm_fnlprc'];
+
+				$prod_ofrprc    = $srowsprod_mst['prodm_ofrprc'];
+				if ($prod_ofrprc != "" && $prod_ofrprc > 0)
+				{
+					$prod_fnlprc = $prod_ofrprc;
+				}
+				else
+				{
+					$prod_fnlprc = $prod_sleprc;
+				}
+			
 				$prod_img  	      = $srowsprod_mst['prodm_img']; 
 				$prod_st	   	      = $srowsprod_mst['prodm_st'];
 				$prod_sdsc	      = $srowsprod_mst['prodm_sdsc'];
@@ -499,31 +509,11 @@ function stchng_UpdtCart() {
       document.getElementById('prdsz').innerHTML = prdsz;
 
 
-
     } else {
 
-
-
-      document.getElementById("prdext").style.display = "inline-block";
-
-
-
-      document.getElementById("discrt").style.display = "inline-block";
-
-
-
-      document.getElementById("addcrt").style.display = "none";
-
-
-
-
-
-
-
-
-
-
-
+			
+						crtprdalrdy();
+				
     }
 
 
@@ -533,4 +523,7 @@ function stchng_UpdtCart() {
 
 
 }
+function crtprdalrdy() {
+			$('#cartitemalrdyModal').modal('show');
+						}
 </script>
