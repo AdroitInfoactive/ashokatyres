@@ -61,7 +61,10 @@ $srsord_mst = mysqli_query($conn, $sqryord_mst);
 $rowsord_mst = mysqli_fetch_assoc($srsord_mst);
 $ordsts = $rowsord_mst['ordstsd_ordstsm_id'];
 $paymode = $rowsord_mst['crtordm_pmode'];
-$state = $rowsord_mst['scntynm'];
+$state = $rowsord_mst['scntynm']; 
+	$cart_amt= $rowsord_mst['crtordm_amt'];
+	$shp_chrgs=$rowsord_mst['crtordm_shpchrgamt'];
+	$total_crt_amt=$cart_amt + $shp_chrgs; 
 
 $loc = "&val=$srchval";
 if ($chk != '') {
@@ -140,7 +143,7 @@ include_once('../includes/inc_fnct_ajax_validation.php');
 							<div class="form-group row">
 								<label for="txtname" class="col-sm-2 col-md-3 col-form-label">Total Amount</label>
 								<div class="col-sm-8">
-									<?php echo $rowsord_mst['crtordm_amt']; ?>
+									<?php echo $total_crt_amt; ?>
 								</div>
 							</div>
 							<div class="form-group row">

@@ -121,8 +121,8 @@
 								</div>
 								<ul>
 									<li class="cat-item"><a href="<?php echo $rtpth ?>about-us">About us</a></li>
-									<li class="cat-item"><a href="<?php echo $rtpth ?>">Car Tyres</a></li>
-									<li class="cat-item"><a href="<?php echo $rtpth ?>">Bike Tyres</a></li>
+									<li class="cat-item"><a href="<?php echo $rtpth ?>product_type.php?type=car">Car Tyres</a></li>
+									<li class="cat-item"><a href="<?php echo $rtpth ?>product_type.php?type=bike">Bike Tyres</a></li>
 									<li class="cat-item"><a href="<?php echo $rtpth ?>contact-us">Contact Us</a></li>
 								</ul>
 							</div>
@@ -188,7 +188,7 @@
 				<div class="container">
 					<div class="row align-items-center fb-inner spno">
 						<div class="col-12 text-center">
-							<span class="copyright-text">Copyright © 2021 <a href="<?php echo $rtpth ?>"
+							<span class="copyright-text">Copyright © 2023 <a href="<?php echo $rtpth ?>"
 									class="text-primary" target="_blank">Ashoka Tyres</a> All rights reserved.</span>
 						</div>
 					</div>

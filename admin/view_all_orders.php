@@ -365,7 +365,9 @@ include_once ('script.php');
 								$ordemail = $rowsord_mst['crtordm_emailid'];
 								$ordmob = $rowsord_mst['crtordm_bdayphone'];
 								$ordqty = $rowsord_mst['crtordm_qty'];
-								$ordamt = $rowsord_mst['crtordm_amt'];
+								$ordamt = $rowsord_mst['crtordm_amt']; 
+								$chrgs = $rowsord_mst['crtordm_shpchrgamt']; 
+								$total_amt=$ordamt + $chrgs;
 								if ($rowsord_mst['crtordm_paysts'] == 'y')
 								{
 									$ordpysts = "Yes";
@@ -400,7 +402,7 @@ include_once ('script.php');
 									<!-- <td><?php echo $ordemail;?></td>
 									<td><?php echo $ordmob;?></td> -->
 									<td><?php echo $ordqty;?></td>
-									<td><?php echo $ordamt;?></td>
+									<td><?php echo $total_amt;?></td>
 									<td><?php echo $ordpysts;?></td>
 									<td><?php echo $ordpymod;?></td>
 									<td><?php echo $name;?></td>

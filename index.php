@@ -652,7 +652,7 @@ include('header.php');
 							<h2 class="title text-white">Have any question about us?</h2>
 						</div>
 						<a href="tel:984 900 3100" class="btn btn-white me-3 mb-2"><i class="fas fa-phone-volume me-sm-3 me-0 shake"></i><span class="d-sm-inline-block d-none">984 900 3100</span></a>
-						<a href="#" class="btn btn-outline-white effect-1  mb-2"><span>Contact
+						<a href="contact-us" class="btn btn-outline-white effect-1  mb-2"><span>Contact
 								Us</span></a>
 					</div>
 					<div class="col-lg-6">

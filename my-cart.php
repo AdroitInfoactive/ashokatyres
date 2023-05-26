@@ -410,13 +410,15 @@ include('header.php');
               <!--Grid column-->
               <div class="col-lg-4">
                 <!-- Card -->
-                <div class="mb-3">
+                
+                  <?php if($totcartprc !=0){?>
+                    <div class="mb-3">
                   <div class="clearfix">
                     <a href="<?php $rtpth?>home"
                       class="mt-3 view-details-btn btn btn-primary light phone-no shadow-none effect-1 w-100 text-center d-block"><span>Continue
                         Shopping</span></a>
                   </div>
-                  <div class="pt-4">
+                    <div class="pt-4">
                     <h5 class="mb-3 text-primary">The total amount of</h5>
                     <ul class="list-group list-group-flush">
                       <li class="list-group-item d-flex justify-content-between align-items-center border-0 px-0 pb-0">
@@ -450,7 +452,7 @@ include('header.php');
                       <!--<a href="#" class="mt-3 view-details-btn btn btn-primary light phone-no shadow-none effect-1 w-100 text-center d-block"><span>Confirm to pay</span></a>-->
                       <?php 
 											 if(isset($_SESSION['cartcode']) &&  (trim($_SESSION['cartcode']) != ""))
-	{ 
+                        	{ 
 										if($regid !='' && isset($regid)){ ?>
                     <div class="clearfix">
                     <a href="<?php $rtpth?>checkout.php"
@@ -468,7 +470,10 @@ include('header.php');
                       <?php } } ?>
                     </div>
                   </div>
-                </div>
+                  </div>
+                 <?php }?>
+                 
+               
                 <!-- Card -->
                 <!-- Card -->
                 <!-- <div class="mb-3">
