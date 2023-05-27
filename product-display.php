@@ -1,11 +1,13 @@
 <?php
-include_once "includes/inc_membr_session.php";//checking for session	
+
 include_once 'includes/inc_nocache.php'; // Clearing the cache information
 include_once 'includes/inc_connection.php';//Make connection with the database  	
 include_once "includes/inc_config.php";	//path config file
 include_once "includes/inc_usr_functions.php";//Including user session value
 include_once "includes/inc_folder_path.php"; //  folder path confige
-
+include_once "includes/inc_usr_sessions.php";
+//include_once "includes/inc_membr_session.php";//checking for session	
+$regid = $_SESSION['sesmbrid'];
 if (
 	isset($_REQUEST['type']) && (trim($_REQUEST['type']) != "") or
 	isset($_REQUEST['vehbrnd']) && (trim($_REQUEST['vehbrnd']) != "") or

@@ -7,8 +7,8 @@ include_once 'includes/inc_nocache.php'; // Clearing the cache information
  include_once "includes/inc_folder_path.php"; //  folder path confige
 //include_once "includes/inc_fnct_img_resize.php"; //image resize 
 //include_once "includes/inc_img_size.php"; //image size fix	
-            include_once "includes/inc_config.php";	//path config file
-		    include_once "includes/inc_usr_functions.php";//Including user session value
+include_once "includes/inc_config.php";	//path config file
+include_once "includes/inc_usr_functions.php";//Including user session value
 	global $gmsg,$email;		
 
 	 $membrid   = $_SESSION['sesmbrid'];	
@@ -193,7 +193,7 @@ include('header.php');
 																		inner join prod_mst on prod_mst.prodm_id = crtord_dtl.crtordd_prodm_id 
 																	left join prodimg_dtl on prodimgd_prodm_id = prodm_id
 																	 where crtordd_crtordm_id=$id group by crtordd_id";
-																		//echo $sqrycrtord_dtl;
+																		echo $sqrycrtord_dtl;
 																		error_reporting(0);
 																		$srscrtord_dtl = mysqli_query($conn,$sqrycrtord_dtl);
 																		$cnttorec = mysqli_num_rows($srscrtord_dtl);
@@ -223,7 +223,7 @@ include('header.php');
 																				if($img != "")
 																				{	
 																					/* $smlImgPth = $gprodsimg_usrpth . $smlImgNm . '.jpg'; */
-																		$imgpth = $rtpth.$gprodsimg_usrpth.$img. '.jpg';
+																				$imgpth = $rtpth.$gprodsimg_usrpth.$img. '.jpg';
 																				}else{
 																					$imgpth  =$rtpth.'images/ashoka-no-image.jpg';
 																				}
