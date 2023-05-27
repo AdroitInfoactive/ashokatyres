@@ -99,12 +99,14 @@ With best wishes for your well being! <br/></p>
 					</table>
 					</div>
 					</body></html>";
-	
+	// echo $body;exit;
 					
 					$fromemail   = $u_prjct_email_info;		
 					$headers 	 = 'MIME-Version: 1.0' . "\r\n";
 					$headers 	.= 'Content-type: text/html; charset=iso-8859-1' . "\r\n";
 					$headers 	.= "From: $fromemail" . "\r\n";
+					$headers 	.= "To: $useremail" . "\r\n";
+
 					$subject="Password Recovery System - Ashoka Tyres ";
 					if (mail($usr_emailid,$subject,$body,$headers)){
 						$msgstr="<div class='alert alert-success'>Mail Sent Successfully..</div>";
