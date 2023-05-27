@@ -6,6 +6,22 @@ error_reporting(0);
 	include_once "includes/inc_usr_functions.php";		  	
 	include_once 'includes/inc_folder_path.php';
 	include_once "includes/inc_config.php"; // Clearing the cache information
+
+	if(isset($_REQUEST['coupn']) && (trim($_REQUEST['coupn']) != ""))
+	{
+		$coupen = glb_func_chkvl($_REQUEST['coupn']); // Coupen
+		$_SESSION['coupen'] = $coupen;
+	}
+	if(isset($_REQUEST['rmv']) && (trim($_REQUEST['rmv']) != ""))
+	{
+		$remove = glb_func_chkvl($_REQUEST['rmv']); // Coupen
+		if($remove == "r")
+		{
+			unset($_SESSION['coupen']);
+		}
+	}
+
+
 	if(isset($_REQUEST['cartaction']) && (trim($_REQUEST['cartaction']) != "")){  
 		$action	 = glb_func_chkvl($_REQUEST['cartaction']); 	// Stores the action to be taken (add,update,delete)
 		if(isset($_REQUEST['prodidval']) && (trim($_REQUEST['prodidval']) != "")){

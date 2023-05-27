@@ -3833,6 +3833,268 @@ if(isset($_REQUEST['prjctsts']) && (trim($_REQUEST['prjctsts']) != ""))
 		}
 
 	?>
+ <!-- ----------------------- To get related fields for coupons------------------- -->
+<?php
+if(isset($_REQUEST['cpnapp_typ']) && (trim($_REQUEST['cpnapp_typ']) != ""))
+{
+	// creating Drop Down for sub category
+	$result = "";
+	$cpnapptyp = glb_func_chkvl($_REQUEST['cpnapp_typ']);
+	if ($cpnapptyp == 1)
+	{ ?>
+		<div class="row mb-2 mt-2">
+			<div class="col-sm-3">
+				<label>Main Category *</label>
+			</div>
+			<div class="col-sm-9">
+				<?php
+				$sqryprodcat_mst = "SELECT prodmn_catm_id,prodmn_catm_name from prodmcat_mst order by prodmn_catm_name";
+				$rsprodcat_mst = mysqli_query($conn,$sqryprodcat_mst);
+				$cnt_prodcat = mysqli_num_rows($rsprodcat_mst);
+				?>
+				<select name="lstprodmcat" id="lstprodmcat" onchange="get_cat();" class="form-control">
+					<option value="">--Select Main Category--</option>
+					<option value="0">All</option>
+					<?php
+					if( $cnt_prodcat > 0)
+					{
+						while($rowsprodcat_mst=mysqli_fetch_assoc($rsprodcat_mst))
+						{
+							$mncatid = $rowsprodcat_mst['prodmn_catm_id'];
+							$mncatname = $rowsprodcat_mst['prodmn_catm_name'];
+							?>
+								<option value="<?php echo $mncatid;?>"><?php echo $mncatname;?></option>
+							<?php
+						}
+					}
+					?>
+				</select>
+				<span id="errorsDiv_lstprodcat"></span>
+			</div>
+		</div>
+		<div class="col-md-12" id="hdncat">
+		</div>
+		<div class="col-md-12" id="hdnsubcat">
+		</div>
+		<?php
+	}
+	elseif ($cpnapptyp == 2)
+	{ ?>
+		<div class="row mb-2 mt-2">
+			<div class="col-sm-3">
+				<label>Brand *</label>
+			</div>
+			<div class="col-sm-9">
+				<?php
+			$sqryprodbrnd_mst = "SELECT tyrbrndm_id, tyrbrndm_name from  tyr_brnd_mst where tyrbrndm_sts = 'a' order by tyrbrndm_name";
+				$rsprodbrnd_mst = mysqli_query($conn,$sqryprodbrnd_mst);
+				$cnt_prodbrnd_mst = mysqli_num_rows($rsprodbrnd_mst);
+				?>
+				<select name="lstprodbrnd" id="lstprodbrnd" class="form-control">
+					<option value="">--Select Brand--</option>
+					<option value="0">All</option>
+					<?php
+					if($cnt_prodbrnd_mst > 0)
+					{
+						while($rowsprodcat_mst = mysqli_fetch_assoc($rsprodbrnd_mst))
+						{
+							$brndm_id = $rowsprodcat_mst['tyrbrndm_id'];
+							$brndm_name = $rowsprodcat_mst['tyrbrndm_name'];
+							?>
+							<option value="<?php echo $brndm_id;?>"><?php echo $brndm_name;?></option>
+							<?php
+						}
+					}
+					?>
+				</select>
+				<span id="errorsDiv_lstprodbrnd"></span>
+			</div>
+		</div>
+		<?php
+	}
+	else
+	{
+	}
+}
+// --------------End To get related To get related fields for coupons-----------
+// ----------------- To get related sub categories for copuns-------------------
+if(isset($_REQUEST['prodmncatid']) && (trim($_REQUEST['prodmncatid']) != ""))
+{ ?>
+	<div class="row mb-2 mt-2">
+		<div class="col-sm-3">
+			<label>Category *</label>
+		</div>
+		<div class="col-sm-9">
+			<select name="lstprodcat" id="lstprodcat" class="form-control"  onchange="get_sub_cat();" >
+				<option value="">--Select Category--</option>
+				<option value="0">All</option>
+				<?php
+				$prodmncatid = glb_func_chkvl($_REQUEST['prodmncatid']);
+			 $sqryprodcat_mst = "SELECT prodcatm_id, prodcatm_name from prodcat_mst where prodcatm_sts = 'a' and prodcatm_prodmcatm_id = $prodmncatid group by prodcatm_id order by prodcatm_prty";
+				 //echo $sqryprodcat_mst; exit;
+				$srsprodcat_mst = mysqli_query($conn,$sqryprodcat_mst);
+				$cnt_prodcat = mysqli_num_rows($srsprodcat_mst);
+				if($cnt_prodcat > 0)
+				{
+					while($rowsprodscat_mst=mysqli_fetch_assoc($srsprodcat_mst))
+					{
+						$catid = $rowsprodscat_mst['prodcatm_id'];
+						$catname = $rowsprodscat_mst['prodcatm_name'];
+						?>
+						<option value="<?php echo $catid;?>"><?php echo $catname;?></option>
+						<?php
+					}
+				}
+				?>
+			</select>
+			<span id="errorsDiv_lstprodscat"></span>
+		</div>
+	</div>
+	<?php
+}
+if(isset($_REQUEST['prodcatid']) && (trim($_REQUEST['prodcatid']) != ""))
+{ ?>
+	<div class="row mb-2 mt-2">
+		<div class="col-sm-3">
+			<label>Sub Category *</label>
+		</div>
+		<div class="col-sm-9">
+			<select name="lstprodscat" id="lstprodscat" class="form-control">
+				<option value="">--Select sub Category--</option>
+				<option value="0">All</option>
+				<?php
+				$prodcatid = glb_func_chkvl($_REQUEST['prodcatid']);
+			 $sqryprodscat_mst = "SELECT prodscatm_id, prodscatm_name from prodscat_mst where prodscatm_sts = 'a' and prodscatm_prodcatm_id = $prodcatid group by prodscatm_id order by prodscatm_prty"; 
+				 //echo $sqryprodscat_mst; exit;
+				$srsprodscat_mst = mysqli_query($conn,$sqryprodscat_mst);
+				$cnt_prodcat = mysqli_num_rows($srsprodscat_mst);
+				if($cnt_prodcat > 0)
+				{
+					while($rowsprodscat_mst=mysqli_fetch_assoc($srsprodscat_mst))
+					{
+						$scatid = $rowsprodscat_mst['prodscatm_id'];
+						$scatname = $rowsprodscat_mst['prodscatm_name'];
+						?>
+						<option value="<?php echo $scatid;?>"><?php echo $scatname;?></option>
+						<?php
+					}
+				}
+				?>
+			</select>
+			<span id="errorsDiv_lstprodscat"></span>
+		</div>
+	</div>
+	<?php
+}
+// ----------------End To get related prod sub cat for copuns-------------------
+// ----------------------- To get related fields for coupons net amt -------------------
+if(isset($_REQUEST['ntamt']) && (trim($_REQUEST['ntamt']) != ""))
+{
+	$result = "";
+	$netamttyp = glb_func_chkvl($_REQUEST['ntamt']);
+	if ($netamttyp == 'y')
+	{ ?>
+		<div class="row mb-2 mt-2">
+			<div class="col-sm-3">
+				<label>Net Amount *</label>
+			</div>
+			<div class="col-sm-9">
+				<input name="txtnetamt" type="text" id="txtnetamt" class="form-control">
+				<span id="errorsDiv_txtnetamt"></span>
+			</div>
+		</div>
+		<?php
+	}
+	else
+	{
+	}
+}
+// --------------End To get related To get related fields for couponsnet amt-----------
+// ----------------------- To get related users for coupons-------------------
+if(isset($_REQUEST['usrtyp']) && (trim($_REQUEST['usrtyp']) != ""))
+{
+	// write conditions corrcetly after signup form done
+	$result = "";
+	$usrtyp = glb_func_chkvl($_REQUEST['usrtyp']);
+	if ($usrtyp != 0 && $usrtyp != "")
+	{ ?>
+		<div class="row mb-2 mt-2">
+			<div class="col-sm-3">
+				<label>User Email *</label>
+			</div>
+			<div class="col-sm-9">
+				<?php
+				$sqryusr_mst = "SELECT mbrm_id, mbrm_emailid from mbr_mst  order by mbrm_emailid asc";
+				// where mbrm_typ = $usrtyp
+				// echo $sqryusr_mst;
+				$srsusr_mst = mysqli_query($conn,$sqryusr_mst);
+				$cnt_usr = mysqli_num_rows($srsusr_mst);
+				?>
+				<select name="lstusr" id="lstusr" class="form-control">
+					<option value="">--Select User--</option>
+					<option value="0">All</option>
+					<?php
+					if( $cnt_usr > 0)
+					{
+						while($rowsusr_mst=mysqli_fetch_assoc($srsusr_mst))
+						{
+							$id = $rowsusr_mst['mbrm_id'];
+							$email = $rowsusr_mst['mbrm_emailid'];
+							?>
+							<option value="<?php echo $id;?>"><?php echo $email;?></option>
+							<?php
+						}
+					}
+					?>
+				</select>
+				<span id="errorsDiv_lstusr"></span>
+			</div>
+		</div>
+		<?php
+	}
+	else
+	{
+	}
+}
 
+// --------------End To get related To get related users for coupons-----------
+
+// ----------------------- To get related fields for coupons disc amt -------------------
+
+if(isset($_REQUEST['disctyp']) && (trim($_REQUEST['disctyp']) != ""))
+{
+	$result = "";
+	$disctyp = glb_func_chkvl($_REQUEST['disctyp']);
+	if ($disctyp != "")
+	{
+		if ($disctyp == 'a')
+		{ 
+			$lbl = "Amount";
+			$fldnm = "txtdiscamt";
+			$err = "errorsDiv_txtdiscamt";
+		}
+		else
+		{
+			$lbl = "Percentage";
+			$fldnm = "txtdiscperc";
+			$err = "errorsDiv_txtdiscperc";
+		}
+		?>
+		<div class="row mb-2 mt-2">
+			<div class="col-sm-3">
+				<label>Discount <?php echo $lbl; ?> *</label>
+			</div>
+			<div class="col-sm-9">
+				<input name="<?php echo $fldnm; ?>" type="text" id="<?php echo $fldnm; ?>" class="form-control">
+				<span id="<?php echo $err; ?>"></span>
+			</div>
+		</div>
+		<?php
+	}
+	else
+	{
+	}
+}
+// --------------End To get related To get related fields for coupons disc amt-----------
 
 

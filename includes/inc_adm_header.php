@@ -180,6 +180,12 @@ error_reporting(0);
                       <p>Product Features</p>
                     </a>
                   </li>
+                  <li class="nav-item">
+                    <a href="view_all_coupons.php" class="nav-link <?php if($pagenm == "Coupons"){echo "active";} ?>">
+                      <i class="far fa-dot-circle nav-icon"></i>
+                      <p>Coupons</p>
+                    </a>
+                  </li>
                 </ul>
               </li>
               <li class="nav-item has-treeview <?php if($pagemncat == "Products" ){echo "menu-open";} ?>">

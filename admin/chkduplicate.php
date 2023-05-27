@@ -441,3 +441,47 @@ if(isset($_REQUEST['profetr']) && (trim($_REQUEST['profetr']) != ""))
    }*/   
   }   
 ?>
+<?php
+// ------------------------ To check duplcate coupon code---------------
+if(isset($_REQUEST['cpncode']) && (trim($_REQUEST['cpncode']) != ""))
+{
+   $code = glb_func_chkvl($_REQUEST['cpncode']);
+   $sqrycpn_mst = "SELECT cpnm_cde from cpn_mst where cpnm_cde='$code'";
+   if(isset($_REQUEST['cpnid']) && ($_REQUEST['cpnid']!= ""))
+   {
+      $id =glb_func_chkvl($_REQUEST['cpnid']);
+      $sqrycpn_mst .= " and cpnm_id!=$id";
+   }
+   $srscpn_mst = mysqli_query($conn,$sqrycpn_mst);
+   $cnt = mysqli_num_rows($srscpn_mst);
+   if($cnt > 0)
+   {
+      echo "<font color=red><strong>Duplicate Code</strong></font>";
+   }
+}
+// ------------------- end duplicate coupon code -------------------------
+// ------------------------ To Get usrer ids---------------
+if(isset($_REQUEST['value']) && (trim($_REQUEST['value']) != ""))
+{
+   $code = glb_func_chkvl($_REQUEST['value']);
+   $sqrycpn_mst = "SELECT mbrm_id, mbrm_name, mbrm_emailid, mbrm_sts FROM mbr_mst WHERE mbrm_sts='a'";
+ 
+   $srscpn_mst = mysqli_query($conn,$sqrycpn_mst);
+   $cnt = mysqli_num_rows($srscpn_mst);
+   if($cnt > 0)
+   {
+
+   while($mbmrs_dtl = mysqli_fetch_assoc($srscpn_mst)){
+   $mbmr_id =  $mbmrs_dtl['mbrm_id'];
+   $mbmr_name = $mbmrs_dtl['mbrm_name'];
+   ?>
+   <option value="<?php echo $mbmr_id;?>"><?php echo $mbmr_name;?></option>
+   <?php
+    //  echo "<option value='$mbmr_id'> $mbmr_name </option>";
+   
+  }
+ 
+}
+}
+// ------------------- To Get usrer ids -------------------------
+?>

@@ -39,6 +39,7 @@ if (isset($_SESSION['prodprc']) && (trim($_SESSION['prodprc']) != "")) {
   $ses_prodprc = $_SESSION['prodprc'];
 }
 $regid    = $_SESSION['sesmbrid'];
+$coupen = $_SESSION['coupen'];
 /*		if(!isset($_SESSION['cartcode']) || (trim($_SESSION['cartcode']) == ""))
 {
 header("Location:".$rtpth."index.php");
@@ -78,6 +79,64 @@ include('header.php');
   <div class="row" id="carjax1">
     <form name="frmadrs" id="frmadrs" method="post" action="<?php $_SERVER['SCRIPT_NAME']; ?>">
       <input type="hidden" value="<?php echo $regid; ?>" id="mbrid">
+
+      <!-- coupons start -->
+
+    <?php 
+    /************************COUPON USED BY USER***********************/
+if (isset($coupen) && (trim($coupen) != ""))
+{
+
+  //------------------------------- Coupn Order Base ----------------------------------------//
+  $cpnflg = 0;
+  $cpncnd = $_SESSION['cartcode'];
+  $catprd = explode('-', $cpncnd);
+  $mnctgtprodid = $catprd[0]; // Stores the product id 
+  $mnctgid = $catprd[1]; // 
+  //-------------------------------------5-7-2019------------------------------------------//
+   $sqrymbr_mst = "SELECT crtordm_mbrm_id,crtordm_id,crtordm_cpnm_id from crtord_mst where crtordm_mbrm_id = '$regid' and crtordm_cpnm_id = '$cpnm_id'";
+  $srsmbr_mst = mysqli_query($conn, $sqrymbr_mst);
+  $cntmbr_mst = mysqli_num_rows($srsmbr_mst);
+ // echo $cntmbr_mst;
+ $sqrycpn_mst = "SELECT cpnm_id,cpnm_cde,cpnm_name,cpnm_mncat, cpnm_cat,cpnm_scat,cpnm_aptyp,cpnm_memtyp,cpnm_disctyp,cpnm_discamt,cpnm_exdt,cpnm_discper, cpnm_sts,cpnm_prty,cpnm_usetyp,cpnm_mbrm_id,cpnm_ntamt, cpnm_ntamttyp,cpnm_applon,cpnm_brnd from cpn_mst where cpnm_cde = '$coupen' and cpnm_exdt >= '$gcurdt' and cpnm_sts = 'a'";
+  $srscpn_mst = mysqli_query($conn, $sqrycpn_mst);
+  $cntrec_cpn = mysqli_num_rows($srscpn_mst);
+  if ($cntrec_cpn > 0)
+  {
+    $srowcpn_mst = mysqli_fetch_assoc($srscpn_mst);
+    $cpnm_id = $srowcpn_mst['cpnm_id']; // Expiry type of the campaign 
+    $cpnm_cde = $srowcpn_mst['cpnm_cde']; // Expiry type of the campaign 
+    $cpnm_mncat = $srowcpn_mst['cpnm_mncat']; // Expiry type of the campaign 
+    $cpnm_cat = $srowcpn_mst['cpnm_cat']; // Expiry type of the campaign 
+    $cpnm_scat = $srowcpn_mst['cpnm_scat']; // Expiry type of the campaign 
+    $cpnm_disctyp = $srowcpn_mst['cpnm_disctyp']; // Expiry type of the campaign 
+    $cpnm_amt = $srowcpn_mst['cpnm_discamt']; // Expiry type of the campaign 
+    $cpnm_per = $srowcpn_mst['cpnm_discper']; // Member for whom the voucher is available
+    $cpnm_exdt = $srowcpn_mst['cpnm_exdt']; // Member for whom the voucher is available
+    $cpnm_sts = $srowcpn_mst['cpnm_sts']; // Member for whom the voucher is available
+    $cpnm_prty = $srowcpn_mst['cpnm_prty']; // Member for whom the voucher is available
+    $cpnm_memtyp = $srowcpn_mst['cpnm_usetyp'];
+    $cpnm_usr_id = $srowcpn_mst['cpnm_mbrm_id'];
+    $cpnm_apply_on = $srowcpn_mst['cpnm_applon'];
+    $cpnm_brnd = $srowcpn_mst['cpnm_brnd'];
+    $cpnm_apply_type = $srowcpn_mst['cpnm_aptyp'];
+    $cupnm = $cpnm_cde;
+    $curdt = date('Y-m-d');
+    $cur_strtime = strtotime($cpnm_exdt);
+    $cpnm_ntamt = $srowcpn_mst['cpnm_ntamt']; // Expiry type of the campaign  	
+    $cpnm_ntamttyp = $srowcpn_mst['cpnm_ntamttyp']; // Expiry type of the campaign 
+  }
+  else
+  {
+    $cpnmsg = "CUPON NOT VALID";
+  }
+}
+if ($cpnmsg != '')
+{
+  $cupnm = "";
+  $cpnm_scat = 0;
+  unset($_SESSION['coupen']);
+}?>
       <section class="my-cart-values">
         <div class="container">
           <!--Section: Block Content-->
@@ -187,6 +246,56 @@ prodm_id !='' and prodm_sts ='a' and vehtypm_sts='a' and vehbrndm_sts='a' and ve
                                     $crt_tot_prc = $untqty * $prc;
                                   }
                                   // new code cart calculation ends
+                                  // coupons start
+                                  if($cpnm_id!= '')
+                                  {
+                                    if($cpnm_apply_on == 1)
+                                    {
+                                      if(($cpnm_mncat == $mnctid)&&($cpnm_cat == $ctid)&&($cpnm_scat == $sctid ))
+                                      {
+                                        $cpnprdprc = $prc * $cart_qty;
+                                        $totalcpnprdprc += $cpnprdprc;
+                                        $cpndis = 'y';
+                                      }
+                                      else if(($cpnm_mncat == $mnctid)&&($cpnm_cat == $ctid)&&($cpnm_scat == '0'))
+                                      {
+                                        $cpnprdprc = $prc * $cart_qty;
+                                        $totalcpnprdprc += $cpnprdprc;
+                                        $cpndis = 'y';
+                                      }		 
+                                      else if(($cpnm_mncat == $mnctid)&&($cpnm_cat == '0')&&($cpnm_scat == '0'))
+                                      {
+                                        $cpnprdprc = $prc * $cart_qty;
+                                        $totalcpnprdprc += $cpnprdprc;
+                                        $cpndis = 'y';
+                                      }
+                                      else if(($cpnm_mncat == '0')&&($cpnm_cat == '0')&&($cpnm_scat == '0'))
+                                      {
+                                        $cpnprdprc = $prc * $cart_qty;
+                                        $totalcpnprdprc += $cpnprdprc;
+                                        $cpndis = 'y';
+                                      }
+                                      else
+                                      {
+                                        $cpndis = 'n';
+                                      }
+                                    }
+                                    else if($cpnm_apply_on == 2)
+                                    {
+                                      if(($cpnm_brnd == $prodbrnd) || ($cpnm_brnd == 0))
+                                      {
+                                        $cpndis = 'y';
+                                        $cpnprdprc = $prc * $cart_qty;
+                                        $totalcpnprdprc += $cpnprdprc;
+                                      }
+                                      else
+                                      {
+                                        $cpndis = 'n';
+                                      }
+                                    }
+                                  }
+                                  // coupons ends
+
                                   $od = 150;
                                   $df = 250;
                                   $fs = '';
@@ -211,6 +320,100 @@ prodm_id !='' and prodm_sts ='a' and vehtypm_sts='a' and vehbrndm_sts='a' and ve
                                       </td>
                                       <td class="ps-product__quantity"> <?php echo $untqty; ?></td>
                                       <td class="ps-product__subtotal">&#8377;<?php echo $crt_tot_prc; ?></td>
+                                     
+                                      <?php
+                                      // coupons start
+                $crttotamt = $totuntprc;
+                if ($cpnm_id != '')
+                {
+                  if ($cpnm_ntamttyp == 'y')
+                  {
+                    if ($cpnm_ntamt < $totalcpnprdprc)
+                    {
+                      $ntamttyp = 'y';
+                    }
+                    else
+                    {
+                      $ntamttyp = 'n';
+                    }
+                  }
+                  else if ($cpnm_ntamttyp == 'n')
+                  {
+                    $ntamttyp = 'y';
+                  }
+                  if ($cpnm_memtyp == 's')
+                  {
+                    if ($regid == $cpnm_usr_id)
+                    {
+                      $snglcpn = "y";
+                    }
+                    else
+                    {
+                      $snglcpn = "n";
+                    }
+                  }
+                  else if ($cpnm_memtyp == 'nu')
+                  {
+                    $sqlcrtord_mst = "SELECT crtordm_mbrm_id from crtord_mst where crtordm_mbrm_id = $regid";
+                    $rescrtord_mst = mysqli_query($conn, $sqlcrtord_mst);
+                    $numorws = mysqli_num_rows($rescrtord_mst);
+                    if ($numorws == 0)
+                    {
+                      $snglcpn = "y";
+                    }
+                    else
+                    {
+                      $snglcpn = "n";
+                    }
+                  }
+                  else if ($cpnm_memtyp == 'au')
+                  {
+                    $snglcpn = "y";
+                  }
+                  else
+                  {
+                    $snglcpn = "na";
+                  }
+                }
+                if ($cpndis == 'y' && $ntamttyp == 'y' && $snglcpn == 'y')
+                {
+                  if ($cpnm_disctyp == 'p')
+                  {
+                    $disper = $cpnm_per / 100;
+                    $per_amt = $totalcpnprdprc * $disper;
+                    $cpnm_discamt = $per_amt;
+                    $totcpndiscamt += $cpnm_discamt;
+                    $cpncunt++;
+                  }
+                  else
+                  {
+                    $cpnm_discamt = $cpnm_amt;
+                    $totcpndiscamt += $cpnm_discamt;
+                    $cpncunt++;
+                  }
+                }
+                else
+                {
+                  
+                }
+                if ($cpncunt > 0)
+                { ?>
+                  <div class="row">
+                    <div class="col-lg-6 col-md-6">
+                      <p>Coupon applied: (<b><?php echo $cpnm_cde; ?></b>)</p>
+                    
+                      <input type="hidden" id="cpnid" value="<?php echo  $cpnm_cde; ?>" />
+                    </div>
+                    <div class="col-lg-6 col-md-6">
+                      <p class="text-right"><i class="fa fa-rupee"></i>&nbsp;-<?php echo number_format($totcpndiscamt, 2, ".", ","); ?>
+                      <input type="hidden" id="cpndisamt" value="<?php echo  $totcpndiscamt; ?>" />
+                    </p>
+                    </div>
+                  </div>
+                  <?php
+                  $crttotamt = $totuntprc - $totcpndiscamt;
+                }?>
+                  <!-- ************** coupons ends -->
                                       <?php
                                       $sqry_loc = "SELECT strlocm_id, strlocm_name from store_loc_mst where strlocm_sts = 'a' order by strlocm_id ASC";
                                       $srslocdtls = mysqli_query($conn, $sqry_loc);
@@ -377,6 +580,8 @@ where mbrd_mbrm_id=$regid and mbrm_id = $regid order by mbrd_id  desc";
                   <div class="pt-4">
                     <h5 class="mb-3 text-primary">The total amount of</h5>
                     <div id="dynmc_prcs">
+
+
                       <ul class="list-group list-group-flush">
                         <li class="list-group-item d-flex justify-content-between align-items-center border-0 px-0 pb-0">
                           Cart Value
@@ -440,20 +645,19 @@ where mbrd_mbrm_id=$regid and mbrm_id = $regid order by mbrd_id  desc";
                 <!-- Card -->
                 <div class="mb-3">
                   <div class="pt-4">
-                    <!-- <a class="dark-grey-text d-flex justify-content-between" data-toggle="collapse"
-href="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
-Add a discount code (optional)
-<span><i class="fas fa-chevron-down pt-1"></i></span>
-</a> -->
-                    <!-- <a class="dark-grey-text d-flex justify-content-between" data-bs-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
+                    
+                    <a class="dark-grey-text d-flex justify-content-between" data-bs-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
                       Add a discount code (optional)<span><i class="fas fa-chevron-down pt-1"></i></span>
-                    </a> -->
+                    </a>
                     <div class="collapse" id="collapseExample">
                       <div class="mt-3">
                         <div class="cp-code md-form md-outline mb-0">
-                          <input type="text" id="discount-code" class="form-control font-weight-light" placeholder="Enter discount code">
+                          <input type="text" id="prdcupn" class="form-control font-weight-light" placeholder="Enter discount code">
                         </div>
                       </div>
+                      <div class="col-lg-4 col-md-4 col-12">
+                    <button class="ps-btn ps-btn--primary mb-3" type="button" onClick="javascript:frmcupn()">Apply coupon</button>
+                    </div>
                     </div>
                   </div>
                 </div>
@@ -563,16 +767,60 @@ Add a discount code (optional)
       var chrgs = document.getElementById('txtftstchrg').value;
     }
     var totcrtprc = $("#ntTogPrc").val();
+    var cpnid = document.getElementById('cpnid').value;
+    var cpndisamt = document.getElementById('cpndisamt').value;
     $.ajax({
       type: "POST",
       url: "chng_prcs_chkout.php",
-      data: 'chrgs='+chrgs+'&totcrtprc='+totcrtprc+'&chkd='+chkd,
+      data: 'chrgs='+chrgs+'&totcrtprc='+totcrtprc+'&chkd='+chkd+'&cpnid='+cpnid+'&cpndisamt='+cpndisamt,
       success: function(data) {
         // alert(data)
         $("#dynmc_prcs").html(data);
       }
     });
   }
+  function frmcupn()
+	{
+    debugger
+		cupn = document.getElementById("prdcupn").value;
+		if (cupn != '')
+		{
+			var url = "<?php echo $rtpth; ?>manage_cart.php?coupn="+cupn;
+			xmlHttp = GetXmlHttpObject(stchng_UpdtCart);
+			xmlHttp.open("GET", url, true);
+			xmlHttp.send(null);
+		}
+		else
+		{
+			alert("Enter Coupon Code")
+		}
+	}
+	function stchng_UpdtCart()
+	{
+    location.reload();
+		//  if (xmlHttp.readyState == 4 || xmlHttp.readyState == "complete")
+		// {
+		// 	var temp = xmlHttp.responseText;
+		// 	alert(temp);
+		// } 
+	}
+	function frmrmvcupn()
+	{
+		rmvcupn = "r";
+		var url = "<?php echo $rtpth; ?>manage_cart.php?rmv=" + rmvcupn;
+		xmlHttp = GetXmlHttpObject(stchng_rmvcupn);
+		xmlHttp.open("GET", url, true);
+		xmlHttp.send(null);
+	}
+	function stchng_rmvcupn()
+	{
+		location.reload();
+		/* if (xmlHttp.readyState == 4 || xmlHttp.readyState == "complete")
+		{
+			var temp = xmlHttp.responseText;
+		} */
+	}
+
 </script>
 
 

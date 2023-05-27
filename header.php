@@ -71,6 +71,32 @@ include_once "includes/inc_config.php";// path configuration
 <body id="bg">
 
 <header class="site-header mo-left header style-1">
+<?php
+      $cupn_qry = "SELECT cpnm_id, cpnm_cde, cpnm_name, cpnm_applon, cpnm_mncat, cpnm_cat, cpnm_scat, cpnm_brnd, cpnm_aptyp, cpnm_ntamttyp, cpnm_ntamt, cpnm_memtyp, cpnm_mbrm_id, cpnm_usetyp, cpnm_uselmt, cpnm_disctyp, cpnm_discamt, cpnm_discper, cpnm_exdt, cpnm_desc, cpnm_odr_cntaply, cpnm_odr_apltyp, cpnm_odr_discper, cpnm_odr_cnt, cpnm_sts, cpnm_prty, cpnm_crtdon FROM cpn_mst WHERE ((cpnm_mncat = 0 or cpnm_mncat = '') and (cpnm_brnd = 0 or cpnm_brnd!='')) and cpnm_usetyp = 'au' and cpnm_sts='a' order by cpnm_crtdon desc limit 1";
+      $cupn_mst = mysqli_query($conn,$cupn_qry);
+      $cupn_cunt = mysqli_num_rows($cupn_mst);
+      if($cupn_cunt > 0){ 
+      ?>
+            <div style="background-color: green; color:white">
+                <div class="container-fluid ps-noti">
+                    <marquee behavior="smooth" direction="left" onmouseover="this.stop();" onmouseout="this.start();">
+                        <div class="d-flex top-offr">
+                            <div>
+                                <?php 
+                
+                $cupn_dtl = mysqli_fetch_assoc($cupn_mst);
+                $name = $cupn_dtl['cpnm_cde'];
+                $desc = $cupn_dtl['cpnm_desc'];
+                ?>
+                                <p class="m-0">Use coupon code <strong><?php echo $name; ?></strong> and get
+                                    <?php echo $desc; ?>. </p>
+                            </div>
+                        </div>
+                    </marquee>
+                </div>
+            </div>
+            <?php } ?>
+
 
 <!-- Main Header -->
 <div class="sticky-header main-bar-wraper navbar-expand-lg">

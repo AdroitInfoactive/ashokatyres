@@ -100,7 +100,7 @@ include('header.php');
                             <p class="mb-0"><strong>Order Id: </strong><?php echo $code; ?></p>
                             <p class="mb-0"><strong>Order On: </strong><?php echo $date; ?></p>
                             <p class="mb-0"><strong>Payment Status: </strong> <?php echo $psts; ?></p>
-                            <p class="mb-0"><strong>Payment Status: </strong><?php echo $type; ?></p>
+                            <p class="mb-0"><strong>Order Status: </strong><?php echo $type; ?></p>
                             <p class="mb-0"><u>Order will be delivered by 7 Business days.</u></p>
                           </div>
                         </div>

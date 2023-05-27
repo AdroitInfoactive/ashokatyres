@@ -12,7 +12,14 @@ if (isset($_REQUEST['chrgs']) && (trim($_REQUEST['chrgs']) != "") && isset($_REQ
   $chkd = glb_func_chkvl($_REQUEST['chkd']);
   $chrgs = glb_func_chkvl($_REQUEST['chrgs']);
   $totcrtprc = glb_func_chkvl($_REQUEST['totcrtprc']);
+  $cpnm_cde = glb_func_chkvl($_REQUEST['cpnid']);
+  $totcpndiscamt = glb_func_chkvl($_REQUEST['cpndisamt']);
+if($totcpndiscamt!=0 && $totcpndiscamt>0 && $totcpndiscamt!=''){
+ $total_prc= ($totcrtprc+$chrgs)-$totcpndiscamt;
+}
+$total_prc= ($totcrtprc+$chrgs);
 ?>
+
   <ul class="list-group list-group-flush">
     <li class="list-group-item d-flex justify-content-between align-items-center border-0 px-0 pb-0">
       Cart Value
@@ -42,11 +49,17 @@ if (isset($_REQUEST['chrgs']) && (trim($_REQUEST['chrgs']) != "") && isset($_REQ
       <?php
     }
     ?>
+     <li class="list-group-item d-flex justify-content-between align-items-center px-0">
+     <p>Coupon applied: (<b><?php echo $cpnm_cde; ?></b>)</p>
+     <span>₹ &nbsp;-<?php echo number_format($totcpndiscamt, 2, ".", ","); ?>
+  </span></li>
     <li class="list-group-item d-flex justify-content-between align-items-center px-0">
       Total Cart Value
       <span>₹<?php if ($totcrtprc > 0) {
-                echo $totcrtprcwtchrg =  $totcrtprc + $chrgs;
-              }else {
+               // echo $totcrtprcwtchrg =  $totcrtprc + $chrgs;
+                echo $total_prc;
+              }
+              else {
                 echo '0.00';
               }; ?></span>
     </li>
@@ -58,9 +71,15 @@ if (isset($_REQUEST['chrgs']) && (trim($_REQUEST['chrgs']) != "") && isset($_REQ
           <p class="mb-0">(including GST)</p>
         </strong>
       </div>
-      <span><strong>₹<?php if ($totcrtprcwtchrg > 0) {
-                        echo $totcrtprcwtchrg;
-                      } else {
+      <span><strong>₹<?php 
+              // if ($totcrtprcwtchrg > 0) {
+              //          // echo $totcrtprcwtchrg;
+              //          echo $total_prc;
+              //         } 
+              if( $total_prc>0){
+                echo $total_prc;
+              }
+                      else {
                         echo '0.00';
                       }; ?></strong></span>
     </li>
