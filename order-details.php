@@ -193,7 +193,7 @@ include('header.php');
 																		inner join prod_mst on prod_mst.prodm_id = crtord_dtl.crtordd_prodm_id 
 																	left join prodimg_dtl on prodimgd_prodm_id = prodm_id
 																	 where crtordd_crtordm_id=$id group by crtordd_id";
-																		echo $sqrycrtord_dtl;
+																		//echo $sqrycrtord_dtl;
 																		error_reporting(0);
 																		$srscrtord_dtl = mysqli_query($conn,$sqrycrtord_dtl);
 																		$cnttorec = mysqli_num_rows($srscrtord_dtl);
