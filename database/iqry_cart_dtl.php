@@ -17,7 +17,7 @@ margin-bottom: 0px;
 </style> -->
 
 <?php		
-include_once "includes/inc_membr_session.php";//checking for session	
+
 if(isset($_SESSION['cartcode']) && (trim($_SESSION['cartcode']) != ""))
 {
 $usrmsg = "<table width=\"1003\" height=\"100%\" border=\"0\" align=\"center\" cellpadding=\"20\" cellspacing=\"1\" bgcolor=\"#000000\">
@@ -116,6 +116,7 @@ $gst = $_POST['txtgst'];
 $hsn = $_POST['txthsncde'];	
 $pygtwy = $_POST['chkpay']; 
 $chkshop = $_POST['chrgs'];
+$strloc = $_POST['strloc'];
 $paymode	= $pygtwy;	
 $ccrdid     = "e";				
 //$paygrsamt 	  = ($grsamt * 100);		
@@ -157,7 +158,7 @@ $iqrycrtordmst = "INSERT into crtord_mst(
 					crtordm_paysts,crtordm_rmks,crtordm_mbrm_id,
 					crtordm_shpchrgm_id,crtordm_shpchrgamt,
 					crtordm_cpnm_id,crtordm_cpnm_typ,crtordm_cpnm_val,
-					crtordm_codamt,crtordm_crtdon,crtordm_crtdby) values(						
+					crtordm_codamt,crtordm_deltype,crtordm_fitloc,crtordm_crtdon,crtordm_crtdby) values(						
 					'$newcrtord_code','$crtsesval','$bfname','$blname',
 					'$badrs','$badrs2','$bcmpny','$bcty', '$bcounty',
 					'$bzip','$bcountry','$bph','$bemail',
@@ -167,9 +168,9 @@ $iqrycrtordmst = "INSERT into crtord_mst(
 					'r','$cartsts','$paymode',
 					'$paysts','$rmrks','$membrid','$shipprc','$chkshop',
 					'$cpnid','$cpnscat','$cpnval',
-					'$codval','$dt','$membremail')";
+					'$codval','','$strloc','$dt','$membremail')";
 	//echo $iqrycrtordmst; exit;																	   
-$irscrtordmst		= mysqli_query($conn,$iqrycrtordmst) or die(mysqli_error());		
+$irscrtordmst		= mysqli_query($conn,$iqrycrtordmst) or die(mysqli_error($conn));		
 if($irscrtordmst == true)
 {	
 	$ordmstid 		= mysqli_insert_id($conn);	 

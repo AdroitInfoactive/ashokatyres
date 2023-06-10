@@ -18,7 +18,7 @@ $ses_cartcode = "";     // Stores the cartcode
 $ses_prodqty  = "";    // Stores the session quantities
 $ses_prodid   = "";   //store the product session
 $pgrval     =  $_SESSION['sesloc'];
-
+// unset($_SESSION['coupen']);
 /**********************Assigning Values to Sessions *************************/
 if (isset($_SESSION['cart']) && (trim($_SESSION['cart'] != ""))) {
   $ses_cart = $_SESSION['cart']; // Stores the cart detail
@@ -94,11 +94,9 @@ if (isset($coupen) && (trim($coupen) != ""))
   $mnctgtprodid = $catprd[0]; // Stores the product id 
   $mnctgid = $catprd[1]; // 
   //-------------------------------------5-7-2019------------------------------------------//
-   $sqrymbr_mst = "SELECT crtordm_mbrm_id,crtordm_id,crtordm_cpnm_id from crtord_mst where crtordm_mbrm_id = '$regid' and crtordm_cpnm_id = '$cpnm_id'";
-  $srsmbr_mst = mysqli_query($conn, $sqrymbr_mst);
-  $cntmbr_mst = mysqli_num_rows($srsmbr_mst);
- // echo $cntmbr_mst;
- $sqrycpn_mst = "SELECT cpnm_id,cpnm_cde,cpnm_name,cpnm_mncat, cpnm_cat,cpnm_scat,cpnm_aptyp,cpnm_memtyp,cpnm_disctyp,cpnm_discamt,cpnm_exdt,cpnm_discper, cpnm_sts,cpnm_prty,cpnm_usetyp,cpnm_mbrm_id,cpnm_ntamt, cpnm_ntamttyp,cpnm_applon,cpnm_brnd from cpn_mst where cpnm_cde = '$coupen' and cpnm_exdt >= '$gcurdt' and cpnm_sts = 'a'";
+
+ $curdt = date('Y-m-d');
+ $sqrycpn_mst = "SELECT cpnm_id,cpnm_cde,cpnm_name,cpnm_mncat, cpnm_cat,cpnm_scat,cpnm_aptyp,cpnm_memtyp,cpnm_disctyp,cpnm_discamt,cpnm_exdt,cpnm_discper, cpnm_sts,cpnm_prty,cpnm_usetyp,cpnm_mbrm_id,cpnm_ntamt, cpnm_ntamttyp,cpnm_applon,cpnm_brnd from cpn_mst where cpnm_cde = '$coupen' and cpnm_exdt >= '$curdt' and cpnm_sts = 'a'";
   $srscpn_mst = mysqli_query($conn, $sqrycpn_mst);
   $cntrec_cpn = mysqli_num_rows($srscpn_mst);
   if ($cntrec_cpn > 0)
@@ -117,7 +115,7 @@ if (isset($coupen) && (trim($coupen) != ""))
     $cpnm_prty = $srowcpn_mst['cpnm_prty']; // Member for whom the voucher is available
     $cpnm_memtyp = $srowcpn_mst['cpnm_usetyp'];
     $cpnm_usr_id = $srowcpn_mst['cpnm_mbrm_id'];
-    $cpnm_apply_on = $srowcpn_mst['cpnm_applon'];
+ $cpnm_apply_on = $srowcpn_mst['cpnm_applon'];
     $cpnm_brnd = $srowcpn_mst['cpnm_brnd'];
     $cpnm_apply_type = $srowcpn_mst['cpnm_aptyp'];
     $cupnm = $cpnm_cde;
@@ -130,6 +128,10 @@ if (isset($coupen) && (trim($coupen) != ""))
   {
     $cpnmsg = "CUPON NOT VALID";
   }
+ $sqrymbr_mst = "SELECT crtordm_mbrm_id,crtordm_id,crtordm_cpnm_id from crtord_mst where crtordm_mbrm_id = '$regid' and crtordm_cpnm_id = '$cpnm_id'";
+  $srsmbr_mst = mysqli_query($conn, $sqrymbr_mst);
+  $cntmbr_mst = mysqli_num_rows($srsmbr_mst);
+ // echo $cntmbr_mst;
 }
 if ($cpnmsg != '')
 {
@@ -216,6 +218,7 @@ prodm_id !='' and prodm_sts ='a' and vehtypm_sts='a' and vehbrndm_sts='a' and ve
                                   $srowprod_dtl = mysqli_fetch_assoc($srsprod_dtl);
                                   $cnt += 1;
                                   $crtprodid       = $srowprod_dtl['prodm_id'];
+                                  $prodbrnd       = $srowprod_dtl['tyrbrndm_id'];
                                   $crtprodcode   = $srowprod_dtl['prodm_code'];
                                   $crtprodname   = $srowprod_dtl['prodm_name'];
                                   $crtprodtyrbrndnm   = $srowprod_dtl['tyrbrndm_name'];
@@ -282,11 +285,13 @@ prodm_id !='' and prodm_sts ='a' and vehtypm_sts='a' and vehbrndm_sts='a' and ve
                                     }
                                     else if($cpnm_apply_on == 2)
                                     {
+                                     $prodbrnd;
                                       if(($cpnm_brnd == $prodbrnd) || ($cpnm_brnd == 0))
                                       {
                                         $cpndis = 'y';
-                                        $cpnprdprc = $prc * $cart_qty;
-                                        $totalcpnprdprc += $cpnprdprc;
+                                  //  $cpnprdprc = $prc * $cart_qty;
+                                  //  $totalcpnprdprc +=$cpnprdprc;
+                                    $totalcpnprdprc +=$crt_tot_prc;
                                       }
                                       else
                                       {
@@ -321,7 +326,43 @@ prodm_id !='' and prodm_sts ='a' and vehtypm_sts='a' and vehbrndm_sts='a' and ve
                                       <td class="ps-product__quantity"> <?php echo $untqty; ?></td>
                                       <td class="ps-product__subtotal">&#8377;<?php echo $crt_tot_prc; ?></td>
                                      
+                                    
                                       <?php
+                                      $sqry_loc = "SELECT strlocm_id, strlocm_name from store_loc_mst where strlocm_sts = 'a' order by strlocm_id ASC";
+                                      $srslocdtls = mysqli_query($conn, $sqry_loc);
+                                      $loc_cnt = mysqli_num_rows($srslocdtls);
+                                      $loc_id = array();
+                                      $loc_nm = array();
+                                      while ($rwslocdtls = mysqli_fetch_assoc($srslocdtls)) {
+                                        $loc = $rwslocdtls['strlocm_id'];
+                                        $loc_name = $rwslocdtls['strlocm_name'];
+                                        $loc_id[] = $loc;
+                                        $loc_nm[] = $loc_name;
+                                        $sqryclsbls = "SELECT prdinvt_clsbls from product_inventory where prdinvt_prdid = $crtprodid  and prdinvt_lcn = '$loc' order by prdinvt_id DESC limit 1";
+                                        $srsclsbls = mysqli_query($conn, $sqryclsbls);
+                                        $prod_clscnt = mysqli_num_rows($srsclsbls);
+                                        $rwsclsbls = mysqli_fetch_assoc($srsclsbls);
+                                        @$prdinvt += $rwsclsbls['prdinvt_clsbls'];
+                                        $moq = 1;
+                                      }
+                                      $clsbls = $prdinvt; ?>
+
+                                    </div>
+                                  </tr>
+                              <?php  }
+                              }  ?>
+                            </tbody>
+                          </table>
+                          <div class="ps-shopping__button mb-4">
+                            <a href="<?php echo $rtpth; ?>cart"><button class="ps-btn ps-btn--primary" type="button">Edit / Remove</button></a>
+                          </div>
+                        </div>
+                        <input type="hidden" id="totlprodcnt" value="<?php echo  $cnt; ?>" />
+                        <hr class="mb-4">
+                      </div>
+                    <?php } ?>
+                  </div>
+                  <?php
                                       // coupons start
                 $crttotamt = $totuntprc;
                 if ($cpnm_id != '')
@@ -369,6 +410,7 @@ prodm_id !='' and prodm_sts ='a' and vehtypm_sts='a' and vehbrndm_sts='a' and ve
                   else if ($cpnm_memtyp == 'au')
                   {
                     $snglcpn = "y";
+                    
                   }
                   else
                   {
@@ -379,8 +421,9 @@ prodm_id !='' and prodm_sts ='a' and vehtypm_sts='a' and vehbrndm_sts='a' and ve
                 {
                   if ($cpnm_disctyp == 'p')
                   {
-                    $disper = $cpnm_per / 100;
-                    $per_amt = $totalcpnprdprc * $disper;
+                   
+                     $disper = $cpnm_per / 100;
+                     $per_amt = $totalcpnprdprc * $disper;
                     $cpnm_discamt = $per_amt;
                     $totcpndiscamt += $cpnm_discamt;
                     $cpncunt++;
@@ -398,57 +441,23 @@ prodm_id !='' and prodm_sts ='a' and vehtypm_sts='a' and vehbrndm_sts='a' and ve
                 }
                 if ($cpncunt > 0)
                 { ?>
-                  <div class="row">
+                  <!-- <div class="row">
                     <div class="col-lg-6 col-md-6">
-                      <p>Coupon applied: (<b><?php echo $cpnm_cde; ?></b>)</p>
+                      <p>Coupon applied: (<b><?php echo $cpnm_cde; ?></b>)</p> -->
                     
                       <input type="hidden" id="cpnid" value="<?php echo  $cpnm_cde; ?>" />
-                    </div>
-                    <div class="col-lg-6 col-md-6">
-                      <p class="text-right"><i class="fa fa-rupee"></i>&nbsp;-<?php echo number_format($totcpndiscamt, 2, ".", ","); ?>
+                    <!-- </div>
+                    <div class="col-lg-6 col-md-6"> -->
+                 <!-- <p class="text-right"><i class="fa fa-rupee"></i>&nbsp;-<?php echo number_format($totcpndiscamt, 2, ".", ","); 
+                      ?> -->
                       <input type="hidden" id="cpndisamt" value="<?php echo  $totcpndiscamt; ?>" />
                     </p>
-                    </div>
-                  </div>
+                    <!-- </div>
+                  </div> -->
                   <?php
                   $crttotamt = $totuntprc - $totcpndiscamt;
                 }?>
                   <!-- ************** coupons ends -->
-                                      <?php
-                                      $sqry_loc = "SELECT strlocm_id, strlocm_name from store_loc_mst where strlocm_sts = 'a' order by strlocm_id ASC";
-                                      $srslocdtls = mysqli_query($conn, $sqry_loc);
-                                      $loc_cnt = mysqli_num_rows($srslocdtls);
-                                      $loc_id = array();
-                                      $loc_nm = array();
-                                      while ($rwslocdtls = mysqli_fetch_assoc($srslocdtls)) {
-                                        $loc = $rwslocdtls['strlocm_id'];
-                                        $loc_name = $rwslocdtls['strlocm_name'];
-                                        $loc_id[] = $loc;
-                                        $loc_nm[] = $loc_name;
-                                        $sqryclsbls = "SELECT prdinvt_clsbls from product_inventory where prdinvt_prdid = $crtprodid  and prdinvt_lcn = '$loc' order by prdinvt_id DESC limit 1";
-                                        $srsclsbls = mysqli_query($conn, $sqryclsbls);
-                                        $prod_clscnt = mysqli_num_rows($srsclsbls);
-                                        $rwsclsbls = mysqli_fetch_assoc($srsclsbls);
-                                        @$prdinvt += $rwsclsbls['prdinvt_clsbls'];
-                                        $moq = 1;
-                                      }
-                                      $clsbls = $prdinvt; ?>
-
-                                    </div>
-                                  </tr>
-                              <?php  }
-                              }  ?>
-                            </tbody>
-                          </table>
-                          <div class="ps-shopping__button mb-4">
-                            <a href="<?php echo $rtpth; ?>cart"><button class="ps-btn ps-btn--primary" type="button">Edit / Remove</button></a>
-                          </div>
-                        </div>
-                        <input type="hidden" id="totlprodcnt" value="<?php echo  $cnt; ?>" />
-                        <hr class="mb-4">
-                      </div>
-                    <?php } ?>
-                  </div>
                   <!-- Card -->
                   <?php if ($regid != '' && isset($regid)) { ?>
                     <!-- Card -->
@@ -543,8 +552,10 @@ where mbrd_mbrm_id=$regid and mbrm_id = $regid order by mbrd_id  desc";
                           while ($rowsstr_loc_mst = mysqli_fetch_array($srsstrloc_mst)) { ?>
                             <option value="<?php echo $rowsstr_loc_mst["strlocm_id"]; ?>">
                               <?php echo $rowsstr_loc_mst["strlocm_name"]; ?></option>
+                              
                           <?php
                           }
+                       
                           ?>
                         </select>
                       </div>
@@ -573,10 +584,25 @@ where mbrd_mbrm_id=$regid and mbrm_id = $regid order by mbrd_id  desc";
               <div class="col-lg-4">
                 <!-- Card -->
                 <div class="mb-3">
-                  <div class="clearfix">
-                    <a href="<?php $rtpth ?>home" class="mt-3 view-details-btn btn btn-primary light phone-no shadow-none effect-1 w-100 text-center d-block"><span>Continue
-                        Shopping</span></a>
+                <div class="mb-3">
+                  <div class="pt-4">
+                    
+                    <a class="dark-grey-text d-flex justify-content-between" data-bs-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
+                      Add a discount code (optional)<span><i class="fas fa-chevron-down pt-1"></i></span>
+                    </a>
+                    <div class="collapse" id="collapseExample">
+                      <div class="mt-3">
+                        <div class="cp-code md-form md-outline mb-0">
+                          <input type="text" id="prdcupn" class="form-control font-weight-light" placeholder="Enter discount code">
+                        </div>
+                      </div>
+                      <div class="col-lg-4 col-md-4 col-12">
+                    <button class="ps-btn ps-btn--primary mb-3" type="button" onClick="javascript:frmcupn()">Apply coupon</button>
+                    </div>
+                    </div>
                   </div>
+                </div>
+                
                   <div class="pt-4">
                     <h5 class="mb-3 text-primary">The total amount of</h5>
                     <div id="dynmc_prcs">
@@ -599,15 +625,32 @@ where mbrd_mbrm_id=$regid and mbrm_id = $regid order by mbrd_id  desc";
                                       echo '0.00';
                                     }; ?></span>
                             <input type="hidden" name="chrgs" id="chrgs" value="<?php echo $chrg; ?>" />
+                            <!-- <input type="hidden" name="deltype" id="deltype" value="d" /> -->
                           </li>
+                    <?php    
+                      if ($cpncunt > 0)
+                         { ?>
+                           <li class="list-group-item d-flex justify-content-between align-items-center px-0">
+                           <p>Coupon applied: (<b><?php echo $cpnm_cde; ?></b>)</p>
+                           <span>-  ₹<?php echo number_format($totcpndiscamt, 0, ".", ","); ?>
+                        </span></li>
+                        <?php }?>
                        
                         <li class="list-group-item d-flex justify-content-between align-items-center px-0">
                           Total Cart Value
-                          <span>₹<?php if ($totcartprc > 0 && $od != "") {
+                          <span>₹<?php if ($totcartprc > 0 && $od != "" && $totcpndiscamt !='' ) {
+                                    echo  ($totcartprc + $od) - $totcpndiscamt;
+                                  }
+                                  else if ($totcartprc > 0 && $od != ""){
                                     echo $totcartprc + $od;
-                                  } else if ($totcartprc > 0 && $df != "") {
+                                  } 
+                                  else if ($totcartprc > 0 && $df != ""&& $totcpndiscamt !='' ) {
+                                    echo ($totcartprc + $df) - $totcpndiscamt;
+                                  } 
+                                  else if ($totcartprc > 0 && $df != ""){
                                     echo $totcartprc + $df;
-                                  } else {
+                                  } 
+                                  else {
                                     echo '0.00';
                                   }; ?></span>
                         </li>
@@ -619,9 +662,14 @@ where mbrd_mbrm_id=$regid and mbrm_id = $regid order by mbrd_id  desc";
                               <p class="mb-0">(including GST)</p>
                             </strong>
                           </div>
-                          <span><strong>₹<?php if ($totcartprc > 0) {
+                          <span><strong>₹<?php if ($totcartprc > 0 && $totcpndiscamt!='') {
+                                            echo ($totcartprc + $chrg)- $totcpndiscamt;
+                                          } 
+                                          else if($totcartprc > 0 ){
+                                          
                                             echo $totcartprc + $chrg;
-                                          } else {
+                                          }
+                                          else {
                                             echo '0.00';
                                           }; ?></strong></span>
                         </li>
@@ -637,30 +685,20 @@ where mbrd_mbrm_id=$regid and mbrm_id = $regid order by mbrd_id  desc";
                         <?php } else { ?> <a href="<?php $rtpth ?>signin" class="mt-3 view-details-btn btn btn-primary light phone-no shadow-none effect-1 w-100 text-center d-block"><span>Login
                               OR Register To Continue</span></a>
                       <?php }
-                      } ?>
+                      }
+                      
+                      ?>
+               <!--------------------------------- Coupon Details ------------------------------------->   
+                <input type = "hidden" value="<?php echo $cpnm_id;?>" name="hdncpncde"/>
+                <input type = "hidden" value="<?php echo $cpnm_scat;?>" name="hdncpnscat"/>  
+                <input type = "hidden" value="<?php echo $cpnm_discamt;?>" name="hdncpnval"/> 
+                <!--------------------------------- Coupon Details ------------------------------------->  
                     </div>
                   </div>
                 </div>
                 <!-- Card -->
                 <!-- Card -->
-                <div class="mb-3">
-                  <div class="pt-4">
-                    
-                    <a class="dark-grey-text d-flex justify-content-between" data-bs-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
-                      Add a discount code (optional)<span><i class="fas fa-chevron-down pt-1"></i></span>
-                    </a>
-                    <div class="collapse" id="collapseExample">
-                      <div class="mt-3">
-                        <div class="cp-code md-form md-outline mb-0">
-                          <input type="text" id="prdcupn" class="form-control font-weight-light" placeholder="Enter discount code">
-                        </div>
-                      </div>
-                      <div class="col-lg-4 col-md-4 col-12">
-                    <button class="ps-btn ps-btn--primary mb-3" type="button" onClick="javascript:frmcupn()">Apply coupon</button>
-                    </div>
-                    </div>
-                  </div>
-                </div>
+              
                 <!-- Card -->
               </div>
               <!--Grid column-->
@@ -727,6 +765,7 @@ where mbrd_mbrm_id=$regid and mbrm_id = $regid order by mbrd_id  desc";
 </script>
 <script>
   function funChsdeltyp(sts) {
+    debugger;
     if (sts == 'df') {
       document.getElementById('chkdeladd').style.display = "block";
       // document.getElementById('chkdeladd1').style.display = "block";
@@ -766,13 +805,16 @@ where mbrd_mbrm_id=$regid and mbrm_id = $regid order by mbrd_id  desc";
     {
       var chrgs = document.getElementById('txtftstchrg').value;
     }
+  
     var totcrtprc = $("#ntTogPrc").val();
     var cpnid = document.getElementById('cpnid').value;
     var cpndisamt = document.getElementById('cpndisamt').value;
+    // var cpncunt = document.getElementById('cpncunt').value;
     $.ajax({
       type: "POST",
       url: "chng_prcs_chkout.php",
       data: 'chrgs='+chrgs+'&totcrtprc='+totcrtprc+'&chkd='+chkd+'&cpnid='+cpnid+'&cpndisamt='+cpndisamt,
+      // +'&cpncunt='+cpncunt
       success: function(data) {
         // alert(data)
         $("#dynmc_prcs").html(data);

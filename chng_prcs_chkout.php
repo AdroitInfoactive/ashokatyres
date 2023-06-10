@@ -13,11 +13,16 @@ if (isset($_REQUEST['chrgs']) && (trim($_REQUEST['chrgs']) != "") && isset($_REQ
   $chrgs = glb_func_chkvl($_REQUEST['chrgs']);
   $totcrtprc = glb_func_chkvl($_REQUEST['totcrtprc']);
   $cpnm_cde = glb_func_chkvl($_REQUEST['cpnid']);
-  $totcpndiscamt = glb_func_chkvl($_REQUEST['cpndisamt']);
-if($totcpndiscamt!=0 && $totcpndiscamt>0 && $totcpndiscamt!=''){
+  $cpncunt1 = glb_func_chkvl($_REQUEST['cpncunt']);
+ $totcpndiscamt = glb_func_chkvl($_REQUEST['cpndisamt']);
+
+if($totcpndiscamt > 0 && $totcpndiscamt!=''){
  $total_prc= ($totcrtprc+$chrgs)-$totcpndiscamt;
 }
-$total_prc= ($totcrtprc+$chrgs);
+else{
+  $total_prc= ($totcrtprc+$chrgs);
+}
+
 ?>
 
   <ul class="list-group list-group-flush">
@@ -49,10 +54,12 @@ $total_prc= ($totcrtprc+$chrgs);
       <?php
     }
     ?>
-     <li class="list-group-item d-flex justify-content-between align-items-center px-0">
-     <p>Coupon applied: (<b><?php echo $cpnm_cde; ?></b>)</p>
-     <span>₹ &nbsp;-<?php echo number_format($totcpndiscamt, 2, ".", ","); ?>
-  </span></li>
+
+            <li class="list-group-item d-flex justify-content-between align-items-center px-0">
+            <p>Coupon applied: (<b><?php echo $cpnm_cde; ?></b>)</p>
+            <span>-  ₹<?php echo number_format($totcpndiscamt, 0, ".", ","); ?>
+        </span></li>
+   
     <li class="list-group-item d-flex justify-content-between align-items-center px-0">
       Total Cart Value
       <span>₹<?php if ($totcrtprc > 0) {
