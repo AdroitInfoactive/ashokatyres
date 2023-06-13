@@ -33,7 +33,7 @@ if(isset($_REQUEST['vw']) && (trim($_REQUEST['vw'])!="") && isset($_REQUEST['pg'
 	$srchval = glb_func_chkvl($_REQUEST['val']);
 	$chk = glb_func_chkvl($_REQUEST['chk']);
 }
- $sqrycpn_mst="SELECT cpnm_id, cpnm_cde, cpnm_name, cpnm_applon, cpnm_cat, cpnm_scat, cpnm_brnd, cpnm_aptyp, cpnm_ntamttyp, cpnm_ntamt, cpnm_memtyp, cpnm_mbrm_id, cpnm_usetyp, cpnm_uselmt, cpnm_disctyp, cpnm_discamt, cpnm_discper, cpnm_exdt, cpnm_desc, cpnm_odr_cntaply, cpnm_odr_apltyp, cpnm_odr_discper, cpnm_prty, if(cpnm_sts = 'a', 'Active','Inactive') as cpnm_sts from cpn_mst where cpnm_id = $id";
+ $sqrycpn_mst="SELECT cpnm_id, cpnm_cde, cpnm_name,cpnm_mncat, cpnm_applon, cpnm_cat, cpnm_scat, cpnm_brnd, cpnm_aptyp, cpnm_ntamttyp, cpnm_ntamt, cpnm_memtyp, cpnm_mbrm_id, cpnm_usetyp, cpnm_uselmt, cpnm_disctyp, cpnm_discamt, cpnm_discper, cpnm_exdt, cpnm_desc, cpnm_odr_cntaply, cpnm_odr_apltyp, cpnm_odr_discper, cpnm_prty, if(cpnm_sts = 'a', 'Active','Inactive') as cpnm_sts from cpn_mst where cpnm_id = $id";
 $srscpn_mst = mysqli_query($conn,$sqrycpn_mst);
 $rowscpn_mst = mysqli_fetch_assoc($srscpn_mst);
 $loc= "&val=$srchval";
@@ -112,7 +112,7 @@ include_once $inc_adm_lftlnk;
 						<?php
 						if ($rowscpn_mst['cpnm_applon'] == 1)
 						{
-							$appl_on = "Category Level";
+							$appl_on = "Vehicle Type";
 						}
 						elseif ($rowscpn_mst['cpnm_applon'] == 2)
 						{
@@ -132,6 +132,26 @@ include_once $inc_adm_lftlnk;
 						<?php
 						if ($rowscpn_mst['cpnm_applon'] == 1)
 						{ 
+							if ($rowscpn_mst['cpnm_mncat'] == 0)
+							{
+								$mncat_name = "All";
+							}
+							else
+							{
+								$mncat_id = $rowscpn_mst['cpnm_mncat'];
+							 $sqry_mncat_mst = "SELECT vehtypm_name from veh_type_mst where vehtypm_id = $mncat_id";
+								$srsmncat_mst = mysqli_query($conn,$sqry_mncat_mst);
+								$rowsmncat_mst = mysqli_fetch_assoc($srsmncat_mst);
+								$mncat_name = $rowsmncat_mst['vehtypm_name'];
+							}
+							?>
+							<div class="form-group row">
+								<label for="mncat" class="col-sm-2 col-md-2 col-form-label">Vehicle Type</label>
+								<div class="col-sm-8">
+									<?php echo $mncat_name; ?>
+								</div>
+							</div>
+							<?php
 							if ($rowscpn_mst['cpnm_cat'] == 0)
 							{
 								$cat_name = "All";
@@ -139,14 +159,14 @@ include_once $inc_adm_lftlnk;
 							else
 							{
 								$cat_id = $rowscpn_mst['cpnm_cat'];
-								$sqry_cat_mst = "SELECT prodcatm_name from prodcat_mst where prodcatm_id = $cat_id";
+							$sqry_cat_mst = "SELECT vehbrndm_name from veh_brnd_mst where vehbrndm_id = $cat_id";
 								$srscat_mst = mysqli_query($conn,$sqry_cat_mst);
 								$rowscat_mst = mysqli_fetch_assoc($srscat_mst);
-								$cat_name = $rowscat_mst['prodcatm_name'];
+								$cat_name = $rowscat_mst['vehbrndm_name'];
 							}
 							?>
 							<div class="form-group row">
-								<label for="cat" class="col-sm-2 col-md-2 col-form-label">Category</label>
+								<label for="cat" class="col-sm-2 col-md-2 col-form-label">Vehicle Brand</label>
 								<div class="col-sm-8">
 									<?php echo $cat_name; ?>
 								</div>
@@ -159,14 +179,14 @@ include_once $inc_adm_lftlnk;
 							else
 							{
 								$scat_id = $rowscpn_mst['cpnm_scat'];
-								$sqry_scat_mst = "SELECT prodscatm_name from prodscat_mst where prodscatm_id = $scat_id";
+								$sqry_scat_mst = "SELECT vehmodlm_name from veh_model_mst where vehmodlm_id = $scat_id";
 								$srsscat_mst = mysqli_query($conn,$sqry_scat_mst);
 								$rowsscat_mst = mysqli_fetch_assoc($srsscat_mst);
-								$scat_name = $rowsscat_mst['prodscatm_name'];
+								$scat_name = $rowsscat_mst['vehmodlm_name'];
 							}
 							?>
 							<div class="form-group row">
-								<label for="scat" class="col-sm-2 col-md-2 col-form-label">Subcategory</label>
+								<label for="scat" class="col-sm-2 col-md-2 col-form-label">Vehicle Model</label>
 								<div class="col-sm-8">
 									<?php echo $scat_name;?>
 								</div>
@@ -202,7 +222,7 @@ include_once $inc_adm_lftlnk;
 							
 						}
 						?>
-						<div class="form-group row">
+						<!-- <div class="form-group row">
 							<label for="brand" class="col-sm-2 col-md-2 col-form-label">Applicable Type</label>
 							<div class="col-sm-8">
 								<?php
@@ -221,7 +241,7 @@ include_once $inc_adm_lftlnk;
 								echo $appl_typ;
 								?>
 							</div>
-						</div>
+						</div> -->
 						<div class="form-group row">
 							<label for="netamtbse" class="col-sm-2 col-md-2 col-form-label">Net Amount Base</label>
 							<div class="col-sm-8">
@@ -300,7 +320,7 @@ include_once $inc_adm_lftlnk;
 							<?php
 						}
 						?>
-						<div class="form-group row">
+						<!-- <div class="form-group row">
 							<label for="use" class="col-sm-2 col-md-2 col-form-label">Use</label>
 							<div class="col-sm-8">
 								<?php
@@ -315,13 +335,13 @@ include_once $inc_adm_lftlnk;
 								echo $use;
 								?>
 							</div>
-						</div>
-						<div class="form-group row">
+						</div> -->
+						<!-- <div class="form-group row">
 							<label for="usagelimit" class="col-sm-2 col-md-2 col-form-label">Usage Limit</label>
 							<div class="col-sm-8">
 								<?php echo $rowscpn_mst['cpnm_uselmt']; ?>
 							</div>
-						</div>
+						</div> -->
 						<div class="form-group row">
 							<label for="disctyp" class="col-sm-2 col-md-2 col-form-label">Discount Type</label>
 							<div class="col-sm-8">

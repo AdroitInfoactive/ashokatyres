@@ -84,6 +84,7 @@ include('header.php');
                   $code = $ord_dtl['crtordm_code'];
                   $date = $ord_dtl['crtordm_crtdon'];
                   $paysts = $ord_dtl['crtordm_paysts'];
+                  $cpnval = $ord_dtl['crtordm_cpnm_val'];
                  
                   if($paysts == 'n')
                   {
@@ -100,7 +101,7 @@ include('header.php');
                   $ordqnty = $ord_dtl['crtordm_qty'];
                   $ordamt = $ord_dtl['crtordm_amt'];
                   $chrgs = $ord_dtl['crtordm_shpchrgamt'];
-                  $totalamt = $ordamt + $chrgs;
+                  $totalamt = ($ordamt + $chrgs)- $cpnval;
                  // $ordsts = $ord_dtl['ordstsd_ordstsm_id'];
                  $ordsts_qry = "SELECT ordstsm_id, ordstsm_name, ordstsm_desc, ordstsm_sts, ordstsm_prty FROM ordsts_mst WHERE ordstsm_id = $ordsts";
                   $ordersts_mst = mysqli_query($conn,$ordsts_qry);

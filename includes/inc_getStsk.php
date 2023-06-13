@@ -3844,24 +3844,24 @@ if(isset($_REQUEST['cpnapp_typ']) && (trim($_REQUEST['cpnapp_typ']) != ""))
 	{ ?>
 		<div class="row mb-2 mt-2">
 			<div class="col-sm-3">
-				<label>Main Category *</label>
+				<label>Vehicle Type *</label>
 			</div>
 			<div class="col-sm-9">
 				<?php
-				$sqryprodcat_mst = "SELECT prodmn_catm_id,prodmn_catm_name from prodmcat_mst order by prodmn_catm_name";
+				$sqryprodcat_mst = "SELECT vehtypm_id, vehtypm_name from veh_type_mst where vehtypm_id != ''";
 				$rsprodcat_mst = mysqli_query($conn,$sqryprodcat_mst);
 				$cnt_prodcat = mysqli_num_rows($rsprodcat_mst);
 				?>
 				<select name="lstprodmcat" id="lstprodmcat" onchange="get_cat();" class="form-control">
-					<option value="">--Select Main Category--</option>
+					<option value="">--Select Vehicle Type--</option>
 					<option value="0">All</option>
 					<?php
 					if( $cnt_prodcat > 0)
 					{
 						while($rowsprodcat_mst=mysqli_fetch_assoc($rsprodcat_mst))
 						{
-							$mncatid = $rowsprodcat_mst['prodmn_catm_id'];
-							$mncatname = $rowsprodcat_mst['prodmn_catm_name'];
+							$mncatid = $rowsprodcat_mst['vehtypm_id'];
+							$mncatname = $rowsprodcat_mst['vehtypm_name'];
 							?>
 								<option value="<?php echo $mncatid;?>"><?php echo $mncatname;?></option>
 							<?php
@@ -3922,24 +3922,25 @@ if(isset($_REQUEST['prodmncatid']) && (trim($_REQUEST['prodmncatid']) != ""))
 { ?>
 	<div class="row mb-2 mt-2">
 		<div class="col-sm-3">
-			<label>Category *</label>
+			<label>Vehicle Brand *</label>
 		</div>
 		<div class="col-sm-9">
 			<select name="lstprodcat" id="lstprodcat" class="form-control"  onchange="get_sub_cat();" >
-				<option value="">--Select Category--</option>
+				<option value="">--Select Vehicle Brand--</option>
 				<option value="0">All</option>
 				<?php
 				$prodmncatid = glb_func_chkvl($_REQUEST['prodmncatid']);
-			 $sqryprodcat_mst = "SELECT prodcatm_id, prodcatm_name from prodcat_mst where prodcatm_sts = 'a' and prodcatm_prodmcatm_id = $prodmncatid group by prodcatm_id order by prodcatm_prty";
-				 //echo $sqryprodcat_mst; exit;
+				
+		 $sqryprodcat_mst = "SELECT vehbrndm_id, vehbrndm_name from veh_brnd_mst where vehbrndm_sts='a' and vehbrndm_vehtypm_id=$prodmncatid  group by vehbrndm_id order by vehbrndm_prty asc ";
+				// echo $sqryprodcat_mst; exit;
 				$srsprodcat_mst = mysqli_query($conn,$sqryprodcat_mst);
 				$cnt_prodcat = mysqli_num_rows($srsprodcat_mst);
 				if($cnt_prodcat > 0)
 				{
 					while($rowsprodscat_mst=mysqli_fetch_assoc($srsprodcat_mst))
 					{
-						$catid = $rowsprodscat_mst['prodcatm_id'];
-						$catname = $rowsprodscat_mst['prodcatm_name'];
+						$catid = $rowsprodscat_mst['vehbrndm_id'];
+						$catname = $rowsprodscat_mst['vehbrndm_name'];
 						?>
 						<option value="<?php echo $catid;?>"><?php echo $catname;?></option>
 						<?php
@@ -3956,15 +3957,16 @@ if(isset($_REQUEST['prodcatid']) && (trim($_REQUEST['prodcatid']) != ""))
 { ?>
 	<div class="row mb-2 mt-2">
 		<div class="col-sm-3">
-			<label>Sub Category *</label>
+			<label>Vehicle Model *</label>
 		</div>
 		<div class="col-sm-9">
 			<select name="lstprodscat" id="lstprodscat" class="form-control">
-				<option value="">--Select sub Category--</option>
+				<option value="">--Select Vehicle Model--</option>
 				<option value="0">All</option>
 				<?php
 				$prodcatid = glb_func_chkvl($_REQUEST['prodcatid']);
-			 $sqryprodscat_mst = "SELECT prodscatm_id, prodscatm_name from prodscat_mst where prodscatm_sts = 'a' and prodscatm_prodcatm_id = $prodcatid group by prodscatm_id order by prodscatm_prty"; 
+				
+			 $sqryprodscat_mst = "SELECT vehmodlm_id, vehmodlm_name from veh_model_mst where vehmodlm_sts='a' and vehmodlm_vehbrndm_id= $prodcatid group by vehmodlm_id  order by vehmodlm_prty asc";
 				 //echo $sqryprodscat_mst; exit;
 				$srsprodscat_mst = mysqli_query($conn,$sqryprodscat_mst);
 				$cnt_prodcat = mysqli_num_rows($srsprodscat_mst);
@@ -3972,8 +3974,8 @@ if(isset($_REQUEST['prodcatid']) && (trim($_REQUEST['prodcatid']) != ""))
 				{
 					while($rowsprodscat_mst=mysqli_fetch_assoc($srsprodscat_mst))
 					{
-						$scatid = $rowsprodscat_mst['prodscatm_id'];
-						$scatname = $rowsprodscat_mst['prodscatm_name'];
+						$scatid = $rowsprodscat_mst['vehmodlm_id'];
+						$scatname = $rowsprodscat_mst['vehmodlm_name'];
 						?>
 						<option value="<?php echo $scatid;?>"><?php echo $scatname;?></option>
 						<?php

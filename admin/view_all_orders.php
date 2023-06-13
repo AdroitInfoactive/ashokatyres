@@ -366,8 +366,9 @@ include_once ('script.php');
 								$ordmob = $rowsord_mst['crtordm_bdayphone'];
 								$ordqty = $rowsord_mst['crtordm_qty'];
 								$ordamt = $rowsord_mst['crtordm_amt']; 
-								$chrgs = $rowsord_mst['crtordm_shpchrgamt']; 
-								$total_amt=$ordamt + $chrgs;
+								$chrgs = $rowsord_mst['crtordm_shpchrgamt'];
+								$cpnval = $rowsord_mst['crtordm_cpnm_val'];  
+								$total_amt=($ordamt + $chrgs)-$cpnval;
 								if ($rowsord_mst['crtordm_paysts'] == 'y')
 								{
 									$ordpysts = "Yes";

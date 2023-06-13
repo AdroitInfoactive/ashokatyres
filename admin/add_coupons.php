@@ -279,7 +279,7 @@ include_once ('../includes/inc_fnct_ajax_validation.php');
 								<div class="col-sm-9">
 									<select name="lstcpnapp" id="lstcpnapp" onchange="get_rltd_flds();" class="form-control">
 										<option value="">-- Select --</option>
-										<!-- <option value="1">Category</option> -->
+										<option value="1">Vehicle Type</option>
 										<option value="2">Tyre Brand</option>
 										<!-- <option value="3">Shipping</option> -->
 									</select>

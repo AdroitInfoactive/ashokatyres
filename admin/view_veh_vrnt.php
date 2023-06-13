@@ -289,7 +289,7 @@ include_once 'script.php';
 							<div class="col-sm-2">
 								<div class="form-group">
 									<?php
-									$sqryvehbrnd_mst = "SELECT vehbrndm_id, vehbrndm_name from veh_brnd_mst where vehbrndm_id != ''";
+									$sqryvehbrnd_mst = "SELECT vehbrndm_id, vehbrndm_name from veh_brnd_mst where  vehbrndm_id != ''";
 									$srsvehbrnd_mst = mysqli_query($conn,$sqryvehbrnd_mst);
 									$cnt_vehbrnd = mysqli_num_rows($srsvehbrnd_mst);
 									?>

@@ -225,8 +225,8 @@ if ($cpnmsg != '')
                                 $cart_szid    = $arr_cartcodeval[3];
                                 $untqty       = $qtyarr[$cartcodeid]; // Stores the unit quantities					
                                 if ($cart_prodid != "") {
-                                  $sqryprod_dtl =    "SELECT  prodm_id, prodm_sku, prodm_code, prodm_name, prodm_size, prodm_ptrn, prodm_cstprc,prodm_sleprc,  prodm_ofrprc, prodm_dsc, prodm_sdsc, prodm_st, prodm_sky, prodm_sotl,  prodm_sodsc, prodm_sttle, prodm_stdsc, prodm_sts, prodm_rnk,vehtypm_id, vehtypm_name,prodd_id,vehtypm_desc, vehtypm_seotitle, vehtypm_seodesc, vehtypm_seokywrd, vehtypm_seohonetitle,
-vehtypm_seohonedesc, vehtypm_seohtwotitle, vehtypm_seohtwodesc, vehtypm_sts,vehtypm_prty,vehbrndm_id, vehbrndm_name, vehbrndm_desc, vehbrndm_vehtypm_id, vehbrndm_brndimg,vehbrndm_sts, vehbrndm_prty, vehbrndm_seotitle, vehbrndm_seodesc, vehbrndm_seokywrd,  vehbrndm_seohonetitle, vehbrndm_seohonedesc, vehbrndm_seohtwotitle, vehbrndm_seohtwodesc,vehmodlm_id, vehmodlm_name,vehvrntm_id, vehvrntm_name,tyrprflm_id,tyrprflm_name,tyrrmszm_id,tyrrmszm_name,tyrwdthm_id,tyrwdthm_name,tyrbrndm_id,tyrbrndm_name,prodm_cstprc,prodimgd_simg from prod_mst
+                                  $sqryprod_dtl =    "SELECT  prodm_id, prodm_sku, prodm_code, prodm_name, prodm_size, prodm_ptrn, prodm_cstprc,prodm_sleprc,  prodm_ofrprc, prodm_dsc, prodm_sdsc, prodm_st, prodm_sky, prodm_sotl,  prodm_sodsc, prodm_sttle, prodm_stdsc, prodm_sts, prodm_rnk,vehtypm_id, vehtypm_name,prodd_id,vehtypm_desc, vehtypm_seotitle, vehtypm_seodesc, vehtypm_seokywrd, vehtypm_seohonetitle,prodm_vehtyp,prodd_veh_typ,prodd_veh_brnd,
+vehtypm_seohonedesc, vehtypm_seohtwotitle, vehtypm_seohtwodesc, vehtypm_sts,vehtypm_prty,vehbrndm_id, vehbrndm_name, vehbrndm_desc, vehbrndm_vehtypm_id, vehbrndm_brndimg,vehbrndm_sts, vehbrndm_prty, vehbrndm_seotitle, vehbrndm_seodesc, vehbrndm_seokywrd,  vehbrndm_seohonetitle, vehbrndm_seohonedesc, vehbrndm_seohtwotitle, vehbrndm_seohtwodesc,vehmodlm_id, vehmodlm_name,vehvrntm_id, vehvrntm_name,tyrprflm_id,tyrprflm_name,tyrrmszm_id,tyrrmszm_name,tyrwdthm_id,tyrwdthm_name,prodd_veh_mdl,tyrbrndm_id,tyrbrndm_name,prodm_cstprc,prodimgd_simg from prod_mst
 inner join prod_veh_dtl on prod_veh_dtl.prodd_prodm_id	= prod_mst.prodm_id
 LEFT join veh_type_mst on veh_type_mst.vehtypm_id=	prod_veh_dtl.prodd_veh_typ
 LEFT join veh_brnd_mst on veh_brnd_mst.vehbrndm_id=prod_veh_dtl.prodd_veh_brnd
@@ -244,6 +244,9 @@ prodm_id !='' and prodm_sts ='a' and vehtypm_sts='a' and vehbrndm_sts='a' and ve
                                   $cnt += 1;
                                   $crtprodid       = $srowprod_dtl['prodm_id'];
                                   $prodbrnd       = $srowprod_dtl['tyrbrndm_id'];
+                                  $vehicle_typ       = $srowprod_dtl['prodd_veh_typ'];//vehicle type
+                                  $vehicle_brnd       = $srowprod_dtl['prodd_veh_brnd'];//vehicle brand
+                                  $vehicle_model       = $srowprod_dtl['prodd_veh_mdl'];//vehicle model
                                   $crtprodcode   = $srowprod_dtl['prodm_code'];
                                   $crtprodname   = $srowprod_dtl['prodm_name'];
                                   $crtprodtyrbrndnm   = $srowprod_dtl['tyrbrndm_name'];
@@ -261,7 +264,8 @@ prodm_id !='' and prodm_sts ='a' and vehtypm_sts='a' and vehbrndm_sts='a' and ve
                                   $prc   = $srowprod_dtl['prodm_cstprc'];  //cost price
                                   $sl_prc   = $srowprod_dtl['prodm_sleprc']; //sale price
                                   $ofr_prc   = $srowprod_dtl['prodm_ofrprc']; //offer price
-                                  if ($prc == '') {
+                                  if ($prc == '')
+                                   {
                                     $prc = $sl_prc;
                                     $crt_tot_prc = $untqty * $prc;
                                   }
@@ -279,27 +283,28 @@ prodm_id !='' and prodm_sts ='a' and vehtypm_sts='a' and vehbrndm_sts='a' and ve
                                   {
                                     if($cpnm_apply_on == 1)
                                     {
-                                      if(($cpnm_mncat == $mnctid)&&($cpnm_cat == $ctid)&&($cpnm_scat == $sctid ))
-                                      {
-                                        $cpnprdprc = $prc * $cart_qty;
-                                        $totalcpnprdprc += $cpnprdprc;
+                                     
+                                      if(($cpnm_mncat == $vehicle_typ)&&($cpnm_cat == $vehicle_brnd)&&($cpnm_scat == $vehicle_model ))
+                                      { 
+                                        $cpnprdprc = $prc * $untqty;
+                                       $totalcpnprdprc += $cpnprdprc;
                                         $cpndis = 'y';
                                       }
-                                      else if(($cpnm_mncat == $mnctid)&&($cpnm_cat == $ctid)&&($cpnm_scat == '0'))
+                                      else if(($cpnm_mncat == $vehicle_typ)&&($cpnm_cat == $vehicle_brnd)&&($cpnm_scat == '0'))
                                       {
-                                        $cpnprdprc = $prc * $cart_qty;
+                                        $cpnprdprc = $prc * $untqty;
                                         $totalcpnprdprc += $cpnprdprc;
                                         $cpndis = 'y';
                                       }		 
-                                      else if(($cpnm_mncat == $mnctid)&&($cpnm_cat == '0')&&($cpnm_scat == '0'))
+                                      else if(($cpnm_mncat == $vehicle_typ)&&($cpnm_cat == '0')&&($cpnm_scat == '0'))
                                       {
-                                        $cpnprdprc = $prc * $cart_qty;
+                                        $cpnprdprc = $prc * $untqty;
                                         $totalcpnprdprc += $cpnprdprc;
                                         $cpndis = 'y';
                                       }
                                       else if(($cpnm_mncat == '0')&&($cpnm_cat == '0')&&($cpnm_scat == '0'))
                                       {
-                                        $cpnprdprc = $prc * $cart_qty;
+                                        $cpnprdprc = $prc * $untqty;
                                         $totalcpnprdprc += $cpnprdprc;
                                         $cpndis = 'y';
                                       }
@@ -314,9 +319,9 @@ prodm_id !='' and prodm_sts ='a' and vehtypm_sts='a' and vehbrndm_sts='a' and ve
                                       if(($cpnm_brnd == $prodbrnd) || ($cpnm_brnd == 0))
                                       {
                                         $cpndis = 'y';
-                                  //  $cpnprdprc = $prc * $cart_qty;
-                                  //  $totalcpnprdprc +=$cpnprdprc;
-                                    $totalcpnprdprc +=$crt_tot_prc;
+                                   $cpnprdprc = $prc * $untqty;
+                                   $totalcpnprdprc +=$cpnprdprc;
+                                  //  $totalcpnprdprc +=$crt_tot_prc;
                                       }
                                       else
                                       {
@@ -456,7 +461,7 @@ prodm_id !='' and prodm_sts ='a' and vehtypm_sts='a' and vehbrndm_sts='a' and ve
                   else
                   {
                     $cpnm_discamt = $cpnm_amt;
-                    $totcpndiscamt += $cpnm_discamt;
+                   $totcpndiscamt += $cpnm_discamt;
                     $cpncunt++;
                   }
                 }
