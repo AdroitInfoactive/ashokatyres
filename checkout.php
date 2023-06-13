@@ -1,12 +1,17 @@
 <?php
 error_reporting(0);
+include_once "includes/inc_membr_session.php";//checking for session	
+			include_once 'includes/inc_nocache.php'; // Clearing the cache information
+            include_once 'includes/inc_connection.php';//Make connection with the database  	
+            include_once "includes/inc_config.php";	//path config file
+		    include_once "includes/inc_usr_functions.php";//Including user session value
+
 include_once 'includes/inc_nocache.php'; // Clearing the cache information
 //include_once "includes/inc_membr_session.php";//checking for session
 include_once "includes/inc_config.php"; // site and  files confige	
-include_once "includes/inc_usr_sessions.php";
-include_once 'includes/inc_connection.php'; //Make connection with the database
+
 include_once 'includes/inc_folder_path.php'; //Including Image resize function		
-include_once "includes/inc_config.php";
+
 include_once "includes/inc_usr_functions.php";
 /**********************Checking And Assigning Request Values *************************/
 if (isset($_REQUEST['action']) && (trim($_REQUEST['action']) != "")) {
@@ -18,6 +23,7 @@ $ses_cartcode = "";     // Stores the cartcode
 $ses_prodqty  = "";    // Stores the session quantities
 $ses_prodid   = "";   //store the product session
 $pgrval     =  $_SESSION['sesloc'];
+$sts = $_REQUEST['addr_sts'];
 // unset($_SESSION['coupen']);
 /**********************Assigning Values to Sessions *************************/
 if (isset($_SESSION['cart']) && (trim($_SESSION['cart'] != ""))) {
@@ -48,6 +54,25 @@ exit();
 if (isset($_POST['btnSbmt']) && (trim($_POST['btnSbmt']) != "")) {
   //var_dump($_POST);exit;
   include_once "database/iqry_cart_dtl.php";
+}
+if ($sts == "u")
+{
+ $msid = $_POST['hdnmsid'];
+ $uqrymbr_dtl = "UPDATE mbr_dtl set mbrd_dfltshp='y' where mbrd_mbrm_id=$regid and mbrd_id=$msid";
+  //mbrd_mbrm_id=$msid and
+  $ursmbr_dtl = mysqli_query($conn, $uqrymbr_dtl) or die(mysqli_error($conn));
+  $uqrymbr_dtl1 = "UPDATE mbr_dtl set mbrd_dfltshp='n' where mbrd_mbrm_id=$regid and mbrd_id!=$msid";
+  //mbrd_mbrm_id=$msid and
+  $ursmbr_dtl1 = mysqli_query($conn, $uqrymbr_dtl1) or die(mysqli_error($conn));
+  ?>
+      <script language="javascript" type="text/javascript">
+        location.href = "<?php echo $rtpth.'checkout.php'?>";
+      </script>
+      <?php
+}
+if (isset($_POST['btnnewadrsadd']) && (trim($_POST['btnnewadrsadd']) != "") && isset($_POST['hnsname1']) && (trim($_POST['hnsname1']) != "") && isset($_POST['hnsemail']) && (trim($_POST['hnsemail']) != "") && isset($_POST['txtaddr']) && (trim($_POST['txtaddr']) != "") && isset($_POST['txtpin']) && (trim($_POST['txtpin']) != "") && isset($_POST['txtphno']) && (trim($_POST['txtphno']) != "") && isset($_POST['lststate']) && (trim($_POST['lststate']) != "") && isset($_POST['txtcty']) && (trim($_POST['txtcty']) != ""))
+{
+  include_once "database/iqry_mbr_dtl.php";
 }
 $page_title = "Checkout";
 $page_seo_title = "Checkout";
@@ -494,8 +519,10 @@ prodm_id !='' and prodm_sts ='a' and vehtypm_sts='a' and vehbrndm_sts='a' and ve
                         <input type="hidden" name="txtftstchrg" id="txtftstchrg" value="0" />
                         <p class="mb-0"> Thu 12.03. -- Mon 16.03.</p>
                       </div>
-                      <?php $sqrymbr_dtl =   "SELECT mbrd_id,mbrd_fstname,mbrd_lstname, mbrd_badrs,mbrd_badrs2,mbrd_cmpny,ctym_name, mbrd_bzip,mbrd_bdayphone,cntrym_name, mbrd_ctynm,mbrd_bdayphone,mbrd_dfltbil,mbrd_dfltshp,mbrd_mbrm_id,mbrm_phno,mbrd_emailid,cntrym_name,cntym_name,cntntm_name,ctym_sts, cntym_sts,mbrm_emailid,mbrd_bmbrcntrym_id,mbrd_bmbrcntym_id,cntym_name,cntrym_name from vw_mbr_mst_dtl_bil 
-where mbrd_mbrm_id=$regid and mbrm_id = $regid order by mbrd_id  desc";
+                      <a class="text-primary" href="#" data-toggle="modal" data-target="#changAddress">Change / Add Address</a>
+                    
+                    <?php $sqrymbr_dtl =   "SELECT mbrd_id,mbrd_fstname,mbrd_lstname, mbrd_badrs,mbrd_badrs2,mbrd_cmpny,ctym_name, mbrd_bzip,mbrd_bdayphone,cntrym_name, mbrd_ctynm,mbrd_bdayphone,mbrd_dfltbil,mbrd_dfltshp,mbrd_mbrm_id,mbrm_phno,mbrd_emailid,cntrym_name,cntym_name,cntntm_name,ctym_sts, cntym_sts,mbrm_emailid,mbrd_bmbrcntrym_id,mbrd_bmbrcntym_id,cntym_name,cntrym_name from vw_mbr_mst_dtl_bil 
+                  where mbrd_mbrm_id=$regid and mbrm_id = $regid  and mbrd_dfltshp = 'y' order by mbrd_id  desc";
                       $srsmbr_mst   =  mysqli_query($conn, $sqrymbr_dtl);
                       $cntrec    = @mysqli_num_rows($srsmbr_mst);
                       if ($cntrec > 0) { ?>
@@ -522,11 +549,12 @@ where mbrd_mbrm_id=$regid and mbrm_id = $regid order by mbrd_id  desc";
                       ?>
                         <div class="col-md-12 ">
                           <div class="singl-add">
-                            <input type="radio" name="addchk" value="<?php echo $mbrid; ?>" id="chk<?php echo $mbrid; ?>" <?php if ($billsts == 'y') {
-                                                                                                                            echo 'checked';
-                                                                                                                          } else {
-                                                                                                                            echo '';
-                                                                                                                          } ?> />
+   <input type="hidden" name="addchk" value="<?php echo $mbrid; ?>" id="chk<?php echo $mbrid; ?>" <?php if ($shpsts == 'y') 
+   {
+          echo 'checked';
+           } else 
+           {   echo '';
+             } ?> />
                             <label for="chk<?php echo $mbrid; ?>">
                               <strong><?php echo $mbrname;  ?></strong>
                               <?php echo '<br>'; ?><?php echo $mbraddr . ',<br>' . $mbrctynm . ',' . $statename . ',' . $mbrzip; ?>.
@@ -583,7 +611,15 @@ where mbrd_mbrm_id=$regid and mbrm_id = $regid order by mbrd_id  desc";
               <!--Grid column-->
               <div class="col-lg-4">
                 <!-- Card -->
+                <?php
+                 
+              
+                if($coupen == '' || $cpndis=='n' ){
+                  
+                
+                  ?>
                 <div class="mb-3">
+               
                 <div class="mb-3">
                   <div class="pt-4">
                     
@@ -602,7 +638,13 @@ where mbrd_mbrm_id=$regid and mbrm_id = $regid order by mbrd_id  desc";
                     </div>
                   </div>
                 </div>
-                
+                <?php  }
+                 if($cpndis == 'n')
+                 {
+                   echo "<p style='color:red;'<strong>Coupon Not Applicable</strong></p>";
+                 } 
+               
+                  ?>
                   <div class="pt-4">
                     <h5 class="mb-3 text-primary">The total amount of</h5>
                     <div id="dynmc_prcs">
@@ -629,12 +671,24 @@ where mbrd_mbrm_id=$regid and mbrm_id = $regid order by mbrd_id  desc";
                           </li>
                     <?php    
                       if ($cpncunt > 0)
-                         { ?>
+                         { 
+                          ?>
                            <li class="list-group-item d-flex justify-content-between align-items-center px-0">
                            <p>Coupon applied: (<b><?php echo $cpnm_cde; ?></b>)</p>
+                         <?php  if($cpndis == 'y')
+                          {
+                        
+                            ?>
+                            <span style="margin-left:15px; width:26px; height:26px; line-height:26px; text-align:center; border:1px solid #ccc; display:inline-block;"><a href="#" onclick="frmrmvcupn()"> <i class="fa fa-trash"></i></a></span>
+                            <?php
+                          }?>
                            <span>-  ₹<?php echo number_format($totcpndiscamt, 0, ".", ","); ?>
                         </span></li>
-                        <?php }?>
+                        <?php }
+                          
+                        
+                        
+                        ?>
                        
                         <li class="list-group-item d-flex justify-content-between align-items-center px-0">
                           Total Cart Value
@@ -711,6 +765,8 @@ where mbrd_mbrm_id=$regid and mbrm_id = $regid order by mbrd_id  desc";
     </form>
   </div>
 </div>
+
+
 <script type="text/javascript">
   prdcnt();
 
@@ -718,6 +774,11 @@ where mbrd_mbrm_id=$regid and mbrm_id = $regid order by mbrd_id  desc";
     var totlprdcnt = document.getElementById('totlprodcnt').value;
     //alert(totlprdcnt);
     // document.getElementById('dsplyprodcnt').innerHTML = totlprdcnt;
+  }
+  function ChngAdr(frmname)
+  {
+    document.getElementById('frmblg'+frmname).action = "<?php echo $rtpth; ?>checkout.php?addr_sts=u";
+    document.getElementById('frmblg'+frmname).submit();
   }
 
   function funprod(prdid) {
@@ -864,6 +925,191 @@ where mbrd_mbrm_id=$regid and mbrm_id = $regid order by mbrd_id  desc";
 	}
 
 </script>
-
+<div class="modal fade" id="changAddress" tabindex="-1" role="dialog" aria-labelledby="changAddressLabel" aria-hidden="true">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title" id="changAddressLabel">Change / Add Address</h5>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			<div class="modal-body">
+				<div class='card bg-light'>
+					<div class='card-body'>
+						<div class="row">
+							<div class="col-12">
+								<?php
+                $sqlmbr_mst= "SELECT mbrm_id, mbrm_name, mbrm_phno, mbrm_emailid from mbr_mst where mbrm_id = $regid";  
+                $resmbr_mst = mysqli_query($conn,$sqlmbr_mst);
+                $cntadr = mysqli_num_rows($resmbr_mst);
+                $rowmemb_mst = mysqli_fetch_assoc($resmbr_mst);
+                $membname = $rowmemb_mst['mbrm_name'];
+                $memid = $rowmemb_mst['mbrm_id'];
+                $membphno = $rowmemb_mst['mbrm_phno'];
+                $membemail = $rowmemb_mst['mbrm_emailid'];
+                $sqrymbr_dtl1 = "SELECT mbrd_id,mbrd_fstname,mbrd_lstname, mbrd_badrs,mbrd_badrs2,mbrd_cmpny,ctym_name, mbrd_bzip,mbrd_bdayphone,cntrym_name, mbrd_dfltbil,mbrd_dfltshp,mbrd_mbrm_id, cntrym_name,cntym_name,cntntm_name,ctym_sts, cntym_sts,mbrm_emailid,mbrd_bmbrcntrym_id from vw_mbr_mst_dtl_bil where mbrd_mbrm_id=mbrm_id and mbrm_id = $regid order by mbrd_dfltbil = 'y' desc, mbrd_dfltshp = 'y' desc";
+                //	echo $sqrymbr_dtl1;exit;
+                $srsmbr_dtl1 = @mysqli_query($conn, $sqrymbr_dtl1);
+                $cntrec = @mysqli_num_rows($srsmbr_dtl1);
+                $cnt = 0;
+                while ($rowsmbr_dtl1 = mysqli_fetch_assoc($srsmbr_dtl1))
+                {
+                  $bilsts = $rowsmbr_dtl1['mbrd_dfltbil'];
+                  $shpsts = $rowsmbr_dtl1['mbrd_dfltshp'];
+                 $mbrid = $rowsmbr_dtl1['mbrd_id'];
+                  $mbrmstid = $rowsmbr_dtl1['mbrd_mbrm_id'];
+                  $mbrd_bmbrcntym_id = $rowsmbr_dtl1['mbrd_bmbrcntrym_id'];
+                  //echo $mbrd_bmbrcntym_id;
+                  $sqrycntry_mst = "select * from cntry_mst where cntrym_id = '$mbrd_bmbrcntym_id'";
+                  $srscntry_mst = mysqli_query($conn, $sqrycntry_mst);
+                  $srowscntry_mst = mysqli_fetch_assoc($srscntry_mst);
+                  ?>
+                  <form name="frmblg<?php echo $mbrid ?>" id="frmblg<?php echo $mbrid ?>" method="POST">
+                    <div class="border-bottom mb-3">
+                      <!-- <span onclick="funbDeletmemdtl(<?php echo $mbrid; ?>)" class="pull-right"><i class="fas fa-trash-alt"></i></span> -->
+                      <p>
+                        <input type="radio" onclick="javascript:ChngAdr(<?php echo $mbrid; ?>)" name="chkshp" value="s" id="chkshp" <?php if ($shpsts == 'y' && $chked == '') {
+                              echo 'checked';
+                            } ?> />
+                        <input type="hidden" name="hdnmsid" value="<?php echo $mbrid ?>" id="hdnmsid" />
+                        <input type="hidden" name="hdnmstid" value="<?php echo $mbrmstid ?>" id="hdnmstid" />
+                        <input type="hidden" name="chkshop" id="chkshop" value="n"/>
+                        <strong><?php echo $rowsmbr_dtl1['mbrd_fstname'] . $rowsmbr_dtl1['mbrd_lstname']; ?></strong>
+                      </p>
+                      <p class="ml-4">
+                        <?php echo $rowsmbr_dtl1['mbrd_badrs'] . "," . $rowsmbr_dtl1['ctym_name'] . "," . $rowsmbr_dtl1['cntym_name'] . $dspsastx . "," . $srowscntry_mst['cntrym_name'] . $dspsastx . "," . $rowsmbr_dtl1['mbrd_bzip']; ?></br>
+                        <strong>Contact No:</strong><?php echo "  " . $rowsmbr_dtl1['mbrd_bdayphone'] ?>
+                      </p>
+                    </div>
+                  </form>
+                  <?php
+                }
+                include_once("includes/inc_fnct_ajax_validation.php"); ?>
+                <form name="frmaddbilngdtl" id="frmaddbilngdtl" action="<?php $_SERVER['PHP_SELF'];?>" method="post" onSubmit="return performCheck('frmaddbilngdtl', addrrules, 'inline');">
+                  <input type="hidden" class="form-control ps-form__input" name="hnsname1" value="<?php echo $membname ;?>">
+                  <input type="hidden" class="form-control ps-form__input" name="hnsemail" value="<?php echo $membemail;?>">
+                  <input type="hidden" class="form-control ps-form__input" name="hnsmembid" value="<?php echo $memid;?>">
+                  <div class="ps-form--review chkt-forms">
+                    <h2 class="ps-form__title">Add Address</h2>
+                    <div class="row">
+                      <div class="col-lg-12 co-lmd-12">
+                        <div class="ps-form__group">
+                          <label class="ps-form__label">Full Name</label>
+                          <input class="form-control ps-form__input" type="text" name="txtname" id="txtname" value="<?php echo $membname ;?>">
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-lg-6 col-md-6">
+                        <div class="ps-form__group">
+                          <label class="ps-form__label">Email *</label>
+                          <input class="form-control ps-form__input" type="text" name="txtemail" id="txtemail" value="<?php echo $membemail;?>" disabled style="cursor:not-allowed">
+                        </div>
+                      </div>
+                      <div class="col-lg-6 col-md-6">
+                        <div class="ps-form__group">
+                          <label class="ps-form__label">Mobile *</label>
+                          <input class="form-control ps-form__input" type="text" name="txtphno" id="txtphno" value="<?php echo $membphno;?>">
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-lg-12 col-md-12">
+                        <label class="ps-form__label">Address *</label>
+                        <div class="ps-form__group">
+                          <textarea class="form-control ps-form__textarea" rows="3" name="txtaddr" id="txtaddr"></textarea>
+                          <span id="errorsDiv_txtaddr"></span>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-lg-6 col-md-6">
+                        <div class="ps-form__group">
+                          <label class="ps-form__label">Country *</label>
+                          <!-- <input class="form-control ps-form__input" type="text"> -->
+                          <select name="lstcntry" id="lstcntry" class="form-control ps-form__input" onchange="funcPopCnty()">
+                            <option value="2" selected> India</option>
+                          </select>
+                        </div>
+                      </div>
+                      <div class="col-lg-6 col-md-6">
+                        <div class="ps-form__group">
+                          <label class="ps-form__label">State *</label>
+                          <!-- <input class="form-control ps-form__input" type="text"> -->
+                          <select name="lststate" id="lststate" class="form-control ps-form__input">
+                            <?php
+                            $sqrymbrcnty_mst = "SELECT cntym_id,cntym_name,cntym_sts from cnty_mst where (cntym_sts ='a' or cntym_sts ='u') and cntym_cntrym_id = 2 group by cntym_id order by cntym_name";
+                            $srsmbrcnty_mst = mysqli_query($conn,$sqrymbrcnty_mst) or die(mysql_error());
+                            $dispstr = "";
+                            while($srowmbrcnty_mst = mysqli_fetch_assoc($srsmbrcnty_mst))
+                            {
+                              $cntymid = $srowmbrcnty_mst['cntym_id'];
+                              $cntymnm = $srowmbrcnty_mst['cntym_name'];
+                              $cntysts = $srowmbrcnty_mst['cntym_sts'];
+                              ?>
+                              <option value="<?php echo $cntymid ?>"
+                                <?php if($cntymid=='28' ){ echo 'selected';}else{echo '';}?>>
+                                <?php echo $cntymnm ?></option>
+                              <?php
+                            }
+                            ?>
+                          </select>
+                          <span id="errorsDiv_lststate"></span>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-lg-6 col-md-6">
+                        <div class="ps-form__group">
+                          <label class="ps-form__label">City *</label>
+                          <input class="form-control ps-form__input" type="text" name="txtcty" id="txtcty">
+                          <span id="errorsDiv_txtcty"></span>
+                        </div>
+                      </div>
+                      <div class="col-lg-6 col-md-6">
+                        <div class="ps-form__group">
+                          <label class="ps-form__label">Pin Code *</label>
+                          <input class="form-control ps-form__input" type="text" name="txtpin" id="txtpin">
+                          <span id="errorsDiv_txtpin"></span>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="form-group" style="display:block">
+											<!-- <label for="chkbiladrs" class="checkbox-inline"> -->
+												<input type="checkbox" name="chkbiladrs" id="chkbiladrs" value="y" checked="">Billing Address
+											<!--</label>-->
+											<!--<label for="chkshpadrs" class="checkbox-inline">-->
+												<input type="checkbox" name="chkshpadrs" id="chkshpadrs" value="y" checked="">Default Shipping Address
+											<!--</label>-->
+										</div>
+                    <div class="row">
+                      <div class="col-lg-12 col-md-12">
+                        <div class="ps-form__submit">
+                          <input name="btnnewadrsadd" type="submit" id="btnnewadrsadd" value="Add" class="ps-btn ps-btn--warning"/>
+                          <!-- <button class="ps-btn ps-btn--warning">Add</button>-->
+                        </div>
+                      </div>
+                      <!-- <div class="col-lg-6 col-md-6">
+                        <div class="ps-form__submit">
+                          <a href="<?php echo $rtpth; ?>home" class="ps-btn do-later-btn">Do it Later</a>
+                        </div>
+                      </div> -->
+                    </div>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <!-- <button type="button" class="btn btn-primary">Save changes</button> -->
+      </div>
+    </div>
+  </div>
+</div>
 
 <?php include_once('footer.php'); ?>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/js/bootstrap.bundle.min.js"></script>

@@ -20,9 +20,9 @@
               isset($_REQUEST['memid']) && (trim($_REQUEST['memid']) != "")){
                     $memid=$_REQUEST['memid'];
                     $memdtlid=$_REQUEST['memdtlid'];///mem_dtl id to update  the  status of  member details 
-                    $updtmbrsts_dtl="update mbr_dtl set mbrd_dfltbil ='n' where  mbrd_mbrm_id ='$memid'";
+                    $updtmbrsts_dtl="update mbr_dtl set mbrd_dfltbil ='n', mbrd_dfltshp='n' where  mbrd_mbrm_id ='$memid'";
                     $rwsupdtmbrsts_mst=mysqli_query($conn,$updtmbrsts_dtl);
-                    $updtmbrstss_dtl="update mbr_dtl set mbrd_dfltbil ='y' where  mbrd_id ='$memdtlid'";
+                    $updtmbrstss_dtl="update mbr_dtl set mbrd_dfltbil ='y' ,mbrd_dfltshp='y' where  mbrd_id ='$memdtlid'";
                     $srsupdtmbrstss 	   = mysqli_query($conn,$updtmbrstss_dtl) or die(mysql_error());	
                         if($srsupdtmbrstss==true){
                             $result='y';
@@ -71,7 +71,7 @@
                                                 $ctyid=mysqli_insert_id($conn);
                                         }
                                                     if($edtlssts =='y'){
-                                                        $updtmbrsts_dtl="update mbr_dtl set mbrd_dfltbil ='n' where  mbrd_mbrm_id ='$memid'";
+                            $updtmbrsts_dtl="UPDATE mbr_dtl set mbrd_dfltbil ='n',mbrd_dfltshp='n'  where  mbrd_mbrm_id ='$memid'";
                                                         $rwsupdtmbrsts_mst=mysqli_query($conn,$updtmbrsts_dtl);
                                                         $edtlssts='y';
                                                     }else{
@@ -95,6 +95,7 @@
                                         mbrd_bzip='$edtpin',
                                         mbrd_bdayphone='$edtphno',
                                         mbrd_dfltbil='$edtlssts',
+																				mbrd_dfltshp='$edtlssts',
                                         mbrd_mdfdon='$dt',
                                         mbrd_mdfdby='$edtemail'
                                             WHERE
@@ -108,5 +109,3 @@
                                             }
                                         echo $result;
                                     }
-
-?>

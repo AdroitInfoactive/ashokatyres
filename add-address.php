@@ -26,12 +26,7 @@ session_start();
 	$current_page = "addmember";
 	
  
-  $sqlmbr_mst= "select mbrm_id,mbrm_name,mbrm_phno,mbrm_emailid
-                     from 
-					        mbr_mst
-				where 	
-				mbrm_id = 	$membrid	
-							";  
+  $sqlmbr_mst= "SELECT mbrm_id,mbrm_name,mbrm_phno,mbrm_emailid from  mbr_mst	where mbrm_id = $membrid";  
  
    $resmbr_mst= mysqli_query($conn,$sqlmbr_mst);
    $cntadr = mysqli_num_rows($resmbr_mst);
@@ -169,7 +164,7 @@ include('header.php');
                   <div class="form-group">
                     <label>State</label>
                     <select name="lststate" id="lststate" class="form-control">
-                      <?php   $sqrymbrcnty_mst =  "select 
+                      <?php   $sqrymbrcnty_mst =  "SELECT 
 								  cntym_id,cntym_name,cntym_sts
 						     from 
 							     cnty_mst 
