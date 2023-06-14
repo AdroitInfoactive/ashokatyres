@@ -746,8 +746,8 @@ if (isset($_SESSION['cartcode']) && (trim($_SESSION['cartcode']) != "")) {
 </body>
 </html>";
 
-				echo $msgbody;
-				exit;
+			//	echo $msgbody;exit;
+			
 
 
 				$to       = $bemail;
