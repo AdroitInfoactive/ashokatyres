@@ -1,10 +1,10 @@
 <?php
 error_reporting(0);
-include_once "includes/inc_membr_session.php";//checking for session	
-			include_once 'includes/inc_nocache.php'; // Clearing the cache information
-            include_once 'includes/inc_connection.php';//Make connection with the database  	
-            include_once "includes/inc_config.php";	//path config file
-		    include_once "includes/inc_usr_functions.php";//Including user session value
+include_once "includes/inc_membr_session.php"; //checking for session	
+include_once 'includes/inc_nocache.php'; // Clearing the cache information
+include_once 'includes/inc_connection.php'; //Make connection with the database  	
+include_once "includes/inc_config.php";  //path config file
+include_once "includes/inc_usr_functions.php"; //Including user session value
 
 include_once 'includes/inc_nocache.php'; // Clearing the cache information
 //include_once "includes/inc_membr_session.php";//checking for session
@@ -55,23 +55,21 @@ if (isset($_POST['btnSbmt']) && (trim($_POST['btnSbmt']) != "")) {
   //var_dump($_POST);exit;
   include_once "database/iqry_cart_dtl.php";
 }
-if ($sts == "u")
-{
- $msid = $_POST['hdnmsid'];
- $uqrymbr_dtl = "UPDATE mbr_dtl set mbrd_dfltshp='y' where mbrd_mbrm_id=$regid and mbrd_id=$msid";
+if ($sts == "u") {
+  $msid = $_POST['hdnmsid'];
+  $uqrymbr_dtl = "UPDATE mbr_dtl set mbrd_dfltshp='y' where mbrd_mbrm_id=$regid and mbrd_id=$msid";
   //mbrd_mbrm_id=$msid and
   $ursmbr_dtl = mysqli_query($conn, $uqrymbr_dtl) or die(mysqli_error($conn));
   $uqrymbr_dtl1 = "UPDATE mbr_dtl set mbrd_dfltshp='n' where mbrd_mbrm_id=$regid and mbrd_id!=$msid";
   //mbrd_mbrm_id=$msid and
   $ursmbr_dtl1 = mysqli_query($conn, $uqrymbr_dtl1) or die(mysqli_error($conn));
-  ?>
-      <script language="javascript" type="text/javascript">
-        location.href = "<?php echo $rtpth.'checkout.php'?>";
-      </script>
-      <?php
+?>
+  <script language="javascript" type="text/javascript">
+    location.href = "<?php echo $rtpth . 'checkout.php' ?>";
+  </script>
+<?php
 }
-if (isset($_POST['btnnewadrsadd']) && (trim($_POST['btnnewadrsadd']) != "") && isset($_POST['hnsname1']) && (trim($_POST['hnsname1']) != "") && isset($_POST['hnsemail']) && (trim($_POST['hnsemail']) != "") && isset($_POST['txtaddr']) && (trim($_POST['txtaddr']) != "") && isset($_POST['txtpin']) && (trim($_POST['txtpin']) != "") && isset($_POST['txtphno']) && (trim($_POST['txtphno']) != "") && isset($_POST['lststate']) && (trim($_POST['lststate']) != "") && isset($_POST['txtcty']) && (trim($_POST['txtcty']) != ""))
-{
+if (isset($_POST['btnnewadrsadd']) && (trim($_POST['btnnewadrsadd']) != "") && isset($_POST['hnsname1']) && (trim($_POST['hnsname1']) != "") && isset($_POST['hnsemail']) && (trim($_POST['hnsemail']) != "") && isset($_POST['txtaddr']) && (trim($_POST['txtaddr']) != "") && isset($_POST['txtpin']) && (trim($_POST['txtpin']) != "") && isset($_POST['txtphno']) && (trim($_POST['txtphno']) != "") && isset($_POST['lststate']) && (trim($_POST['lststate']) != "") && isset($_POST['txtcty']) && (trim($_POST['txtcty']) != "")) {
   include_once "database/iqry_mbr_dtl.php";
 }
 $page_title = "Checkout";
@@ -107,63 +105,58 @@ include('header.php');
 
       <!-- coupons start -->
 
-    <?php 
-    /************************COUPON USED BY USER***********************/
-if (isset($coupen) && (trim($coupen) != ""))
-{
+      <?php
+      /************************COUPON USED BY USER***********************/
+      if (isset($coupen) && (trim($coupen) != "")) {
 
-  //------------------------------- Coupn Order Base ----------------------------------------//
-  $cpnflg = 0;
-  $cpncnd = $_SESSION['cartcode'];
-  $catprd = explode('-', $cpncnd);
-  $mnctgtprodid = $catprd[0]; // Stores the product id 
-  $mnctgid = $catprd[1]; // 
-  //-------------------------------------5-7-2019------------------------------------------//
+        //------------------------------- Coupn Order Base ----------------------------------------//
+        $cpnflg = 0;
+        $cpncnd = $_SESSION['cartcode'];
+        $catprd = explode('-', $cpncnd);
+        $mnctgtprodid = $catprd[0]; // Stores the product id 
+        $mnctgid = $catprd[1]; // 
+        //-------------------------------------5-7-2019------------------------------------------//
 
- $curdt = date('Y-m-d');
- $sqrycpn_mst = "SELECT cpnm_id,cpnm_cde,cpnm_name,cpnm_mncat, cpnm_cat,cpnm_scat,cpnm_aptyp,cpnm_memtyp,cpnm_disctyp,cpnm_discamt,cpnm_exdt,cpnm_discper, cpnm_sts,cpnm_prty,cpnm_usetyp,cpnm_mbrm_id,cpnm_ntamt, cpnm_ntamttyp,cpnm_applon,cpnm_brnd from cpn_mst where cpnm_cde = '$coupen' and cpnm_exdt >= '$curdt' and cpnm_sts = 'a'";
-  $srscpn_mst = mysqli_query($conn, $sqrycpn_mst);
-  $cntrec_cpn = mysqli_num_rows($srscpn_mst);
-  if ($cntrec_cpn > 0)
-  {
-    $srowcpn_mst = mysqli_fetch_assoc($srscpn_mst);
-    $cpnm_id = $srowcpn_mst['cpnm_id']; // Expiry type of the campaign 
-    $cpnm_cde = $srowcpn_mst['cpnm_cde']; // Expiry type of the campaign 
-    $cpnm_mncat = $srowcpn_mst['cpnm_mncat']; // Expiry type of the campaign 
-    $cpnm_cat = $srowcpn_mst['cpnm_cat']; // Expiry type of the campaign 
-    $cpnm_scat = $srowcpn_mst['cpnm_scat']; // Expiry type of the campaign 
-    $cpnm_disctyp = $srowcpn_mst['cpnm_disctyp']; // Expiry type of the campaign 
-    $cpnm_amt = $srowcpn_mst['cpnm_discamt']; // Expiry type of the campaign 
-    $cpnm_per = $srowcpn_mst['cpnm_discper']; // Member for whom the voucher is available
-    $cpnm_exdt = $srowcpn_mst['cpnm_exdt']; // Member for whom the voucher is available
-    $cpnm_sts = $srowcpn_mst['cpnm_sts']; // Member for whom the voucher is available
-    $cpnm_prty = $srowcpn_mst['cpnm_prty']; // Member for whom the voucher is available
-    $cpnm_memtyp = $srowcpn_mst['cpnm_usetyp'];
-    $cpnm_usr_id = $srowcpn_mst['cpnm_mbrm_id'];
- $cpnm_apply_on = $srowcpn_mst['cpnm_applon'];
-    $cpnm_brnd = $srowcpn_mst['cpnm_brnd'];
-    $cpnm_apply_type = $srowcpn_mst['cpnm_aptyp'];
-    $cupnm = $cpnm_cde;
-    $curdt = date('Y-m-d');
-    $cur_strtime = strtotime($cpnm_exdt);
-    $cpnm_ntamt = $srowcpn_mst['cpnm_ntamt']; // Expiry type of the campaign  	
-    $cpnm_ntamttyp = $srowcpn_mst['cpnm_ntamttyp']; // Expiry type of the campaign 
-  }
-  else
-  {
-    $cpnmsg = "CUPON NOT VALID";
-  }
- $sqrymbr_mst = "SELECT crtordm_mbrm_id,crtordm_id,crtordm_cpnm_id from crtord_mst where crtordm_mbrm_id = '$regid' and crtordm_cpnm_id = '$cpnm_id'";
-  $srsmbr_mst = mysqli_query($conn, $sqrymbr_mst);
-  $cntmbr_mst = mysqli_num_rows($srsmbr_mst);
- // echo $cntmbr_mst;
-}
-if ($cpnmsg != '')
-{
-  $cupnm = "";
-  $cpnm_scat = 0;
-  unset($_SESSION['coupen']);
-}?>
+        $curdt = date('Y-m-d');
+        $sqrycpn_mst = "SELECT cpnm_id,cpnm_cde,cpnm_name,cpnm_mncat, cpnm_cat,cpnm_scat,cpnm_aptyp,cpnm_memtyp,cpnm_disctyp,cpnm_discamt,cpnm_exdt,cpnm_discper, cpnm_sts,cpnm_prty,cpnm_usetyp,cpnm_mbrm_id,cpnm_ntamt, cpnm_ntamttyp,cpnm_applon,cpnm_brnd from cpn_mst where cpnm_cde = '$coupen' and cpnm_exdt >= '$curdt' and cpnm_sts = 'a'";
+        $srscpn_mst = mysqli_query($conn, $sqrycpn_mst);
+        $cntrec_cpn = mysqli_num_rows($srscpn_mst);
+        if ($cntrec_cpn > 0) {
+          $srowcpn_mst = mysqli_fetch_assoc($srscpn_mst);
+          $cpnm_id = $srowcpn_mst['cpnm_id']; // Expiry type of the campaign 
+          $cpnm_cde = $srowcpn_mst['cpnm_cde']; // Expiry type of the campaign 
+          $cpnm_mncat = $srowcpn_mst['cpnm_mncat']; // Expiry type of the campaign 
+          $cpnm_cat = $srowcpn_mst['cpnm_cat']; // Expiry type of the campaign 
+          $cpnm_scat = $srowcpn_mst['cpnm_scat']; // Expiry type of the campaign 
+          $cpnm_disctyp = $srowcpn_mst['cpnm_disctyp']; // Expiry type of the campaign 
+          $cpnm_amt = $srowcpn_mst['cpnm_discamt']; // Expiry type of the campaign 
+          $cpnm_per = $srowcpn_mst['cpnm_discper']; // Member for whom the voucher is available
+          $cpnm_exdt = $srowcpn_mst['cpnm_exdt']; // Member for whom the voucher is available
+          $cpnm_sts = $srowcpn_mst['cpnm_sts']; // Member for whom the voucher is available
+          $cpnm_prty = $srowcpn_mst['cpnm_prty']; // Member for whom the voucher is available
+          $cpnm_memtyp = $srowcpn_mst['cpnm_usetyp'];
+          $cpnm_usr_id = $srowcpn_mst['cpnm_mbrm_id'];
+          $cpnm_apply_on = $srowcpn_mst['cpnm_applon'];
+          $cpnm_brnd = $srowcpn_mst['cpnm_brnd'];
+          $cpnm_apply_type = $srowcpn_mst['cpnm_aptyp'];
+          $cupnm = $cpnm_cde;
+          $curdt = date('Y-m-d');
+          $cur_strtime = strtotime($cpnm_exdt);
+          $cpnm_ntamt = $srowcpn_mst['cpnm_ntamt']; // Expiry type of the campaign  	
+          $cpnm_ntamttyp = $srowcpn_mst['cpnm_ntamttyp']; // Expiry type of the campaign 
+        } else {
+          $cpnmsg = "CUPON NOT VALID";
+        }
+        $sqrymbr_mst = "SELECT crtordm_mbrm_id,crtordm_id,crtordm_cpnm_id from crtord_mst where crtordm_mbrm_id = '$regid' and crtordm_cpnm_id = '$cpnm_id'";
+        $srsmbr_mst = mysqli_query($conn, $sqrymbr_mst);
+        $cntmbr_mst = mysqli_num_rows($srsmbr_mst);
+        // echo $cntmbr_mst;
+      }
+      if ($cpnmsg != '') {
+        $cupnm = "";
+        $cpnm_scat = 0;
+        unset($_SESSION['coupen']);
+      } ?>
       <section class="my-cart-values">
         <div class="container">
           <!--Section: Block Content-->
@@ -244,9 +237,9 @@ prodm_id !='' and prodm_sts ='a' and vehtypm_sts='a' and vehbrndm_sts='a' and ve
                                   $cnt += 1;
                                   $crtprodid       = $srowprod_dtl['prodm_id'];
                                   $prodbrnd       = $srowprod_dtl['tyrbrndm_id'];
-                                  $vehicle_typ       = $srowprod_dtl['prodd_veh_typ'];//vehicle type
-                                  $vehicle_brnd       = $srowprod_dtl['prodd_veh_brnd'];//vehicle brand
-                                  $vehicle_model       = $srowprod_dtl['prodd_veh_mdl'];//vehicle model
+                                  $vehicle_typ       = $srowprod_dtl['prodd_veh_typ']; //vehicle type
+                                  $vehicle_brnd       = $srowprod_dtl['prodd_veh_brnd']; //vehicle brand
+                                  $vehicle_model       = $srowprod_dtl['prodd_veh_mdl']; //vehicle model
                                   $crtprodcode   = $srowprod_dtl['prodm_code'];
                                   $crtprodname   = $srowprod_dtl['prodm_name'];
                                   $crtprodtyrbrndnm   = $srowprod_dtl['tyrbrndm_name'];
@@ -264,8 +257,7 @@ prodm_id !='' and prodm_sts ='a' and vehtypm_sts='a' and vehbrndm_sts='a' and ve
                                   $prc   = $srowprod_dtl['prodm_cstprc'];  //cost price
                                   $sl_prc   = $srowprod_dtl['prodm_sleprc']; //sale price
                                   $ofr_prc   = $srowprod_dtl['prodm_ofrprc']; //offer price
-                                  if ($prc == '')
-                                   {
+                                  if ($prc == '') {
                                     $prc = $sl_prc;
                                     $crt_tot_prc = $untqty * $prc;
                                   }
@@ -279,55 +271,45 @@ prodm_id !='' and prodm_sts ='a' and vehtypm_sts='a' and vehbrndm_sts='a' and ve
                                   }
                                   // new code cart calculation ends
                                   // coupons start
-                                  if($cpnm_id!= '')
-                                  {
-                                    if($cpnm_apply_on == 1)
-                                    {
-                                     
-                                      if(($cpnm_mncat == $vehicle_typ)&&($cpnm_cat == $vehicle_brnd)&&($cpnm_scat == $vehicle_model ))
-                                      { 
-                                        $cpnprdprc = $prc * $untqty;
-                                       $totalcpnprdprc += $cpnprdprc;
-                                        $cpndis = 'y';
-                                      }
-                                      else if(($cpnm_mncat == $vehicle_typ)&&($cpnm_cat == $vehicle_brnd)&&($cpnm_scat == '0'))
-                                      {
+                                  if ($cpnm_id != '') {
+                                    if ($cpnm_apply_on == 1)
+                                     {
+
+                                      if (($cpnm_mncat == $vehicle_typ) && ($cpnm_cat == $vehicle_brnd) && ($cpnm_scat == $vehicle_model)) {
                                         $cpnprdprc = $prc * $untqty;
                                         $totalcpnprdprc += $cpnprdprc;
                                         $cpndis = 'y';
-                                      }		 
-                                      else if(($cpnm_mncat == $vehicle_typ)&&($cpnm_cat == '0')&&($cpnm_scat == '0'))
-                                      {
+                                      } else if (($cpnm_mncat == $vehicle_typ) && ($cpnm_cat == $vehicle_brnd) && ($cpnm_scat == '0')) {
                                         $cpnprdprc = $prc * $untqty;
                                         $totalcpnprdprc += $cpnprdprc;
                                         $cpndis = 'y';
-                                      }
-                                      else if(($cpnm_mncat == '0')&&($cpnm_cat == '0')&&($cpnm_scat == '0'))
-                                      {
+                                      } else if (($cpnm_mncat == $vehicle_typ) && ($cpnm_cat == '0') && ($cpnm_scat == '0')) {
                                         $cpnprdprc = $prc * $untqty;
                                         $totalcpnprdprc += $cpnprdprc;
                                         $cpndis = 'y';
+                                      } else if (($cpnm_mncat == '0') && ($cpnm_cat == '0') && ($cpnm_scat == '0')) {
+                                        $cpnprdprc = $prc * $untqty;
+                                        $totalcpnprdprc += $cpnprdprc;
+                                        $cpndis = 'y';
+                                      } else {
+                                        $cpndis = 'n';
                                       }
-                                      else
-                                      {
+                                    } 
+                                    else if ($cpnm_apply_on == 2)
+                                     {
+                                      $prodbrnd;
+                                      if (($cpnm_brnd == $prodbrnd) || ($cpnm_brnd == 0)) {
+                                        $cpndis = 'y';
+                                        $cpnprdprc = $prc * $untqty;
+                                        $totalcpnprdprc += $cpnprdprc;
+                                        //  $totalcpnprdprc +=$crt_tot_prc;
+                                      } else {
                                         $cpndis = 'n';
                                       }
                                     }
-                                    else if($cpnm_apply_on == 2)
-                                    {
-                                     $prodbrnd;
-                                      if(($cpnm_brnd == $prodbrnd) || ($cpnm_brnd == 0))
-                                      {
-                                        $cpndis = 'y';
-                                   $cpnprdprc = $prc * $untqty;
-                                   $totalcpnprdprc +=$cpnprdprc;
-                                  //  $totalcpnprdprc +=$crt_tot_prc;
-                                      }
-                                      else
-                                      {
-                                        $cpndis = 'n';
-                                      }
-                                    }
+                                  }
+                                  else {
+                                    $cpndis = 'n';
                                   }
                                   // coupons ends
 
@@ -355,8 +337,8 @@ prodm_id !='' and prodm_sts ='a' and vehtypm_sts='a' and vehbrndm_sts='a' and ve
                                       </td>
                                       <td class="ps-product__quantity"> <?php echo $untqty; ?></td>
                                       <td class="ps-product__subtotal">&#8377;<?php echo $crt_tot_prc; ?></td>
-                                     
-                                    
+
+
                                       <?php
                                       $sqry_loc = "SELECT strlocm_id, strlocm_name from store_loc_mst where strlocm_sts = 'a' order by strlocm_id ASC";
                                       $srslocdtls = mysqli_query($conn, $sqry_loc);
@@ -393,100 +375,74 @@ prodm_id !='' and prodm_sts ='a' and vehtypm_sts='a' and vehbrndm_sts='a' and ve
                     <?php } ?>
                   </div>
                   <?php
-                                      // coupons start
-                $crttotamt = $totuntprc;
-                if ($cpnm_id != '')
-                {
-                  if ($cpnm_ntamttyp == 'y')
-                  {
-                    if ($cpnm_ntamt < $totalcpnprdprc)
-                    {
+                  // coupons start
+                  $crttotamt = $totuntprc;
+                  if ($cpnm_id != '') {
+                    if ($cpnm_ntamttyp == 'y') {
+                      if ($cpnm_ntamt < $totalcpnprdprc) {
+                        $ntamttyp = 'y';
+                      } else {
+                        $ntamttyp = 'n';
+                      }
+                    } else if ($cpnm_ntamttyp == 'n') {
                       $ntamttyp = 'y';
                     }
-                    else
-                    {
-                      $ntamttyp = 'n';
-                    }
-                  }
-                  else if ($cpnm_ntamttyp == 'n')
-                  {
-                    $ntamttyp = 'y';
-                  }
-                  if ($cpnm_memtyp == 's')
-                  {
-                    if ($regid == $cpnm_usr_id)
-                    {
+                    if ($cpnm_memtyp == 's') {
+                      if ($regid == $cpnm_usr_id) {
+                        $snglcpn = "y";
+                      } else {
+                        $snglcpn = "n";
+                      }
+                    } else if ($cpnm_memtyp == 'nu') {
+                      $sqlcrtord_mst = "SELECT crtordm_mbrm_id from crtord_mst where crtordm_mbrm_id = $regid";
+                      $rescrtord_mst = mysqli_query($conn, $sqlcrtord_mst);
+                      $numorws = mysqli_num_rows($rescrtord_mst);
+                      if ($numorws == 0) {
+                        $snglcpn = "y";
+                      } else {
+                        $snglcpn = "n";
+                      }
+                    } else if ($cpnm_memtyp == 'au') {
                       $snglcpn = "y";
-                    }
-                    else
-                    {
-                      $snglcpn = "n";
+                    } else {
+                      $snglcpn = "na";
                     }
                   }
-                  else if ($cpnm_memtyp == 'nu')
-                  {
-                    $sqlcrtord_mst = "SELECT crtordm_mbrm_id from crtord_mst where crtordm_mbrm_id = $regid";
-                    $rescrtord_mst = mysqli_query($conn, $sqlcrtord_mst);
-                    $numorws = mysqli_num_rows($rescrtord_mst);
-                    if ($numorws == 0)
-                    {
-                      $snglcpn = "y";
+                  if ($cpndis == 'y' && $ntamttyp == 'y' && $snglcpn == 'y') {
+                    if ($cpnm_disctyp == 'p') {
+
+                      $disper = $cpnm_per / 100;
+                      $per_amt = $totalcpnprdprc * $disper;
+                      $cpnm_discamt = $per_amt;
+                      $totcpndiscamt += $cpnm_discamt;
+                      $cpncunt++;
                     }
-                    else
-                    {
-                      $snglcpn = "n";
+                     else 
+                     {
+                      $cpnm_discamt = $cpnm_amt;
+                      $totcpndiscamt += $cpnm_discamt;
+                      $cpncunt++;
                     }
+                  } 
+                  else {
                   }
-                  else if ($cpnm_memtyp == 'au')
-                  {
-                    $snglcpn = "y";
-                    
-                  }
-                  else
-                  {
-                    $snglcpn = "na";
-                  }
-                }
-                if ($cpndis == 'y' && $ntamttyp == 'y' && $snglcpn == 'y')
-                {
-                  if ($cpnm_disctyp == 'p')
-                  {
-                   
-                     $disper = $cpnm_per / 100;
-                     $per_amt = $totalcpnprdprc * $disper;
-                    $cpnm_discamt = $per_amt;
-                    $totcpndiscamt += $cpnm_discamt;
-                    $cpncunt++;
-                  }
-                  else
-                  {
-                    $cpnm_discamt = $cpnm_amt;
-                   $totcpndiscamt += $cpnm_discamt;
-                    $cpncunt++;
-                  }
-                }
-                else
-                {
-                  
-                }
-                if ($cpncunt > 0)
-                { ?>
-                  <!-- <div class="row">
+                  if ($cpncunt > 0) { ?>
+                    <!-- <div class="row">
                     <div class="col-lg-6 col-md-6">
                       <p>Coupon applied: (<b><?php echo $cpnm_cde; ?></b>)</p> -->
-                    
-                      <input type="hidden" id="cpnid" value="<?php echo  $cpnm_cde; ?>" />
+
+                    <input type="hidden" id="cpnid" value="<?php echo  $cpnm_cde; ?>" />
                     <!-- </div>
                     <div class="col-lg-6 col-md-6"> -->
-                 <!-- <p class="text-right"><i class="fa fa-rupee"></i>&nbsp;-<?php echo number_format($totcpndiscamt, 2, ".", ","); 
-                      ?> -->
-                      <input type="hidden" id="cpndisamt" value="<?php echo  $totcpndiscamt; ?>" />
+                    <!-- <p class="text-right"><i class="fa fa-rupee"></i>&nbsp;-<?php echo number_format($totcpndiscamt, 2, ".", ",");
+                                                                                  ?> -->
+                    <input type="hidden" id="cpndisamt" value="<?php echo  $totcpndiscamt; ?>" />
                     </p>
                     <!-- </div>
                   </div> -->
                   <?php
-                  $crttotamt = $totuntprc - $totcpndiscamt;
-                }?>
+                    $crttotamt = $totuntprc - $totcpndiscamt;
+                  } ?>
                   <!-- ************** coupons ends -->
                   <!-- Card -->
                   <?php if ($regid != '' && isset($regid)) { ?>
@@ -525,8 +481,8 @@ prodm_id !='' and prodm_sts ='a' and vehtypm_sts='a' and vehbrndm_sts='a' and ve
                         <p class="mb-0"> Thu 12.03. -- Mon 16.03.</p>
                       </div>
                       <a class="text-primary" href="#" data-toggle="modal" data-target="#changAddress">Change / Add Address</a>
-                    
-                    <?php $sqrymbr_dtl =   "SELECT mbrd_id,mbrd_fstname,mbrd_lstname, mbrd_badrs,mbrd_badrs2,mbrd_cmpny,ctym_name, mbrd_bzip,mbrd_bdayphone,cntrym_name, mbrd_ctynm,mbrd_bdayphone,mbrd_dfltbil,mbrd_dfltshp,mbrd_mbrm_id,mbrm_phno,mbrd_emailid,cntrym_name,cntym_name,cntntm_name,ctym_sts, cntym_sts,mbrm_emailid,mbrd_bmbrcntrym_id,mbrd_bmbrcntym_id,cntym_name,cntrym_name from vw_mbr_mst_dtl_bil 
+
+                      <?php $sqrymbr_dtl =   "SELECT mbrd_id,mbrd_fstname,mbrd_lstname, mbrd_badrs,mbrd_badrs2,mbrd_cmpny,ctym_name, mbrd_bzip,mbrd_bdayphone,cntrym_name, mbrd_ctynm,mbrd_bdayphone,mbrd_dfltbil,mbrd_dfltshp,mbrd_mbrm_id,mbrm_phno,mbrd_emailid,cntrym_name,cntym_name,cntntm_name,ctym_sts, cntym_sts,mbrm_emailid,mbrd_bmbrcntrym_id,mbrd_bmbrcntym_id,cntym_name,cntrym_name from vw_mbr_mst_dtl_bil 
                   where mbrd_mbrm_id=$regid and mbrm_id = $regid  and mbrd_dfltshp = 'y' order by mbrd_id  desc";
                       $srsmbr_mst   =  mysqli_query($conn, $sqrymbr_dtl);
                       $cntrec    = @mysqli_num_rows($srsmbr_mst);
@@ -554,12 +510,11 @@ prodm_id !='' and prodm_sts ='a' and vehtypm_sts='a' and vehbrndm_sts='a' and ve
                       ?>
                         <div class="col-md-12 ">
                           <div class="singl-add">
-   <input type="hidden" name="addchk" value="<?php echo $mbrid; ?>" id="chk<?php echo $mbrid; ?>" <?php if ($shpsts == 'y') 
-   {
-          echo 'checked';
-           } else 
-           {   echo '';
-             } ?> />
+                            <input type="hidden" name="addchk" value="<?php echo $mbrid; ?>" id="chk<?php echo $mbrid; ?>" <?php if ($shpsts == 'y') {
+                                                                                                                              echo 'checked';
+                                                                                                                            } else {
+                                                                                                                              echo '';
+                                                                                                                            } ?> />
                             <label for="chk<?php echo $mbrid; ?>">
                               <strong><?php echo $mbrname;  ?></strong>
                               <?php echo '<br>'; ?><?php echo $mbraddr . ',<br>' . $mbrctynm . ',' . $statename . ',' . $mbrzip; ?>.
@@ -585,10 +540,10 @@ prodm_id !='' and prodm_sts ='a' and vehtypm_sts='a' and vehbrndm_sts='a' and ve
                           while ($rowsstr_loc_mst = mysqli_fetch_array($srsstrloc_mst)) { ?>
                             <option value="<?php echo $rowsstr_loc_mst["strlocm_id"]; ?>">
                               <?php echo $rowsstr_loc_mst["strlocm_name"]; ?></option>
-                              
+
                           <?php
                           }
-                       
+
                           ?>
                         </select>
                       </div>
@@ -617,38 +572,36 @@ prodm_id !='' and prodm_sts ='a' and vehtypm_sts='a' and vehbrndm_sts='a' and ve
               <div class="col-lg-4">
                 <!-- Card -->
                 <?php
-                 
-              
-                if($coupen == '' || $cpndis=='n' ){
-                  
+
+
+                if ($coupen == '' || $cpndis == 'n') {
                 
-                  ?>
-                <div class="mb-3">
-               
-                <div class="mb-3">
-                  <div class="pt-4">
-                    
-                    <a class="dark-grey-text d-flex justify-content-between" data-bs-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
-                      Add a discount code (optional)<span><i class="fas fa-chevron-down pt-1"></i></span>
-                    </a>
-                    <div class="collapse" id="collapseExample">
-                      <div class="mt-3">
-                        <div class="cp-code md-form md-outline mb-0">
-                          <input type="text" id="prdcupn" class="form-control font-weight-light" placeholder="Enter discount code">
+                ?>
+                  <div class="mb-3">
+
+                    <div class="mb-3">
+                      <div class="pt-4">
+
+                        <a class="dark-grey-text d-flex justify-content-between" data-bs-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
+                          Add a discount code (optional)<span><i class="fas fa-chevron-down pt-1"></i></span>
+                        </a>
+                        <div class="collapse" id="collapseExample">
+                          <div class="mt-3">
+                            <div class="cp-code md-form md-outline mb-0">
+                              <input type="text" id="prdcupn" class="form-control font-weight-light" placeholder="Enter discount code">
+                            </div>
+                          </div>
+                          <div class="col-lg-4 col-md-4 col-12">
+                            <button class="ps-btn ps-btn--primary mb-3" type="button" onClick="javascript:frmcupn()">Apply coupon</button>
+                          </div>
                         </div>
                       </div>
-                      <div class="col-lg-4 col-md-4 col-12">
-                    <button class="ps-btn ps-btn--primary mb-3" type="button" onClick="javascript:frmcupn()">Apply coupon</button>
                     </div>
-                    </div>
-                  </div>
-                </div>
-                <?php  }
-                 if($cpndis == 'n')
-                 {
-                   echo "<p style='color:red;'<strong>Coupon Not Applicable</strong></p>";
-                 } 
-               
+                  <?php  }
+                if ($cpndis == 'n' && $coupen != '') {
+                  echo "<p style='color:red;'<strong>Coupon Not Applicable</strong></p>";
+                }
+
                   ?>
                   <div class="pt-4">
                     <h5 class="mb-3 text-primary">The total amount of</h5>
@@ -665,51 +618,46 @@ prodm_id !='' and prodm_sts ='a' and vehtypm_sts='a' and vehbrndm_sts='a' and ve
                                   }; ?></span>
                         </li>
                         <li class="list-group-item d-flex justify-content-between align-items-center px-0">
-                            Devilery Charges
-                            <span>₹<?php if ($od > 0) {
-                                      echo $chrg = $od;
-                                    } else {
-                                      echo '0.00';
-                                    }; ?></span>
-                            <input type="hidden" name="chrgs" id="chrgs" value="<?php echo $chrg; ?>" />
-                            <!-- <input type="hidden" name="deltype" id="deltype" value="d" /> -->
-                          </li>
-                    <?php    
-                      if ($cpncunt > 0)
-                         { 
-                          ?>
-                           <li class="list-group-item d-flex justify-content-between align-items-center px-0">
-                           <p>Coupon applied: (<b><?php echo $cpnm_cde; ?></b>)</p>
-                         <?php  if($cpndis == 'y')
-                          {
-                        
-                            ?>
-                            <span style="margin-left:15px; width:26px; height:26px; line-height:26px; text-align:center; border:1px solid #ccc; display:inline-block;"><a href="#" onclick="frmrmvcupn()"> <i class="fa fa-trash"></i></a></span>
-                            <?php
-                          }?>
-                           <span>-  ₹<?php echo number_format($totcpndiscamt, 0, ".", ","); ?>
-                        </span></li>
-                        <?php }
-                          
-                        
-                        
+                          Devilery Charges
+                          <span>₹<?php if ($od > 0) {
+                                    echo $chrg = $od;
+                                  } else {
+                                    echo '0.00';
+                                  }; ?></span>
+                          <input type="hidden" name="chrgs" id="chrgs" value="<?php echo $chrg; ?>" />
+                          <!-- <input type="hidden" name="deltype" id="deltype" value="d" /> -->
+                        </li>
+                        <?php
+                        if ($cpncunt > 0) {
                         ?>
-                       
+                          <li class="list-group-item d-flex justify-content-between align-items-center px-0">
+                            <p>Coupon applied: (<b><?php echo $cpnm_cde; ?></b>)</p>
+                            <?php if ($cpndis == 'y') {
+
+                            ?>
+                              <span style="margin-left:15px; width:26px; height:26px; line-height:26px; text-align:center; border:1px solid #ccc; display:inline-block;"><a href="#" onclick="frmrmvcupn()"> <i class="fa fa-trash"></i></a></span>
+                            <?php
+                            } ?>
+                            <span>- ₹<?php echo number_format($totcpndiscamt, 0, ".", ","); ?>
+                            </span>
+                          </li>
+                        <?php }
+
+
+
+                        ?>
+
                         <li class="list-group-item d-flex justify-content-between align-items-center px-0">
                           Total Cart Value
-                          <span>₹<?php if ($totcartprc > 0 && $od != "" && $totcpndiscamt !='' ) {
-                                    echo  ($totcartprc + $od) - $totcpndiscamt;
-                                  }
-                                  else if ($totcartprc > 0 && $od != ""){
+                          <span>₹<?php if ($totcartprc > 0 && $od != "" && $totcpndiscamt != '') {
+                                    echo ($totcartprc + $od) - $totcpndiscamt;
+                                  } else if ($totcartprc > 0 && $od != "") {
                                     echo $totcartprc + $od;
-                                  } 
-                                  else if ($totcartprc > 0 && $df != ""&& $totcpndiscamt !='' ) {
+                                  } else if ($totcartprc > 0 && $df != "" && $totcpndiscamt != '') {
                                     echo ($totcartprc + $df) - $totcpndiscamt;
-                                  } 
-                                  else if ($totcartprc > 0 && $df != ""){
+                                  } else if ($totcartprc > 0 && $df != "") {
                                     echo $totcartprc + $df;
-                                  } 
-                                  else {
+                                  } else {
                                     echo '0.00';
                                   }; ?></span>
                         </li>
@@ -721,14 +669,12 @@ prodm_id !='' and prodm_sts ='a' and vehtypm_sts='a' and vehbrndm_sts='a' and ve
                               <p class="mb-0">(including GST)</p>
                             </strong>
                           </div>
-                          <span><strong>₹<?php if ($totcartprc > 0 && $totcpndiscamt!='') {
-                                            echo ($totcartprc + $chrg)- $totcpndiscamt;
-                                          } 
-                                          else if($totcartprc > 0 ){
-                                          
+                          <span><strong>₹<?php if ($totcartprc > 0 && $totcpndiscamt != '') {
+                                            echo ($totcartprc + $chrg) - $totcpndiscamt;
+                                          } else if ($totcartprc > 0) {
+
                                             echo $totcartprc + $chrg;
-                                          }
-                                          else {
+                                          } else {
                                             echo '0.00';
                                           }; ?></strong></span>
                         </li>
@@ -745,20 +691,20 @@ prodm_id !='' and prodm_sts ='a' and vehtypm_sts='a' and vehbrndm_sts='a' and ve
                               OR Register To Continue</span></a>
                       <?php }
                       }
-                      
+
                       ?>
-               <!--------------------------------- Coupon Details ------------------------------------->   
-                <input type = "hidden" value="<?php echo $cpnm_id;?>" name="hdncpncde"/>
-                <input type = "hidden" value="<?php echo $cpnm_scat;?>" name="hdncpnscat"/>  
-                <input type = "hidden" value="<?php echo $cpnm_discamt;?>" name="hdncpnval"/> 
-                <!--------------------------------- Coupon Details ------------------------------------->  
+                      <!--------------------------------- Coupon Details ------------------------------------->
+                      <input type="hidden" value="<?php echo $cpnm_id; ?>" name="hdncpncde" />
+                      <input type="hidden" value="<?php echo $cpnm_scat; ?>" name="hdncpnscat" />
+                      <input type="hidden" value="<?php echo $cpnm_discamt; ?>" name="hdncpnval" />
+                      <!--------------------------------- Coupon Details ------------------------------------->
                     </div>
                   </div>
-                </div>
-                <!-- Card -->
-                <!-- Card -->
-              
-                <!-- Card -->
+                  </div>
+                  <!-- Card -->
+                  <!-- Card -->
+
+                  <!-- Card -->
               </div>
               <!--Grid column-->
             </div>
@@ -780,10 +726,10 @@ prodm_id !='' and prodm_sts ='a' and vehtypm_sts='a' and vehbrndm_sts='a' and ve
     //alert(totlprdcnt);
     // document.getElementById('dsplyprodcnt').innerHTML = totlprdcnt;
   }
-  function ChngAdr(frmname)
-  {
-    document.getElementById('frmblg'+frmname).action = "<?php echo $rtpth; ?>checkout.php?addr_sts=u";
-    document.getElementById('frmblg'+frmname).submit();
+
+  function ChngAdr(frmname) {
+    document.getElementById('frmblg' + frmname).action = "<?php echo $rtpth; ?>checkout.php?addr_sts=u";
+    document.getElementById('frmblg' + frmname).submit();
   }
 
   function funprod(prdid) {
@@ -859,27 +805,33 @@ prodm_id !='' and prodm_sts ='a' and vehtypm_sts='a' and vehbrndm_sts='a' and ve
       document.getElementById('dchrg1').style.display = "none";
     }
     var chkd = $('input[name="crtaddrsts"]:checked').val();
-    if(chkd == "d")
-    {
+    if (chkd == "d") {
       var chrgs = document.getElementById('txtdevlrychrg').value;
     }
-    if(chkd == "df")
-    {
+    if (chkd == "df") {
       var chrgs = document.getElementById('txtftngchrg').value;
     }
-    if(chkd == "fs")
-    {
+    if (chkd == "fs") {
       var chrgs = document.getElementById('txtftstchrg').value;
     }
-  
+
     var totcrtprc = $("#ntTogPrc").val();
-    var cpnid = document.getElementById('cpnid').value;
+    var ses="<?php  echo $_SESSION['coupen'];?>";
+    if(ses!=''){
+      var cpnid = document.getElementById('cpnid').value;
     var cpndisamt = document.getElementById('cpndisamt').value;
     // var cpncunt = document.getElementById('cpncunt').value;
+    }
+    else{
+      var cpnid="";
+      var cpndisamt="";
+    }
+    
     $.ajax({
       type: "POST",
       url: "chng_prcs_chkout.php",
-      data: 'chrgs='+chrgs+'&totcrtprc='+totcrtprc+'&chkd='+chkd+'&cpnid='+cpnid+'&cpndisamt='+cpndisamt,
+      //data: 'chrgs=' + chrgs + '&totcrtprc=' + totcrtprc + '&chkd=' + chkd ,
+      data: 'chrgs=' + chrgs + '&totcrtprc=' + totcrtprc + '&chkd=' + chkd + '&cpnid=' + cpnid + '&cpndisamt=' + cpndisamt,
       // +'&cpncunt='+cpncunt
       success: function(data) {
         // alert(data)
@@ -887,66 +839,63 @@ prodm_id !='' and prodm_sts ='a' and vehtypm_sts='a' and vehbrndm_sts='a' and ve
       }
     });
   }
-  function frmcupn()
-	{
-    debugger
-		cupn = document.getElementById("prdcupn").value;
-		if (cupn != '')
-		{
-			var url = "<?php echo $rtpth; ?>manage_cart.php?coupn="+cupn;
-			xmlHttp = GetXmlHttpObject(stchng_UpdtCart);
-			xmlHttp.open("GET", url, true);
-			xmlHttp.send(null);
-		}
-		else
-		{
-			alert("Enter Coupon Code")
-		}
-	}
-	function stchng_UpdtCart()
-	{
-    location.reload();
-		//  if (xmlHttp.readyState == 4 || xmlHttp.readyState == "complete")
-		// {
-		// 	var temp = xmlHttp.responseText;
-		// 	alert(temp);
-		// } 
-	}
-	function frmrmvcupn()
-	{
-		rmvcupn = "r";
-		var url = "<?php echo $rtpth; ?>manage_cart.php?rmv=" + rmvcupn;
-		xmlHttp = GetXmlHttpObject(stchng_rmvcupn);
-		xmlHttp.open("GET", url, true);
-		xmlHttp.send(null);
-	}
-	function stchng_rmvcupn()
-	{
-		location.reload();
-		/* if (xmlHttp.readyState == 4 || xmlHttp.readyState == "complete")
-		{
-			var temp = xmlHttp.responseText;
-		} */
-	}
 
+  function frmcupn() {
+    debugger
+    cupn = document.getElementById("prdcupn").value;
+    if (cupn != '') {
+      var url = "<?php echo $rtpth; ?>manage_cart.php?coupn=" + cupn;
+      xmlHttp = GetXmlHttpObject(stchng_UpdtCart);
+      xmlHttp.open("GET", url, true);
+      xmlHttp.send(null);
+    }
+     else {
+      alert("Enter Coupon Code")
+    }
+  }
+
+  function stchng_UpdtCart() {
+    location.reload();
+    //  if (xmlHttp.readyState == 4 || xmlHttp.readyState == "complete")
+    // {
+    // 	var temp = xmlHttp.responseText;
+    // 	alert(temp);
+    // } 
+  }
+
+  function frmrmvcupn() {
+    rmvcupn = "r";
+    var url = "<?php echo $rtpth; ?>manage_cart.php?rmv=" + rmvcupn;
+    xmlHttp = GetXmlHttpObject(stchng_rmvcupn);
+    xmlHttp.open("GET", url, true);
+    xmlHttp.send(null);
+  }
+
+  function stchng_rmvcupn() {
+    location.reload();
+    /* if (xmlHttp.readyState == 4 || xmlHttp.readyState == "complete")
+    {
+    	var temp = xmlHttp.responseText;
+    } */
+  }
 </script>
 <div class="modal fade" id="changAddress" tabindex="-1" role="dialog" aria-labelledby="changAddressLabel" aria-hidden="true">
-	<div class="modal-dialog" role="document">
-		<div class="modal-content">
-			<div class="modal-header">
-				<h5 class="modal-title" id="changAddressLabel">Change / Add Address</h5>
-				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-					<span aria-hidden="true">&times;</span>
-				</button>
-			</div>
-			<div class="modal-body">
-				<div class='card bg-light'>
-					<div class='card-body'>
-						<div class="row">
-							<div class="col-12">
-								<?php
-                $sqlmbr_mst= "SELECT mbrm_id, mbrm_name, mbrm_phno, mbrm_emailid from mbr_mst where mbrm_id = $regid";  
-                $resmbr_mst = mysqli_query($conn,$sqlmbr_mst);
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="changAddressLabel">Change / Add Address</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class='card bg-light'>
+          <div class='card-body'>
+            <div class="row">
+              <div class="col-12">
+                <?php
+                $sqlmbr_mst = "SELECT mbrm_id, mbrm_name, mbrm_phno, mbrm_emailid from mbr_mst where mbrm_id = $regid";
+                $resmbr_mst = mysqli_query($conn, $sqlmbr_mst);
                 $cntadr = mysqli_num_rows($resmbr_mst);
                 $rowmemb_mst = mysqli_fetch_assoc($resmbr_mst);
                 $membname = $rowmemb_mst['mbrm_name'];
@@ -958,28 +907,27 @@ prodm_id !='' and prodm_sts ='a' and vehtypm_sts='a' and vehbrndm_sts='a' and ve
                 $srsmbr_dtl1 = @mysqli_query($conn, $sqrymbr_dtl1);
                 $cntrec = @mysqli_num_rows($srsmbr_dtl1);
                 $cnt = 0;
-                while ($rowsmbr_dtl1 = mysqli_fetch_assoc($srsmbr_dtl1))
-                {
+                while ($rowsmbr_dtl1 = mysqli_fetch_assoc($srsmbr_dtl1)) {
                   $bilsts = $rowsmbr_dtl1['mbrd_dfltbil'];
                   $shpsts = $rowsmbr_dtl1['mbrd_dfltshp'];
-                 $mbrid = $rowsmbr_dtl1['mbrd_id'];
+                  $mbrid = $rowsmbr_dtl1['mbrd_id'];
                   $mbrmstid = $rowsmbr_dtl1['mbrd_mbrm_id'];
                   $mbrd_bmbrcntym_id = $rowsmbr_dtl1['mbrd_bmbrcntrym_id'];
                   //echo $mbrd_bmbrcntym_id;
                   $sqrycntry_mst = "select * from cntry_mst where cntrym_id = '$mbrd_bmbrcntym_id'";
                   $srscntry_mst = mysqli_query($conn, $sqrycntry_mst);
                   $srowscntry_mst = mysqli_fetch_assoc($srscntry_mst);
-                  ?>
+                ?>
                   <form name="frmblg<?php echo $mbrid ?>" id="frmblg<?php echo $mbrid ?>" method="POST">
                     <div class="border-bottom mb-3">
                       <!-- <span onclick="funbDeletmemdtl(<?php echo $mbrid; ?>)" class="pull-right"><i class="fas fa-trash-alt"></i></span> -->
                       <p>
                         <input type="radio" onclick="javascript:ChngAdr(<?php echo $mbrid; ?>)" name="chkshp" value="s" id="chkshp" <?php if ($shpsts == 'y' && $chked == '') {
-                              echo 'checked';
-                            } ?> />
+                                                                                                                                      echo 'checked';
+                                                                                                                                    } ?> />
                         <input type="hidden" name="hdnmsid" value="<?php echo $mbrid ?>" id="hdnmsid" />
                         <input type="hidden" name="hdnmstid" value="<?php echo $mbrmstid ?>" id="hdnmstid" />
-                        <input type="hidden" name="chkshop" id="chkshop" value="n"/>
+                        <input type="hidden" name="chkshop" id="chkshop" value="n" />
                         <strong><?php echo $rowsmbr_dtl1['mbrd_fstname'] . $rowsmbr_dtl1['mbrd_lstname']; ?></strong>
                       </p>
                       <p class="ml-4">
@@ -988,20 +936,20 @@ prodm_id !='' and prodm_sts ='a' and vehtypm_sts='a' and vehbrndm_sts='a' and ve
                       </p>
                     </div>
                   </form>
-                  <?php
+                <?php
                 }
                 include_once("includes/inc_fnct_ajax_validation.php"); ?>
-                <form name="frmaddbilngdtl" id="frmaddbilngdtl" action="<?php $_SERVER['PHP_SELF'];?>" method="post" onSubmit="return performCheck('frmaddbilngdtl', addrrules, 'inline');">
-                  <input type="hidden" class="form-control ps-form__input" name="hnsname1" value="<?php echo $membname ;?>">
-                  <input type="hidden" class="form-control ps-form__input" name="hnsemail" value="<?php echo $membemail;?>">
-                  <input type="hidden" class="form-control ps-form__input" name="hnsmembid" value="<?php echo $memid;?>">
+                <form name="frmaddbilngdtl" id="frmaddbilngdtl" action="<?php $_SERVER['PHP_SELF']; ?>" method="post" onSubmit="return performCheck('frmaddbilngdtl', addrrules, 'inline');">
+                  <input type="hidden" class="form-control ps-form__input" name="hnsname1" value="<?php echo $membname; ?>">
+                  <input type="hidden" class="form-control ps-form__input" name="hnsemail" value="<?php echo $membemail; ?>">
+                  <input type="hidden" class="form-control ps-form__input" name="hnsmembid" value="<?php echo $memid; ?>">
                   <div class="ps-form--review chkt-forms">
                     <h2 class="ps-form__title">Add Address</h2>
                     <div class="row">
                       <div class="col-lg-12 co-lmd-12">
                         <div class="ps-form__group">
                           <label class="ps-form__label">Full Name</label>
-                          <input class="form-control ps-form__input" type="text" name="txtname" id="txtname" value="<?php echo $membname ;?>">
+                          <input class="form-control ps-form__input" type="text" name="txtname" id="txtname" value="<?php echo $membname; ?>">
                         </div>
                       </div>
                     </div>
@@ -1009,13 +957,13 @@ prodm_id !='' and prodm_sts ='a' and vehtypm_sts='a' and vehbrndm_sts='a' and ve
                       <div class="col-lg-6 col-md-6">
                         <div class="ps-form__group">
                           <label class="ps-form__label">Email *</label>
-                          <input class="form-control ps-form__input" type="text" name="txtemail" id="txtemail" value="<?php echo $membemail;?>" disabled style="cursor:not-allowed">
+                          <input class="form-control ps-form__input" type="text" name="txtemail" id="txtemail" value="<?php echo $membemail; ?>" disabled style="cursor:not-allowed">
                         </div>
                       </div>
                       <div class="col-lg-6 col-md-6">
                         <div class="ps-form__group">
                           <label class="ps-form__label">Mobile *</label>
-                          <input class="form-control ps-form__input" type="text" name="txtphno" id="txtphno" value="<?php echo $membphno;?>">
+                          <input class="form-control ps-form__input" type="text" name="txtphno" id="txtphno" value="<?php echo $membphno; ?>">
                         </div>
                       </div>
                     </div>
@@ -1045,18 +993,20 @@ prodm_id !='' and prodm_sts ='a' and vehtypm_sts='a' and vehbrndm_sts='a' and ve
                           <select name="lststate" id="lststate" class="form-control ps-form__input">
                             <?php
                             $sqrymbrcnty_mst = "SELECT cntym_id,cntym_name,cntym_sts from cnty_mst where (cntym_sts ='a' or cntym_sts ='u') and cntym_cntrym_id = 2 group by cntym_id order by cntym_name";
-                            $srsmbrcnty_mst = mysqli_query($conn,$sqrymbrcnty_mst) or die(mysql_error());
+                            $srsmbrcnty_mst = mysqli_query($conn, $sqrymbrcnty_mst) or die(mysql_error());
                             $dispstr = "";
-                            while($srowmbrcnty_mst = mysqli_fetch_assoc($srsmbrcnty_mst))
-                            {
+                            while ($srowmbrcnty_mst = mysqli_fetch_assoc($srsmbrcnty_mst)) {
                               $cntymid = $srowmbrcnty_mst['cntym_id'];
                               $cntymnm = $srowmbrcnty_mst['cntym_name'];
                               $cntysts = $srowmbrcnty_mst['cntym_sts'];
-                              ?>
-                              <option value="<?php echo $cntymid ?>"
-                                <?php if($cntymid=='28' ){ echo 'selected';}else{echo '';}?>>
+                            ?>
+                              <option value="<?php echo $cntymid ?>" <?php if ($cntymid == '28') {
+                                                                        echo 'selected';
+                                                                      } else {
+                                                                        echo '';
+                                                                      } ?>>
                                 <?php echo $cntymnm ?></option>
-                              <?php
+                            <?php
                             }
                             ?>
                           </select>
@@ -1081,17 +1031,17 @@ prodm_id !='' and prodm_sts ='a' and vehtypm_sts='a' and vehbrndm_sts='a' and ve
                       </div>
                     </div>
                     <div class="form-group" style="display:block">
-											<!-- <label for="chkbiladrs" class="checkbox-inline"> -->
-												<input type="checkbox" name="chkbiladrs" id="chkbiladrs" value="y" checked="">Billing Address
-											<!--</label>-->
-											<!--<label for="chkshpadrs" class="checkbox-inline">-->
-												<input type="checkbox" name="chkshpadrs" id="chkshpadrs" value="y" checked="">Default Shipping Address
-											<!--</label>-->
-										</div>
+                      <!-- <label for="chkbiladrs" class="checkbox-inline"> -->
+                      <input type="checkbox" name="chkbiladrs" id="chkbiladrs" value="y" checked="">Billing Address
+                      <!--</label>-->
+                      <!--<label for="chkshpadrs" class="checkbox-inline">-->
+                      <input type="checkbox" name="chkshpadrs" id="chkshpadrs" value="y" checked="">Default Shipping Address
+                      <!--</label>-->
+                    </div>
                     <div class="row">
                       <div class="col-lg-12 col-md-12">
                         <div class="ps-form__submit">
-                          <input name="btnnewadrsadd" type="submit" id="btnnewadrsadd" value="Add" class="ps-btn ps-btn--warning"/>
+                          <input name="btnnewadrsadd" type="submit" id="btnnewadrsadd" value="Add" class="ps-btn ps-btn--warning" />
                           <!-- <button class="ps-btn ps-btn--warning">Add</button>-->
                         </div>
                       </div>

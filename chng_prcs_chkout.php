@@ -16,6 +16,7 @@ if (isset($_REQUEST['chrgs']) && (trim($_REQUEST['chrgs']) != "") && isset($_REQ
   $cpncunt1 = glb_func_chkvl($_REQUEST['cpncunt']);
  $totcpndiscamt = glb_func_chkvl($_REQUEST['cpndisamt']);
  $cpndis = 'y';
+ //$total_prc= ($totcrtprc+$chrgs);
 if($totcpndiscamt > 0 && $totcpndiscamt!=''){
  $total_prc= ($totcrtprc+$chrgs)-$totcpndiscamt;
 }
@@ -53,8 +54,10 @@ else{
       </li>
       <?php
     }
-    ?>
+  
+if($cpnm_cde != '') {
 
+ ?>
             <li class="list-group-item d-flex justify-content-between align-items-center px-0">
             <p>Coupon applied: (<b><?php echo $cpnm_cde; ?></b>)</p>
             <?php  if($cpndis == 'y')
@@ -66,10 +69,11 @@ else{
                           }?>
             <span>-  ₹<?php echo number_format($totcpndiscamt, 0, ".", ","); ?>
         </span></li>
+
      <?php  if($cpndis == 'n')
         {
           echo "<p style='color:red;'<strong>Coupon Not Applicable</strong></p>";
-             } ?>
+             }} ?>
     <li class="list-group-item d-flex justify-content-between align-items-center px-0">
       Total Cart Value
       <span>₹<?php if ($totcrtprc > 0) {
