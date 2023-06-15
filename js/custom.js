@@ -487,7 +487,7 @@ var Mobhil = function(){
 				slide: function(event, ui) {
 					var min = ui.values[0],
 						max = ui.values[1];
-					  $('#' + this.id).prev().val("$" + min + " - $" + max);
+					  $('#' + this.id).prev().val("₹" + min + " - ₹" + max);
 				}
 			});
 		}

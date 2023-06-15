@@ -107,7 +107,7 @@ $cntrec_prod = mysqli_num_rows($srsprod_mst);
 			<option value="php" <?php if ($prdsortflt == "php") { echo "selected"; } else{ echo ""; } ?>>Price: Highest first </option>
 			<option value="paz" <?php if ($prdsortflt == "paz") { echo "selected"; } else{ echo ""; } ?>>Product Name: A to Z </option>
 			<option value="pza" <?php if ($prdsortflt == "pza") { echo "selected"; } else{ echo ""; } ?>>Product Name: Z to A </option>
-			<option value="pis" <?php if ($prdsortflt == "pis") { echo "selected"; } else{ echo ""; } ?>>In stock</option>
+			<!-- <option value="pis" <?php if ($prdsortflt == "pis") { echo "selected"; } else{ echo ""; } ?>>In stock</option> -->
 		</select>
 	</div>
 </div>

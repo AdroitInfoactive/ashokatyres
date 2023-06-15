@@ -205,6 +205,7 @@ include('header.php');
                               $cntinc = 1;
                               $totWt     = 0;
                               $cnt = 0;
+                              $cpndis='';
                               foreach ($items as $items_id => $items_val) {
                                 $totuntprc = 0;
                                 $totbilprc = 0;
@@ -274,42 +275,48 @@ prodm_id !='' and prodm_sts ='a' and vehtypm_sts='a' and vehbrndm_sts='a' and ve
                                   if ($cpnm_id != '') {
                                     if ($cpnm_apply_on == 1)
                                      {
-
                                       if (($cpnm_mncat == $vehicle_typ) && ($cpnm_cat == $vehicle_brnd) && ($cpnm_scat == $vehicle_model)) {
+                                      
                                         $cpnprdprc = $prc * $untqty;
                                         $totalcpnprdprc += $cpnprdprc;
-                                        $cpndis = 'y';
+                                        $cpndis .= 'y';
                                       } else if (($cpnm_mncat == $vehicle_typ) && ($cpnm_cat == $vehicle_brnd) && ($cpnm_scat == '0')) {
+                                       
                                         $cpnprdprc = $prc * $untqty;
                                         $totalcpnprdprc += $cpnprdprc;
-                                        $cpndis = 'y';
+                                        $cpndis .= 'y';
                                       } else if (($cpnm_mncat == $vehicle_typ) && ($cpnm_cat == '0') && ($cpnm_scat == '0')) {
+                                      
                                         $cpnprdprc = $prc * $untqty;
                                         $totalcpnprdprc += $cpnprdprc;
-                                        $cpndis = 'y';
+                                        $cpndis .= 'y';
                                       } else if (($cpnm_mncat == '0') && ($cpnm_cat == '0') && ($cpnm_scat == '0')) {
+                                      
                                         $cpnprdprc = $prc * $untqty;
                                         $totalcpnprdprc += $cpnprdprc;
-                                        $cpndis = 'y';
-                                      } else {
-                                        $cpndis = 'n';
+                                        $cpndis .= 'y';
+                                      }
+                                       else {
+                                        
+                                        $cpndis .= 'n';
                                       }
                                     } 
                                     else if ($cpnm_apply_on == 2)
                                      {
                                       $prodbrnd;
                                       if (($cpnm_brnd == $prodbrnd) || ($cpnm_brnd == 0)) {
-                                        $cpndis = 'y';
+                                        $cpndis .= 'y';
                                         $cpnprdprc = $prc * $untqty;
                                         $totalcpnprdprc += $cpnprdprc;
                                         //  $totalcpnprdprc +=$crt_tot_prc;
-                                      } else {
-                                        $cpndis = 'n';
+                                      } 
+                                      else {
+                                        $cpndis .= 'n';
                                       }
                                     }
                                   }
                                   else {
-                                    $cpndis = 'n';
+                                    $cpndis .= 'n';
                                   }
                                   // coupons ends
 
@@ -408,24 +415,39 @@ prodm_id !='' and prodm_sts ='a' and vehtypm_sts='a' and vehbrndm_sts='a' and ve
                       $snglcpn = "na";
                     }
                   }
-                  if ($cpndis == 'y' && $ntamttyp == 'y' && $snglcpn == 'y') {
-                    if ($cpnm_disctyp == 'p') {
+                  $cpndis_arr = str_split($cpndis);
+                  // foreach ($cpndis_arr as $cpnid => $cpnval)
+                  // {
+                  //   $cpndis = $cpnval;
+                  //   echo"+".  $cpndis;
 
-                      $disper = $cpnm_per / 100;
-                      $per_amt = $totalcpnprdprc * $disper;
-                      $cpnm_discamt = $per_amt;
-                      $totcpndiscamt += $cpnm_discamt;
-                      $cpncunt++;
-                    }
-                     else 
-                     {
-                      $cpnm_discamt = $cpnm_amt;
-                      $totcpndiscamt += $cpnm_discamt;
-                      $cpncunt++;
-                    }
-                  } 
-                  else {
+                  if(in_array('y',$cpndis_arr)){
+                    $cpndis='y';
                   }
+                  else{
+                    $cpndis='n';
+                  }
+                    if ($cpndis == 'y' && $ntamttyp == 'y' && $snglcpn == 'y') {
+                      if ($cpnm_disctyp == 'p') {
+  
+                        $disper = $cpnm_per / 100;
+                        $totalcpnprdprc;
+                        $per_amt = $totalcpnprdprc * $disper;
+                        $cpnm_discamt = $per_amt;
+                     $totcpndiscamt += $cpnm_discamt;
+                        $cpncunt++;
+                      }
+                       else 
+                       {
+                        $cpnm_discamt = $cpnm_amt;
+                        $totcpndiscamt += $cpnm_discamt;
+                        $cpncunt++;
+                      }
+                    } 
+                    else {
+                    
+                    }
+                  // }
                   if ($cpncunt > 0) { ?>
                     <!-- <div class="row">
                     <div class="col-lg-6 col-md-6">
@@ -591,17 +613,21 @@ prodm_id !='' and prodm_sts ='a' and vehtypm_sts='a' and vehbrndm_sts='a' and ve
                               <input type="text" id="prdcupn" class="form-control font-weight-light" placeholder="Enter discount code">
                             </div>
                           </div>
+                          <?php
+                           if ($cpndis == 'n' && $coupen != '') {
+                            echo "<p style='color:red;'<strong>Coupon Not Applicable</strong></p>";
+                          } 
+                          ?>
                           <div class="col-lg-4 col-md-4 col-12">
                             <button class="ps-btn ps-btn--primary mb-3" type="button" onClick="javascript:frmcupn()">Apply coupon</button>
                           </div>
                         </div>
                       </div>
                     </div>
-                  <?php  }
-                if ($cpndis == 'n' && $coupen != '') {
-                  echo "<p style='color:red;'<strong>Coupon Not Applicable</strong></p>";
+                  <?php
+                  
                 }
-
+            
                   ?>
                   <div class="pt-4">
                     <h5 class="mb-3 text-primary">The total amount of</h5>
@@ -632,8 +658,9 @@ prodm_id !='' and prodm_sts ='a' and vehtypm_sts='a' and vehbrndm_sts='a' and ve
                         ?>
                           <li class="list-group-item d-flex justify-content-between align-items-center px-0">
                             <p>Coupon applied: (<b><?php echo $cpnm_cde; ?></b>)</p>
-                            <?php if ($cpndis == 'y') {
-
+                            <?php
+                             if ($cpndis == 'y') {
+                             // if ($totcpndiscamt >0 ) {
                             ?>
                               <span style="margin-left:15px; width:26px; height:26px; line-height:26px; text-align:center; border:1px solid #ccc; display:inline-block;"><a href="#" onclick="frmrmvcupn()"> <i class="fa fa-trash"></i></a></span>
                             <?php

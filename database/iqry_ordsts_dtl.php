@@ -3,6 +3,7 @@ include_once "../includes/inc_nocache.php"; //Clearing the cache information
 include_once "../includes/inc_adm_session.php"; //checking for session
 include_once "../includes/inc_connection.php"; //Making database Connection
 include_once "../includes/inc_usr_functions.php"; //Use function for validation and more 
+
 // $prdt = "Too-".date('my')."-";
 $cur = date('y');
 $nxt = date('y', strtotime('+1 year'));
@@ -31,7 +32,7 @@ $stsdt = glb_func_chkvl($_POST['txtdt']);
 	// echo $sqryordsts_mst;exit;
 	//$rowsordsts_mst = 0;
 	if ($rowsordsts_mst < 1) {
-		if ((($stsid == '3') || ($odrstsnm == "Delivered"))) {
+		if ((($stsid == '6') || ($odrstsnm == "Dispached"))) {
 			$uqrycrtord_mst = "UPDATE crtord_mst set crtordm_paysts = 'y' where crtordm_id = '$orderid'";
 			//	 echo "Helooo";exit;
 			$resuqrycrtord_mst = mysqli_query($conn, $uqrycrtord_mst);
@@ -102,6 +103,20 @@ $stsdt = glb_func_chkvl($_POST['txtdt']);
 					$cupnm = $srowcrtord_mst['cpnm_name'];
 					$cupval = $srowcrtord_mst['crtordm_cpnm_val'];
 					$cuptyp = $srowcrtord_mst['crtordm_cpnm_typ'];
+					//$paysts = $srowcrtord_mst['crtordm_paysts'];
+									
+										$sqry_crtord_sts = "SELECT ordstsd_ordstsm_id from ordsts_dtl where ordstsd_crtordm_id = $ordmstid order by ordstsd_id desc limit 1";
+										$ordsts_dtl = mysqli_query($conn, $sqry_crtord_sts);
+										$srs_ordsts_dtl = mysqli_fetch_assoc($ordsts_dtl);
+										$ordsts = $srs_ordsts_dtl['ordstsd_ordstsm_id'];
+										$ordqnty = $order_dtl['crtordm_qty'];
+										$ordamt = $order_dtl['crtordm_amt'];
+										//$ordsts = $order_dtl['ordstsd_ordstsm_id'];
+										$state=$order_dtl['scntynm'];
+										// $ordsts_qry = "SELECT ordstsm_id, ordstsm_name, ordstsm_desc, ordstsm_sts, ordstsm_prty FROM ordsts_mst WHERE ordstsm_id = $ordsts ";
+										// $ordersts_mst = mysqli_query($conn,$ordsts_qry);
+										// $ordersts_dtl = mysqli_fetch_assoc($ordersts_mst);
+										// $type = $ordersts_dtl['ordstsm_name'];
 					$shpchrges_qry = "SELECT shpngm_id,shpngm_prc from shpng_mst where shpngm_sts = 'a' and shpngm_id = '$shpmnid'";
 					$shpngchrges_mst = mysqli_query($conn, $shpchrges_qry);
 					$num_rows = mysqli_num_rows($shpngchrges_mst);
@@ -184,316 +199,277 @@ $stsdt = glb_func_chkvl($_POST['txtdt']);
 					$dt = "DEL-" . date('my') . "-";
 					$hdimg = "http://" . $u_prjct_mnurl . "/" . $site_logo; //Return the URL	
 					$orddate = date('l jS F Y', strtotime($orddate));
+					
 					$msgbody = "<!DOCTYPE HTML PUBLIC '-//W3C//DTD HTML 4.01//EN' 'http://www.w3.org/TR/html4/strict.dtd'>
-      <html>
-       <head>
-        <meta charset='utf-8'>
-        <meta http-equiv='X-UA-Compatible' content='IE=edge'>
-        <meta name='viewport' content='width=device-width, initial-scale=1.0'>
-        <meta name='format-detection' content='telephone=no'>
-        <meta name='apple-mobile-web-app-capable' content='yes'>
-        <link href='img/favicon.png' rel='apple-touch-icon-precomposed'>
-        <link href='img/favicon.png' rel='shortcut icon' type='image/png'>
-        <meta name='author' content=''>
-        <meta name='keywords' content=''>
-        <meta name='description' content=''>
-        <title>Liamsons</title>
-        </head>
-
-        <body>
-    <div class='email-holder' style='max-width: 800px; background-color: #f2f2f2;margin: auto;width: 100%;'>
-        <div class='logo-holder' style='background-color: rgba(72, 147, 89, 0.1);'>
-            <img src='img/logo/liamsons-logo.png'
-                style='max-width: 200px;margin: auto;display: block;padding: 10px;' alt=''>
-        </div>
-        <div class='liamsons-title' style='text-align:center;border-bottom: 1px solid #b3b3b3;'>
-            <h3
-                style='text-align: center;letter-spacing: 1px;font-size: 1.2rem;text-transform: uppercase;margin-bottom: 10px;'>
-                Liamsons Business Private Limited</h3>
-            <p style='text-transform: uppercase;margin-top: 0;'>Tax Invoice</p>
-        </div>
-        <div class='table-holder' style='padding-left: 10px;padding-right:10px;border-bottom: 1px solid #b3b3b3;'>
-
-        <table style='width:100%'>
-        <tr style='display: flex;align-items:flex-start;'>
-        <td width='50%'>
-        <p
-        style='margin-bottom: 10px;font-size: 1.1rem;font-weight: 600;letter-spacing: 1px;color: #489359;'>
-        Order No: $ordcode</p>
-        <p style='margin-bottom: 4px;font-size: 1rem;letter-spacing: 0.6px;'><strong>Order Date Time:</strong>
-                $orddate
-        </p>
-        <p style='margin-bottom: 4px;font-size: 1rem;letter-spacing: 0.6px;'><strong>Order Status:</strong>
-       <b style='color:#489359'> $odrstsnm</b>
-          </p>
-    
-        </td>
-        <td width='50%'>
-        <p
-        style='margin-bottom: 10px;font-size: 1.1rem;font-weight: 600;letter-spacing: 1px;color: #489359;'>
-        Delivered From</p>
-        <p style='margin-bottom: 4px;font-size: 1rem;letter-spacing: 0.6px;'>LIAMSONS BUSINESS PRIVATE
-        LIMITED
-        </p>
-        <p style='margin: 0;font-size: 1rem;letter-spacing: 0.6px;'>Mob-7981077230<br>
-        2-2-215/14/29,STREET NO 1, TIRUMALA, ENCLAVE, MACHABOLLARAM, HYDERABAD,<br> HYDERABAD<br>
-        Telangana-36
-        <br> 500010
-        </p>
-        <p><strong>GST No:</strong> 36AAFCL1483Q1ZX </p>
-        </td>
-        </tr>
-    
-    
-        <tr style='display: flex;align-items:flex-start;'>
-        <td width='50%'>
-    
-        <p
-        style='margin-bottom: 10px;font-size: 1.1rem;font-weight: 600;letter-spacing: 1px;color: #489359;'>
-        Customer Shipping Address </p>
-                        <p style='margin-bottom: 4px;font-size: 1rem;letter-spacing: 0.6px;'>$shpcmpltadrs
-                        </p>
-     </td>
-        <td width='50%'>
-        <p
-        style='margin-bottom: 10px;font-size: 1.1rem;font-weight: 600;letter-spacing: 1px;color: #489359;'>
-        Customer Billing Address</p>
-        <p style='margin-bottom: 4px;font-size: 1rem;letter-spacing: 0.6px;'>$blngcmpltadrs
-        </p>
-    
-        </td>
-        </tr>
-
-        </table>
-         </div>
-        <div style='background-color: #489359;color: #fff;padding: 15px 10px;'>
-        <h3 style='margin:0;letter-spacing: 1px;'>Products</h3>
-        </div>
-        <div class='table-holder' style='padding-left: 10px;padding-right:10px;border-bottom: 1px solid #b3b3b3;'>
-        <table style='width:100%' style='border: 1px solid black; border-collapse: collapse;'>
-        <tr style='border-bottom: 1px solid #b3b3b3'>
-        <td width='6%' style='padding: 10px 5px;font-weight: 600;font-size: 15px;letter-spacing: 0.6px;'>Sl No.
-        </td>
-    
-        <td width='25%' style='padding: 10px 5px;font-weight: 600;font-size: 15px;letter-spacing: 0.6px;'>Code/Name
-        </td>
-        <td width='10%' style='padding: 10px 5px;font-weight: 600;font-size: 15px;letter-spacing: 0.6px;text-align:center;'>Unit Price (&#x20B9;)
-        </td>";
-		if($state=='Telangana')
-		{	
-			$msgbody.="<td width='10%' style='padding: 10px 5px;font-weight: 600;font-size: 15px;letter-spacing: 0.6px;text-align:center;'>CGST (%)</td>
-			<td width='10%' style='padding: 10px 5px;font-weight: 600;font-size: 15px;letter-spacing: 0.6px;text-align:center;'>SGST (%)</td>";
-		
-		}
-		else{ 
-		$msgbody.="	<td width='10%' style='padding: 10px 5px;font-weight: 600;font-size: 15px;letter-spacing: 0.6px;text-align:center;'>IGST (%)</td>";
-		
-		}
-	
-		$msgbody.="<td width='15%' style='padding: 10px 5px;font-weight: 600;font-size: 15px;letter-spacing: 0.6px;text-align:end;'>Price + Tax</td>
-        <td width='10%' style='padding: 10px 5px;font-weight: 600;font-size: 15px;letter-spacing: 0.6px;text-align:end;'>Qty</td>
-            <td width='30%' style='padding: 10px 5px;font-weight: 600;font-size: 15px;letter-spacing: 0.6px;text-align:end;'>Total Amount(&#x20B9;)
-        </td>
-        </tr>";
-
-					$sqrycrtord_dtl = "SELECT crtordd_id, crtordd_qty,crtordd_prc,prodm_id,prodm_name, crtordd_prc as unprcval,prodszvrtnm_vrtn_nms,prodszvrtnm_id,prodprcm_id,prodprcm_sku,prodprcm_sleprc,prodprcm_ofrprc ,prodm_name,crtordm_shpchrgm_id,crtordd_igst,crtordd_sgst,crtordd_cgst
-        from crtord_dtl 
-        inner join crtord_mst on crtordd_crtordm_id = crtordm_id
-        left join prod_mst on prod_mst.prodm_id = crtord_dtl.crtordd_prodm_id 
-        inner join prodsz_vrtns_mst on prodszvrtnm_id = crtordd_sizem_id 
-        inner join prodprc_mst on crtordd_prodprcd_id = prodprcm_id where crtordd_crtordm_id = $orderid group by crtordd_id";
-					//echo $sqrycrtord_dtl;
-					$srscrtord_dtl = mysqli_query($conn, $sqrycrtord_dtl);
-					$cnttorec = mysqli_num_rows($srscrtord_dtl);
-					$totqty = "";
-					$totlprc = "";
-					$cntord = 0;
-					if ($cnttorec > 0) {
-						while ($rowspo_mst = mysqli_fetch_assoc($srscrtord_dtl)) {
-							$cntord += 1;
-							$db_qty = $rowspo_mst['crtordd_qty'];
-							//$crtordm_prctyp = 'u';
-							if ($crtordm_prctyp == 'u') {
-								$db_prc = funcDlrprc($rowspo_mst['crtordd_prc'], $conn);
-								$dbunt_prc = funcDlrprc($rowspo_mst['unprcval'], $conn);
-							} else {
-								$db_prc = $rowspo_mst['crtordd_prc'];
-								$dbunt_prc = $rowspo_mst['unprcval'];
-							}
-							//$szid =	$rowspo_mst['szid'];
-							$crtprdid = $rowspo_mst['crtordd_prodm_id'];
-							$prcid = $rowspo_mst['crtordd_prodprcd_id'];
-							$totprc = ($db_qty * $db_prc);
-							$db_shpprcid = $rowspo_mst['crtordm_shpchrgm_id'];
-							$shpngqry = "SELECT shpngm_id,shpngm_prc from  shpng_mst WHERE shpngm_id = $db_shpprcid and shpngm_sts = 'a' ";
-							$shpng_mst = mysqli_query($conn, $shpngqry);
-							$shpng_dtl = mysqli_fetch_assoc($shpng_mst);
-							$db_shpprc = $shpng_dtl['shpngm_prc'];
-							$igstval = $rowspo_mst['crtordd_igst'];
-							$sgstval = $rowspo_mst['crtordd_sgst'];
-							$cgstval = $rowspo_mst['crtordd_cgst'];
-
-							$dmeonamt = 100 + $igstval;
-							$prodtax = ($db_prc / $dmeonamt) * $igstval;
-							$gstval = $igstval;
-							//  echo"here".$gstval;
-							$totlprdprc = ($totlprdprc + $totprc);
-							// $gst = 1+($gstval/100);
-							// $sgst = 1+($sgstval/100);
-							// $cgst = 1+($cgstval/100);
-							//$prdprc  = $db_prc/$gst;
-							$prdprc = $db_prc - $prodtax;
-							$sgstprdprc = $db_prc / $sgst;
-							$cgstprdprc = $db_prc / $cgst;
-							$prdwoustgst = $prdprc;
-							$prdwoustsgst = $sgstprdprc;
-							$prdwoustcgst = $cgstprdprc;
-							// $tax = $db_prc - $prdwoustgst;
-							// $sgsttax = $db_prc - $prdwoustsgst;
-							// $cgsttax = $db_prc - $prdwoustcgst;
-							$igstper = $gstper;
-							$substr = substr($gstnm, 0, 2);
-							if ($nmstrws == 1) {
-								$gstdiv = $prodtax / 2;
-								$cgst = number_format($gstdiv, 2, '.', ',');
-								$sgst = number_format($gstdiv, 2, '.', ',');
-								$gstper = ($gstval / 2) . "%";
-							}
-							$igstper = $gstval . "%";
-							$prodm_name = $rowspo_mst['prodm_name'];
-							$prodprcm_sku = $rowspo_mst['prodprcm_sku'];
-							$prodszvrtnm_vrtn_nms = $rowspo_mst['prodszvrtnm_vrtn_nms'];
-
-							$msgbody .= "
-	 <tr style='border-bottom: 1px solid #b3b3b3'>
-	  <td style='padding: 6px 5px;font-size: 15px;letter-spacing: 0.6px;'>$cntord</td>";
-							if ($prodszvrtnm_vrtn_nms != '') {
-								$msgbody .= " <td style='padding: 6px 5px;font-size: 15px;letter-spacing: 0.6px;'>
-        
-           Name: $prodm_name </br>
-           Code: $prodprcm_sku </br>
-           Size:$prodszvrtnm_vrtn_nms
-           </td>";
-							} else {
-								$msgbody .= " <td style='padding: 6px 5px;font-size: 15px;letter-spacing: 0.6px;'>
-            Name: $prodm_name </br>
-            Code: $prodprcm_sku </br>
-            </td>";
-							}
-
-							$msgbody .= "<td style='padding: 6px 5px;font-size: 15px;letter-spacing: 0.6px;text-align:end;'>";
-							$totalprdprc += $prdprc;
-							$prdwoustgst = $prdprc;
-							$prdprc = number_format($prdwoustgst, 2, '.', ',');
-
-							$msgbody .= " $prdprc </td>";
-							if ($nmstrws == 1) {
-								$totalcgst += $cgstval;
-								$totalsgst += $sgstval;
-								 $msgbody.="<td style='padding: 6px 5px;font-size: 15px;letter-spacing: 0.6px;text-align:end;'>$cgst<br>($gstper)
-					  <td style='padding: 6px 5px;font-size: 15px;letter-spacing: 0.6px;text-align:end;'>$sgst<br>($gstper)";
-						}
-						else{
-						$totaltax += $prodtax;
-						$prodtax=number_format($prodtax,2,'.',',');
-						$msgbody.="<td style='padding: 6px 5px;font-size: 15px;letter-spacing: 0.6px;text-align:end;'>$prodtax<br>($igstper)</td>";
+			<html>
+			<head><meta http-equiv='Content-Type' content='text/html; charset=utf-8'>
+			<meta name='viewport' content='width=device-width, initial-scale=1.0'/>
+			<title>$usr_cmpny | Order has been logged, payment is pending</title>
+			<style type='text/css'>
+			#outlook a{padding:0}body{width:100% !important;-webkit-text-size-adjust:100%;-ms-text-size-adjust:100%;margin:0;padding:0;background-color:#fdfbed;font-family:Arial,Helvetica,sans-serif;font-size:12px}p{margin-top:0;margin-bottom:10px}table td{border-collapse:collapse}table{border-collapse:collapse;mso-table-lspace:0pt;mso-table-rspace:0pt}img{outline:none;text-decoration:none;-ms-interpolation-mode:bicubic}a img{border:none}.image_fix{display:block} a{color:#109547; text-decoration:none;} a:hover{color:#ea7724; text-decoration:none;}
+			</style>
+			</head>
+			<body style='margin:0; background-color:#ffffff;' marginheight='0' topmargin='0' marginwidth='0' leftmargin='0'>
+			<div style='background-color:#fff;'>
+				<table style='background-color:#ffffff;padding:0' background='#ffffff' width='605' border='0' align='center' cellpadding='0' cellspacing='0'>
+					<tr>
+						<td><a href='https://" . $u_prjct_mnurl . "/home' ><img src='https://www.ashokatyre.com/images/ashokatyre-logo.png' alt='$usr_cmpny' hspace='10' vspace='15' width='200'></a></td>
+						<td align='right' width='50%'> <a href='https://www.ashokatyre.com/list-order' target='_blank' style='color:#e99005; margin-right:10px;'>Your Orders</a> | <a href='https://www.ashokatyre.com/' target='_blank' style='color:#e99005; margin-left:10px;'>ashokatyre.com</a><br>
+							<h2 style='margin-top:5px; margin-bottom:5px; font-family:Arial, Helvetica, sans-serif;font-size:18px;  color:#332308;'>Order Information</h2>
+							<p>$ordcode</p>
+						</td>
+					</tr>
+				</table>
+				<table style='background-color:#ffffff;padding:0' background='#ffffff' width='605' border='0' align='center' cellpadding='0' cellspacing='0'>
+					<tr>
+						<td valign='top' bgcolor='#ffffff' style=' margin-bottom:5px;'></td>
+					</tr>
+					<tr>
+						<td height='2' valign='top' bgcolor='#cccccc' colspan='2'  style='margin-top:0;margin-right:0;margin-bottom:0;margin-left:0;padding-top:0;padding-right:0;padding-bottom:0;padding-left:0;text-align:left;-webkit-text-size-adjust:none;font-size:0;line-height:0;'>&nbsp;</td>
+					</tr>
+					<tr>
+						<td height='10' valign='top' bgcolor='#fff' class='spacer' style='margin-top:0;margin-right:0;margin-bottom:0;margin-left:0;padding-top:0;padding-right:0;padding-bottom:0;padding-left:0;text-align:left;-webkit-text-size-adjust:none;font-size:0;line-height:0;'>&nbsp;</td>
+					</tr>
+					<tr>
+						<td valign='top' bgcolor='#ffffff'><p style='font-family:Arial, Helvetica, sans-serif; color:#e99005; font-weight:bold;'>Dear $bfname,</p>
+							<p style='font-family:Arial, Helvetica, sans-serif; '>Thank you for placing your order. </p>
+							We thank you for being our valued customer. We hope you enjoyed your purchase. All our products are crafted with an obsessive attention to detail.<br>
+						</td>
+					</tr>
+				</table>
+				<table width='605' border='1' align='center' cellpadding='5' cellspacing='0' bordercolor='#dfdfdf' style='border:1px solid #dfdfdf; margin-top:15px;' >
+					<tr valign='top' ><td colspan='2'><p style='color:#e99005; font-family:Arial, Helvetica, sans-serif; margin-top:5px; margin-bottom:5px'>Order Summery</p></td></tr>
+					<tr valign='top'>
+						<td align='left'>
+							<p><strong style='color:color:#332308;'>Order No</strong> $ordcode</p>
+							<p><strong  style='color:color:#332308;'>Order Date</strong> $orddate</p>
+							<p><strong  style='color:color:#332308;'>Payment Status</strong> <span style='color:#e99005'>	$dispsy</span></p>
+							<p><strong  style='color:color:#332308;'>Order Status</strong> $odrstsnm</p>
 						
-							}
-							$Tot_price += $db_prc;
-							$msgbody .= " <td style='padding: 6px 5px;font-size: 15px;letter-spacing: 0.6px;text-align:end;'>$db_prc</td>
-         <td style='padding: 6px 5px;font-size: 15px;letter-spacing: 0.6px;text-align:end;'>";
-							$db_qty;
-							$totqty = $totqty + $db_qty;
+						</td>
+					</tr> 
+				</table>
+				<table width='605' border='1' align='center' cellpadding='5' cellspacing='0' bordercolor='#dfdfdf' style='border:1px solid #dfdfdf; margin-top:15px;' >
+					<tr>
+						<td valign='middle'><p style='color:#e99005'>Sno</p></td>
+						<td valign='middle'><p style='color:#e99005'>Product</p></td>
+						<td valign='middle'><p style='color:#e99005'>Code/Nmae</p></td>
+						<td valign='middle'><p style='color:#e99005'>Unit Price</p></td>
+						<td valign='middle'><p style='color:#e99005'>Qty</p></td>
+						<td align='right' valign='middle'><p style='color:#e99005'>Total Price(INR)</p></td>
+					</tr>";
 
-							$msgbody .= " $db_qty</td>
-         
-		<td style='padding: 6px 5px;font-size: 15px;letter-spacing: 0.6px;text-align:end;'>";
-
-							$prc = number_format($totprc, 2, '.', ',');
-							$totlprc = ($totlprc + $totprc);
-
-							$msgbody .= "$prc </td>
-    </tr>";
-
+				$sqrycrtord_dtl =	"SELECT  crtordd_id, crtordd_qty,crtordd_prc,prodm_id,prodm_name, crtordd_prc as unprcval,prodm_id,prodm_sku,prodm_sleprc,prodm_ofrprc ,prodm_name,crtordm_shpchrgm_id,prodimgd_simg,prodimgd_title,crtordd_igst,crtordd_cgst,crtordd_sgst,prodm_tyrrmsz
+					from crtord_dtl 
+					inner join crtord_mst on crtordd_crtordm_id = crtordm_id
+					inner join prod_mst on prod_mst.prodm_id = crtord_dtl.crtordd_prodm_id 
+				left join prodimg_dtl on prodimgd_prodm_id = prodm_id
+				 where crtordd_crtordm_id = $orderid group by crtordd_id";
+				//echo $sqrycrtord_dtl;
+				error_reporting(0);
+				$srscrtord_dtl = mysqli_query($conn, $sqrycrtord_dtl);
+				$cnttorec = mysqli_num_rows($srscrtord_dtl);
+				$totqty = "";
+				$totlprc = "";
+				$cntord = 0;
+				if ($cnttorec > 0) {
+					while ($rowspo_mst = mysqli_fetch_assoc($srscrtord_dtl)) {
+						$cntord += 1;
+						$db_qty = $rowspo_mst['crtordd_qty'];
+						//$crtordm_prctyp = 'u';
+						if ($crtordm_prctyp == 'u') {
+							$db_prc = funcDlrprc($rowspo_mst['crtordd_prc'], $conn);
+							$dbunt_prc = funcDlrprc($rowspo_mst['unprcval'], $conn);
+						} else {
+							$db_prc = $rowspo_mst['crtordd_prc'];
+							$dbunt_prc = $rowspo_mst['unprcval'];
 						}
+						//$szid =	$rowspo_mst['szid'];
+						$crtprdid =	$rowspo_mst['crtordd_prodm_id'];
+						$img =	$rowspo_mst['prodimgd_simg'];
+						if ($img != "") {
+							/* $smlImgPth = $gprodsimg_usrpth . $smlImgNm . '.jpg'; */
+							$imgpth = $rtpth . $gprodsimg_upldpth . $img . '.jpg';
+						} else {
+							$imgpth  = $rtpth . 'images/ashoka-no-image.jpg';
+						}
+						$prcid = $rowspo_mst['crtordd_prodprcd_id'];
+						$totprc = ($db_qty * $db_prc);
+						$db_shpprcid = $order_dtl['crtordm_shpchrgamt'];
+
+						//$db_shpprcid = $rowspo_mst['crtordm_shpchrgm_id'];
+
+						/* 	$shpngqry = "SELECT shpngm_id,shpngm_prc from  shpng_mst WHERE shpngm_id = $db_shpprcid and shpngm_sts = 'a' ";
+							$shpng_mst = mysqli_query($conn,$shpngqry);
+							$shpng_dtl = mysqli_fetch_assoc($shpng_mst);
+							$db_shpprc = $shpng_dtl['shpngm_prc']; */
+						$tax = $rowspo_mst['crtordd_igst'];
+						$prdprc  = $db_prc;
+						$dmeonamt = 100 + $tax;
+						$prodtax = ($prdprc / $dmeonamt) * $tax;
+						$prdgst = $gstval;
+						$totlprdprc = ($totlprdprc + $totprc);
+						// $gst = 1+($gstval/100);
+						// $sgst = 1+($sgstval/100);
+						// $cgst = 1+($cgstval/100);
+						//$prdprc  = $db_prc/$gst;
+						$prdprc  = $db_prc;
+						$sgstprdprc = $db_prc / $sgst;
+						$cgstprdprc = $db_prc / $cgst;
+						$prdwoustgst = $prdprc;
+						$prdwoustsgst = $sgstprdprc;
+						$prdwoustcgst = $cgstprdprc;
+						// $tax = $db_prc - $prdwoustgst;
+						// $sgsttax = $db_prc - $prdwoustsgst;
+						// $cgsttax = $db_prc - $prdwoustcgst;
+						$igstper = $gstper;
+						$substr = substr($gstnm, 0, 2);
+						if ($state == 'Telangana') {
+							$gstdiv =  $prodtax / 2;
+							$cgst = number_format($gstdiv, 2, '.', ',');
+							$sgst = number_format($gstdiv, 2, '.', ',');
+							// $gstper = ($gstval/2);
+						}
+
+						$msgbody .= "	<tr>
+							<td> $cntord </td>
+			<td><img src='$imgpth' width='100px' height='100px' ></td>
+			<td> 
+					Name :  $rowspo_mst[prodm_name] </br>
+							Code : $rowspo_mst[prodm_sku]
+									Size : $rowspo_mst[prodm_tyrrmsz] 
+			</td>";
+						
+											$prdwoustgst = $prdprc - $prodtax;
+															$prodprcwqty = $prdwoustgst * $db_qty;
+								$msgbody.="<td>".number_format($prdwoustgst,2,'.',',')."	</td>";
+								
+
+
+						//tax code 
+
+
+						$msgbody .= "
+					<td> $db_qty</td>";
+					$totqty	=	$totqty + $db_qty;
+
+						
+						$msgbody.="<td>". number_format($totprc,2,'.',',')."</td>";
+														$totlprc = ($totlprc+$totprc);
+															$prodprcwgst += $prodprcwqty; 
+														
+						$msgbody.="	</tr>";
 					}
-					$msgbody .= "<tr><td style='padding: 6px 5px;font-size: 15px;letter-spacing: 0.6px;text-align:center;'colspan='2'></td>
-                  ";
-					$totalprdprc = number_format($totalprdprc, 2, '.', ',');
-					$totaltax = number_format($totaltax, 2, '.', ',');
-					$Tot_price = number_format($Tot_price, 2, '.', ',');
-					$msgbody .= "<td style='padding: 6px 5px;font-size: 15px;letter-spacing: 0.6px;text-align:end;'><strong>$totalprdprc</strong></td>";
-					if ($nmstrws == 1) {
-						$msgbody .= "<td style='padding: 6px 5px;font-size: 15px;letter-spacing: 0.6px;text-align:end;'><strong>$totalcgst</strong></td>";
-						$msgbody .= "<td style='padding: 6px 5px;font-size: 15px;letter-spacing: 0.6px;text-align:end;'><strong>$totalsgst</strong></td>";
-					} else {
-						$msgbody .= "<td style='padding: 6px 5px;font-size: 15px;letter-spacing: 0.6px;text-align:end;'><strong>$totaltax</strong></td>";
-					}
-					$msgbody .= "<td style='padding: 6px 5px;font-size: 15px;letter-spacing: 0.6px; text-align:end;'><strong>$Tot_price</strong></td>";
-					$prodcost = number_format($ntitmprc, 2, '.', ',');
-					$msgbody .= "<td style='padding: 6px 5px;font-size: 15px;letter-spacing: 0.6px;text-align:end;'><strong>$totqty</strong></td>";
-
-
-
-
-					$totlprc1 = number_format($totlprc, 2, '.', ',');
-					$msgbody .= "
- 
-  <td style='padding: 10px 5px;font-weight: 600;font-size: 15px;letter-spacing: 0.6px;text-align:end;'>Product Cost: $totlprc1
-  ";
-					$totlprc = $totlprc + $taxcnty;
-					$cupid = $rowsord_mst['crtordm_cpnm_id'];
-					$cupnm = $rowsord_mst['cpnm_name'];
-					if ($cupid != 0) {
-						$cupval = $rowsord_mst['crtordm_cpnm_val'];
+				}
+				$msgbody .= "<tr>
+				<td  colspan='5' align='right'>Payment : </td>
+				<td align='right' valign='middle'>" . number_format($totlprdprc, 2, '.', ',') . "</td>
+				</tr>";
+		?>	
+		
+			<!-- <p class="mb-0"><strong>Total <?php echo $totqty;?> Item(s) :
+				</strong><?php echo number_format($prodprcwgst,2,'.',',');?></p> -->
+			<!-- <p class="mb-0"><strong>Total Tax: </strong>
+			<?php echo number_format($tottax,2,'.',','); ?>
+			</p> -->
+			<?php
+					$cupid  = $srowcrtord_mst['crtordm_cpnm_id'];
+					$cupnm  = $srowcrtord_mst['cpnm_name'];
+					if($cupid!=0)
+					{
+						
+						$cupval  = $srowcrtord_mst['crtordm_cpnm_val'];
 						$totlprc -= $cupval;
-						$msgbody .= "Coupon(Applied)$cupnm : -$cupval ";
+				// echo "<b>Coupon(Applied)$cupnm : -$cupval </b>";
+		
+				$msgbody .= "<tr>	
+				<td  colspan='5' align='right'>Coupon Applied : $cupnm  </td>
+				<td align='right' valign='middle'> -$cupval  </td>
+				</tr>";
+			
 					}
-					if ($totlprc != 0) {
-						$totlprc += $db_shpprc;
-						$msgbody .= "<br>Shipping Charges : $db_shpprc";
-					} else {
+					?>
+			<?php 
+				$db_shpprc = $srowcrtord_mst['crtordm_shpchrgamt'];
+					if($db_shpprc != ''){
+					?>
+			<!-- <p class="mb-0"><strong>Total Shipping Charges: </strong> -->
+				<?php
+					if($totlprc != 0)
+					{
+						$totlprc +=  $db_shpprc;
+					//	echo $db_shpprc;
+						$msgbody .= "<tr>
+						<td  colspan='5' align='right'>Shipping Charges : </td>
+						<td align='right' valign='middle'>$db_shpprc</td>
+						</tr>";
+					}
+					else
+					{
 						$shpprc = 0;
-						$totlprc += $db_shpprc;
-						//	echo '<br><strong>Shipping Charges Not Appilcable for More than 3000 Purchase: $shpprc</strong>';
-						$msgbody .= "<br>Shipping Charges : $db_shpprc";
+						$totlprc +=  $db_shpprc;
+						//echo  $db_shpprc;
+						$msgbody .= "<tr>
+						<td  colspan='5' align='right'>Shipping Charges : </td>
+						<td align='right' valign='middle'>$db_shpprc</td>
+						</tr>";
 					}
-					$msgbody .= "<br>Order Amount : ";
-					if ($regid == '') {
-						$regid = $crtmbrid;
-					}
-					if ($crtdiscamt != 0) {
-						$netTotal = $totlprc;
-						$disPrc = $crtdiscamt;
-						$ntTogPrc = $netTotal - $disPrc;
-						$ntTogPrc = number_format($ntTogPrc, 2, '.', ',');
-						$msgbody .= "Net Total You get a 10% Discount for First time Purchase order :$ntTogPrc";
-					} else {
-						$totlprc = number_format($totlprc, 2, '.', ',');
-						$msgbody .= "$totlprc";
-					}
-					$msgbody .= "</td></tr></table>";
-					$msgbody .= "</div> <div>
-   <img src='https://liamsons.com/v4/images/email-banner.jpg' width='100%' alt=''>
-   <p style='text-align: center;font-size: 13px;letter-spacing: 1px;color: #333;'>This is a computer generated
-	   invoice and does not require a signature</p>
-   
-   <p style='text-align: center;font-size: 13px;letter-spacing: 1px;color: #333;margin: 0;'>CORPORATE OFFICE:
-	   Liamsons Business Private Limited</p>
-   <p style='text-align: center;font-size: 13px;letter-spacing: 1px;color: #333;margin: 0;'> 2-2-215/14/29,
-	   Tirumala enclave, Street No- 1, Near Royal enclave, Macha Bollaram Locality, <br>Alwal Mandal,
-	   Medchal-Malkajgiri Dist-500010.</p>
-   
-   <p style='text-align: center;font-size: 13px;letter-spacing: 1px;color: #333;margin: 0;'>Phone 1: <a
-		   href='tel:9030707961'>903-070-7961</a>, Phone 2: <a href='tel:7981077230'>798-107-7230</a> </p>
-   <p style='text-align: center;font-size: 13px;letter-spacing: 1px;color: #333;margin: 0;'>Email 1: <a
-		   href='mailto:support@liamsons.com'>support@liamsons.com </a>, Email 2: <a
-		   href='tel:sales@liamsons.com'>sales@liamsons.com</a> </p>
-	</div> 
-   </div>
+				
+					?>
+			</p>
+			<?php } ?>
+			<!-- <p class="mb-0"><u><strong>Total Amount:
+					</strong><?php echo number_format($totlprc,2,'.',',') ?></u></p> -->
+				<?php
+					$msgbody .= "<tr>
+						<td  colspan='5' align='right'>Total Amount : </td>
+						<td align='right' valign='middle'>" . number_format($totlprc, 2, '.', ',') . "</td>
+						</tr>";
+
+			
+		$msgbody .=	"</table>
+  <table width='605' border='0' align='center' cellpadding='0' cellspacing='0' bgcolor='#ffffff' style='background-color:#ffffff; margin-top:15px;'>
+	  <tr>
+		  <td>
+			  <table width='605' border='1' cellspacing='0' cellpadding='5' bordercolor='#dfdfdf' style='border:1px solid #dfdfdf'>
+				  <tr>
+					  <td align='center'><p style='color:#e99005'>Billing Address</p></td>";
+				if ($shp_typ == 's') {
+					$msgbody .= "<td align='center'><p style='color:#e99005'>Shop Address</p></td>";
+				} else {
+					$msgbody .= "<td align='center'><p style='color:#e99005'>Shipping Address</p></td>";
+				}
+				$msgbody .= "
+				  </tr>
+				  <tr>
+					  <td>$blngcmpltadrs</td>
+					  <td>$shpcmpltadrs</td>
+				  </tr>
+			  </table>
+		  </td>
+	  </tr>
+
+	  <tr>
+		  <td height='10'  bgcolor='#ffffff' class='spacer' style='margin-top:0;margin-right:0;margin-bottom:0;margin-left:0;padding-top:0;padding-right:0;padding-bottom:0;padding-left:0;text-align:left;-webkit-text-size-adjust:none;font-size:0;line-height:0;'>&nbsp;</td>
+	  </tr>
+  </table>
+  <table width='605' border='0' align='center' cellpadding='0' cellspacing='0'>
+	  <tr>
+		  <tr>
+			  <td height='10'  bgcolor='#ffffff' class='spacer' style='margin-top:0;margin-right:0;margin-bottom:0;margin-left:0;padding-top:0;padding-right:0;padding-bottom:0;padding-left:0;text-align:left;-webkit-text-size-adjust:none;font-size:0;line-height:0;'>&nbsp;</td>
+		  </tr>";
+
+				$msgbody .= "<td><p>Thank You order with $usr_cmpny.</p>
+		  We hope to see you soon again<br>
+		  <a href='mailto:$u_prjct_mnurlhttp' style='color:#e99005; text-decoration:none'>$usr_cmpny</a>.<br>
+		  </p></td>
+	  </tr>
+  </table>
+</div>
 </body>
 </html>";
-				// echo $msgbody; exit;		
+
+			// echo $msgbody; exit;		
 					$to = $bemail;
 					$from = $u_prjct_email;
 					//	$subject  = "Your $usr_cmpny order " .$ordcode." Payment Confirm";
@@ -534,6 +510,7 @@ $stsdt = glb_func_chkvl($_POST['txtdt']);
 			$srscrtord_mst = mysqli_query($conn, $sqrycrtord_mst);
 			$cntord_rec = mysqli_num_rows($srscrtord_mst);
 			if ($cntord_rec > 0) {
+			
 				$srowcrtord_mst = mysqli_fetch_assoc($srscrtord_mst);
 				$crtord_id = $srowcrtord_mst['crtordm_id'];
 				$bfname = $srowcrtord_mst['crtordm_fstname'];
@@ -573,6 +550,7 @@ $stsdt = glb_func_chkvl($_POST['txtdt']);
 				$db_ordrmks = $srowcrtord_mst['crtordm_rmks'];
 				$dispsy = $db_psts;
 				$shpcmpltadrs = "";
+				
 				if ($bemail != '') {
 					$shpcmpltadrs = $bemail;
 				}
@@ -634,73 +612,84 @@ $stsdt = glb_func_chkvl($_POST['txtdt']);
 				if ($bphno != '') {
 					$blngcmpltadrs .= "<br>Mobile No :&nbsp;" . $bphno;
 				}
+				
 				$orddate = date('l jS F Y', strtotime($orddate));
 				$stsdate = date('l jS F Y', strtotime($stsdt));
-				$msgbody = "
-				<!DOCTYPE html>
-				<html lang='en'>
-
+				
+				$msgbody = "<!DOCTYPE HTML PUBLIC '-//W3C//DTD HTML 4.01//EN' 'http://www.w3.org/TR/html4/strict.dtd'>
+				<html>
 				<head>
-				<meta charset='utf-8'>
-				<meta http-equiv='X-UA-Compatible' content='IE=edge'>
-				<meta name='viewport' content='width=device-width, initial-scale=1.0'>
-				<meta name='format-detection' content='telephone=no'>
-				<meta name='apple-mobile-web-app-capable' content='yes'>
-				<link href='img/favicon.png' rel='apple-touch-icon-precomposed'>
-				<link href='img/favicon.png' rel='shortcut icon' type='image/png'>
-				<meta name='author' content=''>
-				<meta name='keywords' content=''>
-				<meta name='description' content=''>
-				<title>Liamsons | Medical Supplies Online</title>
-				<link rel='preconnect' href='https://fonts.googleapis.com'>
-				<link rel='preconnect' href='https://fonts.gstatic.com' crossorigin>
-				<link href='https://fonts.googleapis.com/css2?family=Jost:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap' rel='stylesheet'>
-
-
+				<meta http-equiv='Content-Type' content='text/html; charset=utf-8'>
+				<meta name='viewport' content='width=device-width, initial-scale=1.0'/>
+				<title>$usr_cmpny | Order Information</title>
+				<style type='text/css'>
+				#outlook a{padding:0}body{width:100% !important;-webkit-text-size-adjust:100%;-ms-text-size-adjust:100%;margin:0;padding:0;background-color:#fff;font-family:Arial,Helvetica,sans-serif;font-size:16px}p{margin-top:0;margin-bottom:10px}table td{border-collapse:collapse}table{border-collapse:collapse;mso-table-lspace:0pt;mso-table-rspace:0pt}img{outline:none;text-decoration:none;-ms-interpolation-mode:bicubic}a img{border:none}.image_fix{display:block}
+				</style>
 				</head>
+				<body style='margin:0; background-color:#ffffff;' marginheight='0' topmargin='0' marginwidth='0' leftmargin='0'>
+				<div style='background-color:#fff;'>
+					<table style='background-color: #ffffff;' width='100%' border='0' cellspacing='0' cellpadding='0'>
+					<tr>
+						<td> <table style='background-color:#ffffff;padding:0' background='#ffffff' width='605' border='0' align='center' cellpadding='0' cellspacing='0'>
 
-				<body>
-				<div class='email-holder' style='max-width: 800px; background-color: #f2f2f2;margin: auto;width: 100%;'>
-					<div class='logo-holder' style='background-color: rgba(72, 147, 89, 0.1);'>
-							<img src='https://liamsons.com/v4/img/logo/liamsons-logo.png' style='max-width: 200px;margin: auto;display: block;padding: 10px;' alt=''>
-					</div>
-					<div class='liamsons-title' style='text-align:center;border-bottom: 1px solid #b3b3b3;'>
-							<p style='text-align: center;letter-spacing: 1px;font-size: 1.2rem;text-transform: uppercase;margin-bottom: 10px;font-family: 'Jost', sans-serif;font-weight: 500;'>
-									Liamsons Business Private Limited</p>
-							<p style='text-transform: uppercase;margin-top: 0;letter-spacing: 1px;font-family: 'Jost', sans-serif;font-weight: 500;text-decoration: underline;'>
-									Order Status</p>
+<tr>
+<td><a href='https://" . $u_prjct_mnurl . "/home' ><img src='https://www.ashokatyre.com/images/ashokatyre-logo.png' alt='$usr_cmpny' hspace='10' vspace='15' width='200'></a></td>
 
-					</div>
-					<div class='table-holder' style='padding-left: 10px;padding-right:10px;padding-bottom: 10px;'>
-							<table style=' width:100% '>
-									<tr style='display: flex;align-items:flex-start;justify-content: center;text-align: center; justify-content: center;'>
-											<td width='50%' style='border: 1px solid #000; border-radius: 5px;padding: 10px;margin-top: 10px;'>
-													<p style='margin-bottom: 10px;font-size: 1rem;letter-spacing: 0.6px; '> Dear <b>" . $bfname . "</b>, <br/><br/></p>
-													<p style='margin: 0;font-size: 1rem;letter-spacing: 0.6px; '>Thank you for your order $ordcode <br> $db_ordstsnm on " . $stsdate . "</p>
-											</td>
-											
-									</tr>
-							</table>
-					</div>
-
-
-
-					<img src='https://liamsons.com/v4/images/email-banner.jpg ' width='100% ' alt=' '>
+<td align='right' width='50%'> <a href='https://www.ashokatyre.com/list-order' target='_blank' style='color:#e99005; margin-right:10px;'>Your Orders</a> | <a href='https://www.ashokatyre.com/' target='_blank' style='color:#e99005; margin-left:10px;'>ashokatyre.com</a><br>
+<h2 style='margin-top:5px; margin-bottom:5px; font-family: Georgia, 'Times New Roman', Times, serif; font-size:30px'>Order Information</h2>
+<p>$ordcode</p> </td>
+</tr>
+</table>
+						<table style='background-color:#ffffff;padding:0' background='#ffffff' width='605' border='0' align='center' cellpadding='0' cellspacing='0'>
+							
+							<tr>
+							<td height='4' valign='top' bgcolor='#cccccc' class='spacer'    style='margin-top:0;margin-right:0;margin-bottom:0;margin-left:0;padding-top:0;padding-right:0;padding-bottom:0;padding-left:0;text-align:left;-webkit-text-size-adjust:none;font-size:0;line-height:0;'>&nbsp;</td>
+							</tr>
+							<tr>
+							<td height='10' valign='top' bgcolor='#fff' class='spacer'    style='margin-top:0;margin-right:0;margin-bottom:0;margin-left:0;padding-top:0;padding-right:0;padding-bottom:0;padding-left:0;text-align:left;-webkit-text-size-adjust:none;font-size:0;line-height:0;'>&nbsp;</td>
+							</tr>
+							<tr>
+							<td valign='top' bgcolor='#ffffff'><p style='font-family:Arial, Helvetica, sans-serif; color:#e99005; font-weight:bold;'>Dear $bfname,</p>
+								<p style='font-family:Arial, Helvetica, sans-serif; font-size:14px;'>Thank you for your order $ordcode <br> $db_ordstsnm on " . $stsdate . ".</p>
+								<p style='font-family:Arial, Helvetica, sans-serif; font-size:14px;'>
+								If  you have any queries about your order, kindly contact our <a href=''https://" . $u_prjct_mnurl . "/contact-us' target='_blank' style='color:#ff6600; text-decoration:none'>Customer Care</a></p></td>
+							</tr>
+						</table>
+					<table align='center' width='605' cellpadding='0' cellspacing='0' bgcolor='#ffffff' style='background-color:#ffffff'>
+							<tr>
+								<td>&nbsp;</td>
+							</tr>
+							<tr>
+								<td>$desc</td>
+							</tr>
+								
+						</table>
+					</table>
 					
+					<table width='605' border='0' align='center' cellpadding='0' cellspacing='0'>
+							<tr>
+								<tr>
+							<td height='10'  bgcolor='#ffffff' class='spacer'    style='margin-top:0;margin-right:0;margin-bottom:0;margin-left:0;padding-top:0;padding-right:0;padding-bottom:0;padding-left:0;text-align:left;-webkit-text-size-adjust:none;font-size:0;line-height:0;'>&nbsp;</td>
+							</tr>
+							<td>
+							<p>Thank You order with $usr_cmpny.</p>
 
-					<p style='text-align: center;font-size: 13px;letter-spacing: 1px;color: #333;margin: 0; '>CORPORATE OFFICE: Liamsons Business Private Limited</p>
-					<p style='text-align: center;font-size: 13px;letter-spacing: 1px;color: #333;margin: 0; '> 2-2-215/14/29, Tirumala enclave, Street No- 1, Near Royal enclave, Macha Bollaram Locality, <br>Alwal Mandal, Medchal-Malkajgiri Dist-500010.</p>
+								
 
-					<p style='text-align: center;font-size: 13px;letter-spacing: 1px;color: #333;margin: 0; '>Phone 1: <a href='tel:9030707961 '>903-070-7961</a>, Phone 2: <a href='tel:7981077230 '>798-107-7230</a> </p>
-					<p style='text-align: center;font-size: 13px;letter-spacing: 1px;color: #333;margin: 0; padding-bottom: 15px;'>
-							Email 1: <a href='mailto:support@liamsons.com '>support@liamsons.com </a>, Email 2: <a href='tel:sales@liamsons.com '>sales@liamsons.com</a> </p>
 
-				</div>
+We hope to see you soon again<br>
+<a href='mailto:$u_prjct_mnurlhttp' style='color:#e99005; text-decoration:none'>$usr_cmpny</a>.<br>
 
-				</body>
 
-				</html>";
-				// echo $msgbody;
+
+								</p>
+							</td>
+							</tr>
+						</table>
+					
+					</body>
+					</html>";
+			//	echo $msgbody;exit;
 				$to = $bemail; 
 				$from = $u_prjct_email;
 				$subject = "Your order $usr_cmpny " . $ordcode . " $db_ordstsnm";

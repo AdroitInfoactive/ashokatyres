@@ -490,8 +490,8 @@ if (isset($_SESSION['cartcode']) && (trim($_SESSION['cartcode']) != "")) {
 			<div style='background-color:#fff;'>
 				<table style='background-color:#ffffff;padding:0' background='#ffffff' width='605' border='0' align='center' cellpadding='0' cellspacing='0'>
 					<tr>
-						<td><a href='https://" . $u_prjct_mnurl . "/home' ><img src='https://www.ashokatyres.com/images/ashokatyres-logo.png' alt='$usr_cmpny' hspace='10' vspace='15' width='200'></a></td>
-						<td align='right' width='50%'> <a href='https://www.ashokatyres.com/list-order' target='_blank' style='color:#e99005; margin-right:10px;'>Your Orders</a> | <a href='https://www.ashokatyres.com/' target='_blank' style='color:#e99005; margin-left:10px;'>ashokatyres.com</a><br>
+						<td><a href='https://" . $u_prjct_mnurl . "/home' ><img src='https://www.ashokatyre.com/images/ashokatyre-logo.png' alt='$usr_cmpny' hspace='10' vspace='15' width='200'></a></td>
+						<td align='right' width='50%'> <a href='https://www.ashokatyre.com/list-order' target='_blank' style='color:#e99005; margin-right:10px;'>Your Orders</a> | <a href='https://www.ashokatyre.com/' target='_blank' style='color:#e99005; margin-left:10px;'>ashokatyre.com</a><br>
 							<h2 style='margin-top:5px; margin-bottom:5px; font-family:Arial, Helvetica, sans-serif;font-size:18px;  color:#332308;'>Order Information</h2>
 							<p>$ordcode</p>
 						</td>
