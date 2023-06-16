@@ -367,7 +367,34 @@ include('header.php');
 								<div class="price-slide range-slider">
 									<div class="price">
 										<label for="amount"></label>
-										<input type="text" id="amount" class="amount me-auto" value="₹200-₹5000" />
+										<?php
+						if ($cntrec_prod > 0) {
+							$cnt = 0;
+							mysqli_data_seek($srsprod_mst, 0);
+							while ($srow_price = mysqli_fetch_assoc($srsprod_mst)) {
+							
+								$cstprc = $srow_price['prodm_cstprc'];
+								$sleprc = $srow_price['prodm_sleprc'];
+								$ofrprc = $srow_price['prodm_ofrprc'];
+								
+								$prcfltfnlprc12 = floor($sleprc);
+								$prcfltfnlprc .= '-' . $prcfltfnlprc12;
+							}
+							$prcfltfnlval = explode('-', $prcfltfnlprc);
+							$prcfltrmvarr = array_slice($prcfltfnlval, 1);
+							$prcfltminprc1 = min($prcfltrmvarr);
+							$prcfltmaxprc1 = max($prcfltrmvarr);
+							if ($prcfltminprc > 0) {
+							  $prcfltminprc = $prcfltminprc1 - 10;
+							} else {
+							  $prcfltminprc = $prcfltminprc1;
+							}
+							$prcfltmaxprc = $prcfltmaxprc1 + 10;
+							$val = "";
+						}
+								?>
+								 <input type="text" id="amount" class="amount me-auto"  value="<?php echo '₹'.$prcfltminprc . '-₹' . $prcfltmaxprc ?>"  />
+										<!-- <input type="text" id="amount" class="amount me-auto" value="₹200-₹5000" /> -->
 										<div id="slider-range" class="mt-2"></div>
 									</div>
 								</div>
@@ -509,9 +536,31 @@ include('header.php');
 													<br />
 													<!--Vehicle Brand: <?php echo $vehbrnd_name ?>-->
 												</div>
-												<div class="d-flex justify-content-between align-items-center"> <span
-														class="badge m-b10 mr-rt-5"><span>₹</span>
-														<?php echo $prod_fnlprc ?>
+												<div class="d-flex justify-content-between align-items-center"> 
+													<span class="badge m-b10 mr-rt-5">
+														<!-- <span>₹</span> -->
+													<?php 
+										if($prod_sleprc!='' && $prod_ofrprc>0) {
+											?>
+										<s>	<span >&#8377;</span>
+										<?php echo $prod_sleprc ;?></s>
+									<?php	}else{
+											?>
+											<span>&#8377;</span>
+											<?php echo $prod_sleprc ;?>
+
+									<?php }
+											?>
+										<!-- </h4> -->
+										<?php 
+										  if($prod_ofrprc!=''){?>
+										<!-- <h4 class="m-0"> -->
+											<span>&#8377;</span>
+											<?php echo $prod_ofrprc ?>
+										
+										<?php	}
+											?>
+														<!-- <?php echo $prod_fnlprc ?> -->
 													</span>
 													<a href="product-display.php?vehtyp=<?php echo $vehtyp_name ?>&vehbrnd=<?php echo $vehbrnd_name ?>&vehmodel=<?php echo $vehmodl_name ?>&vechvarnt=<?php echo $vehvrnt_name ?>&prdcod=<?php echo $prod_code ?>"
 														class="m-b10 view-details-btn btn btn-primary light phone-no shadow-none effect-1 w-100 text-center d-block"><span>Details</span></a>
@@ -607,6 +656,47 @@ include('header.php');
 </div>
 <?php include_once('footer.php'); ?>
 <script language="javascript" type="text/javascript">
+
+
+var priceslider = function(){
+
+	
+
+if($(".price-slide").length > 0 ) {
+	$(".slider-range").slider({
+		range: true,
+		//min: 200,
+		max: <?php echo  $prcfltmaxprc;?>,
+		//values: 5000,
+		slide: function(event, ui) {
+			$('#' + this.id).next().next().val('₽'+ui.value);
+		}
+	});
+	
+	$("#slider-range").slider({
+		range: true,
+		min: <?php echo  $prcfltminprc;?>,
+		max: <?php echo  $prcfltmaxprc;?>,
+		values: [0, <?php echo  $prcfltmaxprc;?>],
+		slide: function(event, ui) {
+			var min = ui.values[0],
+				max = ui.values[1];
+			  $('#' + this.id).prev().val("₹" + min + " - ₹" + max);
+		}
+	});
+}
+}
+
+
+
+
+
+
+
+
+
+
+
 	function funcchklprd() {
 		var url = '';
 		var prcflt = document.getElementById('amount').value;

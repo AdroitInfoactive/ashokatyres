@@ -466,32 +466,32 @@ var Mobhil = function(){
 		});
 	}
 	
-	var priceslider = function(){
+	// var priceslider = function(){
 
-		if($(".price-slide").length > 0 ) {
-			$(".slider-range").slider({
-				range: true,
-				//min: 200,
-				max: 5000,
-				//values: 5000,
-				slide: function(event, ui) {
-					$('#' + this.id).next().next().val('₽'+ui.value);
-				}
-			});
+	// 	if($(".price-slide").length > 0 ) {
+	// 		$(".slider-range").slider({
+	// 			range: true,
+	// 			//min: 200,
+	// 			max: 5000,
+	// 			//values: 5000,
+	// 			slide: function(event, ui) {
+	// 				$('#' + this.id).next().next().val('₽'+ui.value);
+	// 			}
+	// 		});
 			
-			$("#slider-range").slider({
-				range: true,
-				min: 200,
-				max: 5000,
-				values: [0, 5000],
-				slide: function(event, ui) {
-					var min = ui.values[0],
-						max = ui.values[1];
-					  $('#' + this.id).prev().val("₹" + min + " - ₹" + max);
-				}
-			});
-		}
-	}
+	// 		$("#slider-range").slider({
+	// 			range: true,
+	// 			min: 200,
+	// 			max: 5000,
+	// 			values: [0, 5000],
+	// 			slide: function(event, ui) {
+	// 				var min = ui.values[0],
+	// 					max = ui.values[1];
+	// 				  $('#' + this.id).prev().val("₹" + min + " - ₹" + max);
+	// 			}
+	// 		});
+	// 	}
+	// }
 	
 	var boxAware = function (){
 		

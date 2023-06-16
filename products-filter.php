@@ -214,8 +214,8 @@ $cntrec_prod = mysqli_num_rows($srsprod_mst);
 									data-src="<?php echo $smlImgPth; ?>" class="view-btn lightimg"> </span></div>
 						</div>
 						<div class="list-info">
-							<h6 class="title mb-0"><a href="product-display.php?vehtyp=<?php echo $vehtyp_name ?>&vehbrnd=<?php echo $vehbrnd_name ?>&vehmodel=<?php echo $vehmodl_name ?>&vechvarnt=<?php echo $vehvrnt_name ?>&prdcod=<?php echo $prod_code ?>"
-									data-splitting class="text-white"><?php echo $prod_name ?> </a></h6>
+						<h6 class="title mb-0"><a href="product-display.php?vehtyp=<?php echo $vehtyp_name ?>&vehbrnd=<?php echo $vehbrnd_name ?>&vehmodel=<?php echo $vehmodl_name ?>&vechvarnt=<?php echo $vehvrnt_name ?>&prdcod=<?php echo $prod_code ?>" ><?php echo $prod_name ?> </a></h6>
+							<!-- <h6 class="title mb-0"><a href="product-display.php?vehtyp=<?php echo $vehtyp_name ?>&vehbrnd=<?php echo $vehbrnd_name ?>&vehmodel=<?php echo $vehmodl_name ?>&vechvarnt=<?php echo $vehvrnt_name ?>&prdcod=<?php echo $prod_code ?>" data-splitting class="text-white"><?php echo $prod_name; ?> </a></h6> -->
 							<div class="car-type">Sku:
 								<?php echo $prodm_sku ?><br />
 								Tyre Brand:
@@ -223,8 +223,32 @@ $cntrec_prod = mysqli_num_rows($srsprod_mst);
 								<br />
 								<!--Vehicle Brand: <?php echo $vehbrnd_name ?>-->
 							</div>
-							<div class="d-flex justify-content-between align-items-center"> <span class="badge m-b10 mr-rt-5"><span>₹</span>
-									<?php echo $prod_fnlprc ?>
+							<div class="d-flex justify-content-between align-items-center"><span class="badge m-b10 mr-rt-5">
+								
+							<?php 
+										if($prod_sleprc!='' && $prod_ofrprc>0) {
+											?>
+										<s>	<span >&#8377;</span>
+										<?php echo $prod_sleprc ;?></s>
+									<?php	}else{
+											?>
+											<span>&#8377;</span>
+											<?php echo $prod_sleprc ;?>
+
+									<?php }
+											?>
+										<!-- </h4> -->
+										<?php 
+										  if($prod_ofrprc!=''){?>
+										<!-- <h4 class="m-0"> -->
+											<span>&#8377;</span>
+											<?php echo $prod_ofrprc ?>
+										
+										<?php	}
+											?>
+							
+							<!-- <span>₹</span>
+									<?php echo $prod_fnlprc ?> -->
 								</span>
 								<a href="product-display.php?vehtyp=<?php echo $vehtyp_name ?>&vehbrnd=<?php echo $vehbrnd_name ?>&vehmodel=<?php echo $vehmodl_name ?>&vechvarnt=<?php echo $vehvrnt_name ?>&prdcod=<?php echo $prod_code ?>"
 									class="m-b10 view-details-btn btn btn-primary light phone-no shadow-none effect-1 w-100 text-center d-block"><span>Details</span></a>
